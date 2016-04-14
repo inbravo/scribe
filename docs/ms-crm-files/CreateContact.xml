@@ -1,0 +1,66 @@
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope"
+	xmlns:a="http://www.w3.org/2005/08/addressing"
+	xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+	<s:Header>
+		<a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/Create
+		</a:Action>
+		<a:MessageID>urn:uuid:94fe4c8d-95d4-4a15-a91b-b25a40b6bfe7</a:MessageID>
+		<a:ReplyTo>
+			<a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address>
+		</a:ReplyTo>
+		<a:To s:mustUnderstand="1">https://8x8xtrial.api.crm5.dynamics.com/XRMServices/2011/Organization.svc
+		</a:To>
+		<o:Security s:mustUnderstand="1"
+			xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+			<u:Timestamp u:Id="_0">
+				<u:Created>2012-09-20T09:51:33.997Z</u:Created>
+				<u:Expires>2012-09-20T09:56:33.997Z</u:Expires>
+			</u:Timestamp>
+			<EncryptedData Id="Assertion0"
+				Type="http://www.w3.org/2001/04/xmlenc#Element" xmlns="http://www.w3.org/2001/04/xmlenc#">
+				<EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"></EncryptionMethod>
+				<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+					<EncryptedKey>
+						<EncryptionMethod
+							Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"></EncryptionMethod>
+						<ds:KeyInfo Id="keyinfo">
+							<wsse:SecurityTokenReference
+								xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+								<wsse:KeyIdentifier
+									EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary"
+									ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier">%KEY_IDENTIFIER%</wsse:KeyIdentifier>
+							</wsse:SecurityTokenReference>
+						</ds:KeyInfo>
+						<CipherData>
+							<CipherValue>%ENCRYPTED_KEY_CYPHER_VALUE%</CipherValue>
+						</CipherData>
+					</EncryptedKey>
+				</ds:KeyInfo>
+				<CipherData>
+					<CipherValue>%CYPHER_DATA_VALUE%</CipherValue>
+				</CipherData>
+			</EncryptedData>
+		</o:Security>
+	</s:Header>
+	<s:Body>
+		<Create xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+			<entity xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+				<b:Attributes
+					xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+					<b:KeyValuePairOfstringanyType>
+						<c:key>lastname</c:key>
+						<c:value i:type="d:string" xmlns:d="http://www.w3.org/2001/XMLSchema">CRUC-DUCK-HELL-TWO-One</c:value>
+					</b:KeyValuePairOfstringanyType>
+				</b:Attributes>
+				<b:EntityState i:nil="true" />
+				<b:FormattedValues
+					xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+				<b:Id>00000000-0000-0000-0000-000000000000</b:Id>
+				<b:LogicalName>contact</b:LogicalName>
+				<b:RelatedEntities
+					xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+			</entity>
+		</Create>
+	</s:Body>
+</s:Envelope>

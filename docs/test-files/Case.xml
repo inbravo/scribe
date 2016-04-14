@@ -1,0 +1,36 @@
+<EDSA>
+	<Agent>dev5ctl~~ad</Agent>
+	<Object objectType='Case'>
+		<id>338</id>
+		<OPEN_AGENT>'ad'</OPEN_AGENT>
+		<CONTACTID>10001501</CONTACTID>
+		<CLOSE_AGENT>'ad'</CLOSE_AGENT>
+		<LAST_AGENT>'ad'</LAST_AGENT>
+		<CURR_AGENT>'ad'</CURR_AGENT>
+		<OPEN_DATE>to_date('12-APR-12','DD-MON-RR')</OPEN_DATE>
+		<CLOSE_DATE></CLOSE_DATE>
+		<ASSIGNMENT_DATE>to_date('12-APR-12','DD-MON-RR')</ASSIGNMENT_DATE>
+		<LAST_ACTIVITY>to_date('12-APR-12','DD-MON-RR')</LAST_ACTIVITY>
+		<SHORTDESC>'Test from EDSA'</SHORTDESC>
+		<LAST_DATE>to_date('12-APR-12','DD-MON-RR')</LAST_DATE>
+		<EMAIL_HEADER>'Hello'</EMAIL_HEADER>
+		<EMAIL_ADDRESS>'amit.dixit@impetus.co.in'</EMAIL_ADDRESS>
+		<HAS_ATTACHMENTS></HAS_ATTACHMENTS>
+		<HAS_HTML_DESC></HAS_HTML_DESC>
+		<READONLY></READONLY>
+		<CF_STATUS>Unassigned</CF_STATUS>
+		<CF_PRIORITY>Medium</CF_PRIORITY>
+		<CF_SEVERITY>Information</CF_SEVERITY>
+		<CF_MEDIATYPE>Phone</CF_MEDIATYPE>
+		<CF_VISIBILITY>Internal</CF_VISIBILITY>
+		<CF_CATEGORY>Default</CF_CATEGORY>
+		<!-- Picklist type custom field -->
+		<CF01>1</CF01>
+		<!-- Date type custom field -->
+		<CF05>to_date('12-APR-12','DD-MON-RR')</CF05>
+		<!-- Number type custom field -->
+		<CF06>'12'</CF06>
+		<!-- URL type custom field -->
+		<CF07>'http://www.yahoo.com'</CF07>
+	</Object>
+</EDSA>

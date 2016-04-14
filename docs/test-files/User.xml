@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EDSA>
+	<Agent>dev6ctl~~amit</Agent>
+	<Batch>dummy</Batch>
+	<Object objectType="user">
+		<name>Anuj</name>
+		<email>dudess@gmail.com</email>
+		<phone>9873139660</phone>
+	</Object>
+</EDSA>

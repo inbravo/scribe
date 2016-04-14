@@ -1,0 +1,141 @@
+<o:Security
+	xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+	<u:Timestamp u:Id="_0">
+		<u:Created>%timeCreated%Z</u:Created>
+		<u:Expires>%timeExpires%Z</u:Expires>
+	</u:Timestamp>
+	<EncryptedData Id="Assertion0"
+		Type="http://www.w3.org/2001/04/xmlenc#Element" xmlns="http://www.w3.org/2001/04/xmlenc#">
+		<EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"></EncryptionMethod>
+		<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+			<EncryptedKey>
+				<EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"></EncryptionMethod>
+				<ds:KeyInfo Id="keyinfo">
+					<wsse:SecurityTokenReference
+						xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+						<wsse:KeyIdentifier
+							EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary"
+							ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier"><![CDATA[%KEY_IDENTIFIER%]]></wsse:KeyIdentifier>
+					</wsse:SecurityTokenReference>
+				</ds:KeyInfo>
+				<CipherData>
+					<CipherValue><![CDATA[%ENCRYPTED_KEY_CYPHER_VALUE%]]></CipherValue>
+				</CipherData>
+			</EncryptedKey>
+		</ds:KeyInfo>
+		<CipherData>
+			<CipherValue><![CDATA[%CYPHER_DATA_VALUE%]]></CipherValue>
+		</CipherData>
+	</EncryptedData>
+</o:Security>
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope"
+	xmlns:a="http://www.w3.org/2005/08/addressing"
+	xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+	<s:Header>
+		<a:Action s:mustUnderstand="1">
+			http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/%Action% </a:Action>
+		<a:MessageID>urn:uuid:%MessageID% </a:MessageID>
+		<a:ReplyTo>
+			<a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address>
+		</a:ReplyTo>
+		<a:To s:mustUnderstand="1">%CRMURL% </a:To>
+		<o:Security s:mustUnderstand="1"
+			xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+			<u:Timestamp u:Id="_0">
+				<u:Created>%timeCreated%Z</u:Created>
+				<u:Expires>%timeExpires%Z</u:Expires>
+			</u:Timestamp>
+			<EncryptedData Id="Assertion0"
+				Type="http://www.w3.org/2001/04/xmlenc#Element" xmlns="http://www.w3.org/2001/04/xmlenc#">
+				<EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"></EncryptionMethod>
+				<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+					<EncryptedKey>
+						<EncryptionMethod
+							Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"></EncryptionMethod>
+						<ds:KeyInfo Id="keyinfo">
+							<wsse:SecurityTokenReference
+								xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+								<wsse:KeyIdentifier
+									EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary"
+									ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier">%KeyIdentifier%</wsse:KeyIdentifier>
+							</wsse:SecurityTokenReference>
+						</ds:KeyInfo>
+						<CipherData>
+							<CipherValue>%SecurityToken0% </CipherValue>
+						</CipherData>
+					</EncryptedKey>
+				</ds:KeyInfo>
+				<CipherData>
+					<CipherValue>%SecurityToken1% </CipherValue>
+				</CipherData>
+			</EncryptedData>
+		</o:Security>
+	</s:Header>
+
+	<s:Envelope xmlns:s="" http: / www.w3.org / soap-envelope "
+		xmlns:a="" http: / www.w3.org / addressing " xmlns:u="" http: /
+		docs.oasis-open.org / wss /
+		oasis-200401-wss-wssecurity-utility-1.0.xsd ">
+		<s:Header>
+			<a:Action s:mustUnderstand="" 1>
+				http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/{7:Action}
+			</a:Action>
+			<a:MessageID>
+				urn:uuid:{6:MessageID}
+			</a:MessageID>
+			<a:ReplyTo>
+				<a:Address>
+					http://www.w3.org/2005/08/addressing/anonymous
+				</a:Address>
+			</a:ReplyTo>
+			<VsDebuggerCausalityData xmlns="" http: /
+				schemas.microsoft.com / vstudio / diagnostics / servicemodelsink ">
+				uIDPozJEz+P/wJdOhoN2XNauvYcAAAAAK0Y6fOjvMEqbgs9ivCmFPaZlxcAnCJ1GiX+Rpi09nSYACQAA</VsDebuggerCausalityData>
+			<a:To s:mustUnderstand="" 1>
+				{2:CRMURL}
+			</a:To>
+			<o:Security s:mustUnderstand="" 1 xmlns:o="" http: /
+				docs.oasis-open.org / wss /
+				oasis-200401-wss-wssecurity-secext-1.0.xsd ">
+				<u:Timestamp u:Id="" _0 ">
+					<u:Created>{0:timeCreated}Z</u:Created>
+					<u:Expires>{1:timeExpires}Z</u:Expires>
+				</u:Timestamp>
+				<EncryptedData Id="" Assertion0 " Type="" http: /
+					www.w3.org / xmlenc # Element " xmlns="" http: / www.w3.org /
+					xmlenc #>
+					<EncryptionMethod Algorithm="" http: / www.w3.org /
+						xmlenc # tripledes-cbc ">
+					</EncryptionMethod>
+					<ds:KeyInfo xmlns:ds="" http: / www.w3.org / xmldsig #>
+						<EncryptedKey>
+							<EncryptionMethod Algorithm="" http: /
+								www.w3.org / xmlenc # rsa-oaep-mgf1p ">
+							</EncryptionMethod>
+							<ds:KeyInfo Id="" keyinfo ">
+								<wsse:SecurityTokenReference
+									xmlns:wsse="" http: / docs.oasis-open.org / wss /
+									oasis-200401-wss-wssecurity-secext-1.0.xsd ">
+
+									<wsse:KeyIdentifier EncodingType="" http: /
+										docs.oasis-open.org / wss /
+										oasis-200401-wss-soap-message-security-1.0 # Base64Binary "
+										ValueType="" http: / docs.oasis-open.org / wss /
+										oasis-200401-wss-x509-token-profile-1.0 #
+										X509SubjectKeyIdentifier ">
+										{3:KeyIdentifier}</wsse:KeyIdentifier>
+								</wsse:SecurityTokenReference>
+							</ds:KeyInfo>
+							<CipherData>
+								<CipherValue>
+									{4:SecurityToken0}</CipherValue>
+							</CipherData>
+						</EncryptedKey>
+					</ds:KeyInfo>
+					<CipherData>
+						<CipherValue>
+							{5:SecurityToken1}</CipherValue>
+					</CipherData>
+				</EncryptedData>
+			</o:Security>
+		</s:Header>

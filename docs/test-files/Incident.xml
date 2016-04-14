@@ -1,0 +1,19 @@
+<EDSA>
+	<Agent>crmtest~~ag1</Agent>
+	<Object>
+		<severitycode name="Default Value">1</severitycode>
+		<title>Amit dixit's case is invalid. He is dumb</title>
+		<prioritycode name="Low">3</prioritycode>
+		<transactioncurrencyid name="Rupee;"
+			type="transactioncurrency">{C4F779D0-A9CC-E011-8D7A-D8D3855B355E}</transactioncurrencyid>
+		<exchangerate formattedvalue="1.0000000000">1</exchangerate>
+		<customerid name="Unusual Store (sample)" type="account">{84AF3AD4-A9CC-E011-8F30-1CC1DEEA2718}</customerid>
+	</Object>
+</EDSA>
+
+
+
+
+
+
+

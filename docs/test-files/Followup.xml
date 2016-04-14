@@ -1,0 +1,19 @@
+<EDSA>
+	<Agent>dev5ctl~~ad</Agent>
+	<Object objectType='Followup'>
+		<Id>29</Id>
+		<CASEID>337</CASEID>
+		<TECH>'adixit'</TECH>
+		<RELID>2</RELID>
+		<CREATE_DATE>to_date('12-APR-12','DD-MON-RR')</CREATE_DATE>
+		<SHORTDESC>'Test from EDSA'</SHORTDESC>
+		<LONGDESC>'Long test from EDSA'</LONGDESC>
+		<EMAIL_HEADER>'Hello'</EMAIL_HEADER>
+		<EMAIL_ADDRESS>'amit.dixit@impetus.co.in'</EMAIL_ADDRESS>
+		<HAS_ATTACHMENTS></HAS_ATTACHMENTS>
+		<HAS_HTML_DESC></HAS_HTML_DESC>
+		<READONLY></READONLY>
+		<CF_MEDIATYPE>Phone</CF_MEDIATYPE>
+		<CF_VISIBILITY>Internal</CF_VISIBILITY>
+	</Object>
+</EDSA>

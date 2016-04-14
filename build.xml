@@ -1,0 +1,237 @@
+<project name="CAD" default="deploy-tomcat">
+
+	<property environment="env" />
+
+	<property name="tomcat.home" location="D:/opensource/Tomcat_7_40" />
+
+	<property name="properties.dir" location="${basedir}/Properties" />
+	<property name="reports.dir" location="${tomcat.home}/webapps/cad_reports" />
+	<property name="src.dir" location="${basedir}/JavaSource/src" />
+	<property name="web.content.dir" location="${basedir}/WebContent" />
+	<property name="build.classes.dir" location="${web.content.dir}/WEB-INF/classes" />
+	<property name="war.dir" location="${build.dir}/" />
+	<property name="lib.dir" value="${basedir}/WebContent/WEB-INF/lib" />
+	<property name="war.file.name" value="cad" />
+
+	<path id="project.classpath">
+		<fileset dir="${lib.dir}" />
+		<fileset dir="${tomcat.home}/lib" />
+	</path>
+
+	<path id="project.junit.classpath">
+		<fileset dir="${lib.dir}" />
+		<fileset dir="${tomcat.home}/lib" />
+	</path>
+
+	<target name="compile" depends="clean">
+		<echo message="==========================================================" />
+		<echo message="Going for compilation" />
+		<echo message="==========================================================" />
+		<mkdir dir="${build.classes.dir}" />
+		<javac destdir="${build.classes.dir}" debug="true">
+			<src path="${basedir}/JavaSource/src" />
+			<classpath refid="project.classpath" />
+		</javac>
+		<copy todir="${build.classes.dir}">
+			<fileset dir="${basedir}/JavaSource/src" includes="**/*.xml, **/*.txt" />
+		</copy>
+		<echo message="==========================================================" />
+		<echo message="Copying properties files" />
+		<echo message="==========================================================" />
+		<copy todir="${build.classes.dir}" flatten="true">
+			<fileset dir="${properties.dir}" includes="**/*.xml, **/*.properties" />
+		</copy>
+		<echo message="==========================================================" />
+		<echo message="Going for jar construction" />
+		<echo message="==========================================================" />
+		<jar destfile="${lib.dir}/${war.file.name}.jar" basedir="${build.classes.dir}" includes="**/*.class" />
+	</target>
+
+
+	<target name="client-jar" depends="compile">
+		<echo message="==========================================================" />
+		<echo message="Going to create client util jar" />
+		<echo message="==========================================================" />
+		<jar destfile="${lib.dir}/${war.file.name}-client.jar" basedir="${build.classes.dir}" includes="com/inbravo/cad/external/junit/core/CADClientMgmt.class" />
+		<delete dir="${build.classes.dir}/com" />
+	</target>
+
+	<target name="checkstyle">
+		<echo message="==========================================================" />
+		<echo message="Going for checkstyle check" />
+		<echo message="==========================================================" />
+		<checkstyle config="${checkstyle.config.file}">
+			<fileset dir="${basedir}/JavaSource/src" includes="**/*.java" />
+			<classpath>
+				<pathelement path="${project.classpath}" />
+			</classpath>
+		</checkstyle>
+	</target>
+
+	<target name="clean">
+		<echo message="==========================================================" />
+		<echo message="Going for cleaning old build files" />
+		<echo message="==========================================================" />
+		<delete dir="${build.classes.dir}/com" />
+		<delete file="${lib.dir}/${war.file.name}.jar" />
+		<delete file="${lib.dir}/${war.file.name}-client.jar" />
+	</target>
+
+	<target name="build" depends="compile" />
+
+	<target name="war" depends="build">
+		<delete dir="${build.classes.dir}/com" />
+		<echo message="==========================================================" />
+		<echo message="Going for war construction" />
+		<echo message="==========================================================" />
+		<war destfile="${basedir}/${war.file.name}.war" webxml="${web.content.dir}/WEB-INF/web.xml">
+			<lib dir="${lib.dir}/" />
+			<fileset dir="${web.content.dir}/" />
+		</war>
+	</target>
+
+	<target name="deploy" description="deploy the application into the container">
+		<echo message="==========================================================" />
+		<echo message="Going for war undeploy" />
+		<echo message="==========================================================" />
+		<antcall target="war" />
+		<antcall target="deploy-tomcat" />
+	</target>
+
+	<target name="undeploy" depends="undeploy-tomcat" description="undeploy the application from the container" />
+
+	<target name="deploy-tomcat" depends="war">
+		<echo message="==========================================================" />
+		<echo message="Going for war deploy at Tomcat" />
+		<echo message="==========================================================" />
+		<antcall target="validate-tomcat" />
+		<copy file="${basedir}/${war.file.name}.war" todir="${tomcat.home}/webapps" />
+	</target>
+
+	<target name="undeploy-tomcat">
+		<echo message="==========================================================" />
+		<echo message="Going for war undeploy at Tomcat" />
+		<echo message="==========================================================" />
+		<antcall target="validate-tomcat" />
+		<delete file="${tomcat.home}/webapps/${war.file.name}.war" />
+		<delete dir="${tomcat.home}/webapps/${war.file.name}" />
+	</target>
+
+	<target name="validate-tomcat">
+		<echo message="==========================================================" />
+		<echo message="Going for validation of Tomcat" />
+		<echo message="==========================================================" />
+		<fail unless="tomcat.home" message="You should set the CATALINA_HOME, if you want to deploy into tomcat" />
+	</target>
+
+	<target name="tomcat-start" depends="deploy-tomcat">
+		<echo message="==========================================================" />
+		<echo message="Going for Tomcat:start" />
+		<echo message="==========================================================" />
+		<java classname="org.apache.catalina.startup.Bootstrap" failonerror="true" fork="true">
+			<classpath path="${tomcat.home}/bin/bootstrap.jar:${tomcat.home}/bin/tomcat-juli.jar" />
+			<jvmarg value="-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager" />
+			<jvmarg value="-Djava.util.logging.config.file=${tomcat.home}/conf/logging.properties" />
+			<jvmarg value="-Dcatalina.home=${tomcat.home}" />
+			<jvmarg value="-Dcatalina.base=${tomcat.home}" />
+			<jvmarg value="-Djava.io.tmpdir=${tomcat.home}/temp" />
+			<jvmarg value="-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true" />
+			<arg line="start" />
+		</java>
+	</target>
+
+	<target name="tomcat-stop">
+		<echo message="==========================================================" />
+		<echo message="Going for Tomcat:stop" />
+		<echo message="==========================================================" />
+		<java classname="org.apache.catalina.startup.Bootstrap" failonerror="true" fork="true">
+			<classpath path="${tomcat.home}/bin/bootstrap.jar:${tomcat.home}/bin/tomcat-juli.jar" />
+			<jvmarg value="-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager" />
+			<jvmarg value="-Djava.util.logging.config.file=${tomcat.home}/conf/logging.properties" />
+			<jvmarg value="-Dcatalina.home=${tomcat.home}" />
+			<jvmarg value="-Dcatalina.base=${tomcat.home}" />
+			<jvmarg value="-Djava.io.tmpdir=${tomcat.home}/temp" />
+			<jvmarg value="-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true" />
+			<arg line="stop" />
+		</java>
+	</target>
+
+	<target name="tomcat-start-debug" depends="deploy-tomcat">
+		<echo message="==========================================================" />
+		<echo message="Going for Tomcat:start:debugmode" />
+		<echo message="==========================================================" />
+		<java jar="${tomcat.home}/bin/bootstrap.jar" fork="true">
+			<classpath path="${tomcat.home}/bin/bootstrap.jar:${tomcat.home}/bin/tomcat-juli.jar" />
+			<jvmarg value="-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager" />
+			<jvmarg value="-Djava.util.logging.config.file=${tomcat.home}/conf/logging.properties" />
+			<jvmarg value="-Dcatalina.home=${tomcat.home}" />
+			<jvmarg value="-Dcatalina.base=${tomcat.home}" />
+			<jvmarg value="-Djava.io.tmpdir=${tomcat.home}/temp" />
+			<jvmarg value="-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true" />
+			<jvmarg value="-Xdebug" />
+			<jvmarg value="-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n" />
+			<arg line="start" />
+		</java>
+	</target>
+
+	<target name="test" depends="compile">
+		<echo message="==========================================================" />
+		<echo message="Going for JUnit:test" />
+		<echo message="==========================================================" />
+		<delete dir="${reports.dir}" />
+		<mkdir dir="${reports.dir}" />
+		<junit haltonfailure="false" printsummary="withOutAndErr">
+			<classpath refid="project.junit.classpath" />
+			<sysproperty key="MS_TENANT_ID" value="crmtest" />
+			<sysproperty key="MS_AGENT_ID" value="crmtest~~ag1" />
+			<sysproperty key="SFDC_TENANT_ID" value="forcetest" />
+			<sysproperty key="SFDC_AGENT_ID" value="forcetest~~ag1" />
+			<sysproperty key="EDSA_URL" value="http://localhost:8080/cad" />
+			<formatter type="brief" usefile="true" />
+			<formatter type="xml" />
+			<batchtest todir="${reports.dir}">
+				<fileset dir="${src.dir}" includes="com/inbravo/cad/external/junit/suite/EDSATestSuite.java" />
+			</batchtest>
+		</junit>
+		<junitreport todir="${reports.dir}">
+			<fileset dir="${reports.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${reports.dir}" />
+		</junitreport>
+		<fail message="Tests failed. Check log and/or reports." if="test.failed" />
+	</target>
+
+	<target name="sonar">
+		<echo message="==========================================================" />
+		<echo message="Going for Sonar:code review" />
+		<echo message="==========================================================" />
+		<sonar:sonar workDir="${basedir}/SonarWorking" key="com.ctl:sapi" version="7.1.0" xmlns:sonar="antlib:org.sonar.ant">
+			<binaries>
+				<path location="${tomcat.home}/webapps/sapi/WEB-INF/lib" />
+			</binaries>
+			<libraries>
+				<path location="${lib.dir}" />
+			</libraries>
+			<sources>
+				<path location="${basedir}/JavaSource" />
+			</sources>
+			<property key="sonar.projectName" value="SAPI" />
+			<property key="sonar.java.source" value="1.6" />
+			<property key="sonar.dynamicAnalysis" value="true" />
+		</sonar:sonar>
+	</target>
+
+	<target name="performance">
+		<echo message="==========================================================" />
+		<echo message="Going to test: performance" />
+		<echo message="==========================================================" />
+		<java classname="com.inbravo.cad.external.test.perf.zd.PerfTester" failonerror="true" fork="yes">
+			<classpath refid="EDSA.classpath" />
+			<arg value="-tn" />
+			<arg value="7034443909" />
+			<arg value="-t" />
+			<arg value="TCP" />
+		</java>
+	</target>
+</project>

@@ -1,0 +1,19 @@
+<EDSA>
+	<ExtTransId>1349849646231</ExtTransId>
+	<Agent>dev5ms~~amit</Agent>
+	<Object objectType="task">
+		<!-- <RegardingObjectid type="Account">daba07a4-a212-e211-aec7-1cc1de6daa0b</RegardingObjectid> -->
+		<!-- <regardingobjectid type="contact">A7ED1774-7308-E211-B139-984BE17303DE</regardingobjectid> -->
+		<!-- <RegardingObjectid type="Lead" schema="Lead_Tasks">881973e9-99d4-e111-a120-1cc1deea276a</RegardingObjectid> -->
+		<!-- <RegardingObjectid type="Opportunity" schema="Opportunity_Tasks">bbd023bd-3914-e211-aec7-1cc1de6daa0b</RegardingObjectid> -->
+		<!-- <RegardingObjectid type="Incident" schema="Incident_Tasks">341973e9-99d4-e111-a120-1cc1deea276a</RegardingObjectid> -->
+		<actualdurationminutes___Number>0</actualdurationminutes___Number>
+		<scheduledend___DateTime>2012-10-18</scheduledend___DateTime>
+		<description___Text>Contactual Log {call answered time: 2012/10/17 21:25:35-0700, call hangup time: 2012/10/17 21:26:07-0700, call duration: 00:00:32, transaction id: 6, interaction guid: it-dev5ctl-2ac929a0-e4e7-429a-8dd4-baae5ed78770-phone-00ZtTIp3H9pmbYH0EPp5YUBGxM7, call type: inbound}, TCL Selected Items: N/A</description___Text>
+		<subject___Text>Call 10/18/2012 10:03 AM</subject___Text>
+		<!-- <new_custom_dt___DateTime>2012-10-18T18:30:00Z</new_custom_dt___DateTime> -->
+		<!-- <new_custom_ml___MultipleList>2222</new_custom_ml___MultipleList> -->
+		<!-- <new_custom_text___Text>asqweqwe</new_custom_text___Text> -->
+		<!-- <new_custom_wn___WholeNumber>32323</new_custom_wn___WholeNumber> -->
+	</Object>
+</EDSA>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	attributeFormDefault="unqualified" elementFormDefault="unqualified">
+	<xs:element name="Accounts" type="accounts" />
+	<xs:complexType name="accounts">
+		<xs:sequence />
+	</xs:complexType>
+</xs:schema>

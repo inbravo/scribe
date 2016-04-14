@@ -1,0 +1,101 @@
+<EDSA>
+	<Agent>crmtest~~ag1</Agent>
+	<Object>
+		<name>Amit India, Inc</name>
+		<donotemail name="Allow">0</donotemail>
+		<address2_addresstypecode name="Default Value">1
+		</address2_addresstypecode>
+		<donotphone name="Allow">0</donotphone>
+		<statecode formattedvalue="Active">Active</statecode>
+		<exchangerate formattedvalue="1.0000000000">1</exchangerate>
+		<statuscode name="Active">1</statuscode>
+		<preferredcontactmethodcode name="Any">1
+		</preferredcontactmethodcode>
+		<telephone2>6502928610</telephone2>
+		<telephone1>12345678</telephone1>
+	</Object>
+		<Object>
+		<name>Amit India, Inc</name>
+		<donotemail name="Allow">0</donotemail>
+		<address2_addresstypecode name="Default Value">1
+		</address2_addresstypecode>
+		<donotphone name="Allow">0</donotphone>
+		<statecode formattedvalue="Active">Active</statecode>
+		<exchangerate formattedvalue="1.0000000000">1</exchangerate>
+		<statuscode name="Active">1</statuscode>
+		<preferredcontactmethodcode name="Any">1
+		</preferredcontactmethodcode>
+		<telephone2>6502928610</telephone2>
+		<telephone1>12345678</telephone1>
+	</Object>
+		<Object>
+		<name>Amit India, Inc</name>
+		<donotemail name="Allow">0</donotemail>
+		<address2_addresstypecode name="Default Value">1
+		</address2_addresstypecode>
+		<donotphone name="Allow">0</donotphone>
+		<statecode formattedvalue="Active">Active</statecode>
+		<exchangerate formattedvalue="1.0000000000">1</exchangerate>
+		<statuscode name="Active">1</statuscode>
+		<preferredcontactmethodcode name="Any">1
+		</preferredcontactmethodcode>
+		<telephone2>6502928610</telephone2>
+		<telephone1>12345678</telephone1>
+	</Object>
+		<Object>
+		<name>Amit India, Inc</name>
+		<donotemail name="Allow">0</donotemail>
+		<address2_addresstypecode name="Default Value">1
+		</address2_addresstypecode>
+		<donotphone name="Allow">0</donotphone>
+		<statecode formattedvalue="Active">Active</statecode>
+		<exchangerate formattedvalue="1.0000000000">1</exchangerate>
+		<statuscode name="Active">1</statuscode>
+		<preferredcontactmethodcode name="Any">1
+		</preferredcontactmethodcode>
+		<telephone2>6502928610</telephone2>
+		<telephone1>12345678</telephone1>
+	</Object>
+		<Object>
+		<name>Amit India, Inc</name>
+		<donotemail name="Allow">0</donotemail>
+		<address2_addresstypecode name="Default Value">1
+		</address2_addresstypecode>
+		<donotphone name="Allow">0</donotphone>
+		<statecode formattedvalue="Active">Active</statecode>
+		<exchangerate formattedvalue="1.0000000000">1</exchangerate>
+		<statuscode name="Active">1</statuscode>
+		<preferredcontactmethodcode name="Any">1
+		</preferredcontactmethodcode>
+		<telephone2>6502928610</telephone2>
+		<telephone1>12345678</telephone1>
+	</Object>
+		<Object>
+		<name>Amit India, Inc</name>
+		<donotemail name="Allow">0</donotemail>
+		<address2_addresstypecode name="Default Value">1
+		</address2_addresstypecode>
+		<donotphone name="Allow">0</donotphone>
+		<statecode formattedvalue="Active">Active</statecode>
+		<exchangerate formattedvalue="1.0000000000">1</exchangerate>
+		<statuscode name="Active">1</statuscode>
+		<preferredcontactmethodcode name="Any">1
+		</preferredcontactmethodcode>
+		<telephone2>6502928610</telephone2>
+		<telephone1>12345678</telephone1>
+	</Object>
+		<Object>
+		<name>Amit India, Inc</name>
+		<donotemail name="Allow">0</donotemail>
+		<address2_addresstypecode name="Default Value">1
+		</address2_addresstypecode>
+		<donotphone name="Allow">0</donotphone>
+		<statecode formattedvalue="Active">Active</statecode>
+		<exchangerate formattedvalue="1.0000000000">1</exchangerate>
+		<statuscode name="Active">1</statuscode>
+		<preferredcontactmethodcode name="Any">1
+		</preferredcontactmethodcode>
+		<telephone2>6502928610</telephone2>
+		<telephone1>12345678</telephone1>
+	</Object>
+</EDSA>

@@ -1,0 +1,45 @@
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope"
+	xmlns:a="http://www.w3.org/2005/08/addressing"
+	xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+	<s:Header>
+		<a:Action s:mustUnderstand="1">http://schemas.xmlsoap.org/ws/2005/02/trust/RST/Issue
+		</a:Action>
+		<a:MessageID>
+			urn:uuid:%MessageID% 
+		</a:MessageID>
+		<a:ReplyTo>
+			<a:Address>
+				http://www.w3.org/2005/08/addressing/anonymous
+			</a:Address>
+		</a:ReplyTo>
+		<VsDebuggerCausalityData
+			xmlns="http://schemas.microsoft.com/vstudio/diagnostics/servicemodelsink">uIDPo4TBVw9fIMZFmc7ZFxBXIcYAAAAAbd1LF/fnfUOzaja8sGev0GKsBdINtR5Jt13WPsZ9dPg%RandomTextFirst% 
+		</VsDebuggerCausalityData>
+		<a:To s:mustUnderstand="1">
+			%STSEndpoint% 
+		</a:To>
+		<o:Security s:mustUnderstand="1"
+			xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+			<u:Timestamp u:Id="_0">
+				<u:Created>%timeCreated%Z</u:Created>
+				<u:Expires>%timeExpires%Z</u:Expires>
+			</u:Timestamp>
+			<o:UsernameToken u:Id="uuid-4e77fae1-f630-4ad1-ab33-7aae3cadf41b-1">
+				<o:Username>%UserName%</o:Username>
+				<o:Password
+					Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">%Password%</o:Password>
+			</o:UsernameToken>
+		</o:Security>
+	</s:Header>
+	<s:Body>
+		<t:RequestSecurityToken xmlns:t="http://schemas.xmlsoap.org/ws/2005/02/trust">
+			<wsp:AppliesTo xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+				<a:EndpointReference>
+					<a:Address>%URNAddress%</a:Address>
+				</a:EndpointReference>
+			</wsp:AppliesTo>
+			<t:RequestType>http://schemas.xmlsoap.org/ws/2005/02/trust/Issue
+			</t:RequestType>
+		</t:RequestSecurityToken>
+	</s:Body>
+</s:Envelope>
