@@ -6,10 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.inbravo.cad.exception.CADException;
 import com.inbravo.cad.exception.CADResponseCodes;
-import com.inbravo.cad.internal.service.CADUserInfoService;
-import com.inbravo.cad.internal.service.SuperUserInfoService;
 import com.inbravo.cad.internal.service.dto.CADUser;
-import com.inbravo.cad.internal.service.dto.Tenant;
 import com.inbravo.cad.rest.resource.CADCommandObject;
 import com.inbravo.cad.rest.service.crm.cache.CRMSessionCache;
 import com.inbravo.cad.rest.service.crm.ms.MSCRMObjectService;
@@ -27,14 +24,8 @@ public final class MSSOAPCRMService extends CRMService {
   /* Decesion maker class to know about customer CRM info */
   private MSAuthManager mSAuthManager;
 
-  /* Agent id special character */
-  private String agentIdSplitCharacter;
-
   /* CRM session cache */
   private CRMSessionCache cRMSessionCache;
-
-  /* Agent information service */
-  private CADUserInfoService agentInfoService;
 
   /* MS CRM V4 CR service */
   private MSCRMObjectService mSCRMV4ObjectService;
@@ -108,20 +99,13 @@ public final class MSSOAPCRMService extends CRMService {
     Map<String, String> nodeMap = null;
     String STSEnpoint = null;
 
-    /* Check if tenant or agent request */
-    if (eDSACommandObject.getAgent() != null && !"".equals(eDSACommandObject.getAgent())) {
+    /* Check if CRM user id is found */
+    if (eDSACommandObject.getCrmUserId() != null && !"".equals(eDSACommandObject.getCrmUserId())) {
 
-      logger.debug("---Inside getmSCRMObjectService for agent: " + eDSACommandObject.getAgent());
+      logger.debug("---Inside getmSCRMObjectService for user: " + eDSACommandObject.getCrmUserId());
 
       /* Check if session is already available at cache */
-      agent = (CADUser) cRMSessionCache.recover(eDSACommandObject.getAgent().trim());
-
-      /* Check if agent is found in cache */
-      if (agent == null) {
-
-        /* Get agent information from LDAP(CRM info is stored at LDAP) */
-        agent = agentInfoService.getAgentInformation(eDSACommandObject.getAgent());
-      }
+      agent = (CADUser) cRMSessionCache.recover(eDSACommandObject.getCrmUserId().trim());
 
       /* Get crm service URL */
       serviceURL = agent.getCrmServiceURL();
@@ -156,7 +140,7 @@ public final class MSSOAPCRMService extends CRMService {
       /* Check if tenant or agent request */
       if (agent != null) {
 
-        logger.debug("---Inside getmSCRMObjectService, adding MS login additonal info at agent: " + eDSACommandObject.getAgent());
+        logger.debug("---Inside getmSCRMObjectService, adding MS login additonal info at agent: " + eDSACommandObject.getCrmUserId());
 
         if (agent.getAdditionalInfo() != null) {
 
@@ -169,7 +153,7 @@ public final class MSSOAPCRMService extends CRMService {
         }
 
         /* Put back the agent back to cache */
-        cRMSessionCache.admit(eDSACommandObject.getAgent().trim(), agent);
+        cRMSessionCache.admit(eDSACommandObject.getCrmUserId().trim(), agent);
       }
     }
 
@@ -188,20 +172,6 @@ public final class MSSOAPCRMService extends CRMService {
   }
 
   /**
-   * @return the agentIdSplitCharacter
-   */
-  public final String getAgentIdSplitCharacter() {
-    return this.agentIdSplitCharacter;
-  }
-
-  /**
-   * @param agentIdSplitCharacter the agentIdSplitCharacter to set
-   */
-  public final void setAgentIdSplitCharacter(final String agentIdSplitCharacter) {
-    this.agentIdSplitCharacter = agentIdSplitCharacter;
-  }
-
-  /**
    * @return the cRMSessionCache
    */
   public final CRMSessionCache getcRMSessionCache() {
@@ -213,20 +183,6 @@ public final class MSSOAPCRMService extends CRMService {
    */
   public final void setcRMSessionCache(final CRMSessionCache cRMSessionCache) {
     this.cRMSessionCache = cRMSessionCache;
-  }
-
-  /**
-   * @return the agentInfoService
-   */
-  public final CADUserInfoService getAgentInfoService() {
-    return this.agentInfoService;
-  }
-
-  /**
-   * @param agentInfoService the agentInfoService to set
-   */
-  public final void setAgentInfoService(final CADUserInfoService agentInfoService) {
-    this.agentInfoService = agentInfoService;
   }
 
   /**

@@ -27,18 +27,18 @@ public final class CADAttachmentUtils {
    * @return
    * @throws SQLException
    */
-  public static final FileAttachments createFileAttachments(final CADCommandObject eDSACommandObject) throws SQLException {
+  public static final FileAttachments createFileAttachments(final CADCommandObject cADCommandObject) throws SQLException {
 
     /* Create attachment list */
     final List<FileAttachment> attachments = new ArrayList<FileAttachment>();
 
     /* If attachment request */
-    if (eDSACommandObject.geteDSAObject() != null && eDSACommandObject.geteDSAObject().length != 0) {
+    if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length != 0) {
 
-      logger.debug("---Inside getObjects, no. of objects in response: " + eDSACommandObject.geteDSAObject().length);
+      logger.debug("---Inside getObjects, no. of objects in response: " + cADCommandObject.getcADObject().length);
 
       /* Get object array */
-      final CADObject[] eDSAObjectArr = eDSACommandObject.geteDSAObject();
+      final CADObject[] eDSAObjectArr = cADCommandObject.getcADObject();
 
       /* Iterate over all objects */
       for (final CADObject eDSAObject : eDSAObjectArr) {
@@ -66,7 +66,7 @@ public final class CADAttachmentUtils {
       }
     } else {
       /* Inform user that object not found */
-      throw new CADException(CADResponseCodes._1004 + eDSACommandObject.getObjectType());
+      throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
     }
 
     /* Check if attachments are found */

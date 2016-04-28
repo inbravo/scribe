@@ -35,11 +35,9 @@ public final class CRMSessionFactory implements ApplicationContextAware {
    * @return
    * @throws Exception
    */
-  public final CRMSessionManager getCRMSessionManager(final String id) throws Exception {
-    logger.debug("---Inside getCRMSessionManager id: " + id);
+  public final CRMSessionManager getCRMSessionManager(final String crmType) throws Exception {
 
-    /* Get CRM type information */
-    final String crmType = crmServiceFactory.getCRMType(id);
+    logger.debug("---Inside getCRMSessionManager crmType: " + crmType);
 
     logger.debug("---Inside getCRMSessionManager crmType: " + crmType);
 
@@ -48,19 +46,13 @@ public final class CRMSessionFactory implements ApplicationContextAware {
       /* Retrieve Sales Force CRM session manager */
       return (CRMSessionManager) getApplicationContext().getBean("salesForceCRMSessionManager");
 
-    } else if (crmType.equalsIgnoreCase(crmServiceFactory.getCustomCRMConst()) || crmType.equalsIgnoreCase(crmServiceFactory.getContactualCRMConst())
-        || crmType.equalsIgnoreCase(crmServiceFactory.getEightByEightCRMConst())) {
-
-      /* Retrieve CTL CRM session manager */
-      return (CRMSessionManager) getApplicationContext().getBean("cTLCRMSessionManager");
-
     } else if (crmType.equalsIgnoreCase(crmServiceFactory.getMicrosoftCRMConst())) {
 
       /* Differentiate between V4 and V5 */
       final MSCRMSessionManagerFactory factory = (MSCRMSessionManagerFactory) getApplicationContext().getBean("mSCRMSessionManagerFactory");
 
       /* Get version type */
-      final MSCRMVersionType vType = factory.checkMSCRMVersion(id);
+      final MSCRMVersionType vType = factory.checkMSCRMVersion(crmType);
 
       /* If V5 */
       if (vType.equals(MSCRMVersionType.V5)) {

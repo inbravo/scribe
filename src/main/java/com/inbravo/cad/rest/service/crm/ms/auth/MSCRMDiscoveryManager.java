@@ -11,8 +11,6 @@ import org.apache.log4j.Logger;
 import com.inbravo.cad.exception.CADException;
 import com.inbravo.cad.exception.CADResponseCodes;
 import com.inbravo.cad.internal.service.dto.CADUser;
-import com.inbravo.cad.internal.service.dto.BasicObject;
-import com.inbravo.cad.internal.service.dto.Tenant;
 import com.inbravo.cad.rest.service.crm.ms.dto.MSCRMUserInformation;
 import com.microsoft.schemas.crm._2007.CrmDiscoveryService.CrmDiscoveryServiceLocator;
 import com.microsoft.schemas.crm._2007.CrmDiscoveryService.CrmDiscoveryServiceSoap;
@@ -78,7 +76,7 @@ public final class MSCRMDiscoveryManager {
    * @throws IOException
    * @throws SOAPException
    */
-  public final MSCRMUserInformation getMSCRMUserInformation(final BasicObject basicObject) throws Exception {
+  public final MSCRMUserInformation getMSCRMUserInformation(final CADUser user) throws Exception {
 
     logger.debug("---Inside getMSCRMUserInformation");
     try {
@@ -88,37 +86,16 @@ public final class MSCRMDiscoveryManager {
       String crmServiceURL = null;
       String crmServiceProtocal = null;
 
-      /* Check if agent/tenant */
-      if (basicObject instanceof CADUser) {
+      logger.debug("---Inside getMSCRMUserInformation for agent: " + user.getCrmUserId());
 
-        /* Type cast it to agent */
-        final CADUser agent = (CADUser) basicObject;
-
-        logger.debug("---Inside getMSCRMUserInformation for agent: " + agent.getName());
-
-        /* get CRM credentials */
-        userName = agent.getCrmUserid();
-        password = agent.getCrmPassword();
-        crmServiceURL = agent.getCrmServiceURL();
-        crmServiceProtocal = agent.getCrmServiceProtocol();
-
-      } else /* Check if agent/tenant */
-      if (basicObject instanceof Tenant) {
-
-        /* Type cast it to tenant */
-        final Tenant tenant = (Tenant) basicObject;
-
-        logger.debug("---Inside getMSCRMUserInformation for tenant: " + tenant.getName());
-
-        /* get CRM credentials */
-        userName = tenant.getCrmUserid();
-        password = tenant.getCrmPassword();
-        crmServiceURL = tenant.getCrmServiceURL();
-        crmServiceProtocal = tenant.getCrmServiceProtocol();
-      }
+      /* get CRM credentials */
+      userName = user.getCrmUserId();
+      password = user.getCrmPassword();
+      crmServiceURL = user.getCrmServiceURL();
+      crmServiceProtocal = user.getCrmServiceProtocol();
 
       /* First get Microsoft passport ticket */
-      final String[] passportTicket = mSAuthManager.getCRMAuthToken(basicObject);
+      final String[] passportTicket = mSAuthManager.getCRMAuthToken(user);
 
       /* Create discovery service locator */
       final CrmDiscoveryServiceLocator locator = new CrmDiscoveryServiceLocator();

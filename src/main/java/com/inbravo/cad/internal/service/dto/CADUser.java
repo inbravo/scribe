@@ -19,11 +19,7 @@ public final class CADUser implements BasicObject {
 
   private static final int DEFAULT_HTTPS_PORT = 443;
 
-  private String name;
-
-  private String tenantName;
-
-  private String crmUserid;
+  private String crmUserId;
 
   private String crmPassword;
 
@@ -75,28 +71,12 @@ public final class CADUser implements BasicObject {
     this.crmURL = crmURL;
   }
 
-  public final String getName() {
-    return name;
+  public final String getCrmUserId() {
+    return crmUserId;
   }
 
-  public final void setName(final String name) {
-    this.name = name;
-  }
-
-  public final void setTenantName(final String tenantName) {
-    this.tenantName = tenantName;
-  }
-
-  public final String getTenantName() {
-    return tenantName;
-  }
-
-  public final String getCrmUserid() {
-    return crmUserid;
-  }
-
-  public final void setCrmUserid(final String crmUserid) {
-    this.crmUserid = crmUserid;
+  public final void setCrmUserId(final String crmUserId) {
+    this.crmUserId = crmUserId;
   }
 
   public final String getCrmPassword() {
@@ -261,9 +241,9 @@ public final class CADUser implements BasicObject {
    */
   public final String getCrmAPIUserId() {
     if (crmAPIToken == null || crmAPIToken.trim().equals("")) {
-      return crmUserid;
+      return crmUserId;
     } else {
-      return crmUserid += "/token";
+      return crmUserId += "/token";
     }
   }
 
@@ -313,11 +293,11 @@ public final class CADUser implements BasicObject {
    */
   @Override
   public String toString() {
-    return "Agent [name=" + this.name + ", tenantName=" + this.tenantName + ", crmUserid=" + this.crmUserid + ", crmPassword=" + this.crmPassword
-        + ", crmSessionId=" + this.crmSessionId + ", crmOrgName=" + this.crmOrgName + ", crmName=" + this.crmName + ", crmURL=" + this.crmURL
-        + ", crmServiceURL=" + this.crmServiceURL + ", crmServiceProtocol=" + this.crmServiceProtocol + ", crmPort=" + this.crmPort
-        + ", crmAPIToken=" + this.crmAPIToken + ", crmBrandingURL=" + this.crmBrandingURL + ", crmProperties=" + this.crmProperties
-        + ", crmPopEnabled=" + this.crmPopEnabled + ", crmAccountId=" + this.crmAccountId + ", soapStub=" + this.soapStub + ", crmSecurityToken="
-        + Arrays.toString(this.crmSecurityToken) + ", additionalInfo=" + this.additionalInfo + "]";
+    return "Agent [crmUserid=" + this.crmUserId + ", crmPassword=" + this.crmPassword + ", crmSessionId=" + this.crmSessionId + ", crmOrgName="
+        + this.crmOrgName + ", crmName=" + this.crmName + ", crmURL=" + this.crmURL + ", crmServiceURL=" + this.crmServiceURL
+        + ", crmServiceProtocol=" + this.crmServiceProtocol + ", crmPort=" + this.crmPort + ", crmAPIToken=" + this.crmAPIToken + ", crmBrandingURL="
+        + this.crmBrandingURL + ", crmProperties=" + this.crmProperties + ", crmPopEnabled=" + this.crmPopEnabled + ", crmAccountId="
+        + this.crmAccountId + ", soapStub=" + this.soapStub + ", crmSecurityToken=" + Arrays.toString(this.crmSecurityToken) + ", additionalInfo="
+        + this.additionalInfo + "]";
   }
 }

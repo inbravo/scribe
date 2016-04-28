@@ -89,7 +89,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
         this.validateTenant(tenant);
 
         /* Login at Zen desk */
-        if (zDAuthManager.login(tenant.getCrmUserid(), tenant.getCrmPassword(), tenant.getCrmServiceURL(), tenant.getCrmServiceProtocol(),
+        if (zDAuthManager.login(tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmServiceURL(), tenant.getCrmServiceProtocol(),
             tenant.getCrmPort())) {
 
           /* Save this tenant in session cache */
@@ -164,7 +164,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
         this.validateTenant(tenant);
 
         /* Login at Zen desk */
-        if (zDAuthManager.login(tenant.getCrmUserid(), tenant.getCrmPassword(), tenant.getCrmServiceURL(), tenant.getCrmServiceProtocol(),
+        if (zDAuthManager.login(tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmServiceURL(), tenant.getCrmServiceProtocol(),
             tenant.getCrmPort())) {
 
           /* Save this tenant in session cache */
@@ -221,7 +221,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
         this.validateAgent(agent);
 
         /* Login at Zen desk */
-        String crmUserId = agent.getCrmUserid();
+        String crmUserId = agent.getCrmUserId();
         String crmPassword = agent.getCrmPassword();
 
         /* Check if CRM API token is present */
@@ -266,7 +266,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
 
         /* Get session information from ZD */
         final Map<String, String> additionalInfoMap =
-            zDAuthManager.getSessionInfoAfterValidLogin(tenant.getCrmUserid(), tenant.getCrmPassword(), tenant.getCrmServiceURL(),
+            zDAuthManager.getSessionInfoAfterValidLogin(tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmServiceURL(),
                 tenant.getCrmServiceProtocol(), tenant.getCrmPort());
 
         /* Get session information from ZD */
@@ -311,7 +311,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
         this.validateAgent(agent);
 
         /* Login at Zen desk */
-        String crmUserId = agent.getCrmUserid();
+        String crmUserId = agent.getCrmUserId();
         String crmPassword = agent.getCrmPassword();
 
         /* Check if CRM API token is present */
@@ -366,7 +366,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
 
         /* Get session information from ZD */
         final Map<String, String> additionalInfoMap =
-            zDAuthManager.getSessionInfoAfterValidLogin(tenant.getCrmUserid(), tenant.getCrmPassword(), tenant.getCrmServiceURL(),
+            zDAuthManager.getSessionInfoAfterValidLogin(tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmServiceURL(),
                 tenant.getCrmServiceProtocol(), tenant.getCrmPort());
 
         /* Get session information from ZD */
@@ -412,7 +412,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
     /* Check for ZD session id */
     if (tenant.getCrmSessionId() == null) {
       /* Get new session id from ZD */
-      tenant.setCrmSessionId(zDAuthManager.getSessionId(tenant.getCrmUserid(), tenant.getCrmPassword(), tenant.getCrmServiceURL(),
+      tenant.setCrmSessionId(zDAuthManager.getSessionId(tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmServiceURL(),
           tenant.getCrmServiceProtocol(), tenant.getCrmPort()));
     }
 
@@ -438,7 +438,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
 
     /* Validate crm service params */
     this.validateAgent(agent);
-    String crmUserId = agent.getCrmUserid();
+    String crmUserId = agent.getCrmUserId();
     String crmPassword = agent.getCrmPassword();
     if (agent.getCrmAPIToken() != null && !agent.getCrmAPIToken().equals("")) {
       crmUserId += "/token";

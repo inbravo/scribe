@@ -19,7 +19,6 @@ import org.apache.log4j.Logger;
 import com.inbravo.cad.exception.CADException;
 import com.inbravo.cad.exception.CADResponseCodes;
 import com.inbravo.cad.rest.constants.CRMConstants.CTLCRMObjectType;
-import com.inbravo.cad.rest.constants.CRMConstants.UserType;
 import com.inbravo.cad.rest.constants.HTTPConstants;
 import com.inbravo.cad.rest.resource.CADCommandObject;
 import com.inbravo.cad.rest.service.basic.CADInternalService;
@@ -56,62 +55,51 @@ public final class CADObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectTypeByQueryAndSelect)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML, HTTPConstants.mimeTypeOctetStream})
-  public final Response getObjects(@QueryParam("") CADCommandObject eDSACommandObject, final @PathParam(HTTPConstants.query) String query,
+  public final Response getObjects(@QueryParam("") CADCommandObject cADCommandObject, final @PathParam(HTTPConstants.query) String query,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType, final @PathParam(HTTPConstants.select) String select) throws Exception {
 
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, EDSA-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId() + "] ==**== ");
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select specific CRM fields with dynamic query. Object type: " + ObjectType);
 
     /* Set transaction id */
-    eDSACommandObject.seteDSATransId("" + transactionId);
+    cADCommandObject.setIntTansId("" + transactionId);
 
     /* Check if attachment request */
     if (ObjectType != null && ObjectType.equalsIgnoreCase(CTLCRMObjectType.CtlAttachments.toString())) {
       logger.debug("---Inside getObjects, forwarding to attachment service");
 
       /* Set object type in command object */
-      eDSACommandObject.setObjectType(CTLCRMObjectType.CtlAttachments.toString());
+      cADCommandObject.setObjectType(CTLCRMObjectType.CtlAttachments.toString());
 
       /* Call attachment service */
-      return this.getAttachments(eDSACommandObject, select, query);
+      return this.getAttachments(cADCommandObject, select, query);
     } else {
 
       /* Update the request object for requestObject from URL */
-      eDSACommandObject.setObjectType(ObjectType);
+      cADCommandObject.setObjectType(ObjectType);
 
       /* Validate the request */
-      eDSARequestValidator.validateRequestObject(eDSACommandObject, ObjectType, false);
+      eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
-      if (eDSACommandObject.getAgent() != null) {
-        eDSACommandObject =
-            eDSAInternalService
-                .getServiceFactory(eDSACommandObject)
-                .getService(eDSACommandObject, UserType.Agent)
-                .getObjects(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(query),
-                    eDSARequestValidator.decodeEDSARequestParam(select));
-      } else if (eDSACommandObject.getTenant() != null) {
-        eDSACommandObject =
-            eDSAInternalService
-                .getServiceFactory(eDSACommandObject)
-                .getService(eDSACommandObject, UserType.Tenant)
-                .getObjects(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(query),
-                    eDSARequestValidator.decodeEDSARequestParam(select));
-      }
+      cADCommandObject =
+          eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
+              .getObjects(cADCommandObject, eDSARequestValidator.decodeRequestParam(query), eDSARequestValidator.decodeRequestParam(select));
 
-      if (eDSACommandObject == null) {
+
+      if (cADCommandObject == null) {
         /* Inform user that object not found */
         throw new CADException(CADResponseCodes._1004 + ObjectType);
       }
 
       /* Update the object for removing requestObject */
-      eDSACommandObject.setObjectType(null);
+      cADCommandObject.setObjectType(null);
 
-      logger.info("==**== Transaction completed, EDSA-TransId : [" + transactionId + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId()
+      logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
           + "] ==**== ");
 
-      return Response.ok(eDSACommandObject).build();
+      return Response.ok(cADCommandObject).build();
     }
   }
 
@@ -126,52 +114,44 @@ public final class CADObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectTypeByQueryAndSelectAndOrder)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML})
-  public final Response getObjects(@QueryParam("") CADCommandObject eDSACommandObject, final @PathParam(HTTPConstants.query) String query,
+  public final Response getObjects(@QueryParam("") CADCommandObject cADCommandObject, final @PathParam(HTTPConstants.query) String query,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType, final @PathParam(HTTPConstants.select) String select,
       final @PathParam(HTTPConstants.order) String order) throws Exception {
 
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, EDSA-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId() + "] ==**== ");
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select specific CRM fields with dynamic query and order. Object type: " + ObjectType);
 
     /* Set transaction id */
-    eDSACommandObject.seteDSATransId("" + transactionId);
+    cADCommandObject.setIntTansId("" + transactionId);
 
     /* Update the request object for requestObject from URL */
-    eDSACommandObject.setObjectType(ObjectType);
+    cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(eDSACommandObject, ObjectType, false);
+    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
-    if (eDSACommandObject.getAgent() != null) {
-      eDSACommandObject =
-          eDSAInternalService
-              .getServiceFactory(eDSACommandObject)
-              .getService(eDSACommandObject, UserType.Agent)
-              .getObjects(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(query), eDSARequestValidator.decodeEDSARequestParam(select),
-                  eDSARequestValidator.decodeEDSARequestParam(order));
-    } else if (eDSACommandObject.getTenant() != null) {
-      eDSACommandObject =
-          eDSAInternalService
-              .getServiceFactory(eDSACommandObject)
-              .getService(eDSACommandObject, UserType.Tenant)
-              .getObjects(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(query), eDSARequestValidator.decodeEDSARequestParam(select),
-                  eDSARequestValidator.decodeEDSARequestParam(order));
-    }
+    cADCommandObject =
+        eDSAInternalService
+            .getServiceFactory(cADCommandObject)
+            .getService(cADCommandObject)
+            .getObjects(cADCommandObject, eDSARequestValidator.decodeRequestParam(query), eDSARequestValidator.decodeRequestParam(select),
+                eDSARequestValidator.decodeRequestParam(order));
 
-    if (eDSACommandObject == null) {
+
+    if (cADCommandObject == null) {
       /* Inform user that object not found */
       throw new CADException(CADResponseCodes._1004 + ObjectType);
     }
 
     /* Update the object for removing requestObject */
-    eDSACommandObject.setObjectType(null);
+    cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, EDSA-TransId : [" + transactionId + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
-    return Response.ok(eDSACommandObject).build();
+    return Response.ok(cADCommandObject).build();
   }
 
   /**
@@ -184,42 +164,36 @@ public final class CADObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectType)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML})
-  public final Response getObjects(@QueryParam("") CADCommandObject eDSACommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
+  public final Response getObjects(@QueryParam("") CADCommandObject cADCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
       throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, EDSA-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId() + "] ==**== ");
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select all CRM fields. Object type: " + ObjectType);
 
     /* Set transaction id */
-    eDSACommandObject.seteDSATransId("" + transactionId);
+    cADCommandObject.setIntTansId("" + transactionId);
 
     /* Update the request object for requestObject from URL */
-    eDSACommandObject.setObjectType(ObjectType);
+    cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(eDSACommandObject, ObjectType, false);
+    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
-    if (eDSACommandObject.getAgent() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Agent).getObjects(eDSACommandObject);
-    } else if (eDSACommandObject.getTenant() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Tenant).getObjects(eDSACommandObject);
-    }
+    cADCommandObject = eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).getObjects(cADCommandObject);
 
-    if (eDSACommandObject == null) {
+    if (cADCommandObject == null) {
       /* Inform user that object not found */
       throw new CADException(CADResponseCodes._1004 + ObjectType);
     }
 
     /* Update the object for removing requestObject */
-    eDSACommandObject.setObjectType(null);
+    cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, EDSA-TransId : [" + transactionId + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
-    return Response.ok(eDSACommandObject).build();
+    return Response.ok(cADCommandObject).build();
   }
 
   /**
@@ -231,42 +205,36 @@ public final class CADObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectTypesCount)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML})
-  public final Response getObjectsCount(@QueryParam("") CADCommandObject eDSACommandObject,
+  public final Response getObjectsCount(@QueryParam("") CADCommandObject cADCommandObject,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, EDSA-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId() + "] ==**== ");
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getAllObjectsCount Object type: " + ObjectType);
 
     /* Set transaction id */
-    eDSACommandObject.seteDSATransId("" + transactionId);
+    cADCommandObject.setIntTansId("" + transactionId);
 
     /* Update the request object for requestObject from URL */
-    eDSACommandObject.setObjectType(ObjectType);
+    cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(eDSACommandObject, ObjectType, false);
+    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
-    if (eDSACommandObject.getAgent() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Agent).getObjectsCount(eDSACommandObject);
-    } else if (eDSACommandObject.getTenant() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Tenant).getObjectsCount(eDSACommandObject);
-    }
+    cADCommandObject = eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).getObjectsCount(cADCommandObject);
 
-    if (eDSACommandObject == null) {
+    if (cADCommandObject == null) {
       /* Inform user that object not found */
       throw new CADException(CADResponseCodes._1004 + ObjectType);
     }
 
     /* Update the object for removing requestObject */
-    eDSACommandObject.setObjectType(null);
+    cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, EDSA-TransId : [" + transactionId + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
-    return Response.ok(eDSACommandObject).build();
+    return Response.ok(cADCommandObject).build();
   }
 
   /**
@@ -278,45 +246,38 @@ public final class CADObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectTypeByQuery)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML})
-  public final Response getObjects(@QueryParam("") CADCommandObject eDSACommandObject, final @PathParam(HTTPConstants.query) String query,
+  public final Response getObjects(@QueryParam("") CADCommandObject cADCommandObject, final @PathParam(HTTPConstants.query) String query,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, EDSA-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId() + "] ==**== ");
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select all CRM fields by dynamic query. Object type: " + ObjectType);
 
     /* Set transaction id */
-    eDSACommandObject.seteDSATransId("" + transactionId);
+    cADCommandObject.setIntTansId("" + transactionId);
 
     /* Update the request object for requestObject from URL */
-    eDSACommandObject.setObjectType(ObjectType);
+    cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(eDSACommandObject, ObjectType, false);
+    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
-    /* Call direct DB service */
-    if (eDSACommandObject.getAgent() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Agent)
-              .getObjects(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(query));
-    } else if (eDSACommandObject.getTenant() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Tenant)
-              .getObjects(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(query));
-    }
+    cADCommandObject =
+        eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
+            .getObjects(cADCommandObject, eDSARequestValidator.decodeRequestParam(query));
 
-    if (eDSACommandObject == null) {
+    if (cADCommandObject == null) {
       /* Inform user that object not found */
       throw new CADException(CADResponseCodes._1004 + ObjectType);
     }
 
     /* Update the object for removing requestObject */
-    eDSACommandObject.setObjectType(null);
+    cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, EDSA-TransId : [" + transactionId + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
-    return Response.ok(eDSACommandObject).build();
+    return Response.ok(cADCommandObject).build();
   }
 
   /**
@@ -328,44 +289,38 @@ public final class CADObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectCountByQuery)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML})
-  public final Response getObjectsCount(@QueryParam("") CADCommandObject eDSACommandObject, final @PathParam(HTTPConstants.query) String query,
+  public final Response getObjectsCount(@QueryParam("") CADCommandObject cADCommandObject, final @PathParam(HTTPConstants.query) String query,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, EDSA-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId() + "] ==**== ");
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjectsCount Object type: " + ObjectType);
 
     /* Set transaction id */
-    eDSACommandObject.seteDSATransId("" + transactionId);
+    cADCommandObject.setIntTansId("" + transactionId);
 
     /* Update the request object for requestObject from URL */
-    eDSACommandObject.setObjectType(ObjectType);
+    cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(eDSACommandObject, ObjectType, false);
+    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
-    if (eDSACommandObject.getAgent() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Agent)
-              .getObjectsCount(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(query));
-    } else if (eDSACommandObject.getTenant() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Tenant)
-              .getObjectsCount(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(query));
-    }
+    cADCommandObject =
+        eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
+            .getObjectsCount(cADCommandObject, eDSARequestValidator.decodeRequestParam(query));
 
-    if (eDSACommandObject == null) {
+    if (cADCommandObject == null) {
       /* Inform user that object not found */
       throw new CADException(CADResponseCodes._1004 + ObjectType);
     }
 
     /* Update the object for removing requestObject */
-    eDSACommandObject.setObjectType(null);
+    cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, EDSA-TransId : [" + transactionId + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
-    return Response.ok(eDSACommandObject).build();
+    return Response.ok(cADCommandObject).build();
   }
 
   /**
@@ -377,36 +332,31 @@ public final class CADObjectService {
   @Path(HTTPConstants.PahForObjectType)
   @Consumes(HTTPConstants.mimeTypeXML)
   @Produces({HTTPConstants.mimeTypeXML, HTTPConstants.mimeTypeJSON})
-  public final Response createObject(CADCommandObject eDSACommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
+  public final Response createObject(CADCommandObject cADCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
       throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, EDSA-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId() + "] ==**== ");
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside createObject object type: " + ObjectType);
 
     /* Set transaction id */
-    eDSACommandObject.seteDSATransId("" + transactionId);
+    cADCommandObject.setIntTansId("" + transactionId);
 
     /* Update the request object for requestObject from URL */
-    eDSACommandObject.setObjectType(ObjectType);
+    cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(eDSACommandObject, ObjectType, true);
+    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, true);
 
-    if (eDSACommandObject.getAgent() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Agent).createObject(eDSACommandObject);
-    } else if (eDSACommandObject.getTenant() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Tenant).createObject(eDSACommandObject);
-    }
+    cADCommandObject = eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).createObject(cADCommandObject);
+
     /* Update the object for removing requestObject */
-    eDSACommandObject.setObjectType(null);
+    cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, EDSA-TransId : [" + transactionId + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
-    return Response.ok(eDSACommandObject).build();
+    return Response.ok(cADCommandObject).build();
   }
 
   /**
@@ -418,37 +368,31 @@ public final class CADObjectService {
   @Path(HTTPConstants.PahForObjectType)
   @Consumes(HTTPConstants.mimeTypeXML)
   @Produces({HTTPConstants.mimeTypeXML, HTTPConstants.mimeTypeJSON})
-  public final Response updateObject(CADCommandObject eDSACommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
+  public final Response updateObject(CADCommandObject cADCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
       throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, EDSA-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId() + "] ==**== ");
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside updateObject object type: " + ObjectType);
 
     /* Set transaction id */
-    eDSACommandObject.seteDSATransId("" + transactionId);
+    cADCommandObject.setIntTansId("" + transactionId);
 
     /* Update the request object for requestObject from URL */
-    eDSACommandObject.setObjectType(ObjectType);
+    cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(eDSACommandObject, ObjectType, true);
+    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, true);
 
-    if (eDSACommandObject.getAgent() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Agent).updateObject(eDSACommandObject);
-    } else if (eDSACommandObject.getTenant() != null) {
-      eDSACommandObject =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Tenant).updateObject(eDSACommandObject);
-    }
+    cADCommandObject = eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).updateObject(cADCommandObject);
 
     /* Update the object for removing requestObject */
-    eDSACommandObject.setObjectType(null);
+    cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, EDSA-TransId : [" + transactionId + "]; Ext-TransId : [" + eDSACommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
-    return Response.ok(eDSACommandObject).build();
+    return Response.ok(cADCommandObject).build();
   }
 
   /**
@@ -458,41 +402,33 @@ public final class CADObjectService {
    */
   @DELETE
   @Path(HTTPConstants.PahForObjectTypeById)
-  public final Response deleteObject(@PathParam(HTTPConstants.id) String idToBeDeleted, final @QueryParam(HTTPConstants.agent) String agentId,
-      final @QueryParam(HTTPConstants.tenant) String tenant, final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
+  public final Response deleteObject(@PathParam(HTTPConstants.id) String idToBeDeleted, final @QueryParam(HTTPConstants.crmUserId) String agentId,
+      final @QueryParam(HTTPConstants.crmUserId) String crmUserId, final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started : [" + transactionId + "] ==**==");
     logger.debug("---Inside deleteObject id to be deleted: " + idToBeDeleted);
 
-    /* Create eDSACommandObject */
-    final CADCommandObject eDSACommandObject = new CADCommandObject();
+    /* Create cADCommandObject */
+    final CADCommandObject cADCommandObject = new CADCommandObject();
 
     /* Set transaction id */
-    eDSACommandObject.seteDSATransId("" + transactionId);
+    cADCommandObject.setIntTansId("" + transactionId);
 
     /* Set agent/tenant information */
-    eDSACommandObject.setTenant(tenant);
-    eDSACommandObject.setAgent(agentId);
+    cADCommandObject.setCrmUserId(crmUserId);
 
     /* Update the request object for requestObject from URL */
-    eDSACommandObject.setObjectType(ObjectType);
+    cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(eDSACommandObject, ObjectType, false);
+    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
-    boolean status = false;
-    if (eDSACommandObject.getAgent() != null) {
-      status =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Agent)
-              .deleteObject(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(idToBeDeleted));
-    } else if (eDSACommandObject.getTenant() != null) {
-      status =
-          eDSAInternalService.getServiceFactory(eDSACommandObject).getService(eDSACommandObject, UserType.Tenant)
-              .deleteObject(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(idToBeDeleted));
-    }
+    boolean status =
+        eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
+            .deleteObject(cADCommandObject, eDSARequestValidator.decodeRequestParam(idToBeDeleted));
 
     /* Update the object for removing requestObject */
-    eDSACommandObject.setObjectType(null);
+    cADCommandObject.setObjectType(null);
 
     logger.info("==**== Transaction completed: [" + transactionId + "] ==**==");
 
@@ -505,50 +441,39 @@ public final class CADObjectService {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @param objectId
    * @param ObjectType
    * @return
    * @throws Exception
    */
-  private final Response getAttachments(CADCommandObject eDSACommandObject, final String objectId, final String ObjectType) throws Exception {
+  private final Response getAttachments(CADCommandObject cADCommandObject, final String objectId, final String ObjectType) throws Exception {
 
     logger.debug("---Inside getAttachments, Object type: " + ObjectType + " & objectId: " + objectId);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(eDSACommandObject, ObjectType, false);
+    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
     /* Pass objectid as query param */
-    if (eDSACommandObject.getAgent() != null) {
-      eDSACommandObject =
-          eDSAInternalService
-              .getServiceFactory(eDSACommandObject)
-              .getService(eDSACommandObject, UserType.Agent)
-              .getObjects(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(objectId),
-                  eDSARequestValidator.decodeEDSARequestParam(ObjectType));
-    } else if (eDSACommandObject.getTenant() != null) {
-      eDSACommandObject =
-          eDSAInternalService
-              .getServiceFactory(eDSACommandObject)
-              .getService(eDSACommandObject, UserType.Tenant)
-              .getObjects(eDSACommandObject, eDSARequestValidator.decodeEDSARequestParam(objectId),
-                  eDSARequestValidator.decodeEDSARequestParam(ObjectType));
-    }
 
-    if (eDSACommandObject == null) {
+    cADCommandObject =
+        eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
+            .getObjects(cADCommandObject, eDSARequestValidator.decodeRequestParam(objectId), eDSARequestValidator.decodeRequestParam(ObjectType));
+
+    if (cADCommandObject == null) {
 
       /* Inform user that object not found */
       throw new CADException(CADResponseCodes._1004 + ObjectType);
     }
 
     /* Create file attachments */
-    final FileAttachments attachments = CADAttachmentUtils.createFileAttachments(eDSACommandObject);
+    final FileAttachments attachments = CADAttachmentUtils.createFileAttachments(cADCommandObject);
 
     /* Update the object for removing requestObject */
-    eDSACommandObject.setObjectType(null);
+    cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, EDSA-TransId : [" + eDSACommandObject.geteDSATransId() + "]; Ext-TransId : ["
-        + eDSACommandObject.getExtTransId() + "] ==**== ");
+    logger.info("==**== Transaction completed, CAD-TransId : [" + cADCommandObject.getIntTansId() + "]; Ext-TransId : ["
+        + cADCommandObject.getExtTransId() + "] ==**== ");
 
     /* If file map has some content */
     if (attachments != null && attachments.size() == 1) {

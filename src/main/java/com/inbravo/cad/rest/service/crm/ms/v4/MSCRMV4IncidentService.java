@@ -44,16 +44,16 @@ public final class MSCRMV4IncidentService extends MSCRMObjectService {
       /* Pass crm fields list null to fetch all fields */
       final List<CADObject> eDSAObjectList =
           mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), tenant.getCrmServiceProtocol(), tenant.getCrmServiceURL(),
-              tenant.getCrmUserid(), tenant.getCrmPassword(), tenant.getCrmOrgName(), new String[] {tenant.getCrmSessionId()}, null);
+              tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmOrgName(), new String[] {tenant.getCrmSessionId()}, null);
 
       /* Set the final object in command object */
       eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
     } else if (eDSACommandObject.getAgent() != null) {
-      final CADUser agent = mSCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+      final CADUser agent = mSCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
 
       final List<CADObject> eDSAObjectList =
           mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-              agent.getCrmUserid(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()}, null);
+              agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()}, null);
 
       /* Set the final object in command object */
       eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
@@ -72,16 +72,16 @@ public final class MSCRMV4IncidentService extends MSCRMObjectService {
       /* Pass crm fields list null to fetch all fields */
       final List<CADObject> eDSAObjectList =
           mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), tenant.getCrmServiceProtocol(), tenant.getCrmServiceURL(),
-              tenant.getCrmUserid(), tenant.getCrmPassword(), tenant.getCrmOrgName(), new String[] {tenant.getCrmSessionId()}, null, query);
+              tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmOrgName(), new String[] {tenant.getCrmSessionId()}, null, query);
 
       /* Set the final object in command object */
       eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
     } else if (eDSACommandObject.getAgent() != null) {
-      final CADUser agent = mSCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+      final CADUser agent = mSCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
 
       final List<CADObject> eDSAObjectList =
           mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-              agent.getCrmUserid(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()}, null, query);
+              agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()}, null, query);
 
       /* Set the final object in command object */
       eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
@@ -117,17 +117,17 @@ public final class MSCRMV4IncidentService extends MSCRMObjectService {
 
       final List<CADObject> eDSAObjectList =
           mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), tenant.getCrmServiceProtocol(), tenant.getCrmServiceURL(),
-              tenant.getCrmUserid(), tenant.getCrmPassword(), tenant.getCrmOrgName(), new String[] {tenant.getCrmSessionId()},
+              tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmOrgName(), new String[] {tenant.getCrmSessionId()},
               crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query);
 
       /* Set the final object in command object */
       eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
     } else if (eDSACommandObject.getAgent() != null) {
-      final CADUser agent = mSCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+      final CADUser agent = mSCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
 
       final List<CADObject> eDSAObjectList =
           mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-              agent.getCrmUserid(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()},
+              agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()},
               crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query);
 
       /* Set the final object in command object */
@@ -165,17 +165,17 @@ public final class MSCRMV4IncidentService extends MSCRMObjectService {
 
       final List<CADObject> eDSAObjectList =
           mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), tenant.getCrmServiceProtocol(), tenant.getCrmServiceURL(),
-              tenant.getCrmUserid(), tenant.getCrmPassword(), tenant.getCrmOrgName(), new String[] {tenant.getCrmSessionId()},
+              tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmOrgName(), new String[] {tenant.getCrmSessionId()},
               crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query, order);
 
       /* Set the final object in command object */
       eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
     } else if (eDSACommandObject.getAgent() != null) {
-      final CADUser agent = mSCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+      final CADUser agent = mSCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
 
       final List<CADObject> eDSAObjectList =
           mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-              agent.getCrmUserid(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()},
+              agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()},
               crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query, order);
 
       /* Set the final object in command object */
@@ -207,14 +207,14 @@ public final class MSCRMV4IncidentService extends MSCRMObjectService {
 
       eDSAObject =
           mSCRMServiceManager.createObject(eDSACommandObject.getObjectType(), tenant.getCrmServiceProtocol(), tenant.getCrmServiceURL(),
-              tenant.getCrmUserid(), tenant.getCrmPassword(), tenant.getCrmOrgName(), new String[] {tenant.getCrmSessionId()},
+              tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmOrgName(), new String[] {tenant.getCrmSessionId()},
               eDSACommandObject.geteDSAObject()[0]);
     } else if (eDSACommandObject.getAgent() != null) {
-      final CADUser agent = mSCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+      final CADUser agent = mSCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
 
       eDSAObject =
           mSCRMServiceManager.createObject(eDSACommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-              agent.getCrmUserid(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()},
+              agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()},
               eDSACommandObject.geteDSAObject()[0]);
     }
 

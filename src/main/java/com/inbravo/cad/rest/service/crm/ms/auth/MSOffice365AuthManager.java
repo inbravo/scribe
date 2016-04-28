@@ -14,8 +14,6 @@ import org.joda.time.format.DateTimeFormatter;
 import com.inbravo.cad.exception.CADException;
 import com.inbravo.cad.exception.CADResponseCodes;
 import com.inbravo.cad.internal.service.dto.CADUser;
-import com.inbravo.cad.internal.service.dto.BasicObject;
-import com.inbravo.cad.internal.service.dto.Tenant;
 import com.inbravo.cad.rest.service.crm.CRMMessageFormatUtils;
 import com.inbravo.cad.rest.service.crm.ms.MSCRMMessageFormatUtils;
 
@@ -41,7 +39,7 @@ public final class MSOffice365AuthManager extends MSAuthManager {
   private String msOffice365RequestTimeZone = SOAPExecutor.OFFICE_365_REQUEST_TZ;
 
   @Override
-  public final String[] getCRMAuthToken(final BasicObject basicObject) throws Exception {
+  public final String[] getCRMAuthToken(final CADUser cadUser) throws Exception {
 
     String stsEndpoint = null;
     String urnAddress = null;
@@ -50,50 +48,21 @@ public final class MSOffice365AuthManager extends MSAuthManager {
     String crmServiceURL = null;
     String crmServiceProtocal = null;
 
-    /* Check if agent/tenant */
-    if (basicObject instanceof CADUser) {
+    logger.debug("---Inside getCRMAuthToken for agent: " + cadUser.getCrmUserId());
 
-      /* Type cast it to agent */
-      final CADUser agent = (CADUser) basicObject;
+    /* Check if additonal info is present */
+    if (cadUser.getAdditionalInfo() != null) {
 
-      logger.debug("---Inside getCRMAuthToken for agent: " + agent.getName());
-
-      /* Check if additonal info is present */
-      if (agent.getAdditionalInfo() != null) {
-
-        /* Parse the reponse */
-        stsEndpoint = agent.getAdditionalInfo().get("STSEnpoint");
-        urnAddress = agent.getAdditionalInfo().get("URNAddress");
-      }
-
-      /* get CRM credentials */
-      userName = agent.getCrmUserid();
-      password = agent.getCrmPassword();
-      crmServiceURL = agent.getCrmServiceURL();
-      crmServiceProtocal = agent.getCrmServiceProtocol();
-
-    } else /* Check if agent/tenant */
-    if (basicObject instanceof Tenant) {
-
-      /* Type cast it to tenant */
-      final Tenant tenant = (Tenant) basicObject;
-
-      logger.debug("---Inside getCRMAuthToken for tenant: " + tenant.getName());
-
-      /* Check if additonal info is present */
-      if (tenant.getAdditionalInfo() != null) {
-
-        /* Parse the reponse */
-        stsEndpoint = tenant.getAdditionalInfo().get("STSEnpoint");
-        urnAddress = tenant.getAdditionalInfo().get("URNAddress");
-      }
-
-      /* get CRM credentials */
-      userName = tenant.getCrmUserid();
-      password = tenant.getCrmPassword();
-      crmServiceURL = tenant.getCrmServiceURL();
-      crmServiceProtocal = tenant.getCrmServiceProtocol();
+      /* Parse the reponse */
+      stsEndpoint = cadUser.getAdditionalInfo().get("STSEnpoint");
+      urnAddress = cadUser.getAdditionalInfo().get("URNAddress");
     }
+
+    /* get CRM credentials */
+    userName = cadUser.getCrmUserId();
+    password = cadUser.getCrmPassword();
+    crmServiceURL = cadUser.getCrmServiceURL();
+    crmServiceProtocal = cadUser.getCrmServiceProtocol();
 
     logger.debug("---Inside getCRMAuthToken userName: " + userName + " & password: " + password + " & stsEndpoint: " + stsEndpoint
         + " & urnAddress: " + urnAddress + " & crmServiceURL: " + crmServiceURL + " & crmServiceProtocal: " + crmServiceProtocal);

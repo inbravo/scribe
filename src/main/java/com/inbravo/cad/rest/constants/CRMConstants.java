@@ -11,15 +11,9 @@ public interface CRMConstants {
 
   public static final String salesForceWCRM = "sfdcw";
 
-  public static final String mashUpURL = "MashUp.html";
-
   public static final String coCRM = "co";
 
   public static final String customCRM = "custom";
-
-  public static final String contactualCRM = "contactual";
-
-  public static final String eightByEightCRM = "88";
 
   public static final String microsoftCRM = "MS";
 
@@ -29,7 +23,6 @@ public interface CRMConstants {
 
   public static final String zohoCRM = "ZH";
 
-  public static final String fbmcService = "FBMC";
 
   public enum CRMTypes {
     SalesForce, Contactual, Microsoft, Zendesk, NetSuite

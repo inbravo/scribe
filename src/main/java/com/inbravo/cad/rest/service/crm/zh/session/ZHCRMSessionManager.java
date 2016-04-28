@@ -31,39 +31,26 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
   /* CRM session cache */
   private CRMSessionCache cRMSessionCache;
 
-  /* Agent information service */
-  private CADUserInfoService agentInfoService;
-
   @SuppressWarnings("unused")
   @Override
   public final BasicObject getSessionInfo(final String id) throws Exception {
     logger.debug("---Inside getSessionInfo, id: " + id);
 
     /* Check if session is already available at cache */
-    final BasicObject basicObject = (BasicObject) cRMSessionCache.recover(id);
+    final CADUser user = (BasicObject) cRMSessionCache.recover(id);
 
     /* Check if basic object is null or not */
-    if (basicObject == null) {
+    if (user == null) {
 
 
       logger.debug("---Inside getSessionInfo, agent: " + id);
 
-      /* Get agent information from LDAP(CRM info is stored at LDAP) */
-      CADUser agent = agentInfoService.getAgentInformation(id);
-
-      /* Check if agent is not null */
-      if (agent == null) {
-
-        /* Inform user about unauthorized agent */
-        throw new CADException(CADResponseCodes._1012 + "Agent information is not found");
-      }
-
       /* Validate crm service params */
-      this.validateUser(agent);
+      this.validateUser(user);
 
       /* Get session information from ZH */
       final String sessionId =
-          zHAuthManager.getSessionId(agent.getCrmUserid(), agent.getCrmPassword(), agent.getCrmServiceURL(), agent.getCrmServiceProtocol());
+          zHAuthManager.getSessionId(agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmServiceURL(), agent.getCrmServiceProtocol());
 
       if (sessionId != null) {
 
@@ -79,60 +66,6 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
         /* Inform user about absent header value */
         throw new CADException(CADResponseCodes._1012 + "Login attempt at ZH is failed. Check credentials.");
       }
-
-    } else {
-
-      /* Check the type of user */
-      if (basicObject instanceof CADUser) {
-
-        logger.debug("---Inside getSessionInfo, agent from cache: " + id);
-
-        /* Get agent information from cache */
-        CADUser agent = (CADUser) basicObject;
-
-        if (agent == null) {
-
-          /* Get fresh agent from LDAP */
-          agent = agentInfoService.getAgentInformation(id);
-
-          /* If tenant is still not found; tenant is not valid */
-          if (agent == null) {
-
-            /* Inform user about unauthorized agent */
-            throw new CADException(CADResponseCodes._1012 + "Agent information is not found");
-          }
-        }
-
-        /* Validate crm service params */
-        this.validateUser(agent);
-
-        /* If not a batch request */
-        if (agent.getCrmSessionId() == null) {
-
-          /* Get session information from ZH */
-          final String sessionId =
-              zHAuthManager.getSessionId(agent.getCrmUserid(), agent.getCrmPassword(), agent.getCrmServiceURL(), agent.getCrmServiceProtocol());
-
-          /* If session id is found */
-          if (sessionId != null) {
-
-            /* Set CRM API token information */
-            agent.setCrmSessionId(sessionId);
-
-            /* Save this agent in session cache */
-            cRMSessionCache.admit(id, agent);
-
-            /* If everything is fine return true */
-            return agent;
-          } else {
-            /* Inform user about absent header value */
-            throw new CADException(CADResponseCodes._1012 + "Login attempt at ZH is failed. Check credentials.");
-          }
-        } else {
-
-          /* Return agent from cache */
-          return agent;
-        }
 
       } else {
         /* Inform user about absent header value */
@@ -184,15 +117,15 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
   }
 
 
-  private final void validateUser(final CADUser agent) {
+  private final void validateUser(final CADUser user) {
 
     /* Service URL is a must for ZH */
-    if (agent.getCrmServiceURL() == null) {
+    if (user.getCrmServiceURL() == null) {
       throw new CADException(CADResponseCodes._1009 + "CRM integration information is missing: CRM service URL");
     }
 
     /* Service protocol is a must for ZH */
-    if (agent.getCrmServiceProtocol() == null) {
+    if (user.getCrmServiceProtocol() == null) {
       throw new CADException(CADResponseCodes._1009 + "CRM integration information is missing: CRM service Protocol");
     }
   }

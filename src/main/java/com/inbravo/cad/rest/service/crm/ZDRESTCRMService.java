@@ -1,7 +1,6 @@
 package com.inbravo.cad.rest.service.crm;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,6 @@ import org.xml.sax.SAXException;
 import com.inbravo.cad.exception.CADException;
 import com.inbravo.cad.exception.CADResponseCodes;
 import com.inbravo.cad.internal.service.dto.CADUser;
-import com.inbravo.cad.internal.service.dto.Tenant;
 import com.inbravo.cad.rest.constants.HTTPConstants;
 import com.inbravo.cad.rest.resource.CADCommandObject;
 import com.inbravo.cad.rest.resource.CADObject;
@@ -58,12 +56,12 @@ public final class ZDRESTCRMService extends CRMService {
   private ZDCRMSessionManager zDCRMSessionManager;
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjects");
 
     /* Check if all record types are to be searched */
-    if (eDSACommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
-      return this.searchAllTypeOfObjects(eDSACommandObject, null, null, null);
+    if (cADCommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
+      return this.searchAllTypeOfObjects(cADCommandObject, null, null, null);
     } else {
       GetMethod getMethod = null;
       try {
@@ -74,32 +72,22 @@ public final class ZDRESTCRMService extends CRMService {
         String password = null;
         int crmPort = 80;
 
-        /* Check if tenant is present in request */
-        if (eDSACommandObject.getTenant() != null) {
+        /* Check if agent is present in request */
+        if (cADCommandObject.getCrmUserId() != null) {
 
-          /* Get tenant from session manager */
-          final Tenant tenant = zDCRMSessionManager.getTenantWithCRMSessionInformation(eDSACommandObject.getTenant());
-
-          /* Get CRM information from tenant */
-          serviceURL = tenant.getCrmServiceURL();
-          serviceProtocol = tenant.getCrmServiceProtocol();
-          userId = tenant.getCrmUserid();
-          password = tenant.getCrmPassword();
-          crmPort = tenant.getCrmPort();
-        } else {
           /* Get agent from session manager */
-          final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+          final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
           /* Get CRM information from agent */
           serviceURL = agent.getCrmServiceURL();
           serviceProtocol = agent.getCrmServiceProtocol();
-          userId = agent.getCrmUserid();
+          userId = agent.getCrmUserId();
           password = agent.getCrmPassword();
           crmPort = agent.getCrmPort();
         }
 
         /* Create Zen desk URL */
-        final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + eDSACommandObject.getObjectType() + "s.xml";
+        final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + cADCommandObject.getObjectType() + "s.xml";
 
         logger.debug("---Inside getObjects zenDeskURL: " + zenDeskURL);
 
@@ -128,7 +116,7 @@ public final class ZDRESTCRMService extends CRMService {
           final XPath xpath = XPathFactory.newInstance().newXPath();
 
           /* XPath Query for showing all nodes value */
-          final XPathExpression expr = xpath.compile("/" + eDSACommandObject.getObjectType() + "s/" + eDSACommandObject.getObjectType());
+          final XPathExpression expr = xpath.compile("/" + cADCommandObject.getObjectType() + "s/" + cADCommandObject.getObjectType());
 
           /* Get node list from response document */
           final NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
@@ -182,7 +170,7 @@ public final class ZDRESTCRMService extends CRMService {
           }
 
           /* Set the final object in command object */
-          eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
+          cADCommandObject.setcADObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
         } else if (result == HttpStatus.SC_FORBIDDEN) {
           throw new CADException(CADResponseCodes._1020 + "Query is forbidden by Zendesk CRM");
         } else if (result == HttpStatus.SC_BAD_REQUEST) {
@@ -206,17 +194,17 @@ public final class ZDRESTCRMService extends CRMService {
           getMethod.releaseConnection();
         }
       }
-      return eDSACommandObject;
+      return cADCommandObject;
     }
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects query: " + query);
 
     /* Check if all record types are to be searched */
-    if (eDSACommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
-      return this.searchAllTypeOfObjects(eDSACommandObject, query, null, null);
+    if (cADCommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
+      return this.searchAllTypeOfObjects(cADCommandObject, query, null, null);
     } else {
       throw new CADException(CADResponseCodes._1003
           + "Following operation is not supported by the CRM; Please search 'ANY' object type for searcing all record types");
@@ -224,12 +212,12 @@ public final class ZDRESTCRMService extends CRMService {
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select);
 
     /* Check if all record types are to be searched */
-    if (eDSACommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
-      return this.searchAllTypeOfObjects(eDSACommandObject, query, select, null);
+    if (cADCommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
+      return this.searchAllTypeOfObjects(cADCommandObject, query, select, null);
     } else {
       throw new CADException(CADResponseCodes._1003
           + "Following operation is not supported by the CRM; Please search 'ANY' object type for searcing all record types");
@@ -237,16 +225,16 @@ public final class ZDRESTCRMService extends CRMService {
   }
 
   @Override
-  public CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select, final String order)
+  public CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
 
     /* Check if all record types are to be searched */
-    if (eDSACommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
+    if (cADCommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
       if (order != null) {
         throw new CADException(CADResponseCodes._1003 + "Ordering is not supported");
       } else {
-        return this.searchAllTypeOfObjects(eDSACommandObject, query, select, null);
+        return this.searchAllTypeOfObjects(cADCommandObject, query, select, null);
       }
     } else {
       throw new CADException(CADResponseCodes._1003
@@ -255,17 +243,17 @@ public final class ZDRESTCRMService extends CRMService {
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
     throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CRM");
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject eDSACommandObject, final String query) throws Exception {
+  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
     throw new CADException(CADResponseCodes._1003 + " Following operation is not supported by the CRM");
   }
 
   @Override
-  public final CADCommandObject updateObject(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
 
     logger.debug("---Inside updateObject");
     PutMethod putMethod = null;
@@ -278,26 +266,15 @@ public final class ZDRESTCRMService extends CRMService {
       int crmPort = 80;
 
       /* Check if tenant is present in request */
-      if (eDSACommandObject.getTenant() != null) {
+      if (cADCommandObject.getCrmUserId() != null) {
 
-        /* Get tenant from session manager */
-        final Tenant tenant = zDCRMSessionManager.getTenantWithCRMSessionInformation(eDSACommandObject.getTenant());
-
-        /* Get CRM information from tenant */
-        serviceURL = tenant.getCrmServiceURL();
-        serviceProtocol = tenant.getCrmServiceProtocol();
-        userId = tenant.getCrmUserid();
-        password = tenant.getCrmPassword();
-        sessionId = tenant.getCrmSessionId();
-        crmPort = tenant.getCrmPort();
-      } else {
         /* Get agent from session manager */
-        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
         serviceURL = agent.getCrmServiceURL();
         serviceProtocol = agent.getCrmServiceProtocol();
-        userId = agent.getCrmUserid();
+        userId = agent.getCrmUserId();
         password = agent.getCrmPassword();
         sessionId = agent.getCrmSessionId();
         crmPort = agent.getCrmPort();
@@ -306,10 +283,10 @@ public final class ZDRESTCRMService extends CRMService {
       String crmObjectId = null;
 
       /* Check if XML content in request, is not null */
-      if (eDSACommandObject.geteDSAObject() != null && eDSACommandObject.geteDSAObject().length == 1) {
+      if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length == 1) {
 
         /* Get Id of CRM object */
-        crmObjectId = ZDCRMMessageFormatUtils.getNodeValue("ID", eDSACommandObject.geteDSAObject()[0]);
+        crmObjectId = ZDCRMMessageFormatUtils.getNodeValue("ID", cADCommandObject.getcADObject()[0]);
 
         if (crmObjectId == null) {
           /* Inform user about invalid request */
@@ -321,7 +298,7 @@ public final class ZDRESTCRMService extends CRMService {
       }
 
       /* Create Zen desk URL */
-      final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + eDSACommandObject.getObjectType() + "s/" + crmObjectId + ".xml";
+      final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + cADCommandObject.getObjectType() + "s/" + crmObjectId + ".xml";
 
       logger.debug("---Inside updateObject zenDeskURL: " + zenDeskURL);
 
@@ -336,7 +313,7 @@ public final class ZDRESTCRMService extends CRMService {
       putMethod.addRequestHeader("Cookie", sessionId);
 
       /* Add request entity */
-      final RequestEntity entity = new StringRequestEntity(ZDCRMMessageFormatUtils.getCreateRequestXML(eDSACommandObject), null, null);
+      final RequestEntity entity = new StringRequestEntity(ZDCRMMessageFormatUtils.getCreateRequestXML(cADCommandObject), null, null);
       putMethod.setRequestEntity(entity);
 
       final HttpClient httpclient = new HttpClient();
@@ -352,7 +329,7 @@ public final class ZDRESTCRMService extends CRMService {
       if (result == HttpStatus.SC_OK || result == HttpStatus.SC_CREATED) {
 
         /* Return the original object */
-        return eDSACommandObject;
+        return cADCommandObject;
       } else if (result == HttpStatus.SC_BAD_REQUEST || result == HttpStatus.SC_METHOD_NOT_ALLOWED || result == HttpStatus.SC_NOT_ACCEPTABLE) {
         throw new CADException(CADResponseCodes._1003 + "Invalid request : "
             + ZDCRMMessageFormatUtils.getErrorFromResponse(putMethod.getResponseBodyAsStream()));
@@ -378,11 +355,11 @@ public final class ZDRESTCRMService extends CRMService {
         putMethod.releaseConnection();
       }
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside createObject");
     PostMethod postMethod = null;
     try {
@@ -394,34 +371,23 @@ public final class ZDRESTCRMService extends CRMService {
       String sessionId = null;
       int crmPort = 80;
 
-      /* Check if tenant is present in request */
-      if (eDSACommandObject.getTenant() != null) {
+      /* Check if CrmUserId is present in request */
+      if (cADCommandObject.getCrmUserId() != null) {
 
-        /* Get tenant from session manager */
-        final Tenant tenant = zDCRMSessionManager.getTenantWithCRMSessionInformation(eDSACommandObject.getTenant());
-
-        /* Get CRM information from tenant */
-        serviceURL = tenant.getCrmServiceURL();
-        serviceProtocol = tenant.getCrmServiceProtocol();
-        userId = tenant.getCrmUserid();
-        password = tenant.getCrmPassword();
-        sessionId = tenant.getCrmSessionId();
-        crmPort = tenant.getCrmPort();
-      } else {
         /* Get agent from session manager */
-        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
         serviceURL = agent.getCrmServiceURL();
         serviceProtocol = agent.getCrmServiceProtocol();
-        userId = agent.getCrmUserid();
+        userId = agent.getCrmUserId();
         password = agent.getCrmPassword();
         sessionId = agent.getCrmSessionId();
         crmPort = agent.getCrmPort();
       }
 
       /* Create Zen desk URL */
-      final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + eDSACommandObject.getObjectType() + "s.xml";
+      final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + cADCommandObject.getObjectType() + "s.xml";
 
       logger.debug("---Inside createObject zenDeskURL: " + zenDeskURL);
 
@@ -436,7 +402,7 @@ public final class ZDRESTCRMService extends CRMService {
       postMethod.addRequestHeader("Cookie", sessionId);
 
       /* Add request entity */
-      final RequestEntity entity = new StringRequestEntity(ZDCRMMessageFormatUtils.getCreateRequestXML(eDSACommandObject), null, null);
+      final RequestEntity entity = new StringRequestEntity(ZDCRMMessageFormatUtils.getCreateRequestXML(cADCommandObject), null, null);
       postMethod.setRequestEntity(entity);
 
       final HttpClient httpclient = new HttpClient();
@@ -453,7 +419,7 @@ public final class ZDRESTCRMService extends CRMService {
 
         /* Trick: ZD does not gives object in create response */
         /* TODO: Read the newly created ZD object using search */
-        return eDSACommandObject;
+        return cADCommandObject;
       } else if (result == HttpStatus.SC_BAD_REQUEST || result == HttpStatus.SC_METHOD_NOT_ALLOWED || result == HttpStatus.SC_NOT_ACCEPTABLE) {
         throw new CADException(CADResponseCodes._1003 + "Invalid request : "
             + ZDCRMMessageFormatUtils.getErrorFromResponse(postMethod.getResponseBodyAsStream()));
@@ -479,11 +445,11 @@ public final class ZDRESTCRMService extends CRMService {
         postMethod.releaseConnection();
       }
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject eDSACommandObject, final String idToBeDeleted) throws Exception {
+  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
 
     logger.debug("---Inside deleteObject");
     DeleteMethod deleteMethod = null;
@@ -495,27 +461,16 @@ public final class ZDRESTCRMService extends CRMService {
       String sessionId = null;
       int crmPort = 80;
 
-      /* Check if tenant is present in request */
-      if (eDSACommandObject.getTenant() != null) {
+      /* Check if CrmUserId is present in request */
+      if (cADCommandObject.getCrmUserId() != null) {
 
-        /* Get tenant from session manager */
-        final Tenant tenant = zDCRMSessionManager.getTenantWithCRMSessionInformation(eDSACommandObject.getTenant());
-
-        /* Get CRM information from tenant */
-        serviceURL = tenant.getCrmServiceURL();
-        serviceProtocol = tenant.getCrmServiceProtocol();
-        userId = tenant.getCrmUserid();
-        password = tenant.getCrmPassword();
-        sessionId = tenant.getCrmSessionId();
-        crmPort = tenant.getCrmPort();
-      } else {
         /* Get agent from session manager */
-        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
         serviceURL = agent.getCrmServiceURL();
         serviceProtocol = agent.getCrmServiceProtocol();
-        userId = agent.getCrmUserid();
+        userId = agent.getCrmUserId();
         password = agent.getCrmPassword();
         sessionId = agent.getCrmSessionId();
         crmPort = agent.getCrmPort();
@@ -528,7 +483,7 @@ public final class ZDRESTCRMService extends CRMService {
       }
 
       /* Create Zen desk URL */
-      final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + eDSACommandObject.getObjectType() + "s/" + idToBeDeleted.trim() + ".xml";
+      final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + cADCommandObject.getObjectType() + "s/" + idToBeDeleted.trim() + ".xml";
 
       logger.debug("---Inside deleteObject zenDeskURL: " + zenDeskURL);
 
@@ -586,14 +541,14 @@ public final class ZDRESTCRMService extends CRMService {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @param query
    * @param select
    * @param order
    * @return
    * @throws Exception
    */
-  private final CADCommandObject searchAllTypeOfObjects(final CADCommandObject eDSACommandObject, final String query, final String select,
+  private final CADCommandObject searchAllTypeOfObjects(final CADCommandObject cADCommandObject, final String query, final String select,
       final String order) throws Exception {
     logger.debug("---Inside searchAllTypeOfObjects query: " + query + " & select: " + select + " & order: " + order);
     GetMethod getMethod = null;
@@ -606,27 +561,16 @@ public final class ZDRESTCRMService extends CRMService {
       String sessionId = null;
       int crmPort = 80;
 
-      /* Check if tenant is present in request */
-      if (eDSACommandObject.getTenant() != null) {
+      /* Check if CrmUserId is present in request */
+      if (cADCommandObject.getCrmUserId() != null) {
 
-        /* Get tenant from session manager */
-        final Tenant tenant = zDCRMSessionManager.getTenantWithCRMSessionInformation(eDSACommandObject.getTenant());
-
-        /* Get CRM information from tenant */
-        serviceURL = tenant.getCrmServiceURL();
-        serviceProtocol = tenant.getCrmServiceProtocol();
-        userId = tenant.getCrmUserid();
-        password = tenant.getCrmPassword();
-        sessionId = tenant.getCrmSessionId();
-        crmPort = tenant.getCrmPort();
-      } else {
         /* Get agent from session manager */
-        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
         serviceURL = agent.getCrmServiceURL();
         serviceProtocol = agent.getCrmServiceProtocol();
-        userId = agent.getCrmUserid();
+        userId = agent.getCrmUserId();
         password = agent.getCrmPassword();
         sessionId = agent.getCrmSessionId();
         crmPort = agent.getCrmPort();
@@ -740,7 +684,7 @@ public final class ZDRESTCRMService extends CRMService {
         }
 
         /* Set the final object in command object */
-        eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
+        cADCommandObject.setcADObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
       } else if (result == HttpStatus.SC_BAD_REQUEST || result == HttpStatus.SC_METHOD_NOT_ALLOWED || result == HttpStatus.SC_NOT_ACCEPTABLE) {
         throw new CADException(CADResponseCodes._1003 + "Invalid request : "
             + ZDCRMMessageFormatUtils.getErrorFromResponse(getMethod.getResponseBodyAsStream()));
@@ -768,7 +712,7 @@ public final class ZDRESTCRMService extends CRMService {
         getMethod.releaseConnection();
       }
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   public final String getCrmFieldsSeparator() {

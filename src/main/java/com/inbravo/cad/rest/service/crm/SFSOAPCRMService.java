@@ -40,24 +40,17 @@ public final class SFSOAPCRMService extends CRMService {
   private String orderFieldsSeparator;
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject eDSACommandObject) throws Exception {
-    SoapBindingStub soapBindingStub = null;
+  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
 
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get Sales Force stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get Sales Force stub for the agent */
+    final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     /* Create message element array */
-    final MessageElement[] messageElementArray = SalesForceMessageFormatUtils.createMessageElementArray(eDSACommandObject.geteDSAObject()[0]);
+    final MessageElement[] messageElementArray = SalesForceMessageFormatUtils.createMessageElementArray(cADCommandObject.getcADObject()[0]);
 
     /* Create Sales object of type 'Account' */
     final SObject sObject = new SObject();
-    sObject.setType(eDSACommandObject.getObjectType());
+    sObject.setType(cADCommandObject.getObjectType());
     sObject.set_any(messageElementArray);
 
     /* Find start time */
@@ -77,33 +70,26 @@ public final class SFSOAPCRMService extends CRMService {
           logger.debug("---Inside createObject object with id: " + saveResults[i].getId() + " is created");
 
           /* Set object id in object before sending back */
-          eDSACommandObject.geteDSAObject()[0] =
-              SalesForceMessageFormatUtils.setNodeValue("Id", saveResults[i].getId(), eDSACommandObject.geteDSAObject()[0]);
+          cADCommandObject.getcADObject()[0] =
+              SalesForceMessageFormatUtils.setNodeValue("Id", saveResults[i].getId(), cADCommandObject.getcADObject()[0]);
         } else {
           logger.info("---Inside createObject: error recieved from Sales Force: " + saveResults[i].getErrors()[0].getMessage());
-          throw new CADException(CADResponseCodes._1001 + eDSACommandObject.getObjectType() + " : Message : "
+          throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
               + saveResults[i].getErrors()[0].getMessage() + " : Status Code : " + saveResults[i].getErrors()[0].getStatusCode() + " : Fields : "
               + saveResults[i].getErrors()[0].getFields());
         }
       }
     } else {
-      throw new CADException(CADResponseCodes._1001 + eDSACommandObject.getObjectType());
+      throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType());
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject eDSACommandObject, final String idToBeDeleted) throws Exception {
-    SoapBindingStub soapBindingStub = null;
+  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
 
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get Sales Force stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get Sales Force stub for the agent */
+    final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     /* Find start time */
     final long startTime = System.currentTimeMillis();
@@ -122,41 +108,34 @@ public final class SFSOAPCRMService extends CRMService {
           logger.debug("---Inside deleteObject object with id: " + deleteResult[i].getId() + " is deleted");
         } else {
           logger.info("---Inside deleteObject: error recieved from Sales Force: " + deleteResult[i].getErrors()[0].getMessage());
-          throw new CADException(CADResponseCodes._1001 + eDSACommandObject.getObjectType() + " : Message : "
+          throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
               + deleteResult[i].getErrors()[0].getMessage() + " : Status Code : " + deleteResult[i].getErrors()[0].getStatusCode() + " : Fields : "
               + deleteResult[i].getErrors()[0].getFields());
         }
       }
     } else {
-      throw new CADException(CADResponseCodes._1001 + eDSACommandObject.getObjectType());
+      throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType());
     }
     /* Control will arrive to this return only after the success */
     return true;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject) throws Exception {
-    SoapBindingStub soapBindingStub = null;
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
 
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get Sales Force stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get Sales Force stub for the agent */
+    final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     QueryResult queryResult = null;
 
     /* Check if batch is required */
-    if (eDSACommandObject.getBatch() != null) {
-      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + eDSACommandObject.getBatch());
+    if (cADCommandObject.getBatch() != null) {
+      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
       /* Query Sales Force with batch information */
-      queryResult = soapBindingStub.queryMore(eDSACommandObject.getBatch());
+      queryResult = soapBindingStub.queryMore(cADCommandObject.getBatch());
     } else {
       /* Make a Sales Force query to know the Object Fields */
-      final DescribeSObjectResult describeSObjectResult = soapBindingStub.describeSObject(eDSACommandObject.getObjectType());
+      final DescribeSObjectResult describeSObjectResult = soapBindingStub.describeSObject(cADCommandObject.getObjectType());
 
       /* Create a string object for query */
       String query = null;
@@ -175,10 +154,10 @@ public final class SFSOAPCRMService extends CRMService {
           query = query.substring(0, query.length() - 2);
 
           /* Add 'From' clause */
-          query = query + " From " + eDSACommandObject.getObjectType();
+          query = query + " From " + cADCommandObject.getObjectType();
         } else {
           logger.debug("---Inside getObjects no records in response");
-          throw new CADException(CADResponseCodes._1004 + "Any " + eDSACommandObject.getObjectType() + " at Sales Force");
+          throw new CADException(CADResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
         }
       } else {
         logger.debug("---Inside getObjects no response from Sales Force");
@@ -231,37 +210,31 @@ public final class SFSOAPCRMService extends CRMService {
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
-          eDSACommandObject.setBatch(queryResult.getQueryLocator());
+          cADCommandObject.setBatch(queryResult.getQueryLocator());
         } else {
-          eDSACommandObject.setBatch(null);
+          cADCommandObject.setBatch(null);
         }
 
         /* Set the final object in command object */
-        eDSACommandObject.seteDSAObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(eDSAObjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + eDSACommandObject.getObjectType());
+        throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
       logger.debug("---Inside getObjects no response from Sales Force");
       throw new CADException(CADResponseCodes._1005);
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
-  private final CADCommandObject getObjectsBySelectCriteria(final CADCommandObject eDSACommandObject, final String selectCriteria) throws Exception {
-    logger.debug("---Inside getObjectsBySelectCriteria selectCriteria: " + selectCriteria);
-    SoapBindingStub soapBindingStub = null;
+  private final CADCommandObject getObjectsBySelectCriteria(final CADCommandObject cADCommandObject, final String selectCriteria) throws Exception {
 
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get Sales Force stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
     logger.debug("---Inside getObjectsBySelectCriteria selectCriteria: " + selectCriteria);
+
+    /* Get Sales Force stub for the agent */
+    final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
+
 
     /* Query Sales Force without batch information */
     final QueryResult queryResult = soapBindingStub.query(selectCriteria);
@@ -307,60 +280,52 @@ public final class SFSOAPCRMService extends CRMService {
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
-          eDSACommandObject.setBatch(queryResult.getQueryLocator());
+          cADCommandObject.setBatch(queryResult.getQueryLocator());
         } else {
-          eDSACommandObject.setBatch(null);
+          cADCommandObject.setBatch(null);
         }
 
         /* Set the final object in command object */
-        eDSACommandObject.seteDSAObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(eDSAObjectArray);
       } else {
         logger.debug("---Inside getObjectsBySelectCriteria no records in response");
-        throw new CADException(CADResponseCodes._1004 + eDSACommandObject.getObjectType());
+        throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
       logger.debug("---Inside getObjectsBySelectCriteria no response from Sales Force");
       throw new CADException(CADResponseCodes._1005);
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects query: " + query);
 
     /* Check if query is a SFDC find type */
     if (query != null && query.trim().startsWith("find")) {
-      return this.getObjectsBySearchCriteria(eDSACommandObject, query);
+      return this.getObjectsBySearchCriteria(cADCommandObject, query);
     }
     /* Check if query is a SFDC select type */
     else if (query != null && query.trim().startsWith("select")) {
-      return this.getObjectsBySelectCriteria(eDSACommandObject, query);
+      return this.getObjectsBySelectCriteria(cADCommandObject, query);
     }
 
-    SoapBindingStub soapBindingStub = null;
-
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get Sales Force stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get Sales Force stub for the agent */
+    final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     QueryResult queryResult = null;
 
     /* Check if batch is required */
-    if (eDSACommandObject.getBatch() != null) {
-      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + eDSACommandObject.getBatch());
+    if (cADCommandObject.getBatch() != null) {
+      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
 
       /* Query Sales Force with batch information */
-      queryResult = soapBindingStub.queryMore(eDSACommandObject.getBatch());
+      queryResult = soapBindingStub.queryMore(cADCommandObject.getBatch());
     } else {
 
       /* Make a Sales Force query to know the Object Fields */
-      final DescribeSObjectResult describeSObjectResult = soapBindingStub.describeSObject(eDSACommandObject.getObjectType());
+      final DescribeSObjectResult describeSObjectResult = soapBindingStub.describeSObject(cADCommandObject.getObjectType());
 
       /* Create a string object for query */
       String edsaQuery = null;
@@ -379,7 +344,7 @@ public final class SFSOAPCRMService extends CRMService {
           edsaQuery = edsaQuery.substring(0, edsaQuery.length() - 2);
 
           /* Add 'From' clause */
-          edsaQuery = edsaQuery + " From " + eDSACommandObject.getObjectType();
+          edsaQuery = edsaQuery + " From " + cADCommandObject.getObjectType();
 
           /* Add where clause */
           if (query != null && !query.equalsIgnoreCase("NONE")) {
@@ -392,7 +357,7 @@ public final class SFSOAPCRMService extends CRMService {
           }
         } else {
           logger.debug("---Inside getObjects no records in response");
-          throw new CADException(CADResponseCodes._1004 + "Any " + eDSACommandObject.getObjectType() + " at Sales Force");
+          throw new CADException(CADResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
         }
       } else {
         logger.debug("---Inside getObjects no response from Sales Force");
@@ -446,36 +411,30 @@ public final class SFSOAPCRMService extends CRMService {
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
-          eDSACommandObject.setBatch(queryResult.getQueryLocator());
+          cADCommandObject.setBatch(queryResult.getQueryLocator());
         } else {
-          eDSACommandObject.setBatch(null);
+          cADCommandObject.setBatch(null);
         }
 
         /* Set the final object in command object */
-        eDSACommandObject.seteDSAObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(eDSAObjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + eDSACommandObject.getObjectType());
+        throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
       logger.debug("---Inside getObjects no response from Sales Force");
       throw new CADException(CADResponseCodes._1005);
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
-  private final CADCommandObject getObjectsBySearchCriteria(final CADCommandObject eDSACommandObject, final String searchCriteria) throws Exception {
+  private final CADCommandObject getObjectsBySearchCriteria(final CADCommandObject cADCommandObject, final String searchCriteria) throws Exception {
     logger.debug("---Inside getObjectsBySearchCriteria searchCriteria: " + searchCriteria);
-    SoapBindingStub soapBindingStub = null;
 
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get Sales Force stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get Sales Force stub for the agent */
+    final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
+
     logger.debug("---Inside getObjectsBySearchCriteria SOSL query: " + searchCriteria);
 
     /* Search Sales Force without batch information */
@@ -524,7 +483,7 @@ public final class SFSOAPCRMService extends CRMService {
         logger.debug("---Inside getObjectsBySearchCriteria object length: " + eDSAObjectArray.length);
 
         /* Set the final object in command object */
-        eDSACommandObject.seteDSAObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(eDSAObjectArray);
       } else {
         logger.debug("---Inside getObjectsBySearchCriteria no records in response");
         throw new CADException(CADResponseCodes._1004 + " anything in find query");
@@ -533,31 +492,24 @@ public final class SFSOAPCRMService extends CRMService {
       logger.debug("---Inside getObjectsBySearchCriteria no response from Sales Force");
       throw new CADException(CADResponseCodes._1005);
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select);
-    SoapBindingStub soapBindingStub = null;
 
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get Sales Force stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get Sales Force stub for the agent */
+    final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     QueryResult queryResult = null;
 
     /* Check if batch is required */
-    if (eDSACommandObject.getBatch() != null) {
-      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + eDSACommandObject.getBatch());
+    if (cADCommandObject.getBatch() != null) {
+      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
 
       /* Query Sales Force with batch information */
-      queryResult = soapBindingStub.queryMore(eDSACommandObject.getBatch());
+      queryResult = soapBindingStub.queryMore(cADCommandObject.getBatch());
     } else {
 
       String edsaQuery = null;
@@ -580,7 +532,7 @@ public final class SFSOAPCRMService extends CRMService {
           edsaQuery = edsaQuery.substring(0, edsaQuery.length() - 2);
 
           /* Add 'From' clause */
-          edsaQuery = edsaQuery + " From " + eDSACommandObject.getObjectType();
+          edsaQuery = edsaQuery + " From " + cADCommandObject.getObjectType();
 
           /* Add where clause */
           if (query != null && !query.equalsIgnoreCase("NONE")) {
@@ -593,7 +545,7 @@ public final class SFSOAPCRMService extends CRMService {
           }
         } else {
           /* Make a Sales Force query to know the Object Fields */
-          final DescribeSObjectResult describeSObjectResult = soapBindingStub.describeSObject(eDSACommandObject.getObjectType());
+          final DescribeSObjectResult describeSObjectResult = soapBindingStub.describeSObject(cADCommandObject.getObjectType());
 
           /* Iterate over records */
           if (describeSObjectResult != null) {
@@ -609,7 +561,7 @@ public final class SFSOAPCRMService extends CRMService {
               edsaQuery = edsaQuery.substring(0, edsaQuery.length() - 2);
 
               /* Add 'From' clause */
-              edsaQuery = edsaQuery + " From " + eDSACommandObject.getObjectType();
+              edsaQuery = edsaQuery + " From " + cADCommandObject.getObjectType();
 
               /* Add where clause */
               if (query != null && !query.equalsIgnoreCase("NONE")) {
@@ -622,7 +574,7 @@ public final class SFSOAPCRMService extends CRMService {
               }
             } else {
               logger.debug("---Inside getObjects no records in response");
-              throw new CADException(CADResponseCodes._1004 + "Any " + eDSACommandObject.getObjectType() + " at Sales Force");
+              throw new CADException(CADResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
             }
           } else {
             logger.debug("---Inside getObjects no response from Sales Force");
@@ -681,46 +633,39 @@ public final class SFSOAPCRMService extends CRMService {
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
-          eDSACommandObject.setBatch(queryResult.getQueryLocator());
+          cADCommandObject.setBatch(queryResult.getQueryLocator());
         } else {
-          eDSACommandObject.setBatch(null);
+          cADCommandObject.setBatch(null);
         }
 
         /* Set the final object in command object */
-        eDSACommandObject.seteDSAObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(eDSAObjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + eDSACommandObject.getObjectType());
+        throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
       logger.debug("---Inside getObjects no response from Sales Force");
       throw new CADException(CADResponseCodes._1005);
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select, final String order)
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
-    SoapBindingStub soapBindingStub = null;
 
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get Sales Force stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get Sales Force stub for the agent */
+    final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     QueryResult queryResult = null;
 
     /* Check if batch is required */
-    if (eDSACommandObject.getBatch() != null) {
-      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + eDSACommandObject.getBatch());
+    if (cADCommandObject.getBatch() != null) {
+      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
 
       /* Query Sales Force with batch information */
-      queryResult = soapBindingStub.queryMore(eDSACommandObject.getBatch());
+      queryResult = soapBindingStub.queryMore(cADCommandObject.getBatch());
     } else {
 
       String edsaQuery = null;
@@ -743,7 +688,7 @@ public final class SFSOAPCRMService extends CRMService {
           edsaQuery = edsaQuery.substring(0, edsaQuery.length() - 2);
 
           /* Add 'From' clause */
-          edsaQuery = edsaQuery + " From " + eDSACommandObject.getObjectType();
+          edsaQuery = edsaQuery + " From " + cADCommandObject.getObjectType();
 
           /* Add where clause */
           if (query != null && !query.equalsIgnoreCase("NONE")) {
@@ -756,7 +701,7 @@ public final class SFSOAPCRMService extends CRMService {
           }
         } else {
           /* Make a Sales Force query to know the Object Fields */
-          final DescribeSObjectResult describeSObjectResult = soapBindingStub.describeSObject(eDSACommandObject.getObjectType());
+          final DescribeSObjectResult describeSObjectResult = soapBindingStub.describeSObject(cADCommandObject.getObjectType());
 
           /* Iterate over records */
           if (describeSObjectResult != null) {
@@ -772,7 +717,7 @@ public final class SFSOAPCRMService extends CRMService {
               edsaQuery = edsaQuery.substring(0, edsaQuery.length() - 2);
 
               /* Add 'From' clause */
-              edsaQuery = edsaQuery + " From " + eDSACommandObject.getObjectType();
+              edsaQuery = edsaQuery + " From " + cADCommandObject.getObjectType();
 
               /* Add where clause */
               if (query != null && !query.equalsIgnoreCase("NONE")) {
@@ -785,7 +730,7 @@ public final class SFSOAPCRMService extends CRMService {
               }
             } else {
               logger.debug("---Inside getObjects no records in response");
-              throw new CADException(CADResponseCodes._1004 + "Any " + eDSACommandObject.getObjectType() + " at Sales Force");
+              throw new CADException(CADResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
             }
           } else {
             logger.debug("---Inside getObjects no response from Sales Force");
@@ -871,41 +816,33 @@ public final class SFSOAPCRMService extends CRMService {
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
-          eDSACommandObject.setBatch(queryResult.getQueryLocator());
+          cADCommandObject.setBatch(queryResult.getQueryLocator());
         } else {
-          eDSACommandObject.setBatch(null);
+          cADCommandObject.setBatch(null);
         }
 
         /* Set the final object in command object */
-        eDSACommandObject.seteDSAObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(eDSAObjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + eDSACommandObject.getObjectType());
+        throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
       logger.debug("---Inside getObjects no response from Sales Force");
       throw new CADException(CADResponseCodes._1005);
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjectsCount");
 
-    SoapBindingStub soapBindingStub = null;
-
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get Sales Force stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get Sales Force stub for the agent */
+    final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     /* Create a string object for query */
-    final String edsaQuery = "Select count() from " + eDSACommandObject.getObjectType();
+    final String edsaQuery = "Select count() from " + cADCommandObject.getObjectType();
 
     /* Query Sales Force for count of objects */
     final QueryResult queryResult = soapBindingStub.query(edsaQuery);
@@ -930,31 +867,23 @@ public final class SFSOAPCRMService extends CRMService {
       eDSAObject.setXmlContent(elementList);
 
       /* Set the final object in command object */
-      eDSACommandObject.seteDSAObject(new CADObject[] {eDSAObject});
+      cADCommandObject.setcADObject(new CADObject[] {eDSAObject});
     } else {
       logger.debug("---Inside getObjectsCount no response from Sales Force");
       throw new CADException(CADResponseCodes._1005);
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject eDSACommandObject, final String query) throws Exception {
+  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjectsCount");
 
-    SoapBindingStub soapBindingStub = null;
-
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get Sales Force stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get Sales Force stub for the agent */
+    final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     /* Create a string object for query */
-    String edsaQuery = "Select count() from " + eDSACommandObject.getObjectType();
+    String edsaQuery = "Select count() from " + cADCommandObject.getObjectType();
 
     /* Add where clause */
     if (query != null) {
@@ -994,33 +923,26 @@ public final class SFSOAPCRMService extends CRMService {
       eDSAObject.setXmlContent(elementList);
 
       /* Set the final object in command object */
-      eDSACommandObject.seteDSAObject(new CADObject[] {eDSAObject});
+      cADCommandObject.setcADObject(new CADObject[] {eDSAObject});
     } else {
       logger.debug("---Inside getObjectsCount no response from Sales Force");
       throw new CADException(CADResponseCodes._1005);
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject updateObject(final CADCommandObject eDSACommandObject) throws Exception {
-    SoapBindingStub soapBindingStub = null;
+  public final CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
 
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get Sales Force stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSalesForceSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get Sales Force stub for the agent */
+    final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     /* Create message element array */
-    MessageElement[] messageElementArray = SalesForceMessageFormatUtils.createMessageElementArray(eDSACommandObject.geteDSAObject()[0]);
+    MessageElement[] messageElementArray = SalesForceMessageFormatUtils.createMessageElementArray(cADCommandObject.getcADObject()[0]);
 
     /* Create Sales force CRM object */
     SObject sObject = new SObject();
-    sObject.setType(eDSACommandObject.getObjectType());
+    sObject.setType(cADCommandObject.getObjectType());
     sObject.set_any(messageElementArray);
 
     /* Find start time */
@@ -1040,19 +962,19 @@ public final class SFSOAPCRMService extends CRMService {
           logger.debug("---Object with id: " + saveResults[i].getId() + " is updated");
 
           /* Set object id in object before sending back */
-          eDSACommandObject.geteDSAObject()[0] =
-              SalesForceMessageFormatUtils.setNodeValue("Id", saveResults[i].getId(), eDSACommandObject.geteDSAObject()[0]);
+          cADCommandObject.getcADObject()[0] =
+              SalesForceMessageFormatUtils.setNodeValue("Id", saveResults[i].getId(), cADCommandObject.getcADObject()[0]);
         } else {
           logger.info("---Inside updateObject: error recieved from Sales Force: " + saveResults[i].getErrors()[0].getMessage());
-          throw new CADException(CADResponseCodes._1001 + eDSACommandObject.getObjectType() + " : Message : "
+          throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
               + saveResults[i].getErrors()[0].getMessage() + " : Status Code : " + saveResults[i].getErrors()[0].getStatusCode() + " : Fields : "
               + saveResults[i].getErrors()[0].getFields());
         }
       }
     } else {
-      throw new CADException(CADResponseCodes._1001 + eDSACommandObject.getObjectType());
+      throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType());
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   public final SalesForceCRMSessionManager getcRMSessionManager() {

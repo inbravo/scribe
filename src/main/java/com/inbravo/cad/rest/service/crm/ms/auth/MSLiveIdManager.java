@@ -14,8 +14,6 @@ import org.jaxen.XPath;
 import com.inbravo.cad.exception.CADException;
 import com.inbravo.cad.exception.CADResponseCodes;
 import com.inbravo.cad.internal.service.dto.CADUser;
-import com.inbravo.cad.internal.service.dto.BasicObject;
-import com.inbravo.cad.internal.service.dto.Tenant;
 import com.inbravo.cad.rest.service.crm.CRMMessageFormatUtils;
 import com.inbravo.cad.rest.service.crm.ms.MSCRMMessageFormatUtils;
 
@@ -43,42 +41,20 @@ public final class MSLiveIdManager extends MSAuthManager {
   /**
 	 * 
 	 */
-  public final String[] getCRMAuthToken(final BasicObject basicObject) throws Exception {
+  public final String[] getCRMAuthToken(final CADUser user) throws Exception {
 
     String userName = null;
     String password = null;
     String crmServiceURL = null;
 
-    /* Check if agent/tenant */
-    if (basicObject instanceof CADUser) {
-
-      /* Type cast it to agent */
-      final CADUser agent = (CADUser) basicObject;
-
-      if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getCRMAuthToken for agent: " + agent.getName());
-      }
-
-      /* get CRM credentials */
-      userName = agent.getCrmUserid();
-      password = agent.getCrmPassword();
-      crmServiceURL = agent.getCrmServiceURL();
-
-    } else /* Check if agent/tenant */
-    if (basicObject instanceof Tenant) {
-
-      /* Type cast it to tenant */
-      final Tenant tenant = (Tenant) basicObject;
-
-      if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getCRMAuthToken for tenant: " + tenant.getName());
-      }
-
-      /* get CRM credentials */
-      userName = tenant.getCrmUserid();
-      password = tenant.getCrmPassword();
-      crmServiceURL = tenant.getCrmServiceURL();
+    if (logger.isDebugEnabled()) {
+      logger.debug("---Inside getCRMAuthToken for user: " + user.getCrmUserId());
     }
+
+    /* get CRM credentials */
+    userName = user.getCrmUserId();
+    password = user.getCrmPassword();
+    crmServiceURL = user.getCrmServiceURL();
 
     if (logger.isDebugEnabled()) {
 

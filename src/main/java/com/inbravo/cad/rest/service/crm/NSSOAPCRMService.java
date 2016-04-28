@@ -52,54 +52,46 @@ public final class NSSOAPCRMService extends CRMService {
   private String crmFieldIntraSeparator;
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside createObject");
     }
 
-    NetSuiteBindingStub soapBindingStub = null;
-
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get NetSuite stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get NS stub for the agent */
+    final NetSuiteBindingStub soapBindingStub =
+        cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     /* Create NS CRM basic object type */
     Record record = null;
 
     /* Check if object type is task */
-    if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
+    if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
 
       /* Create a new SupportCase */
-      record = nSCRMGenericService.createTask(eDSACommandObject.geteDSAObject()[0], crmFieldIntraSeparator);
-    } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
+      record = nSCRMGenericService.createTask(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
+    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
 
       /* Create a new Task */
-      record = nSCRMGenericService.createSupportCase(eDSACommandObject.geteDSAObject()[0], crmFieldIntraSeparator);
-    } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.PhoneCall.toString())) {
+      record = nSCRMGenericService.createSupportCase(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
+    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.PhoneCall.toString())) {
 
       /* Create a new phone call */
-      record = nSCRMGenericService.createPhoneCall(eDSACommandObject.geteDSAObject()[0], crmFieldIntraSeparator);
-    } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
+      record = nSCRMGenericService.createPhoneCall(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
+    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
       /* Create a new customer */
-      record = nSCRMGenericService.createCustomer(eDSACommandObject.geteDSAObject()[0], crmFieldIntraSeparator);
-    } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
+      record = nSCRMGenericService.createCustomer(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
+    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
       /* Create a new customer */
-      record = nSCRMGenericService.createContact(eDSACommandObject.geteDSAObject()[0], crmFieldIntraSeparator);
-    } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
+      record = nSCRMGenericService.createContact(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
+    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
 
       /* Create a new customer */
-      record = nSCRMGenericService.createOpportunity(eDSACommandObject.geteDSAObject()[0], crmFieldIntraSeparator);
+      record = nSCRMGenericService.createOpportunity(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
     } else {
-      throw new CADException(CADResponseCodes._1003 + " Following CRM object:" + eDSACommandObject.getObjectType() + ", is not supported by the EDSA");
+      throw new CADException(CADResponseCodes._1003 + " Following CRM object:" + cADCommandObject.getObjectType() + ", is not supported by the CAD");
     }
 
     /* Get current system time before transaction */
@@ -132,10 +124,10 @@ public final class NSSOAPCRMService extends CRMService {
 
       if (stringBuffer.length() != 0) {
         /* Inform user about error */
-        throw new CADException(CADResponseCodes._1021 + "Not able to create : " + eDSACommandObject.getObjectType() + " : " + stringBuffer);
+        throw new CADException(CADResponseCodes._1021 + "Not able to create : " + cADCommandObject.getObjectType() + " : " + stringBuffer);
       } else {
         /* Inform user about error */
-        throw new CADException(CADResponseCodes._1021 + "Not able to create : " + eDSACommandObject.getObjectType());
+        throw new CADException(CADResponseCodes._1021 + "Not able to create : " + cADCommandObject.getObjectType());
       }
 
     } else {
@@ -148,69 +140,60 @@ public final class NSSOAPCRMService extends CRMService {
         logger.debug("---Inside createObject, created object with id: " + baseRef.getInternalId());
 
         /* Set object id in object before sending back */
-        eDSACommandObject.geteDSAObject()[0] =
-            NetSuiteMessageFormatUtils.addNode(NSCRMFieldTypes.CRM_FIELD_ID, baseRef.getInternalId(), eDSACommandObject.geteDSAObject()[0]);
+        cADCommandObject.getcADObject()[0] =
+            NetSuiteMessageFormatUtils.addNode(NSCRMFieldTypes.CRM_FIELD_ID, baseRef.getInternalId(), cADCommandObject.getcADObject()[0]);
       }
     }
 
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject eDSACommandObject, final String idToBeDeleted) throws Exception {
+  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
 
     /* Inform user about error */
     throw new CADException(CADResponseCodes._1003 + " Following operation is not supported by the CRM");
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjects");
-    NetSuiteBindingStub soapBindingStub = null;
 
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-
-      /* Get NetSuite stub for the agent */
-      soapBindingStub = cRMSessionManager.getSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-
-      /* Get NetSuite stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get NS stub for the agent */
+    NetSuiteBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     SearchRecord searchRecord = null;
 
     /* Check CRM object type */
-    if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
+    if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
       /* Get custom customer search record */
       searchRecord = new CustomerSearch();
 
-    } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
+    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
       /* Get custom contact search record */
       searchRecord = new ContactSearch();
-    } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
+    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
 
       /* Get custom employee search record */
       searchRecord = new EmployeeSearch();
-    } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
+    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
 
       /* Get custom support case search record */
       searchRecord = new SupportCaseSearch();
-    } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
+    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
 
       /* Get task search record */
       searchRecord = new TaskSearch();
-    } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
+    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
 
       /* Get opportunity search record */
       searchRecord = new OpportunitySearch();
     } else {
 
       /* Inform user about user error */
-      throw new CADException(CADResponseCodes._1003 + "Following CRM object is not supported by the EDSA");
+      throw new CADException(CADResponseCodes._1003 + "Following CRM object is not supported by the CAD");
     }
 
     SearchResult searchResult = null;
@@ -236,82 +219,44 @@ public final class NSSOAPCRMService extends CRMService {
 
       logger.debug("---Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
 
-      /* Get respective Stub */
-      if (eDSACommandObject.getAgent() != null) {
+      /* If invalid session fault is given. Login again */
+      if (cRMSessionManager.login(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword())) {
 
-        /* If invalid session fault is given. Login again */
-        if (cRMSessionManager.login(eDSACommandObject.getAgent())) {
+        /* Get Sales Force stub for the agent */
+        soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
-          /* Get Sales Force stub for the agent */
-          soapBindingStub = cRMSessionManager.getSoapBindingStubForAgent(eDSACommandObject.getAgent());
+        /* Get current system time before transaction */
+        final long transStartTime = System.currentTimeMillis();
 
-          /* Get current system time before transaction */
-          final long transStartTime = System.currentTimeMillis();
+        if (logger.isDebugEnabled()) {
+          logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
+        }
 
-          if (logger.isDebugEnabled()) {
-            logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
-          }
+        /* Invoke search operation */
+        searchResult = soapBindingStub.search(searchRecord);
 
-          /* Invoke search operation */
-          searchResult = soapBindingStub.search(searchRecord);
-
-          if (logger.isDebugEnabled()) {
-            logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
-                + "' msec(s)");
-          }
-        } else {
-
-          /* Inform user about remote error */
-          throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
+        if (logger.isDebugEnabled()) {
+          logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
+              + "' msec(s)");
         }
       } else {
 
-        /* If invalid session fault is given. Login again */
-        if (cRMSessionManager.login(eDSACommandObject.getTenant())) {
-
-          /* Get Sales Force stub for the tenant */
-          soapBindingStub = cRMSessionManager.getSoapBindingStubForTenant(eDSACommandObject.getTenant());
-
-          /* Get current system time before transaction */
-          final long transStartTime = System.currentTimeMillis();
-
-          if (logger.isDebugEnabled()) {
-            logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
-          }
-
-          /* Invoke search operation */
-          searchResult = soapBindingStub.search(searchRecord);
-
-          if (logger.isDebugEnabled()) {
-            logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
-                + "' msec(s)");
-          }
-        } else {
-
-          /* Inform user about remote error */
-          throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
-        }
+        /* Inform user about remote error */
+        throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
       }
     }
 
     /* Process the response */
-    return NetSuiteMessageFormatUtils.processResponse(eDSACommandObject, searchResult, new TreeSet<String>(String.CASE_INSENSITIVE_ORDER));
+    return NetSuiteMessageFormatUtils.processResponse(cADCommandObject, searchResult, new TreeSet<String>(String.CASE_INSENSITIVE_ORDER));
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects query: " + query);
-    NetSuiteBindingStub soapBindingStub = null;
 
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
 
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get NetSuite stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get NS stub for the agent */
+    NetSuiteBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     /* Add filter expression */
     if (query != null && !"NONE".equalsIgnoreCase(query)) {
@@ -319,35 +264,35 @@ public final class NSSOAPCRMService extends CRMService {
       SearchRecord searchRecord = null;
 
       /* Check CRM object type */
-      if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
+      if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
         /* Get custom customer search record */
         searchRecord = nSCRMGenericService.createCustomerSearch(query, crmFieldIntraSeparator, inputDateFormat);
 
-      } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
+      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
         /* Get custom contact search record */
         searchRecord = nSCRMGenericService.createContactSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
+      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
 
         /* Get custom employee search record */
         searchRecord = nSCRMGenericService.createEmployeeSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
+      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
 
         /* Get custom support case search record */
         searchRecord = nSCRMGenericService.createSupportCaseSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
+      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
 
         /* Get task search record */
         searchRecord = nSCRMGenericService.createTaskSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
+      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
 
         /* Get opportunity search record */
         searchRecord = nSCRMGenericService.createOpportunitySearch(query, crmFieldIntraSeparator, inputDateFormat);
       } else {
 
         /* Inform user about user error */
-        throw new CADException(CADResponseCodes._1003 + "Following CRM object is not supported by the EDSA");
+        throw new CADException(CADResponseCodes._1003 + "Following CRM object is not supported by the CAD");
       }
 
       SearchResult searchResult = null;
@@ -372,83 +317,53 @@ public final class NSSOAPCRMService extends CRMService {
       } catch (final InvalidSessionFault e) {
 
         logger.debug("---Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
-        /* Get respective Stub */
-        if (eDSACommandObject.getAgent() != null) {
 
-          /* If invalid session fault is given. Login again */
-          if (cRMSessionManager.login(eDSACommandObject.getAgent())) {
+        /* If invalid session fault is given. Login again */
+        if (cRMSessionManager.login(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword())) {
 
-            /* Get Sales Force stub for the agent */
-            soapBindingStub = cRMSessionManager.getSoapBindingStubForAgent(eDSACommandObject.getAgent());
+          /* Get Sales Force stub for the agent */
+          soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
-            /* Get current system time before transaction */
-            final long transStartTime = System.currentTimeMillis();
+          /* Get current system time before transaction */
+          final long transStartTime = System.currentTimeMillis();
 
-            if (logger.isDebugEnabled()) {
-              logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
-            }
+          if (logger.isDebugEnabled()) {
+            logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
+          }
 
-            /* Invoke search operation */
-            searchResult = soapBindingStub.search(searchRecord);
+          /* Invoke search operation */
+          searchResult = soapBindingStub.search(searchRecord);
 
-            if (logger.isDebugEnabled()) {
-              logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
-                  + "' msec(s)");
-            }
-          } else {
-
-            /* Inform user about remote error */
-            throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
+          if (logger.isDebugEnabled()) {
+            logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
+                + "' msec(s)");
           }
         } else {
 
-          /* If invalid session fault is given. Login again */
-          if (cRMSessionManager.login(eDSACommandObject.getTenant())) {
-
-            /* Get Sales Force stub for the tenant */
-            soapBindingStub = cRMSessionManager.getSoapBindingStubForTenant(eDSACommandObject.getTenant());
-
-            /* Get current system time before transaction */
-            final long transStartTime = System.currentTimeMillis();
-
-            if (logger.isDebugEnabled()) {
-              logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
-            }
-
-            /* Invoke search operation */
-            searchResult = soapBindingStub.search(searchRecord);
-
-            if (logger.isDebugEnabled()) {
-              logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
-                  + "' msec(s)");
-            }
-          } else {
-
-            /* Inform user about remote error */
-            throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
-          }
+          /* Inform user about remote error */
+          throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
         }
       }
 
       /* Process the response */
-      return NetSuiteMessageFormatUtils.processResponse(eDSACommandObject, searchResult, new TreeSet<String>(String.CASE_INSENSITIVE_ORDER));
+      return NetSuiteMessageFormatUtils.processResponse(cADCommandObject, searchResult, new TreeSet<String>(String.CASE_INSENSITIVE_ORDER));
     }
 
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject eDSACommandObject, final String query) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
+  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
+    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
-  public final CADCommandObject updateObject(final CADCommandObject eDSACommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
+  public final CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
+    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select);
 
     /* Trim the request variable */
@@ -457,17 +372,8 @@ public final class NSSOAPCRMService extends CRMService {
     /* Trim the request variable */
     final String trimmedSelect = this.applyTrimming(select);
 
-    NetSuiteBindingStub soapBindingStub = null;
-
-    /* Get respective Stub */
-    if (eDSACommandObject.getAgent() != null) {
-
-      /* Get Sales Force stub for the agent */
-      soapBindingStub = cRMSessionManager.getSoapBindingStubForAgent(eDSACommandObject.getAgent());
-    } else {
-      /* Get NetSuite stub for the tenant */
-      soapBindingStub = cRMSessionManager.getSoapBindingStubForTenant(eDSACommandObject.getTenant());
-    }
+    /* Get NS stub for the agent */
+    NetSuiteBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     /* Add filter expression */
     if (trimmedQuery != null && !"NONE".equalsIgnoreCase(trimmedQuery)) {
@@ -475,35 +381,35 @@ public final class NSSOAPCRMService extends CRMService {
       SearchRecord searchRecord = null;
 
       /* Check CRM object type */
-      if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
+      if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
         /* Get custom customer search record */
         searchRecord = nSCRMGenericService.createCustomerSearch(trimmedQuery, crmFieldIntraSeparator, inputDateFormat);
 
-      } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
+      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
         /* Get custom contact search record */
         searchRecord = nSCRMGenericService.createContactSearch(trimmedQuery, crmFieldIntraSeparator, inputDateFormat);
-      } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
+      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
 
         /* Get custom employee search record */
         searchRecord = nSCRMGenericService.createEmployeeSearch(trimmedQuery, crmFieldIntraSeparator, inputDateFormat);
-      } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
+      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
 
         /* Get custom support case search record */
         searchRecord = nSCRMGenericService.createSupportCaseSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
+      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
 
         /* Get task search record */
         searchRecord = nSCRMGenericService.createTaskSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
+      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
 
         /* Get opportunity search record */
         searchRecord = nSCRMGenericService.createOpportunitySearch(query, crmFieldIntraSeparator, inputDateFormat);
       } else {
 
         /* Inform user about user error */
-        throw new CADException(CADResponseCodes._1003 + "Following CRM object is not supported by the EDSA");
+        throw new CADException(CADResponseCodes._1003 + "Following CRM object is not supported by the CAD");
       }
 
       SearchResult searchResult = null;
@@ -527,62 +433,32 @@ public final class NSSOAPCRMService extends CRMService {
 
       } catch (final InvalidSessionFault e) {
 
-        logger.debug("---Inside found InvalidSessionFault from NS CRM; going for replogin");
-        /* Get respective Stub */
-        if (eDSACommandObject.getAgent() != null) {
+        logger.debug("---Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
 
-          /* If invalid session fault is given. Login again */
-          if (cRMSessionManager.login(eDSACommandObject.getAgent())) {
+        /* If invalid session fault is given. Login again */
+        if (cRMSessionManager.login(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword())) {
 
-            /* Get Sales Force stub for the agent */
-            soapBindingStub = cRMSessionManager.getSoapBindingStubForAgent(eDSACommandObject.getAgent());
+          /* Get Sales Force stub for the agent */
+          soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
-            /* Get current system time before transaction */
-            final long transStartTime = System.currentTimeMillis();
+          /* Get current system time before transaction */
+          final long transStartTime = System.currentTimeMillis();
 
-            if (logger.isDebugEnabled()) {
-              logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
-            }
+          if (logger.isDebugEnabled()) {
+            logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
+          }
 
-            /* Invoke search operation */
-            searchResult = soapBindingStub.search(searchRecord);
+          /* Invoke search operation */
+          searchResult = soapBindingStub.search(searchRecord);
 
-            if (logger.isDebugEnabled()) {
-              logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
-                  + "' msec(s)");
-            }
-          } else {
-
-            /* Inform user about remote error */
-            throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
+          if (logger.isDebugEnabled()) {
+            logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
+                + "' msec(s)");
           }
         } else {
 
-          /* If invalid session fault is given. Login again */
-          if (cRMSessionManager.login(eDSACommandObject.getTenant())) {
-
-            /* Get Sales Force stub for the tenant */
-            soapBindingStub = cRMSessionManager.getSoapBindingStubForTenant(eDSACommandObject.getTenant());
-
-            /* Get current system time before transaction */
-            final long transStartTime = System.currentTimeMillis();
-
-            if (logger.isDebugEnabled()) {
-              logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
-            }
-
-            /* Invoke search operation */
-            searchResult = soapBindingStub.search(searchRecord);
-
-            if (logger.isDebugEnabled()) {
-              logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
-                  + "' msec(s)");
-            }
-          } else {
-
-            /* Inform user about remote error */
-            throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
-          }
+          /* Inform user about remote error */
+          throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
         }
       }
 
@@ -613,21 +489,21 @@ public final class NSSOAPCRMService extends CRMService {
       }
 
       /* Process the response */
-      return NetSuiteMessageFormatUtils.processResponse(eDSACommandObject, searchResult, crmFieldToBeSelectedSet);
+      return NetSuiteMessageFormatUtils.processResponse(cADCommandObject, searchResult, crmFieldToBeSelectedSet);
     }
 
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
 
     /* Inform user about user error */
     throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by EDSA");
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select, final String order)
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
 
     /* Inform user about user error */

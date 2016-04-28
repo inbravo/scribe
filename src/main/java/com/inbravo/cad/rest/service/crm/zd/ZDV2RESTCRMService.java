@@ -79,17 +79,17 @@ public final class ZDV2RESTCRMService extends CRMService {
           /* Get CRM information from tenant */
           serviceURL = tenant.getCrmServiceURL();
           serviceProtocol = tenant.getCrmServiceProtocol();
-          userId = tenant.getCrmUserid();
+          userId = tenant.getCrmUserId();
           password = tenant.getCrmPassword();
           crmPort = tenant.getCrmPort();
         } else {
           /* Get agent from session manager */
-          final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+          final CADUser agent = zDCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
 
           /* Get CRM information from agent */
           serviceURL = agent.getCrmServiceURL();
           serviceProtocol = agent.getCrmServiceProtocol();
-          userId = agent.getCrmUserid();
+          userId = agent.getCrmUserId();
           password = agent.getCrmPassword();
           crmPort = agent.getCrmPort();
         }
@@ -246,18 +246,18 @@ public final class ZDV2RESTCRMService extends CRMService {
         /* Get CRM information from tenant */
         serviceURL = tenant.getCrmServiceURL();
         serviceProtocol = tenant.getCrmServiceProtocol();
-        userId = tenant.getCrmUserid();
+        userId = tenant.getCrmUserId();
         password = tenant.getCrmPassword();
         sessionId = tenant.getCrmSessionId();
         crmPort = tenant.getCrmPort();
       } else {
         /* Get agent from session manager */
-        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+        final CADUser agent = zDCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
 
         /* Get CRM information from agent */
         serviceURL = agent.getCrmServiceURL();
         serviceProtocol = agent.getCrmServiceProtocol();
-        userId = agent.getCrmUserid();
+        userId = agent.getCrmUserId();
         password = agent.getCrmPassword();
         sessionId = agent.getCrmSessionId();
         crmPort = agent.getCrmPort();
@@ -390,18 +390,18 @@ public final class ZDV2RESTCRMService extends CRMService {
         /* Get CRM information from tenant */
         serviceURL = tenant.getCrmServiceURL();
         serviceProtocol = tenant.getCrmServiceProtocol();
-        userId = tenant.getCrmUserid();
+        userId = tenant.getCrmUserId();
         password = tenant.getCrmPassword();
         sessionId = tenant.getCrmSessionId();
         crmPort = tenant.getCrmPort();
       } else {
         /* Get agent from session manager */
-        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+        final CADUser agent = zDCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
 
         /* Get CRM information from agent */
         serviceURL = agent.getCrmServiceURL();
         serviceProtocol = agent.getCrmServiceProtocol();
-        userId = agent.getCrmUserid();
+        userId = agent.getCrmUserId();
         password = agent.getCrmPassword();
         sessionId = agent.getCrmSessionId();
         crmPort = agent.getCrmPort();
@@ -534,18 +534,18 @@ public final class ZDV2RESTCRMService extends CRMService {
         /* Get CRM information from tenant */
         serviceURL = tenant.getCrmServiceURL();
         serviceProtocol = tenant.getCrmServiceProtocol();
-        userId = tenant.getCrmUserid();
+        userId = tenant.getCrmUserId();
         password = tenant.getCrmPassword();
         sessionId = tenant.getCrmSessionId();
         crmPort = tenant.getCrmPort();
       } else {
         /* Get agent from session manager */
-        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(eDSACommandObject.getAgent());
+        final CADUser agent = zDCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
 
         /* Get CRM information from agent */
         serviceURL = agent.getCrmServiceURL();
         serviceProtocol = agent.getCrmServiceProtocol();
-        userId = agent.getCrmUserid();
+        userId = agent.getCrmUserId();
         password = agent.getCrmPassword();
         sessionId = agent.getCrmSessionId();
         crmPort = agent.getCrmPort();

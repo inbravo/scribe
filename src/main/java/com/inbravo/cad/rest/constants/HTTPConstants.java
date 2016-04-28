@@ -55,9 +55,7 @@ public interface HTTPConstants {
 
   String orClause = "|";
 
-  String agent = "agent";
-
-  String tenant = "tenant";
+  String crmUserId = "crmUserId";
 
   String logLevel = "logLevel";
 

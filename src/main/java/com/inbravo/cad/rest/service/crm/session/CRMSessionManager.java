@@ -9,9 +9,9 @@ import com.inbravo.cad.internal.service.dto.BasicObject;
  */
 public interface CRMSessionManager {
 
-  boolean reset(final String id) throws Exception;
+  boolean reset(final String crmUserId, final String crmPassword) throws Exception;
 
-  boolean login(final String id) throws Exception;
+  boolean login(final String crmUserId, final String crmPassword) throws Exception;
 
   BasicObject getSessionInfo(final String id) throws Exception;
 }
