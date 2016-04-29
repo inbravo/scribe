@@ -18,12 +18,9 @@ import org.apache.log4j.Logger;
 
 import com.inbravo.cad.exception.CADException;
 import com.inbravo.cad.exception.CADResponseCodes;
-import com.inbravo.cad.rest.constants.CRMConstants.CTLCRMObjectType;
 import com.inbravo.cad.rest.constants.HTTPConstants;
 import com.inbravo.cad.rest.resource.CADCommandObject;
 import com.inbravo.cad.rest.service.basic.CADInternalService;
-import com.inbravo.cad.rest.service.crm.CADAttachmentUtils;
-import com.inbravo.cad.rest.service.msg.type.FileAttachments;
 import com.inbravo.cad.rest.service.validator.CADRequestValidator;
 
 /**
@@ -40,9 +37,9 @@ public final class CADObjectService {
   @Resource
   private HttpServletRequest httpServletRequest;
 
-  private CADInternalService eDSAInternalService;
+  private CADInternalService cADInternalService;
 
-  private CADRequestValidator eDSARequestValidator;
+  private CADRequestValidator cADRequestValidator;
 
   /**
    * This API will do dynamic query based on the select criteria obtained from user. User will also
@@ -66,41 +63,30 @@ public final class CADObjectService {
     /* Set transaction id */
     cADCommandObject.setIntTansId("" + transactionId);
 
-    /* Check if attachment request */
-    if (ObjectType != null && ObjectType.equalsIgnoreCase(CTLCRMObjectType.CtlAttachments.toString())) {
-      logger.debug("---Inside getObjects, forwarding to attachment service");
+    /* Update the request object for requestObject from URL */
+    cADCommandObject.setObjectType(ObjectType);
 
-      /* Set object type in command object */
-      cADCommandObject.setObjectType(CTLCRMObjectType.CtlAttachments.toString());
+    /* Validate the request */
+    cADRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
-      /* Call attachment service */
-      return this.getAttachments(cADCommandObject, select, query);
-    } else {
-
-      /* Update the request object for requestObject from URL */
-      cADCommandObject.setObjectType(ObjectType);
-
-      /* Validate the request */
-      eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
-
-      cADCommandObject =
-          eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
-              .getObjects(cADCommandObject, eDSARequestValidator.decodeRequestParam(query), eDSARequestValidator.decodeRequestParam(select));
+    cADCommandObject =
+        cADInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
+            .getObjects(cADCommandObject, cADRequestValidator.decodeRequestParam(query), cADRequestValidator.decodeRequestParam(select));
 
 
-      if (cADCommandObject == null) {
-        /* Inform user that object not found */
-        throw new CADException(CADResponseCodes._1004 + ObjectType);
-      }
-
-      /* Update the object for removing requestObject */
-      cADCommandObject.setObjectType(null);
-
-      logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
-          + "] ==**== ");
-
-      return Response.ok(cADCommandObject).build();
+    if (cADCommandObject == null) {
+      /* Inform user that object not found */
+      throw new CADException(CADResponseCodes._1004 + ObjectType);
     }
+
+    /* Update the object for removing requestObject */
+    cADCommandObject.setObjectType(null);
+
+    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+        + "] ==**== ");
+
+    return Response.ok(cADCommandObject).build();
+
   }
 
   /**
@@ -130,14 +116,14 @@ public final class CADObjectService {
     cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+    cADRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
     cADCommandObject =
-        eDSAInternalService
+        cADInternalService
             .getServiceFactory(cADCommandObject)
             .getService(cADCommandObject)
-            .getObjects(cADCommandObject, eDSARequestValidator.decodeRequestParam(query), eDSARequestValidator.decodeRequestParam(select),
-                eDSARequestValidator.decodeRequestParam(order));
+            .getObjects(cADCommandObject, cADRequestValidator.decodeRequestParam(query), cADRequestValidator.decodeRequestParam(select),
+                cADRequestValidator.decodeRequestParam(order));
 
 
     if (cADCommandObject == null) {
@@ -178,9 +164,9 @@ public final class CADObjectService {
     cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+    cADRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
-    cADCommandObject = eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).getObjects(cADCommandObject);
+    cADCommandObject = cADInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).getObjects(cADCommandObject);
 
     if (cADCommandObject == null) {
       /* Inform user that object not found */
@@ -219,9 +205,9 @@ public final class CADObjectService {
     cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+    cADRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
-    cADCommandObject = eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).getObjectsCount(cADCommandObject);
+    cADCommandObject = cADInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).getObjectsCount(cADCommandObject);
 
     if (cADCommandObject == null) {
       /* Inform user that object not found */
@@ -260,11 +246,11 @@ public final class CADObjectService {
     cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+    cADRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
     cADCommandObject =
-        eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
-            .getObjects(cADCommandObject, eDSARequestValidator.decodeRequestParam(query));
+        cADInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
+            .getObjects(cADCommandObject, cADRequestValidator.decodeRequestParam(query));
 
     if (cADCommandObject == null) {
       /* Inform user that object not found */
@@ -303,11 +289,11 @@ public final class CADObjectService {
     cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+    cADRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
     cADCommandObject =
-        eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
-            .getObjectsCount(cADCommandObject, eDSARequestValidator.decodeRequestParam(query));
+        cADInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
+            .getObjectsCount(cADCommandObject, cADRequestValidator.decodeRequestParam(query));
 
     if (cADCommandObject == null) {
       /* Inform user that object not found */
@@ -346,9 +332,9 @@ public final class CADObjectService {
     cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, true);
+    cADRequestValidator.validateRequestObject(cADCommandObject, ObjectType, true);
 
-    cADCommandObject = eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).createObject(cADCommandObject);
+    cADCommandObject = cADInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).createObject(cADCommandObject);
 
     /* Update the object for removing requestObject */
     cADCommandObject.setObjectType(null);
@@ -382,9 +368,9 @@ public final class CADObjectService {
     cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, true);
+    cADRequestValidator.validateRequestObject(cADCommandObject, ObjectType, true);
 
-    cADCommandObject = eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).updateObject(cADCommandObject);
+    cADCommandObject = cADInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).updateObject(cADCommandObject);
 
     /* Update the object for removing requestObject */
     cADCommandObject.setObjectType(null);
@@ -421,11 +407,11 @@ public final class CADObjectService {
     cADCommandObject.setObjectType(ObjectType);
 
     /* Validate the request */
-    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+    cADRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
 
     boolean status =
-        eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
-            .deleteObject(cADCommandObject, eDSARequestValidator.decodeRequestParam(idToBeDeleted));
+        cADInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
+            .deleteObject(cADCommandObject, cADRequestValidator.decodeRequestParam(idToBeDeleted));
 
     /* Update the object for removing requestObject */
     cADCommandObject.setObjectType(null);
@@ -433,61 +419,9 @@ public final class CADObjectService {
     logger.info("==**== Transaction completed: [" + transactionId + "] ==**==");
 
     if (status) {
-      return Response.status(Response.Status.OK).type(MediaType.APPLICATION_XML).entity("<EDSA>CRM Object is deleted</EDSA>").build();
+      return Response.status(Response.Status.OK).type(MediaType.APPLICATION_XML).entity("<CAD>CRM Object is deleted</CAD>").build();
     } else {
-      return Response.status(Response.Status.NOT_FOUND).type(MediaType.APPLICATION_XML).entity("<EDSA>CRM Object is not deleted</EDSA>").build();
-    }
-  }
-
-  /**
-   * 
-   * @param cADCommandObject
-   * @param objectId
-   * @param ObjectType
-   * @return
-   * @throws Exception
-   */
-  private final Response getAttachments(CADCommandObject cADCommandObject, final String objectId, final String ObjectType) throws Exception {
-
-    logger.debug("---Inside getAttachments, Object type: " + ObjectType + " & objectId: " + objectId);
-
-    /* Validate the request */
-    eDSARequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
-
-    /* Pass objectid as query param */
-
-    cADCommandObject =
-        eDSAInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
-            .getObjects(cADCommandObject, eDSARequestValidator.decodeRequestParam(objectId), eDSARequestValidator.decodeRequestParam(ObjectType));
-
-    if (cADCommandObject == null) {
-
-      /* Inform user that object not found */
-      throw new CADException(CADResponseCodes._1004 + ObjectType);
-    }
-
-    /* Create file attachments */
-    final FileAttachments attachments = CADAttachmentUtils.createFileAttachments(cADCommandObject);
-
-    /* Update the object for removing requestObject */
-    cADCommandObject.setObjectType(null);
-
-    logger.info("==**== Transaction completed, CAD-TransId : [" + cADCommandObject.getIntTansId() + "]; Ext-TransId : ["
-        + cADCommandObject.getExtTransId() + "] ==**== ");
-
-    /* If file map has some content */
-    if (attachments != null && attachments.size() == 1) {
-
-      /* Return single file in attachment */
-      return Response.ok(attachments.getFileAttachments().get(0)).build();
-    } else if (attachments != null && attachments.size() > 1) {
-
-      /* Return zip in attachment */
-      return Response.ok(attachments).build();
-    } else {
-
-      /* Inform user that object not found */
-      throw new CADException(CADResponseCodes._1004 + ObjectType + " with id: " + objectId);
+      return Response.status(Response.Status.NOT_FOUND).type(MediaType.APPLICATION_XML).entity("<CAD>CRM Object is not deleted</CAD>").build();
     }
   }
 
@@ -499,19 +433,19 @@ public final class CADObjectService {
     this.httpServletRequest = httpServletRequest;
   }
 
-  public final CADRequestValidator geteDSARequestValidator() {
-    return eDSARequestValidator;
+  public final CADRequestValidator getcADRequestValidator() {
+    return cADRequestValidator;
   }
 
-  public final void seteDSARequestValidator(final CADRequestValidator eDSARequestValidator) {
-    this.eDSARequestValidator = eDSARequestValidator;
+  public final void setcADRequestValidator(final CADRequestValidator eDSARequestValidator) {
+    this.cADRequestValidator = eDSARequestValidator;
   }
 
-  public final CADInternalService geteDSAInternalService() {
-    return eDSAInternalService;
+  public final CADInternalService getcADInternalService() {
+    return cADInternalService;
   }
 
-  public final void seteDSAInternalService(final CADInternalService eDSAInternalService) {
-    this.eDSAInternalService = eDSAInternalService;
+  public final void setcADInternalService(final CADInternalService cADInternalService) {
+    this.cADInternalService = cADInternalService;
   }
 }

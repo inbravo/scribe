@@ -21,34 +21,6 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<property name="targetMethod" value="initLogging" />
 		<property name="arguments"><list><value>classpath:cad-log4j.properties</value></list></property>
 	</bean>
-	
-	<bean id="ldapService" class="com.inbravo.cad.internal.ldap.PooledLDAPService" scope="singleton">
-		<constructor-arg type="java.lang.String"><value>${Initial_Context_Factory}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Provider_URL}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Security_Principal}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Security_Credential}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Security_Authentication}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Use_Connection_Pooling}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Pool_Init_Size}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Pool_Max_Size}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Pool_Object_Timeout}</value></constructor-arg>
-	</bean>
-
-	<bean id="agentInfoServiceImpl" class="com.inbravo.cad.internal.service.AgentInfoServiceImpl" scope="singleton">
-		<constructor-arg type="java.lang.String"><value>${Split_String}</value></constructor-arg>
-		<constructor-arg><ref bean="ldapService"/></constructor-arg>
-	</bean>
-	
-	<bean id="tenantInfoServiceImpl" class="com.inbravo.cad.internal.service.TenantInfoServiceImpl" scope="singleton">
-		<constructor-arg><ref bean="olapDBService"/></constructor-arg>
-		<constructor-arg><ref bean="ldapService"/></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Crm_Login_Id_Property}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Crm_Login_Password_Property}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Crm_Integration_Type}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Crm_Service_URL}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${Crm_Service_Protocol}</value></constructor-arg>
-		<constructor-arg type="java.lang.String"><value>${CTL_CRM_Const}</value></constructor-arg>
-	</bean>
 
 	<bean id="salesForceSOAPClient" class="com.inbravo.cad.rest.service.crm.sf.SalesForceSOAPClient" scope="singleton">
 		<property name="clientId"><value>${ClientId}</value></property>
@@ -65,10 +37,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	
 	<bean id="salesForceCRMSessionManager" class="com.inbravo.cad.rest.service.crm.sf.session.SalesForceCRMSessionManager" scope="singleton">
 		<property name="salesForceSOAPClient" ref="salesForceSOAPClient" />
-		<property name="agentInfoService" ref="agentInfoServiceImpl" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
+
 		<property name="cRMSessionCache" ref="cRMSessionCache" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
 	</bean>
 	
 	<bean id="sFSOAPCRMService" class="com.inbravo.cad.rest.service.crm.SFSOAPCRMService">
@@ -81,11 +51,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	<bean id="sOAPExecutor" class="com.inbravo.cad.rest.service.crm.ms.auth.SOAPExecutor" scope="prototype"/>	
 	
 	<bean id="mSCRMSessionManagerFactory" class="com.inbravo.cad.rest.service.crm.ms.session.MSCRMSessionManagerFactory" scope="singleton">
-		<property name="agentInfoService" ref="agentInfoServiceImpl" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
 		<property name="cRMSessionCache" ref="cRMSessionCache" />
 		<property name="mSAuthManager" ref="mSLiveIdManager" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
 	</bean>
 	
 	<!-- MS CRM v4 services -->
@@ -111,11 +78,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	</bean>			
 	
 	<bean id="mSCRMLiveIdSessionManager" class="com.inbravo.cad.rest.service.crm.ms.session.MSCRMLiveIdSessionManager" scope="singleton">
-		<property name="agentInfoService" ref="agentInfoServiceImpl" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
 		<property name="cRMSessionCache" ref="cRMSessionCache" />
 		<property name="mSCRMDiscoveryManager" ref="mSCRMDiscoveryManager" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
 	</bean>
 	
 	<bean id="mSCRMV4AccountService" class="com.inbravo.cad.rest.service.crm.ms.v4.MSCRMV4AccountService" scope="prototype">
@@ -167,11 +131,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	</bean>
 	
 	<bean id="mSCRMOffice365SessionManager" class="com.inbravo.cad.rest.service.crm.ms.session.MSCRMOffice365SessionManager" scope="singleton">
-		<property name="agentInfoService" ref="agentInfoServiceImpl" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
 		<property name="cRMSessionCache" ref="cRMSessionCache" />
 		<property name="mSOffice365AuthManager" ref="mSOffice365AuthManager" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
 	</bean>
 	
 	<bean id="mSCRMOffice365basedServiceManager" class="com.inbravo.cad.rest.service.crm.ms.v5.MSCRMOffice365basedServiceManager" scope="prototype">
@@ -236,22 +197,17 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	<bean id="mSSOAPCRMService" class="com.inbravo.cad.rest.service.crm.MSSOAPCRMService" scope="prototype">
 		<property name="mSCRMV4ObjectService" ref="mSCRMV4ObjectService" />
 		<property name="mSCRMV5ObjectService" ref="mSCRMV5ObjectService" />
-		<property name="agentInfoService" ref="agentInfoServiceImpl" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
 		<property name="cRMSessionCache" ref="cRMSessionCache" />
 		<property name="mSAuthManager" ref="mSOffice365AuthManager" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
 	</bean>
 	
 	<!-- Zendesk CRM implementation beans -->		
 	<bean id="zDAuthManager" class="com.inbravo.cad.rest.service.crm.zd.auth.basic.ZDBasicAuthManager" scope="prototype"/>
 	
 	<bean id="zDCRMSessionManager" class="com.inbravo.cad.rest.service.crm.zd.session.ZDCRMSessionManager" scope="singleton">
-		<property name="agentInfoService" ref="agentInfoServiceImpl" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
 		<property name="cRMSessionCache" ref="cRMSessionCache" />
 		<property name="zDAuthManager" ref="zDAuthManager" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
+
 	</bean>
 
 	<bean id="zDRESTCRMService" class="com.inbravo.cad.rest.service.crm.zd.ZDV2RESTCRMService" scope="prototype">
@@ -265,11 +221,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	<bean id="zHAuthManager" class="com.inbravo.cad.rest.service.crm.zh.auth.basic.ZHBasicAuthManager" scope="prototype"/>
 	
 	<bean id="zHCRMSessionManager" class="com.inbravo.cad.rest.service.crm.zh.session.ZHCRMSessionManager" scope="singleton">
-		<property name="agentInfoService" ref="agentInfoServiceImpl" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
 		<property name="cRMSessionCache" ref="cRMSessionCache" />
 		<property name="zHAuthManager" ref="zHAuthManager" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
 	</bean>
 	
 	<bean id="zHRESTCRMService" class="com.inbravo.cad.rest.service.crm.ZHRESTCRMService" scope="prototype">
@@ -282,109 +235,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<property name="permittedDateFormats"><value>${Permitted_Input_Date_Formats}</value></property>
 	</bean>
 	
-	<bean id="cADRequestValidator" class="com.inbravo.cad.rest.service.validator.CADRequestValidator" scope="prototype">
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
-		<property name="enableQueryParamDecoding"><value>${Enable_Request_Param_Decoding}</value></property>
-		<property name="urlEncodingType"><value>${Request_Param_Decoding_Type}</value></property>
-		<property name="tenantSchemaConst"><value>${Tenant_DB_Schema_Id}</value></property>
-	</bean>
-	
 	<!-- Utility class for OLTP logging -->
 	<bean id="mutualDiagnosticLogUtils" class="com.inbravo.cad.rest.service.log.MutualDiagnosticLogUtils" scope="prototype"/>
-
-	<!-- LDAP query services -->
-	<bean id="lDAPAgentSkillsQueryService" class="com.inbravo.cad.rest.service.ldap.LDAPAgentSkillsQueryService" scope="prototype">
-		<constructor-arg type="java.lang.String"><value>${Split_String}</value></constructor-arg>
-		<constructor-arg><ref bean="ldapService"/></constructor-arg>
-	</bean>
-	
-	<bean id="lDAPQueueSkillsQueryService" class="com.inbravo.cad.rest.service.ldap.LDAPQueueSkillsQueryService" scope="prototype">
-		<constructor-arg type="java.lang.String"><value>${Split_String}</value></constructor-arg>
-		<constructor-arg><ref bean="ldapService"/></constructor-arg>
-	</bean>
-	
-	<bean id="lDAPScheduleQueryService" class="com.inbravo.cad.rest.service.ldap.LDAPScheduleQueryService" scope="prototype">
-		<constructor-arg type="java.lang.String"><value>${Split_String}</value></constructor-arg>
-		<constructor-arg><ref bean="ldapService"/></constructor-arg>
-	</bean>
-	
-	<!-- Utility class for OLTP DB interface -->
-	<bean id="oLTPDirectDBCreateUtils" class="com.inbravo.cad.rest.service.directdb.oltp.OLTPDirectDBCreateUtils" scope="prototype"/>
-	
-	<!-- Provide separate DB service for this class -->
-	<bean id="oLTPDirectDBService" class="com.inbravo.cad.rest.service.directdb.oltp.OLTPDirectDBService">
-		<property name="dBService" ref="directOLTPDBService" />
-		<property name="oLTPDirectDBCreateUtils" ref="oLTPDirectDBCreateUtils" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
-		<property name="cRMSessionCache" ref="cRMSessionCache" />
-		<property name="cADRequestValidator" ref="cADRequestValidator" />
-		<property name="tenantDBSchemaNamePattern"><value>${Tenant_DB_Schema_Name_Pattern}</value></property>
-		<property name="mutualDiagnosticLogUtils" ref="mutualDiagnosticLogUtils" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
-	</bean>
-	
-	<!-- Provide separate recording DB service for this class -->
-	<bean id="oLTPRCDGDirectDBService" class="com.inbravo.cad.rest.service.directdb.oltp.OLTPRCDGDirectDBService">
-		<property name="dBService" ref="directOLTPRecordingDBService" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
-		<property name="cRMSessionCache" ref="cRMSessionCache" />
-		<property name="cADRequestValidator" ref="cADRequestValidator" />
-		<property name="tenantDBSchemaNamePattern"><value>${Tenant_DB_Schema_Name_Pattern}</value></property>
-		<property name="mutualDiagnosticLogUtils" ref="mutualDiagnosticLogUtils" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
-	</bean>
-	
-	<!-- Use OLTP DB service for this class -->
-	<bean id="oLTPDirectDBAttachmentService" class="com.inbravo.cad.rest.service.directdb.oltp.OLTPDirectDBAttachmentService">
-		<property name="dBService" ref="directOLTPCCMDBService" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
-		<property name="cRMSessionCache" ref="cRMSessionCache" />
-		<property name="cADRequestValidator" ref="cADRequestValidator" />
-		<property name="tenantDBSchemaNamePattern"><value>${Tenant_DB_Schema_Name_Pattern}</value></property>
-		<property name="mutualDiagnosticLogUtils" ref="mutualDiagnosticLogUtils" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
-		<property name="tempFolderLocation"><value>${Temp_Folder_Location}</value></property>
-		<property name="maxBlobSizeAllowed"><value>${Max_File_Size_Allowed}</value></property>
-	</bean>
-	
-	<!-- Provide separate DB service for this class -->
-	<bean id="oLAPDirectDBService" class="com.inbravo.cad.rest.service.directdb.olap.OLAPDirectDBService">
-		<property name="dBService" ref="directOLAPDBService" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
-		<property name="cRMSessionCache" ref="cRMSessionCache" />
-		<property name="cADRequestValidator" ref="cADRequestValidator" />
-		<property name="tenantDBSchemaNamePattern"><value>${Tenant_DB_Schema_Name_Pattern}</value></property>
-		<property name="mutualDiagnosticLogUtils" ref="mutualDiagnosticLogUtils" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
-	</bean>
-	
-	<bean id="cTLCRMDBCustomerService" class="com.inbravo.cad.rest.service.crm.ctl.CTLCRMDBCustomerService">
-		<property name="dBService" ref="oltpDBService" />
-		<property name="cRMSessionCache" ref="cRMSessionCache" />
-		<property name="splitString"><value>${Split_String}</value></property>
-		<property name="crmFieldsSeparator"><value>${CRM_Field_Separator}</value></property>
-		<property name="orderFieldsSeparator"><value>${Order_By_Field_Separator}</value></property>
-		<property name="defaultQueryBatchSize"><value>${CTL_CRM_Batch_Size}</value></property>
-		<property name="batchStringSeperator"><value>${CTL_CRM_Batch_String_Separator}</value></property>
-	</bean>
-	
-	<bean id="cTLCRMDBContactService" class="com.inbravo.cad.rest.service.crm.ctl.CTLCRMDBContactService">
-		<property name="dBService" ref="oltpDBService" />
-		<property name="cRMSessionCache" ref="cRMSessionCache" />
-		<property name="splitString"><value>${Split_String}</value></property>
-		<property name="crmFieldsSeparator"><value>${CRM_Field_Separator}</value></property>
-		<property name="orderFieldsSeparator"><value>${Order_By_Field_Separator}</value></property>
-	</bean>
-	
-	<bean id="cTLCRMDBCaseService" class="com.inbravo.cad.rest.service.crm.ctl.CTLCRMDBCaseService">
-		<property name="dBService" ref="oltpDBService" />
-		<property name="splitString"><value>${Split_String}</value></property>
-	</bean>
-	
-	<bean id="cTLCRMDBFollowUpService" class="com.inbravo.cad.rest.service.crm.ctl.CTLCRMDBFollowUpService">
-		<property name="dBService" ref="oltpDBService" />
-		<property name="splitString"><value>${Split_String}</value></property>
-	</bean>
 	
 	<!-- NetSuite CRM implementation beans -->
 	<bean id="clientInfoProvidor" class="com.inbravo.cad.rest.service.crm.ns.v2k9.NSCRMV2k9ClientInfoProvidor" scope="prototype">
@@ -398,11 +250,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	
 	<bean id="netSuiteCRMSessionManager" class="com.inbravo.cad.rest.service.crm.ns.session.NetSuiteCRMSessionManager" scope="singleton">
 		<property name="netSuiteSOAPClient" ref="netSuiteSOAPClient" />
-		<property name="agentInfoService" ref="agentInfoServiceImpl" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
 		<property name="cRMSessionCache" ref="cRMSessionCache" />
 		<property name="clientInfoProvidor" ref="clientInfoProvidor" />
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
 	</bean>
 	
 	<bean id="nSCRMGenericService" class="com.inbravo.cad.rest.service.crm.ns.v2k9.NSCRMV2K9Service"/>	
@@ -417,22 +266,13 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	</bean>
 
 	<bean id="cRMServiceFactory" class="com.inbravo.cad.rest.service.crm.factory.CRMServiceFactory" scope="singleton">
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
-		<property name="agentInfoService" ref="agentInfoServiceImpl" />
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
 		<property name="cRMSessionCache" ref="cRMSessionCache" />
 		<property name="sfdcCRMEnabled"><value>${SFDC_Enabled}</value></property>
-		<property name="wapiCRMEnabled"><value>${WAPI_Enabled}</value></property>	
 		<property name="zendeskCRMEnabled"><value>${ZD_Enabled}</value></property>	
 		<property name="netsuiteCRMEnabled"><value>${NS_Enabled}</value></property>	
 		<property name="zohoCRMEnabled"><value>${ZH_Enabled}</value></property>	
-		<property name="contactualCRMEnabled"><value>${CTL_CRM_Enabled}</value></property>	
 		<property name="microsoftCRMEnabled"><value>${MS_CRM_Enabled}</value></property>	
 		<property name="salesForceCRMConst"><value>${SFDC_CRM_Const}</value></property>
-		<property name="salesForceWCRMConst"><value>${SFDC_WC_CRM_Const}</value></property>
-		<property name="mashUpURLConst"><value>${Mashup_URL_Const}</value></property>	
-		<property name="customCRMConst"><value>${Custom_CRM_Const}</value></property>	
-		<property name="contactualCRMConst"><value>${CTL_CRM_Const}</value></property>	
 		<property name="microsoftCRMConst"><value>${MS_CRM_Const}</value></property>	
 		<property name="zendeskCRMConst"><value>${ZD_CRM_Const}</value></property>	
 		<property name="netsuiteCRMConst"><value>${NS_CRM_Const}</value></property>	
@@ -443,32 +283,17 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<property name="crmServiceFactory" ref="cRMServiceFactory" />
 	</bean>
 	
-	<bean id="directDBServiceFactory" class="com.inbravo.cad.rest.service.directdb.factory.DirectDBServiceFactory" scope="prototype">
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
-		<property name="cRMSessionCache" ref="cRMSessionCache" />
-	</bean>
-	
-	<bean id="lDAPQueryServiceFactory" class="com.inbravo.cad.rest.service.ldap.factory.LDAPQueryServiceFactory" scope="prototype">
-		<property name="agentIdSplitCharacter"><value>${Split_String}</value></property>
-		<property name="tenantInfoService" ref="tenantInfoServiceImpl" />
-		<property name="cRMSessionCache" ref="cRMSessionCache" />
-	</bean>
-
 	<bean id="cADInternalService" class="com.inbravo.cad.rest.service.basic.CADInternalService" scope="prototype">
-		<property name="directDBServiceFactory" ref="directDBServiceFactory" />
 		<property name="cRMServiceFactory" ref="cRMServiceFactory" />
-		<property name="lDAPQueryServiceFactory" ref="lDAPQueryServiceFactory" />
 	</bean>
 	
-	<bean id="cADExceptionMapper" class="com.inbravo.cad.exception.CADExceptionMapper" >
-	</bean>
+	<bean id="cADExceptionMapper" class="com.inbravo.cad.exception.CADExceptionMapper"/>
 		
 	<bean id="cADLogService" class="com.inbravo.cad.rest.service.CADLogService"/>
 	
-	<bean id="cRMSessionService" class="com.inbravo.cad.rest.service.CRMSessionService">
-		<property name="cRMSessionFactory" ref="cRMSessionFactory" />
-		<property name="cADRequestValidator" ref="cADRequestValidator" />
+	<bean id="cADRequestValidator" class="com.inbravo.cad.rest.service.validator.CADRequestValidator" scope="prototype">
+		<property name="enableQueryParamDecoding"><value>${Enable_Request_Param_Decoding}</value></property>
+		<property name="urlEncodingType"><value>${Request_Param_Decoding_Type}</value></property>
 	</bean>
 	
 	<bean id="cADObjectService" class="com.inbravo.cad.rest.service.CADObjectService">

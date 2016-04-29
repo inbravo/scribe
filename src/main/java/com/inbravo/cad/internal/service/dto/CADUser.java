@@ -6,6 +6,8 @@ import java.util.StringTokenizer;
 
 import org.apache.axis.client.Stub;
 
+import com.inbravo.cad.rest.resource.CADCommandObject;
+
 /**
  * 
  * @author amit.dixit
@@ -54,6 +56,10 @@ public final class CADUser implements BasicObject {
   private String[] crmSecurityToken;
 
   private Map<String, String> additionalInfo;
+
+  private CADUser() {
+
+  }
 
   public final String getCrmName() {
     return crmName;
@@ -284,6 +290,18 @@ public final class CADUser implements BasicObject {
     if (crmSecurityToken != null) {
       this.crmSecurityToken = crmSecurityToken.clone();
     }
+  }
+
+  public static final CADUser build(final CADCommandObject cADCommandObject) {
+
+    /* Create new cad user */
+    final CADUser user = new CADUser();
+
+    user.setCrmUserId(cADCommandObject.getCrmUserId());
+    user.setCrmPassword(cADCommandObject.getCrmPassword());
+    user.setCrmName(cADCommandObject.getCrmType());
+
+    return user;
   }
 
   /*

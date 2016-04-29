@@ -57,7 +57,7 @@ public final class CADObject {
   @Override
   public final String toString() {
 
-    String returnString = "EDSAObject [ObjectType=" + ObjectType;
+    String returnString = "CADObject [ObjectType=" + ObjectType;
     returnString = returnString + ", xmlContent=";
 
     if (xmlContent != null) {

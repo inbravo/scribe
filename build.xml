@@ -4,13 +4,13 @@
 
 	<property name="tomcat.home" location="D:/opensource/Tomcat_7_40" />
 
-	<property name="properties.dir" location="${basedir}/Properties" />
+	<property name="properties.dir" location="${basedir}/src/main/resources" />
 	<property name="reports.dir" location="${tomcat.home}/webapps/cad_reports" />
-	<property name="src.dir" location="${basedir}/JavaSource/src" />
-	<property name="web.content.dir" location="${basedir}/WebContent" />
+	<property name="src.dir" location="${basedir}/src/main/java" />
+	<property name="web.content.dir" location="${basedir}/src/webapp" />
 	<property name="build.classes.dir" location="${web.content.dir}/WEB-INF/classes" />
 	<property name="war.dir" location="${build.dir}/" />
-	<property name="lib.dir" value="${basedir}/WebContent/WEB-INF/lib" />
+	<property name="lib.dir" value="${web.content.dir}/WEB-INF/lib" />
 	<property name="war.file.name" value="cad" />
 
 	<path id="project.classpath">
@@ -29,11 +29,11 @@
 		<echo message="==========================================================" />
 		<mkdir dir="${build.classes.dir}" />
 		<javac destdir="${build.classes.dir}" debug="true">
-			<src path="${basedir}/JavaSource/src" />
+			<src path="${basedir}/src/main/java" />
 			<classpath refid="project.classpath" />
 		</javac>
 		<copy todir="${build.classes.dir}">
-			<fileset dir="${basedir}/JavaSource/src" includes="**/*.xml, **/*.txt" />
+			<fileset dir="${basedir}/src/main/java" includes="**/*.xml, **/*.txt" />
 		</copy>
 		<echo message="==========================================================" />
 		<echo message="Copying properties files" />
@@ -61,7 +61,7 @@
 		<echo message="Going for checkstyle check" />
 		<echo message="==========================================================" />
 		<checkstyle config="${checkstyle.config.file}">
-			<fileset dir="${basedir}/JavaSource/src" includes="**/*.java" />
+			<fileset dir="${basedir}/src/main/java" includes="**/*.java" />
 			<classpath>
 				<pathelement path="${project.classpath}" />
 			</classpath>

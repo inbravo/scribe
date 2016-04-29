@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "EDSA")
+@XmlRootElement(name = "CAD")
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class CADCommandObject {
 
@@ -23,7 +23,7 @@ public final class CADCommandObject {
 
   private String ObjectType;
 
-  @XmlElement(name = "CRMType")
+  @XmlElement(name = "CrmType")
   private String crmType;
 
   @XmlElement(name = "Batch")

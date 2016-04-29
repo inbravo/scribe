@@ -20,8 +20,6 @@ public final class CADRequestValidator {
 
   private String urlEncodingType;
 
-  private String agentIdSplitCharacter;
-
   private String enableQueryParamDecoding;
 
   private String tenantSchemaConst = "$tenantDBSchema$";
@@ -45,13 +43,6 @@ public final class CADRequestValidator {
 
         /* Inform user about invalid request */
         throw new CADException(CADResponseCodes._1008 + "CRM information is not present in request");
-      }
-
-      /* Create Exception if agent is in perfect shape */
-      if (cADCommandObject.getCrmUserId() != null) {
-
-        /* Inform user about invalid request */
-        throw new CADException(CADResponseCodes._1008 + "CRM User information is not valid");
       }
 
       /* Check for a valid input Object */
@@ -128,14 +119,6 @@ public final class CADRequestValidator {
       /* Inform user about invalid request */
       throw new CADException(CADResponseCodes._1008 + "Agent/Tenant id is not found in request");
     }
-  }
-
-  public final String getCrmUserIdIdSplitCharacter() {
-    return agentIdSplitCharacter;
-  }
-
-  public final void setCrmUserIdIdSplitCharacter(final String agentIdSplitCharacter) {
-    this.agentIdSplitCharacter = agentIdSplitCharacter;
   }
 
   public final String getEnableQueryParamDecoding() {

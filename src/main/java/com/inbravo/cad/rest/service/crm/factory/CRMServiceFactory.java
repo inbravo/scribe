@@ -47,19 +47,13 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
   /* Boolean value to Contactual CRM */
   private boolean contactualCRMEnabled;
 
-  /* SCRM session cache for holding tenant/agent */
+  /* SCRM session cache for holding user/agent */
   private CRMSessionCache cRMSessionCache;
 
   private ApplicationContext applicationContext;
 
   /* Constant for holding SFDC CRM name */
   private String salesForceCRMConst = CRMConstants.salesForceCRM;
-
-  /* Constant for holding SFDC CRM name */
-  private String salesForceWCRMConst = CRMConstants.salesForceWCRM;
-
-  /* Constant for Custom SFDC CRM name */
-  private String customCRMConst = CRMConstants.customCRM;
 
   /* Constant for holding MS CRM name */
   private String microsoftCRMConst = CRMConstants.microsoftCRM;
@@ -74,8 +68,7 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
   private String zohoCRMConst = CRMConstants.zohoCRM;
 
   /**
-   * This method will check the tenant/agent configuration and instantiate the relevant service
-   * class
+   * This method will check the user/agent configuration and instantiate the relevant service class
    * 
    * @return
    */
@@ -84,22 +77,25 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
     logger.debug("---Inside getService");
     CRMService cRMService = null;
 
-    /* Get the tenant from request */
+    /* Get the user from request */
     final String id = cADCommandObject.getCrmUserId();
 
-    /* Create an empty tenant object */
+    /* Create an empty user object */
     CADUser user = null;
 
     /* Pick information from cache if batch request */
     if (cADCommandObject.getBatch() != null) {
 
-      logger.debug("---Inside getService: found a batch request. Going to fetch cached tenant information");
+      logger.debug("---Inside getService: found a batch request. Going to fetch cached user information");
 
-      /* Check if tenant in cache */
+      /* Check if user in cache */
       user = (CADUser) cRMSessionCache.recover(id);
+    } else {
+
+      user = CADUser.build(cADCommandObject);
     }
 
-    /* Validate tenant CRM information */
+    /* Validate user CRM information */
     if (user.getCrmName() == null) {
 
       /* Inform user about missing property */
@@ -120,18 +116,6 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
         throw new CADException(CADResponseCodes._1003 + "Following CRM: " + user.getCrmName() + " : integration is not enabled");
       }
 
-    } else if (user.getCrmName().contains(customCRMConst)) {
-
-      /* Check if WAPI is enabled */
-      if (wapiCRMEnabled) {
-
-        /* Retrieve WAPI implementation */
-        cRMService = (CRMService) getApplicationContext().getBean("wAPICRMService");
-      } else {
-
-        /* Inform user about missing implementation */
-        throw new CADException(CADResponseCodes._1003 + "Following CRM: " + user.getCrmName() + " : integration is not enabled");
-      }
     } else if (user.getCrmName().contains(microsoftCRMConst)) {
 
       /* Check if Microsoft CRM is enabled */
@@ -187,7 +171,7 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
     }
 
 
-    /* Save this tenant in cache */
+    /* Save this user in cache */
     cRMSessionCache.admit(id, user);
 
     return cRMService;
@@ -216,22 +200,6 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
 
   public final void setSalesForceCRMConst(final String salesForceCRMConst) {
     this.salesForceCRMConst = salesForceCRMConst;
-  }
-
-  public final String getSalesForceWCRMConst() {
-    return salesForceWCRMConst;
-  }
-
-  public final void setSalesForceWCRMConst(final String salesForceWCRMConst) {
-    this.salesForceWCRMConst = salesForceWCRMConst;
-  }
-
-  public final String getCustomCRMConst() {
-    return customCRMConst;
-  }
-
-  public final void setCustomCRMConst(final String customCRMConst) {
-    this.customCRMConst = customCRMConst;
   }
 
   public final String getMicrosoftCRMConst() {

@@ -39,9 +39,7 @@ public final class CRMSessionFactory implements ApplicationContextAware {
 
     logger.debug("---Inside getCRMSessionManager crmType: " + crmType);
 
-    logger.debug("---Inside getCRMSessionManager crmType: " + crmType);
-
-    if (crmType.equalsIgnoreCase(crmServiceFactory.getSalesForceCRMConst()) || crmType.equalsIgnoreCase(crmServiceFactory.getSalesForceWCRMConst())) {
+    if (crmType.equalsIgnoreCase(crmServiceFactory.getSalesForceCRMConst())) {
 
       /* Retrieve Sales Force CRM session manager */
       return (CRMSessionManager) getApplicationContext().getBean("salesForceCRMSessionManager");

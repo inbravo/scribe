@@ -24,21 +24,16 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * This is a class to test the EDSA Change edsaURL and test files path testFolder
+ * This is a class to test the CAD Change edsaURL and test files path testFolder
  * 
  * @author amit.dixit
  * 
  */
 public class HTTPClient {
 
-  private static final String edsaURL = "http://vm05dev185:8080/edsa";
+  private static final String cadURL = "http://localhost:8080/cad";
 
-  private static String wapiTenant = "dev5ctl";
-
-  private static String wapiAgent = "crmtest~~ag1";
-
-  /* "C:/work/workspace/EDSA_TEST/src/com.inbravo.cad/test/" */
-  private static String testFolder = "D:\\work\\contactual_source\\trunk\\WEB\\EDSA\\Resources\\test-files\\";
+  private static String testFolder = "D:/personal/mygithub/cad/docs/test-files/";
 
   public static void main(final String[] args) throws Exception {
 
@@ -159,7 +154,7 @@ public class HTTPClient {
 
     File input = new File(testFolder + "Account.xml");
     PostMethod post =
-        new PostMethod(edsaURL + "/object/User?_type=xml&externalServiceType=FBMC&externalUsername=8x8webservice&externalPassword=E4qtjWZLYKre");
+        new PostMethod(cadURL + "/object/User?_type=xml&externalServiceType=FBMC&externalUsername=8x8webservice&externalPassword=E4qtjWZLYKre");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -178,7 +173,7 @@ public class HTTPClient {
     System.out.println("Sent HTTP PUT request to update Account");
     File input = new File(testFolder + "Account.xml");
     PutMethod put =
-        new PutMethod(edsaURL + "/object/User?_type=xml&externalServiceType=FBMC&externalUsername=8x8webservice&externalPassword=E4qtjWZLYKre");
+        new PutMethod(cadURL + "/object/User?_type=xml&externalServiceType=FBMC&externalUsername=8x8webservice&externalPassword=E4qtjWZLYKre");
     put.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     put.setRequestEntity(entity);
@@ -211,7 +206,7 @@ public class HTTPClient {
 
     URL url = null;
     try {
-      url = new URL(edsaURL + "/object/account/" + accountId + "?_type=xml&agent=sfdcten~~ag1");
+      url = new URL(cadURL + "/object/account/" + accountId + "?_type=xml&agent=sfdcten~~ag1");
     } catch (MalformedURLException mue) {
       System.err.println(mue);
     }
@@ -231,7 +226,7 @@ public class HTTPClient {
   private static void createCustomer() throws HttpException, IOException {
     System.out.println("Sent HTTP POST request to add Customer");
     File input = new File(testFolder + "Customer.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/customer?_type=xml");
+    PostMethod post = new PostMethod(cadURL + "/object/customer?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -249,7 +244,7 @@ public class HTTPClient {
   private static void updateCustomer() throws HttpException, IOException {
     System.out.println("Sent HTTP PUT request to update Customer");
     File input = new File(testFolder + "Customer.xml");
-    PutMethod put = new PutMethod(edsaURL + "/object/customer?_type=xml");
+    PutMethod put = new PutMethod(cadURL + "/object/customer?_type=xml");
     put.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     put.setRequestEntity(entity);
@@ -267,7 +262,7 @@ public class HTTPClient {
   private static void createLead() throws HttpException, IOException {
     System.out.println("Sent HTTP POST request to create Lead");
     File input = new File(testFolder + "Lead.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/lead?_type=xml");
+    PostMethod post = new PostMethod(cadURL + "/object/lead?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -285,7 +280,7 @@ public class HTTPClient {
   private static void createContact() throws HttpException, IOException {
     System.out.println("Sent HTTP POST request to createContact");
     File input = new File(testFolder + "Contact.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/oltp?_type=xml");
+    PostMethod post = new PostMethod(cadURL + "/object/oltp?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -303,7 +298,7 @@ public class HTTPClient {
   private static void updateContact() throws HttpException, IOException {
     System.out.println("Sent HTTP POST request to createContact");
     File input = new File(testFolder + "Contact.xml");
-    PutMethod put = new PutMethod(edsaURL + "/object/oltp?_type=xml");
+    PutMethod put = new PutMethod(cadURL + "/object/oltp?_type=xml");
     put.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     put.setRequestEntity(entity);
@@ -321,7 +316,7 @@ public class HTTPClient {
   private static void createFAQCatagory() throws HttpException, IOException {
     System.out.println("Sent HTTP POST request to createFAQCatagory");
     File input = new File(testFolder + "FAQCatagory.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/faqcategory?_type=xml");
+    PostMethod post = new PostMethod(cadURL + "/object/faqcategory?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -342,7 +337,7 @@ public class HTTPClient {
 
       new Thread() {
         public void run() {
-          GetMethod post = new GetMethod(edsaURL + "/object/customer?_type=xml&tenant=dev1ten2");
+          GetMethod post = new GetMethod(cadURL + "/object/customer?_type=xml&tenant=dev1ten2");
           post.addRequestHeader("Content-Type", "application/xml");
           HttpClient httpclient = new HttpClient();
           try {
@@ -365,23 +360,12 @@ public class HTTPClient {
 
   private static void login() throws HttpException, IOException {
     System.out.println("Sent HTTP POST request to createContact");
-    PostMethod post = new PostMethod(edsaURL + "/login/" + wapiTenant);
-    post.addRequestHeader("Content-Type", "text/xml");
-    HttpClient httpclient = new HttpClient();
-    try {
-      System.out.println("URI: " + post.getURI());
-      int result = httpclient.executeMethod(post);
-      System.out.println("Response status code: " + result);
-      System.out.println("Response body: " + post.getResponseBodyAsString());
-    } finally {
-      post.releaseConnection();
-    }
   }
 
   private static void createUser() throws HttpException, IOException {
 
     File input = new File(testFolder + "User.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/user?_type=xml&batch=dummy");
+    PostMethod post = new PostMethod(cadURL + "/object/user?_type=xml&batch=dummy");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -400,7 +384,7 @@ public class HTTPClient {
   private static void updateUser() throws HttpException, IOException {
 
     File input = new File(testFolder + "User.xml");
-    PutMethod put = new PutMethod(edsaURL + "/object/user?_type=xml");
+    PutMethod put = new PutMethod(cadURL + "/object/user?_type=xml");
     put.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     put.setRequestEntity(entity);
@@ -416,46 +400,13 @@ public class HTTPClient {
   }
 
   private static void deleteUser() throws HttpException, IOException, Exception {
-
     System.out.println("Sent HTTP DELETE request to delete Account");
-    String id = null;
-    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-    Document doc = docBuilder.parse(new File(testFolder + "User.xml"));
-    NodeList nodeList = doc.getElementsByTagName("id");
-    if (nodeList != null) {
-      for (int i = 0; i <= nodeList.getLength(); i++) {
-        Node accountIdNode = nodeList.item(i);
-        if (accountIdNode != null) {
-          System.out.println("user Id " + accountIdNode.getTextContent());
-          id = accountIdNode.getTextContent();
-        }
-      }
-    }
-
-    URL url = null;
-    try {
-      url = new URL(edsaURL + "/object/user/" + id + "?_type=xml&agent=" + wapiAgent);
-    } catch (MalformedURLException mue) {
-      System.err.println(mue);
-    }
-
-    DeleteMethod delete = new DeleteMethod(url.toString());
-    HttpClient httpclient = new HttpClient();
-    try {
-      System.out.println("URI: " + delete.getURI());
-      int result = httpclient.executeMethod(delete);
-      System.out.println("Response status code: " + result);
-      System.out.println("Response body: " + delete.getResponseBodyAsString());
-    } finally {
-      delete.releaseConnection();
-    }
   }
 
   private static void createTask() throws HttpException, IOException {
 
     File input = new File(testFolder + "Task.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/task?_type=xml");
+    PostMethod post = new PostMethod(cadURL + "/object/task?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -473,7 +424,7 @@ public class HTTPClient {
   private static void createSupportCase() throws HttpException, IOException {
 
     File input = new File(testFolder + "SupportCase.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/supportcase?_type=xml");
+    PostMethod post = new PostMethod(cadURL + "/object/supportcase?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -491,7 +442,7 @@ public class HTTPClient {
   private static void createPhoneCall() throws HttpException, IOException {
 
     File input = new File(testFolder + "PhoneCall.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/phonecall?_type=xml");
+    PostMethod post = new PostMethod(cadURL + "/object/phonecall?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -509,7 +460,7 @@ public class HTTPClient {
   private static void createOpportunity() throws HttpException, IOException {
 
     File input = new File(testFolder + "Opportunity.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/opportunity?_type=xml");
+    PostMethod post = new PostMethod(cadURL + "/object/opportunity?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -527,7 +478,7 @@ public class HTTPClient {
   private static void createIncident() throws HttpException, IOException {
 
     File input = new File(testFolder + "Incident.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/incident?_type=xml");
+    PostMethod post = new PostMethod(cadURL + "/object/incident?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -545,7 +496,7 @@ public class HTTPClient {
   private static void createCase() throws HttpException, IOException {
 
     File input = new File(testFolder + "Case.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/oltp?_type=xml");
+    PostMethod post = new PostMethod(cadURL + "/object/oltp?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -563,7 +514,7 @@ public class HTTPClient {
   private static void updateCase() throws HttpException, IOException {
 
     File input = new File(testFolder + "Case.xml");
-    PutMethod post = new PutMethod(edsaURL + "/object/oltp?_type=xml");
+    PutMethod post = new PutMethod(cadURL + "/object/oltp?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -581,7 +532,7 @@ public class HTTPClient {
   private static void createFollowup() throws HttpException, IOException {
 
     File input = new File(testFolder + "Followup.xml");
-    PostMethod post = new PostMethod(edsaURL + "/object/oltp?_type=xml");
+    PostMethod post = new PostMethod(cadURL + "/object/oltp?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);
@@ -599,7 +550,7 @@ public class HTTPClient {
   private static void updateFollowup() throws HttpException, IOException {
 
     File input = new File(testFolder + "Followup.xml");
-    PutMethod post = new PutMethod(edsaURL + "/object/oltp?_type=xml");
+    PutMethod post = new PutMethod(cadURL + "/object/oltp?_type=xml");
     post.addRequestHeader("Content-Type", "application/xml");
     RequestEntity entity = new FileRequestEntity(input, "text/xml; charset=ISO-8859-1");
     post.setRequestEntity(entity);

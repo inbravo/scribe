@@ -5,3 +5,5 @@ target/
 /bin/
 
 *.cache-main
+src/webapp/WEB-INF/lib/cad.jar
+cad.war
