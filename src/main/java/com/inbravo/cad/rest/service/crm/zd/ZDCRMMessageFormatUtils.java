@@ -162,7 +162,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
    */
   public static final String getCreateRequestXML(final CADCommandObject cADCommandObject) {
 
-    /* Iterate over EDSA object and create XML request */
+    /* Iterate over CAD object and create XML request */
     if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length == 1) {
       final CADObject cADbject = cADCommandObject.getcADObject()[0];
       final List<Element> elementList = cADbject.getXmlContent();
@@ -192,7 +192,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
    */
   public static final String getCreateRequestJSON(final CADCommandObject cADCommandObject) throws JAXBException {
 
-    /* Iterate over EDSA object and create JSON request */
+    /* Iterate over CAD object and create JSON request */
     if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length == 1) {
 
       final CADObject cADbject = cADCommandObject.getcADObject()[0];
@@ -219,7 +219,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
       } else {
 
         /* Throw user error */
-        throw new CADException(CADResponseCodes._1003 + " Object type : " + cADbject.getObjectType() + " is not supported by EDSA");
+        throw new CADException(CADResponseCodes._1003 + " Object type : " + cADbject.getObjectType() + " is not supported by CAD");
       }
 
       if (logger.isDebugEnabled()) {
@@ -537,7 +537,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
     final CADCommandObject cADCommandObject = new CADCommandObject();
 
-    /* Create new EDSA object list */
+    /* Create new CAD object list */
     final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
     /* Create list of elements */
@@ -549,7 +549,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
     /* Add element in list */
     elementList.add(ZDCRMMessageFormatUtils.createMessageElement("address", "pilkhuwa"));
 
-    /* Create new EDSA object */
+    /* Create new CAD object */
     final CADObject cADbject = new CADObject();
 
     /* Set object type */
@@ -558,7 +558,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
     /* Add all CRM fields */
     cADbject.setXmlContent(elementList);
 
-    /* Add EDSA object in list */
+    /* Add CAD object in list */
     cADbjectList.add(cADbject);
 
     /* Set the final object in command object */

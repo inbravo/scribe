@@ -57,10 +57,10 @@ public final class PerfTester {
     final String Id = "dev6ctl~~amit";
     final String queries = "1";
     final String emailInput = null;
-    System.out.println("---Inside main EDSA URL: " + edsaUrl + " & user type: " + type + " & user id " + Id + " & number of querie(s): " + queries);
+    System.out.println("---Inside main CAD URL: " + edsaUrl + " & user type: " + type + " & user id " + Id + " & number of querie(s): " + queries);
 
     if (edsaUrl == null || type == null || Id == null || queries == null) {
-      System.err.println("Please provide EDSA URL/User type/Id/No of querie(s) as input");
+      System.err.println("Please provide CAD URL/User type/Id/No of querie(s) as input");
 
       /* Return */
       System.exit(0);
@@ -97,7 +97,7 @@ public final class PerfTester {
       System.out.println("---Inside main current thread is going to sleep for " + sleepTime
           + " millisecond(s). Zen-Desk CRM does not gives, newly created objects, immediately.");
       Thread.sleep(sleepTime);
-      System.out.println("---Inside main current thread is live now; going to send " + queries + " EDSA read request(s)");
+      System.out.println("---Inside main current thread is live now; going to send " + queries + " CAD read request(s)");
     } else {
 
       System.out.println("---Inside main user has provided the email. Going for direct search");
@@ -225,7 +225,7 @@ final class CreateUser implements Callable<Long> {
   public final Long createUser() throws Exception {
     final Document doc = PerfTester.createDocumentobject();
 
-    final Element root = doc.createElement("EDSA");
+    final Element root = doc.createElement("CAD");
     doc.appendChild(root);
     if (agentId != null && !agentId.trim().equalsIgnoreCase("")) {
       final Element agent = doc.createElement("Agent");
@@ -272,7 +272,7 @@ final class CreateUser implements Callable<Long> {
 
     try {
       /* Create user */
-      this.createUserAtEDSA(userXml);
+      this.createUserAtCAD(userXml);
     } catch (final Exception e) {
       System.err.println("***Error recieved in creating user: " + e);
     }
@@ -291,7 +291,7 @@ final class CreateUser implements Callable<Long> {
    * @throws HttpException
    * @throws IOException
    */
-  private final int createUserAtEDSA(final String userXml) throws Exception {
+  private final int createUserAtCAD(final String userXml) throws Exception {
 
     /* Create new Http client */
     final HttpClient httpClient = new HttpClient();
@@ -311,7 +311,7 @@ final class CreateUser implements Callable<Long> {
 
       /* Execute the post method */
       result = httpClient.executeMethod(post);
-      System.out.println("---Inside createUserAtEDSA URL : " + post.getURI() + " & response code: " + result + " & body: "
+      System.out.println("---Inside createUserAtCAD URL : " + post.getURI() + " & response code: " + result + " & body: "
           + post.getResponseBodyAsString());
     } catch (final Exception e) {
       throw e;
@@ -347,8 +347,8 @@ final class SearchUser implements Callable<Float> {
     final float startTime = System.nanoTime();
     try {
 
-      /* Search CRM object at EDSA */
-      final int resultCode = this.searchObjectAtEDSA(criterion, queryString);
+      /* Search CRM object at CAD */
+      final int resultCode = this.searchObjectAtCAD(criterion, queryString);
 
       if (resultCode == HttpStatus.SC_OK) {
         PerfTester.passedCases++;
@@ -362,7 +362,7 @@ final class SearchUser implements Callable<Float> {
       /* Increment the global time */
       PerfTester.globalTime = PerfTester.globalTime + queryTime;
 
-      System.out.println("---Inside call, time taken for " + (PerfTester.passedCases + PerfTester.failedCases) + " number(s) of EDSA queries: "
+      System.out.println("---Inside call, time taken for " + (PerfTester.passedCases + PerfTester.failedCases) + " number(s) of CAD queries: "
           + PerfTester.globalTime + " nanosecond(s)");
 
       /* Return time difference */
@@ -381,7 +381,7 @@ final class SearchUser implements Callable<Float> {
    * @return
    * @throws URIException
    */
-  private final int searchObjectAtEDSA(final String criterion, final String queryString) throws Exception {
+  private final int searchObjectAtCAD(final String criterion, final String queryString) throws Exception {
     final HttpClient httpClient = new HttpClient();
     final GetMethod get = new GetMethod(this.edsaUrl + "/object/ANY/" + criterion);
     get.setQueryString(URIUtil.encodeQuery(queryString));
@@ -390,7 +390,7 @@ final class SearchUser implements Callable<Float> {
     try {
       /* Execute get method */
       result = httpClient.executeMethod(get);
-      System.out.println("---Inside searchObjectAtEDSA URL : " + get.getURI() + " & response code: " + result + " & body: "
+      System.out.println("---Inside searchObjectAtCAD URL : " + get.getURI() + " & response code: " + result + " & body: "
           + get.getResponseBodyAsString());
     } catch (final Exception e) {
       throw e;

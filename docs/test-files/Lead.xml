@@ -1,4 +1,4 @@
-<EDSA>
+<CAD>
 	<Agent>crmtest~~ag1</Agent>
 	<Object>
 		<telephone1>703-4444</telephone1>
@@ -10,4 +10,4 @@
 		<donotpostalmail name="Allow">0</donotpostalmail>
 		<address1_country>U.S.</address1_country>
 	</Object>
-</EDSA>
+</CAD>

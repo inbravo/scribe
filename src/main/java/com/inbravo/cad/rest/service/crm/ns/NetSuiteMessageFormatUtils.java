@@ -101,7 +101,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
     /* Create page index variable */
     int pageIndex = 0;
 
-    /* Create EDSAObject list */
+    /* Create CADObject list */
     final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
     /* Check if records are not null */

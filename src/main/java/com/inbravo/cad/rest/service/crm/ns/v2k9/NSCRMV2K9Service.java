@@ -99,7 +99,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by EDSA");
+        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
       }
 
       /* Create customer search */
@@ -152,7 +152,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by EDSA");
+        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
       }
 
       /* Create contact search */
@@ -202,7 +202,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by EDSA");
+        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
       }
 
       /* Create SupportCaseSearch */
@@ -251,7 +251,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by EDSA");
+        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
       }
 
       /* Create TaskSearch */
@@ -301,7 +301,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by EDSA");
+        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
       }
 
       /* Create OpportunitySearch */

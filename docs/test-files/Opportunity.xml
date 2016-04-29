@@ -1,4 +1,4 @@
-<EDSA>
+<CAD>
 	<Agent>nscrm~~ag1</Agent>
 	<Object>
 		<Status___String>Opportunity Identified  </Status___String>
@@ -8,4 +8,4 @@
 		<ProjAltSalesAmt___Double>1000</ProjAltSalesAmt___Double>
 		<ProjectedTotal___Double>20000</ProjectedTotal___Double>
 	</Object>
-</EDSA>
+</CAD>

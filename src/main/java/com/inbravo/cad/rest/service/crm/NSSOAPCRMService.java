@@ -499,7 +499,7 @@ public final class NSSOAPCRMService extends CRMService {
   public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
 
     /* Inform user about user error */
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by EDSA");
+    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by CAD");
   }
 
   @Override
@@ -507,7 +507,7 @@ public final class NSSOAPCRMService extends CRMService {
       throws Exception {
 
     /* Inform user about user error */
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by EDSA");
+    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by CAD");
   }
 
   /**

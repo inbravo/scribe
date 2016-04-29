@@ -134,7 +134,7 @@ public final class ZHRESTCRMService extends CRMService {
           }
         } else {
 
-          /* Create new EDSA object list */
+          /* Create new CAD object list */
           final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
           /* Iterate over node list */
@@ -146,7 +146,7 @@ public final class ZHRESTCRMService extends CRMService {
             /* Get node from node list */
             final Node node = nodeList.item(i);
 
-            /* Create new EDSA object */
+            /* Create new CAD object */
             final CADObject cADbject = new CADObject();
 
             /* Check if node has child nodes */
@@ -191,7 +191,7 @@ public final class ZHRESTCRMService extends CRMService {
             /* Set type information in object */
             cADbject.setObjectType(cADCommandObject.getObjectType());
 
-            /* Add EDSA object in list */
+            /* Add CAD object in list */
             cADbjectList.add(cADbject);
           }
 
@@ -398,7 +398,7 @@ public final class ZHRESTCRMService extends CRMService {
 
           } else {
 
-            /* Create new EDSA object list */
+            /* Create new CAD object list */
             final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
             /* Iterate over node list */
@@ -410,7 +410,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Get node from node list */
               final Node node = nodeList.item(i);
 
-              /* Create new EDSA object */
+              /* Create new CAD object */
               final CADObject cADbject = new CADObject();
 
               /* Check if node has child nodes */
@@ -457,7 +457,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Set type information in object */
               cADbject.setObjectType(cADCommandObject.getObjectType());
 
-              /* Add EDSA object in list */
+              /* Add CAD object in list */
               cADbjectList.add(cADbject);
             }
 
@@ -678,7 +678,7 @@ public final class ZHRESTCRMService extends CRMService {
               throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
             }
           } else {
-            /* Create new EDSA object list */
+            /* Create new CAD object list */
             final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
             /* Iterate over node list */
@@ -690,7 +690,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Get node from node list */
               final Node node = nodeList.item(i);
 
-              /* Create new EDSA object */
+              /* Create new CAD object */
               final CADObject cADbject = new CADObject();
 
               /* Check if node has child nodes */
@@ -737,7 +737,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Set type information in object */
               cADbject.setObjectType(cADCommandObject.getObjectType());
 
-              /* Add EDSA object in list */
+              /* Add CAD object in list */
               cADbjectList.add(cADbject);
             }
 
@@ -974,7 +974,7 @@ public final class ZHRESTCRMService extends CRMService {
             }
           } else {
 
-            /* Create new EDSA object list */
+            /* Create new CAD object list */
             final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
             /* Iterate over node list */
@@ -986,7 +986,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Get node from node list */
               final Node node = nodeList.item(i);
 
-              /* Create new EDSA object */
+              /* Create new CAD object */
               final CADObject cADbject = new CADObject();
 
               /* Check if node has child nodes */
@@ -1034,7 +1034,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Set type information in object */
               cADbject.setObjectType(cADCommandObject.getObjectType());
 
-              /* Add EDSA object in list */
+              /* Add CAD object in list */
               cADbjectList.add(cADbject);
             }
 
@@ -1232,7 +1232,7 @@ public final class ZHRESTCRMService extends CRMService {
           }
         } else {
 
-          /* Create new EDSA object list */
+          /* Create new CAD object list */
           final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
           /* Iterate over node list */
@@ -1244,7 +1244,7 @@ public final class ZHRESTCRMService extends CRMService {
             /* Get node from node list */
             final Node node = nodeList.item(i);
 
-            /* Create new EDSA object */
+            /* Create new CAD object */
             final CADObject cADbject = new CADObject();
 
             /* Check if node has child nodes */
@@ -1290,7 +1290,7 @@ public final class ZHRESTCRMService extends CRMService {
             /* Set type information in object */
             cADbject.setObjectType(cADCommandObject.getObjectType());
 
-            /* Add EDSA object in list */
+            /* Add CAD object in list */
             cADbjectList.add(cADbject);
           }
 
@@ -1513,22 +1513,22 @@ public final class ZHRESTCRMService extends CRMService {
 
   @Override
   public CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
+    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
   public CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
+    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
   public CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
+    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
   public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
+    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   public final String getCrmFieldsSeparator() {

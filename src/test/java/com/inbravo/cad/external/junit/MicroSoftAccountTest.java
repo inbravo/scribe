@@ -58,7 +58,7 @@ public final class MicroSoftAccountTest {
     Random rand = new Random();
     int value = rand.nextInt(1000);
 
-    Element root = doc.createElement("EDSA");
+    Element root = doc.createElement("CAD");
     doc.appendChild(root);
 
     String queryString = "";
@@ -125,7 +125,7 @@ public final class MicroSoftAccountTest {
 
     final Document doc = createDocumentobject();
 
-    final Element root = doc.createElement("EDSA");
+    final Element root = doc.createElement("CAD");
     doc.appendChild(root);
 
     final Element object = doc.createElement("Object");

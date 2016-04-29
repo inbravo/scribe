@@ -81,7 +81,7 @@ public class SalesForceCampaignTest {
     Element startdate = doc.createElement("StartDate");
     startdate.appendChild(doc.createTextNode("2010-12-12"));
 
-    /* Create EDSAObject */
+    /* Create CADObject */
     CADObject edsaObject = new CADObject();
     List<Element> arr = new ArrayList<Element>();
 
@@ -89,13 +89,13 @@ public class SalesForceCampaignTest {
     arr.add(name);
     arr.add(id);
 
-    /* Set element array at the EDSA object */
+    /* Set element array at the CAD object */
     edsaObject.setXmlContent(arr);
 
     /* Create Campaign object */
     CADCommandObject cADCommandObject = new CADCommandObject();
 
-    /* Set EDSA object and agentID in EDSACommandObject */
+    /* Set CAD object and agentID in CADCommandObject */
     cADCommandObject.setcADObject(new CADObject[] {edsaObject});
     cADCommandObject.setCrmUserId(agentId);
 
@@ -128,7 +128,7 @@ public class SalesForceCampaignTest {
       }
 
     }
-    /* update phone no in EDSA object */
+    /* update phone no in CAD object */
 
     /* Add Campaign information */
     Element updateStatus = doc.createElement("Status");
@@ -147,10 +147,10 @@ public class SalesForceCampaignTest {
     arr.add(updateStartdate);
     arr.add(createdId);
 
-    /* Set element array at the EDSA object */
+    /* Set element array at the CAD object */
     edsaObject.setXmlContent(arr);
 
-    /* Set EDSA object and agentID in EDSACommandObject */
+    /* Set CAD object and agentID in CADCommandObject */
     cADCommandObject.setcADObject(new CADObject[] {edsaObject});
 
     try {
@@ -220,7 +220,7 @@ public class SalesForceCampaignTest {
     Element id = doc.createElement("Id");
     id.appendChild(doc.createTextNode("invalidId"));
 
-    /* Create EDSAObject */
+    /* Create CADObject */
     CADObject edsaObject = new CADObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(status);
@@ -228,13 +228,13 @@ public class SalesForceCampaignTest {
     arr.add(name);
     arr.add(id);
 
-    /* Set element array at the EDSA object */
+    /* Set element array at the CAD object */
     edsaObject.setXmlContent(arr);
 
     /* Create Campaign object */
     CADCommandObject cADCommandObject = new CADCommandObject();
 
-    /* Set EDSA object and agentID in EDSACommandObject */
+    /* Set CAD object and agentID in CADCommandObject */
     cADCommandObject.setcADObject(new CADObject[] {edsaObject});
     cADCommandObject.setCrmUserId(agentId);
 
@@ -263,17 +263,17 @@ public class SalesForceCampaignTest {
   @org.junit.Test
   public void Create_Invalid_Campaign_With_Agent() throws ParserConfigurationException {
 
-    /* Create EDSAObject */
+    /* Create CADObject */
     CADObject edsaObject = new CADObject();
     List<Element> arr = new ArrayList<Element>();
 
-    /* Set element array at the EDSA object */
+    /* Set element array at the CAD object */
     edsaObject.setXmlContent(arr);
 
     /* Create Campaign object */
     CADCommandObject cADCommandObject = new CADCommandObject();
 
-    /* Set EDSA object and agentID in EDSACommandObject */
+    /* Set CAD object and agentID in CADCommandObject */
     cADCommandObject.setcADObject(new CADObject[] {edsaObject});
     cADCommandObject.setCrmUserId(agentId);
     Response response = null;

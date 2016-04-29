@@ -106,7 +106,7 @@ public final class MSCRMV4ObjectService extends MSCRMObjectService implements Ap
     } else if (objectType.equalsIgnoreCase(MSCRMObjectType.Incident.toString())) {
       return mSCRMV4IncidentService;
     } else {
-      throw new CADException(CADResponseCodes._1003 + "Following object type is not supported by the EDSA");
+      throw new CADException(CADResponseCodes._1003 + "Following object type is not supported by the CAD");
     }
   }
 

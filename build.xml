@@ -186,11 +186,11 @@
 			<sysproperty key="MS_AGENT_ID" value="crmtest~~ag1" />
 			<sysproperty key="SFDC_TENANT_ID" value="forcetest" />
 			<sysproperty key="SFDC_AGENT_ID" value="forcetest~~ag1" />
-			<sysproperty key="EDSA_URL" value="http://localhost:8080/cad" />
+			<sysproperty key="CAD_URL" value="http://localhost:8080/cad" />
 			<formatter type="brief" usefile="true" />
 			<formatter type="xml" />
 			<batchtest todir="${reports.dir}">
-				<fileset dir="${src.dir}" includes="com/inbravo/cad/external/junit/suite/EDSATestSuite.java" />
+				<fileset dir="${src.dir}" includes="com/inbravo/cad/external/junit/suite/CADTestSuite.java" />
 			</batchtest>
 		</junit>
 		<junitreport todir="${reports.dir}">
@@ -227,7 +227,7 @@
 		<echo message="Going to test: performance" />
 		<echo message="==========================================================" />
 		<java classname="com.inbravo.cad.external.test.perf.zd.PerfTester" failonerror="true" fork="yes">
-			<classpath refid="EDSA.classpath" />
+			<classpath refid="CAD.classpath" />
 			<arg value="-tn" />
 			<arg value="7034443909" />
 			<arg value="-t" />

@@ -32,7 +32,7 @@ public final class SalesForceMessageFormatUtils extends CRMMessageFormatUtils {
     /* Start the index from 0 */
     int index = 0;
 
-    /* Create array with number of elements count from EDSAObject */
+    /* Create array with number of elements count from CADObject */
     messageElementArray = new MessageElement[cADbject.getXmlContent().size()];
 
     /* Iterate on the Element list and create SOAP object */

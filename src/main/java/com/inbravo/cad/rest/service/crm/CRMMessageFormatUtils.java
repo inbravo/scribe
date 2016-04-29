@@ -334,7 +334,7 @@ public abstract class CRMMessageFormatUtils {
     return cADbject;
   }
 
-  public static final CADObject createEDSAObject(final Map<String, String> additionalInfo) throws Exception {
+  public static final CADObject createCADObject(final Map<String, String> additionalInfo) throws Exception {
 
     /* Get additional information */
     if (additionalInfo != null) {
@@ -342,7 +342,7 @@ public abstract class CRMMessageFormatUtils {
       /* Create list of elements */
       final List<Element> elementList = new ArrayList<Element>();
 
-      /* Create new EDSA object */
+      /* Create new CAD object */
       final CADObject cADbject = new CADObject();
 
       for (final Entry<String, String> entry : additionalInfo.entrySet()) {

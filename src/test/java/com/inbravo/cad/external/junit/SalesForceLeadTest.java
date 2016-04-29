@@ -89,7 +89,7 @@ public class SalesForceLeadTest {
     Element phone = doc.createElement("Phone");
     phone.appendChild(doc.createTextNode("777.444.3333"));
 
-    /* Create EDSAObject */
+    /* Create CADObject */
     CADObject edsaObject = new CADObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(fname);
@@ -98,13 +98,13 @@ public class SalesForceLeadTest {
     arr.add(phone);
     arr.add(id);
 
-    /* Set element array at the EDSA object */
+    /* Set element array at the CAD object */
     edsaObject.setXmlContent(arr);
 
     /* Create Lead object */
     CADCommandObject cADCommandObject = new CADCommandObject();
 
-    /* Set EDSA object and agentID in EDSACommandObject */
+    /* Set CAD object and agentID in CADCommandObject */
     cADCommandObject.setcADObject(new CADObject[] {edsaObject});
     cADCommandObject.setCrmUserId(agentId);
 
@@ -138,7 +138,7 @@ public class SalesForceLeadTest {
       }
 
     }
-    /* update phone no in EDSA object */
+    /* update phone no in CAD object */
 
     Element updatedPhone = doc.createElement("Phone");
     updatedPhone.appendChild(doc.createTextNode("333.444.7777"));
@@ -154,10 +154,10 @@ public class SalesForceLeadTest {
     arr.add(updatedPhone);
     arr.add(createdId);
 
-    /* Set element array at the EDSA object */
+    /* Set element array at the CAD object */
     edsaObject.setXmlContent(arr);
 
-    /* Set EDSA object and agentID in EDSACommandObject */
+    /* Set CAD object and agentID in CADCommandObject */
     cADCommandObject.setcADObject(new CADObject[] {edsaObject});
 
     try {
@@ -233,7 +233,7 @@ public class SalesForceLeadTest {
     Element id = doc.createElement("Id");
     id.appendChild(doc.createTextNode("invalidId"));
 
-    /* Create EDSAObject */
+    /* Create CADObject */
     CADObject edsaObject = new CADObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(fname);
@@ -242,13 +242,13 @@ public class SalesForceLeadTest {
     arr.add(phone);
     arr.add(id);
 
-    /* Set element array at the EDSA object */
+    /* Set element array at the CAD object */
     edsaObject.setXmlContent(arr);
 
     /* Create Lead object */
     CADCommandObject cADCommandObject = new CADCommandObject();
 
-    /* Set EDSA object and agentID in EDSACommandObject */
+    /* Set CAD object and agentID in CADCommandObject */
     cADCommandObject.setcADObject(new CADObject[] {edsaObject});
     cADCommandObject.setCrmUserId(agentId);
 
@@ -277,17 +277,17 @@ public class SalesForceLeadTest {
   @org.junit.Test
   public void Create_Invalid_Lead_With_Agent() throws ParserConfigurationException {
 
-    /* Create EDSAObject */
+    /* Create CADObject */
     CADObject edsaObject = new CADObject();
     List<Element> arr = new ArrayList<Element>();
 
-    /* Set element array at the EDSA object */
+    /* Set element array at the CAD object */
     edsaObject.setXmlContent(arr);
 
     /* Create Lead object */
     CADCommandObject cADCommandObject = new CADCommandObject();
 
-    /* Set EDSA object and agentID in EDSACommandObject */
+    /* Set CAD object and agentID in CADCommandObject */
     cADCommandObject.setcADObject(new CADObject[] {edsaObject});
     cADCommandObject.setCrmUserId(agentId);
     Response response = null;

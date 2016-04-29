@@ -1,4 +1,4 @@
-<EDSA>
+<CAD>
 	<Agent>crmtest~~ag1</Agent>
 	<Object>
 		<severitycode name="Default Value">1</severitycode>
@@ -9,7 +9,7 @@
 		<exchangerate formattedvalue="1.0000000000">1</exchangerate>
 		<customerid name="Unusual Store (sample)" type="account">{84AF3AD4-A9CC-E011-8F30-1CC1DEEA2718}</customerid>
 	</Object>
-</EDSA>
+</CAD>
 
 
 

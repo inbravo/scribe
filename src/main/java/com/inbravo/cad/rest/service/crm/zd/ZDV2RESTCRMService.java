@@ -107,7 +107,7 @@ public final class ZDV2RESTCRMService extends CRMService {
 
         if (result == HttpStatus.SC_OK) {
 
-          /* Create EDSA object from JSON response */
+          /* Create CAD object from JSON response */
           return this.createSearchResponse(getMethod.getResponseBodyAsString(), cADCommandObject.getObjectType().toLowerCase());
 
         } else if (result == HttpStatus.SC_FORBIDDEN) {
@@ -201,12 +201,12 @@ public final class ZDV2RESTCRMService extends CRMService {
 
   @Override
   public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
+    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
   public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + " Following operation is not supported by the EDSA");
+    throw new CADException(CADResponseCodes._1003 + " Following operation is not supported by the CAD");
   }
 
   @Override
@@ -396,7 +396,7 @@ public final class ZDV2RESTCRMService extends CRMService {
       /* Check if object is created */
       if (result == HttpStatus.SC_OK || result == HttpStatus.SC_CREATED) {
 
-        /* Create EDSA object from JSON response */
+        /* Create CAD object from JSON response */
         return this.createCreateResponse(postMethod.getResponseBodyAsString(), cADCommandObject.getObjectType().toLowerCase());
 
       } else if (result == HttpStatus.SC_BAD_REQUEST || result == HttpStatus.SC_METHOD_NOT_ALLOWED || result == HttpStatus.SC_NOT_ACCEPTABLE
@@ -450,7 +450,7 @@ public final class ZDV2RESTCRMService extends CRMService {
   public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
 
     logger.debug("---Inside deleteObject");
-    throw new CADException(CADResponseCodes._1003 + " Following operation is not supported by the EDSA");
+    throw new CADException(CADResponseCodes._1003 + " Following operation is not supported by the CAD");
   }
 
   /**
@@ -526,7 +526,7 @@ public final class ZDV2RESTCRMService extends CRMService {
         /* Create JSON object from response */
         final JSONObject jObj = new JSONObject(getMethod.getResponseBodyAsString());
 
-        /* Create new EDSA object list */
+        /* Create new CAD object list */
         final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
         /* Get select field list */
@@ -564,7 +564,7 @@ public final class ZDV2RESTCRMService extends CRMService {
               /* Create list of elements */
               final List<Element> elementList = new ArrayList<Element>();
 
-              /* Create new EDSA object */
+              /* Create new CAD object */
               final CADObject cADbject = new CADObject();
 
               /* Get all keys */
@@ -594,7 +594,7 @@ public final class ZDV2RESTCRMService extends CRMService {
                   elementList.add(ZDCRMMessageFormatUtils.createMessageElement(subKey, value));
                 }
 
-                /* Set EDSA object type */
+                /* Set CAD object type */
                 if (subKey.equalsIgnoreCase("result_type")) {
 
                   cADbject.setObjectType("" + value);
@@ -608,7 +608,7 @@ public final class ZDV2RESTCRMService extends CRMService {
               /* Add all CRM fields */
               cADbject.setXmlContent(elementList);
 
-              /* Add EDSA object in list */
+              /* Add CAD object in list */
               cADbjectList.add(cADbject);
             }
           } else {
@@ -686,13 +686,13 @@ public final class ZDV2RESTCRMService extends CRMService {
    */
   private final CADCommandObject createSearchResponse(final String responseStr, final String objectType) throws Exception {
 
-    /* Create new EDSA object */
+    /* Create new CAD object */
     final CADCommandObject cADCommandObject = new CADCommandObject();
 
     /* Create JSON object from response */
     final JSONObject jObj = new JSONObject(responseStr);
 
-    /* Create new EDSA object list */
+    /* Create new CAD object list */
     final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
     /* Get all keys */
@@ -720,7 +720,7 @@ public final class ZDV2RESTCRMService extends CRMService {
           /* Create list of elements */
           final List<Element> elementList = new ArrayList<Element>();
 
-          /* Create new EDSA object */
+          /* Create new CAD object */
           final CADObject cADbject = new CADObject();
 
           /* Get all keys */
@@ -744,19 +744,19 @@ public final class ZDV2RESTCRMService extends CRMService {
 
             }
 
-            /* Set EDSA object type */
+            /* Set CAD object type */
             cADbject.setObjectType(objectType);
           }
 
           /* Add all CRM fields */
           cADbject.setXmlContent(elementList);
 
-          /* Add EDSA object in list */
+          /* Add CAD object in list */
           cADbjectList.add(cADbject);
         }
       } else {
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside createEDSAObjectFromJSON unexpected JSON object type in response : " + jObj.get(key));
+          logger.debug("---Inside createCADObjectFromJSON unexpected JSON object type in response : " + jObj.get(key));
         }
       }
     }
@@ -782,13 +782,13 @@ public final class ZDV2RESTCRMService extends CRMService {
    */
   private final CADCommandObject createCreateResponse(final String responseStr, final String objectType) throws Exception {
 
-    /* Create new EDSA object */
+    /* Create new CAD object */
     final CADCommandObject cADCommandObject = new CADCommandObject();
 
     /* Create JSON object on complete response */
     final JSONObject jObj = new JSONObject(responseStr);
 
-    /* Create new EDSA object list */
+    /* Create new CAD object list */
     final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
     /* Get all keys */
@@ -798,7 +798,7 @@ public final class ZDV2RESTCRMService extends CRMService {
     /* Create list of elements */
     final List<Element> elementList = new ArrayList<Element>();
 
-    /* Create new EDSA object */
+    /* Create new CAD object */
     final CADObject cADbject = new CADObject();
 
     /* Iterate over user json object list */
@@ -849,13 +849,13 @@ public final class ZDV2RESTCRMService extends CRMService {
       }
     }
 
-    /* Set EDSA object type */
+    /* Set CAD object type */
     cADbject.setObjectType(objectType);
 
     /* Add all CRM fields */
     cADbject.setXmlContent(elementList);
 
-    /* Add EDSA object in list */
+    /* Add CAD object in list */
     cADbjectList.add(cADbject);
 
     /* Check if no record found */

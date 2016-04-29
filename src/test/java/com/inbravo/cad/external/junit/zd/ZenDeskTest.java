@@ -37,7 +37,7 @@ public class ZenDeskTest {
 
   private String agentId = System.getProperty("AGENT_ID");
   private String tenantId = System.getProperty("TENANT_ID");
-  private String edsaURL = System.getProperty("EDSA_URL");
+  private String edsaURL = System.getProperty("CAD_URL");
 
   public ZenDeskTest() throws Exception {}
 
@@ -52,7 +52,7 @@ public class ZenDeskTest {
   public void Create_Search_User() throws ParserConfigurationException, HttpException, IOException {
     Document doc = createDocumentobject();
 
-    Element root = doc.createElement("EDSA");
+    Element root = doc.createElement("CAD");
     doc.appendChild(root);
 
     String queryString = "";

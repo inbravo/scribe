@@ -9,7 +9,7 @@ import org.apache.log4j.MDC;
  */
 public final class MutualDiagnosticLogUtils {
 
-  private static final String edsaTransIdConst = "EDSATID";
+  private static final String edsaTransIdConst = "CADTID";
 
   private static final String extTransIdConst = "EXTTID";
 
@@ -24,10 +24,10 @@ public final class MutualDiagnosticLogUtils {
    */
   public final void addTransactionInfo(final String edsaTransId, final String extTransId, final String userId) {
 
-    /* If EDSA transaction id is not null */
+    /* If CAD transaction id is not null */
     if (edsaTransId != null) {
 
-      /* Add EDSA transaction id information in MDC */
+      /* Add CAD transaction id information in MDC */
       MDC.put(edsaTransIdConst, edsaTransId);
     }
 
@@ -51,7 +51,7 @@ public final class MutualDiagnosticLogUtils {
    */
   public final void discardTransactionInfo() {
 
-    /* Remove EDSA transaction id information in MDC */
+    /* Remove CAD transaction id information in MDC */
     MDC.remove(edsaTransIdConst);
 
     /* Remove external transaction id inform in MDC */

@@ -121,7 +121,7 @@ public final class ZDRESTCRMService extends CRMService {
           /* Get node list from response document */
           final NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
 
-          /* Create new EDSA object list */
+          /* Create new CAD object list */
           final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
           /* Iterate over node list */
@@ -133,7 +133,7 @@ public final class ZDRESTCRMService extends CRMService {
             /* Get node from node list */
             final Node node = nodeList.item(i);
 
-            /* Create new EDSA object */
+            /* Create new CAD object */
             final CADObject cADbject = new CADObject();
 
             /* Check if node has child nodes */
@@ -160,7 +160,7 @@ public final class ZDRESTCRMService extends CRMService {
             /* Add all CRM fields */
             cADbject.setXmlContent(elementList);
 
-            /* Add EDSA object in list */
+            /* Add CAD object in list */
             cADbjectList.add(cADbject);
           }
 
@@ -634,7 +634,7 @@ public final class ZDRESTCRMService extends CRMService {
           /* Get node from node list */
           final Node node = nodeList.item(i);
 
-          /* Create new EDSA object */
+          /* Create new CAD object */
           final CADObject cADbject = new CADObject();
 
           /* Check if node has child nodes */
@@ -674,7 +674,7 @@ public final class ZDRESTCRMService extends CRMService {
             /* Add all CRM fields */
             cADbject.setXmlContent(elementList);
 
-            /* Add EDSA object in list */
+            /* Add CAD object in list */
             cADbjectList.add(cADbject);
           }
         }

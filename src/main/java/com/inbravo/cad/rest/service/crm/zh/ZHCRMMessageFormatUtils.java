@@ -363,7 +363,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
       return zhDateTimeFormatter.print(iDT);
 
     } catch (final Exception e) {
-      throw new CADException(CADResponseCodes._1003 + "Following date input: " + iFieldValue + " is not acceptable at EDSA", e);
+      throw new CADException(CADResponseCodes._1003 + "Following date input: " + iFieldValue + " is not acceptable at CAD", e);
     }
   }
 

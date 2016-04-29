@@ -140,7 +140,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
 
       final Create createRequest = createDocument.addNewCreate();
 
-      /* Set object type in EDSA object */
+      /* Set object type in CAD object */
       cADbject.setObjectType(mSCRMObjectType.toLowerCase());
 
       /* Add new account type xml beans object */
@@ -376,13 +376,13 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final List<CADObject> cADbjectList = new ArrayList<CADObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
-        /* Create new EDSA object */
+        /* Create new CAD object */
         final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
 
-        /* Add EDSA object in list */
+        /* Add CAD object in list */
         cADbjectList.add(cADbject);
       }
 
@@ -504,13 +504,13 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       /* Iterate over entities and create edsa object */
       for (int i = 0; i < entities.length; i++) {
 
-        /* Create new EDSA object */
+        /* Create new CAD object */
         final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entities[i]));
 
-        /* Add EDSA object in list */
+        /* Add CAD object in list */
         cADbjectList.add(cADbject);
       }
 
@@ -619,13 +619,13 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final List<CADObject> cADbjectList = new ArrayList<CADObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
-        /* Create new EDSA object */
+        /* Create new CAD object */
         final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
 
-        /* Add EDSA object in list */
+        /* Add CAD object in list */
         cADbjectList.add(cADbject);
       }
 
@@ -827,7 +827,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       throw new CADException(CADResponseCodes._1015 + "Remote error", e);
     } else if (e instanceof CADException) {
 
-      /* Throw EDSA exception to user */
+      /* Throw CAD exception to user */
       throw e;
     } else {
 

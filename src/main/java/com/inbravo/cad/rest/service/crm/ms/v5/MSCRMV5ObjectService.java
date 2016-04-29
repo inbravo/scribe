@@ -110,7 +110,7 @@ public final class MSCRMV5ObjectService extends MSCRMObjectService implements Ap
     } else if (objectType.equalsIgnoreCase(MSCRMObjectType.Case.toString())) {
       return mSCRMV5CaseService;
     } else {
-      throw new CADException(CADResponseCodes._1003 + "Following object type is not supported by the EDSA");
+      throw new CADException(CADResponseCodes._1003 + "Following object type is not supported by the CAD");
     }
   }
 

@@ -178,13 +178,13 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final List<CADObject> cADbjectList = new ArrayList<CADObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
-        /* Create new EDSA object */
+        /* Create new CAD object */
         final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
 
-        /* Add EDSA object in list */
+        /* Add CAD object in list */
         cADbjectList.add(cADbject);
       }
       logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
@@ -203,7 +203,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
     } catch (final RemoteException e) {
       throw new CADException(CADResponseCodes._1015 + " Communication error", e);
     } catch (final CADException e) {
-      /* Throw EDSA exception to user */
+      /* Throw CAD exception to user */
       throw e;
     } catch (final Exception e) {
       throw new CADException(CADResponseCodes._1000 + " Problem while communicating with MS CRM server", e);
@@ -288,13 +288,13 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final List<CADObject> cADbjectList = new ArrayList<CADObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
-        /* Create new EDSA object */
+        /* Create new CAD object */
         final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
 
-        /* Add EDSA object in list */
+        /* Add CAD object in list */
         cADbjectList.add(cADbject);
       }
       logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
@@ -312,7 +312,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
     } catch (final RemoteException e) {
       throw new CADException(CADResponseCodes._1015 + " Communication error", e);
     } catch (final CADException e) {
-      /* Throw EDSA exception to user */
+      /* Throw CAD exception to user */
       throw e;
     } catch (final Exception e) {
       throw new CADException(CADResponseCodes._1000 + " Problem while communicating with MS CRM server", e);
@@ -387,13 +387,13 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final List<CADObject> cADbjectList = new ArrayList<CADObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
-        /* Create new EDSA object */
+        /* Create new CAD object */
         final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
 
-        /* Add EDSA object in list */
+        /* Add CAD object in list */
         cADbjectList.add(cADbject);
       }
       logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
@@ -411,7 +411,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
     } catch (final RemoteException e) {
       throw new CADException(CADResponseCodes._1015 + " Communication error", e);
     } catch (final CADException e) {
-      /* Throw EDSA exception to user */
+      /* Throw CAD exception to user */
       throw e;
     } catch (final Exception e) {
       throw new CADException(CADResponseCodes._1000 + " Problem while communicating with MS CRM server", e);

@@ -63,12 +63,12 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
 
   @Override
   public final boolean login(final String crmUserId, final String crmPassword) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
+    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
   public final boolean reset(final String crmUserId, final String crmPassword) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
+    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   public final ZHAuthManager getzHAuthManager() {

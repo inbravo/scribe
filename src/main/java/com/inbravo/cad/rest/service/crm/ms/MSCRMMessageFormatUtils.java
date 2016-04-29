@@ -734,7 +734,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
     } else {
 
       /* Else send not supported error to user */
-      throw new CADException(CADResponseCodes._1003 + "Following object type is not supported by the EDSA");
+      throw new CADException(CADResponseCodes._1003 + "Following object type is not supported by the CAD");
     }
   }
 
@@ -997,7 +997,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
     } else {
       /* Throw user error */
-      throw new CADException(CADResponseCodes._1003 + "Following CRM date value is not accepted by EDSA: " + dateStr);
+      throw new CADException(CADResponseCodes._1003 + "Following CRM date value is not accepted by CAD: " + dateStr);
     }
   }
 
@@ -1035,7 +1035,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
         } else {
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1003 + "Following object type is not supported for object association by EDSA");
+          throw new CADException(CADResponseCodes._1003 + "Following object type is not supported for object association by CAD");
         }
         return new String[] {element.getTextContent(), element.getAttribute("type"), schema};
 
@@ -1075,7 +1075,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
     } else {
 
       /* Throw user error */
-      throw new CADException(CADResponseCodes._1003 + "Following object type is not supported by the EDSA");
+      throw new CADException(CADResponseCodes._1003 + "Following object type is not supported by the CAD");
     }
   }
 

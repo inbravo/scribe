@@ -52,7 +52,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/account/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
@@ -86,7 +86,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/lead/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
@@ -120,7 +120,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/case/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
@@ -154,7 +154,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/contact/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
@@ -188,7 +188,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/campaign/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
@@ -223,7 +223,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/account/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
@@ -257,7 +257,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/lead/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
@@ -291,7 +291,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/case/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
@@ -325,7 +325,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/contact/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
@@ -359,7 +359,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/campaign/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
@@ -394,7 +394,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/campaign/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenantWithDynamicQuery(tenantId);
 
       /* Check if count node exists in response */
@@ -429,7 +429,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/account/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgentWithDynamicQuery(agentId);
 
       /* Check if count node exists in response */
@@ -464,7 +464,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/NARCOXX/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
@@ -492,7 +492,7 @@ public class SalesForceObjectCountTest {
     sFAccountMgmt = new CADClientMgmt(cadURL, "/object/NARCOXX/count");
 
     try {
-      /* Get EDSA command object from response */
+      /* Get CAD command object from response */
       CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */

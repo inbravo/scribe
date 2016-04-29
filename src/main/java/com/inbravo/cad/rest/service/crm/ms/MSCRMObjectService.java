@@ -9,7 +9,7 @@ import com.inbravo.cad.rest.resource.CADCommandObject;
  */
 public abstract class MSCRMObjectService {
 
-  public static final String notSupportedError = "Following operation is not supported by the EDSA";
+  public static final String notSupportedError = "Following operation is not supported by the CAD";
 
   public abstract CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception;
 

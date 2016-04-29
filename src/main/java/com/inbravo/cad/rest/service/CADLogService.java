@@ -32,7 +32,7 @@ public final class CADLogService {
 
     /* Return the success response */
     return Response.status(Response.Status.OK).type(MediaType.APPLICATION_XML)
-        .entity("<EDSA>Log level is successfully updated to: " + newLogLevel + "</EDSA>").build();
+        .entity("<CAD>Log level is successfully updated to: " + newLogLevel + "</CAD>").build();
   }
 
   /**
