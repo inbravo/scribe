@@ -157,18 +157,18 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @return
    */
-  public static final String getCreateRequestXML(final CADCommandObject eDSACommandObject) {
+  public static final String getCreateRequestXML(final CADCommandObject cADCommandObject) {
 
     /* Iterate over EDSA object and create XML request */
-    if (eDSACommandObject.geteDSAObject() != null && eDSACommandObject.geteDSAObject().length == 1) {
-      final CADObject eDSAObject = eDSACommandObject.geteDSAObject()[0];
-      final List<Element> elementList = eDSAObject.getXmlContent();
+    if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length == 1) {
+      final CADObject cADbject = cADCommandObject.getcADObject()[0];
+      final List<Element> elementList = cADbject.getXmlContent();
 
       /* Add start tag */
-      String reqString = "<" + eDSACommandObject.getObjectType() + ">";
+      String reqString = "<" + cADCommandObject.getObjectType() + ">";
 
       /* Iterate over element list */
       for (final Element element : elementList) {
@@ -176,7 +176,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
       }
 
       /* Add end tag */
-      reqString = reqString + "</" + eDSACommandObject.getObjectType() + ">";
+      reqString = reqString + "</" + cADCommandObject.getObjectType() + ">";
       logger.debug("---Inside getCreateRequestXML xml : " + reqString);
       return reqString;
     } else {
@@ -186,40 +186,40 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @return
    * @throws JAXBException
    */
-  public static final String getCreateRequestJSON(final CADCommandObject eDSACommandObject) throws JAXBException {
+  public static final String getCreateRequestJSON(final CADCommandObject cADCommandObject) throws JAXBException {
 
     /* Iterate over EDSA object and create JSON request */
-    if (eDSACommandObject.geteDSAObject() != null && eDSACommandObject.geteDSAObject().length == 1) {
+    if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length == 1) {
 
-      final CADObject eDSAObject = eDSACommandObject.geteDSAObject()[0];
+      final CADObject cADbject = cADCommandObject.getcADObject()[0];
       String requestJSONStr = null;
 
       /* If user type of object */
-      if ("USER".equalsIgnoreCase(eDSAObject.getObjectType())) {
+      if ("USER".equalsIgnoreCase(cADbject.getObjectType())) {
 
         /* Get JSON string */
-        requestJSONStr = getCreateUserRequestJSON(eDSAObject.getXmlContent());
+        requestJSONStr = getCreateUserRequestJSON(cADbject.getXmlContent());
 
       } else
       /* If ticket type of object */
-      if ("TICKET".equalsIgnoreCase(eDSAObject.getObjectType())) {
+      if ("TICKET".equalsIgnoreCase(cADbject.getObjectType())) {
 
         /* Get JSON string */
-        requestJSONStr = getCreateTicketRequestJSON(eDSAObject.getXmlContent());
+        requestJSONStr = getCreateTicketRequestJSON(cADbject.getXmlContent());
       } else
       /* If ticket type of object */
-      if ("FORUM".equalsIgnoreCase(eDSAObject.getObjectType())) {
+      if ("FORUM".equalsIgnoreCase(cADbject.getObjectType())) {
 
         /* Get JSON string */
-        requestJSONStr = getCreateForumRequestJSON(eDSAObject.getXmlContent());
+        requestJSONStr = getCreateForumRequestJSON(cADbject.getXmlContent());
       } else {
 
         /* Throw user error */
-        throw new CADException(CADResponseCodes._1003 + " Object type : " + eDSAObject.getObjectType() + " is not supported by EDSA");
+        throw new CADException(CADResponseCodes._1003 + " Object type : " + cADbject.getObjectType() + " is not supported by EDSA");
       }
 
       if (logger.isDebugEnabled()) {
@@ -234,7 +234,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @return
    * @throws JAXBException
    */
@@ -269,7 +269,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @return
    * @throws JAXBException
    */
@@ -304,7 +304,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @return
    * @throws JAXBException
    */
@@ -339,22 +339,22 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @return
    */
-  public static final String getCreateQueryFromCommandObject(final CADCommandObject eDSACommandObject) {
+  public static final String getCreateQueryFromCommandObject(final CADCommandObject cADCommandObject) {
 
-    if (eDSACommandObject.geteDSAObject() != null && eDSACommandObject.geteDSAObject().length == 1) {
-      final CADObject eDSAObject = eDSACommandObject.geteDSAObject()[0];
-      final List<Element> elementList = eDSAObject.getXmlContent();
+    if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length == 1) {
+      final CADObject cADbject = cADCommandObject.getcADObject()[0];
+      final List<Element> elementList = cADbject.getXmlContent();
 
       /* Create request string */
       String reqString = "";
 
-      logger.debug("---Inside getCreateRequestString objectType: " + eDSACommandObject.getObjectType());
+      logger.debug("---Inside getCreateRequestString objectType: " + cADCommandObject.getObjectType());
 
       /* Find the respective object type */
-      if (eDSACommandObject.getObjectType().equalsIgnoreCase(ZDCRMObjectType.User.toString())) {
+      if (cADCommandObject.getObjectType().equalsIgnoreCase(ZDCRMObjectType.User.toString())) {
 
         /* Iterate over element list */
         for (final Element element : elementList) {
@@ -365,7 +365,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
             reqString = reqString + zdAndOperator;
           }
         }
-      } else if (eDSACommandObject.getObjectType().equalsIgnoreCase(ZDCRMObjectType.Ticket.toString())) {
+      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(ZDCRMObjectType.Ticket.toString())) {
 
         /* Iterate over element list */
         for (final Element element : elementList) {
@@ -535,10 +535,10 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   public static void main(String[] args) throws Exception {
 
-    final CADCommandObject eDSACommandObject = new CADCommandObject();
+    final CADCommandObject cADCommandObject = new CADCommandObject();
 
     /* Create new EDSA object list */
-    final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+    final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
     /* Create list of elements */
     final List<Element> elementList = new ArrayList<Element>();
@@ -550,20 +550,20 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
     elementList.add(ZDCRMMessageFormatUtils.createMessageElement("address", "pilkhuwa"));
 
     /* Create new EDSA object */
-    final CADObject eDSAObject = new CADObject();
+    final CADObject cADbject = new CADObject();
 
     /* Set object type */
-    eDSAObject.setObjectType("ticket");
+    cADbject.setObjectType("ticket");
 
     /* Add all CRM fields */
-    eDSAObject.setXmlContent(elementList);
+    cADbject.setXmlContent(elementList);
 
     /* Add EDSA object in list */
-    eDSAObjectList.add(eDSAObject);
+    cADbjectList.add(cADbject);
 
     /* Set the final object in command object */
-    eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
+    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
 
-    System.out.println("" + getCreateRequestJSON(eDSACommandObject));
+    System.out.println("" + getCreateRequestJSON(cADCommandObject));
   }
 }

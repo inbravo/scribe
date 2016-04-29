@@ -28,27 +28,27 @@ public final class CADRequestValidator {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @param ObjectType
    * @param checkInputObject
    * @throws CADException
    */
-  public final void validateRequestObject(final CADCommandObject eDSACommandObject, final String ObjectType, final boolean checkInputObject)
+  public final void validateRequestObject(final CADCommandObject cADCommandObject, final String ObjectType, final boolean checkInputObject)
       throws Exception {
 
-    if (eDSACommandObject != null) {
+    if (cADCommandObject != null) {
 
       logger.debug("---Inside validateRequestObject Object type: " + ObjectType);
 
       /* Create Exception if both Tenant/Agent are null */
-      if (eDSACommandObject.getCrmUserId() == null && eDSACommandObject.getCrmPassword() == null && eDSACommandObject.getCrmType() == null) {
+      if (cADCommandObject.getCrmUserId() == null && cADCommandObject.getCrmPassword() == null && cADCommandObject.getCrmType() == null) {
 
         /* Inform user about invalid request */
         throw new CADException(CADResponseCodes._1008 + "CRM information is not present in request");
       }
 
       /* Create Exception if agent is in perfect shape */
-      if (eDSACommandObject.getCrmUserId() != null) {
+      if (cADCommandObject.getCrmUserId() != null) {
 
         /* Inform user about invalid request */
         throw new CADException(CADResponseCodes._1008 + "CRM User information is not valid");
@@ -59,7 +59,7 @@ public final class CADRequestValidator {
         logger.debug("---Inside validateRequestObject checking the input CAD object");
 
         /* Check is user id is valid */
-        if (eDSACommandObject.getcADObject() == null) {
+        if (cADCommandObject.getcADObject() == null) {
           logger.debug("---Inside validateRequestObject no CAD object in request");
 
           /* Inform user about invalid request */
@@ -67,7 +67,7 @@ public final class CADRequestValidator {
         }
 
         /* Check is user id is valid */
-        if (eDSACommandObject.getcADObject()[0] == null) {
+        if (cADCommandObject.getcADObject()[0] == null) {
           logger.debug("---Inside validateRequestObject invalid CAD object in request");
 
           /* Inform user about invalid request */
@@ -75,7 +75,7 @@ public final class CADRequestValidator {
         }
 
         /* Check is user id is valid */
-        if (eDSACommandObject.getcADObject()[0].getXmlContent() == null) {
+        if (cADCommandObject.getcADObject()[0].getXmlContent() == null) {
           logger.debug("---Inside validateRequestObject invalid XML content in request");
 
           /* Inform user about invalid request */
@@ -130,11 +130,11 @@ public final class CADRequestValidator {
     }
   }
 
-  public final String getAgentIdSplitCharacter() {
+  public final String getCrmUserIdIdSplitCharacter() {
     return agentIdSplitCharacter;
   }
 
-  public final void setAgentIdSplitCharacter(final String agentIdSplitCharacter) {
+  public final void setCrmUserIdIdSplitCharacter(final String agentIdSplitCharacter) {
     this.agentIdSplitCharacter = agentIdSplitCharacter;
   }
 

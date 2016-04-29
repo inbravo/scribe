@@ -39,55 +39,55 @@ public final class MSCRMV4ObjectService extends MSCRMObjectService implements Ap
   }
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside createObject");
-    return this.getMSCRMObjectService(eDSACommandObject.getObjectType()).createObject(eDSACommandObject);
+    return this.getMSCRMObjectService(cADCommandObject.getObjectType()).createObject(cADCommandObject);
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject eDSACommandObject, final String idToBeDeleted) throws Exception {
+  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
     logger.debug("---Inside deleteObject idToBeDeleted: " + idToBeDeleted);
-    return this.getMSCRMObjectService(eDSACommandObject.getObjectType()).deleteObject(eDSACommandObject, idToBeDeleted);
+    return this.getMSCRMObjectService(cADCommandObject.getObjectType()).deleteObject(cADCommandObject, idToBeDeleted);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjects");
-    return this.getMSCRMObjectService(eDSACommandObject.getObjectType()).getObjects(eDSACommandObject);
+    return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects query: " + query);
-    return this.getMSCRMObjectService(eDSACommandObject.getObjectType()).getObjects(eDSACommandObject, query);
+    return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject, query);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select);
-    return this.getMSCRMObjectService(eDSACommandObject.getObjectType()).getObjects(eDSACommandObject, query, select);
+    return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject, query, select);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select, final String order)
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
-    return this.getMSCRMObjectService(eDSACommandObject.getObjectType()).getObjects(eDSACommandObject, query, select, order);
+    return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject, query, select, order);
   }
 
   @Override
-  public CADCommandObject getObjectsCount(CADCommandObject eDSACommandObject) throws Exception {
-    return this.getMSCRMObjectService(eDSACommandObject.getObjectType()).getObjectsCount(eDSACommandObject);
+  public CADCommandObject getObjectsCount(CADCommandObject cADCommandObject) throws Exception {
+    return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjectsCount(cADCommandObject);
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(CADCommandObject eDSACommandObject, final String query) throws Exception {
-    return this.getMSCRMObjectService(eDSACommandObject.getObjectType()).getObjectsCount(eDSACommandObject, query);
+  public final CADCommandObject getObjectsCount(CADCommandObject cADCommandObject, final String query) throws Exception {
+    return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjectsCount(cADCommandObject, query);
   }
 
   @Override
-  public final CADCommandObject updateObject(final CADCommandObject eDSACommandObject) throws Exception {
-    return this.getMSCRMObjectService(eDSACommandObject.getObjectType()).updateObject(eDSACommandObject);
+  public final CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
+    return this.getMSCRMObjectService(cADCommandObject.getObjectType()).updateObject(cADCommandObject);
   }
 
   private final MSCRMObjectService getMSCRMObjectService(final String objectType) {

@@ -237,16 +237,16 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @param edsaSelect
    * @return
    */
-  public final static String createZHSelect(final CADCommandObject eDSACommandObject, final String edsaSelect) {
+  public final static String createZHSelect(final CADCommandObject cADCommandObject, final String edsaSelect) {
 
     String zhSelect = "";
 
     if (edsaSelect != null) {
-      zhSelect = zhSelect + eDSACommandObject.getObjectType() + "s(" + edsaSelect + ")";
+      zhSelect = zhSelect + cADCommandObject.getObjectType() + "s(" + edsaSelect + ")";
     }
 
     logger.debug("---Inside createZHSelect, zhSelect: " + zhSelect);
@@ -291,19 +291,19 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @return
    */
-  public static final String createRequestString(final CADCommandObject eDSACommandObject, final String spaceCharReplacement,
+  public static final String createRequestString(final CADCommandObject cADCommandObject, final String spaceCharReplacement,
       final String permittedDateFormats, final String zHInputDateFormat) {
 
-    if (eDSACommandObject.geteDSAObject() != null && eDSACommandObject.geteDSAObject().length == 1) {
+    if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length == 1) {
 
-      final CADObject eDSAObject = eDSACommandObject.geteDSAObject()[0];
-      final List<Element> elementList = eDSAObject.getXmlContent();
+      final CADObject cADbject = cADCommandObject.getcADObject()[0];
+      final List<Element> elementList = cADbject.getXmlContent();
 
       /* Add start tag */
-      String reqString = "<" + eDSACommandObject.getObjectType() + "s><row no='1'>";
+      String reqString = "<" + cADCommandObject.getObjectType() + "s><row no='1'>";
 
       /* Iterate over element list */
       for (final Element element : elementList) {
@@ -319,7 +319,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
         }
 
         /* Check if object is Calls and field is Call Start Time */
-        if ((eDSACommandObject.getObjectType() != null && eDSACommandObject.getObjectType().trim().equalsIgnoreCase(zHCallObject))
+        if ((cADCommandObject.getObjectType() != null && cADCommandObject.getObjectType().trim().equalsIgnoreCase(zHCallObject))
             && (nodeName != null && nodeName.equalsIgnoreCase(zHCallObjectFieldCallStartTime))) {
 
           /* Update node value */
@@ -331,7 +331,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
       }
 
       /* Add end tag */
-      reqString = reqString + "</row></" + eDSACommandObject.getObjectType() + "s>";
+      reqString = reqString + "</row></" + cADCommandObject.getObjectType() + "s>";
 
       logger.debug("---Inside createRequestString reqString: " + reqString);
       return reqString;

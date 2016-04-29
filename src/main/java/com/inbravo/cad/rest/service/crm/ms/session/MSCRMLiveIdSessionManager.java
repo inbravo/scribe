@@ -90,9 +90,9 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
   }
 
 
-  public final synchronized CADUser getUserWithCRMSessionInformation(final String agentId) throws Exception {
+  public final synchronized CADUser getCrmUserInfoWithCRMSessionInformation(final String agentId) throws Exception {
 
-    logger.debug("---Inside getUserWithCRMSessionInformation agent: " + agentId);
+    logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation agent: " + agentId);
 
     /* Recover agent from cache */
     final CADUser agent = (CADUser) cRMSessionCache.recover(agentId);
@@ -106,12 +106,12 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
 
     if (agent.getCrmSessionId() == null) {
 
-      logger.debug("---Inside getUserWithCRMSessionInformation agent's CRM session is not found; Going to fetch session information");
+      logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation agent's CRM session is not found; Going to fetch session information");
 
       /* Get CRM service information from CRM */
       final MSCRMUserInformation mSCRMUserInformation = mSCRMDiscoveryManager.getMSCRMUserInformation(agent);
 
-      logger.debug("---Inside getUserWithCRMSessionInformation : CrmSessionId: " + mSCRMUserInformation.getCrmTicket());
+      logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation : CrmSessionId: " + mSCRMUserInformation.getCrmTicket());
 
       /* Set CRM ticket as session id at agent */
       agent.setCrmSessionId(mSCRMUserInformation.getCrmTicket());

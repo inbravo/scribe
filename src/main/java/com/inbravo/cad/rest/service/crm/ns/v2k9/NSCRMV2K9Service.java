@@ -1090,7 +1090,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws IllegalAccessException
    * @throws InvocationTargetException
    */
-  public final Customer createCustomer(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception {
+  public final Customer createCustomer(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     logger.debug("---Inside createCustomer");
 
@@ -1098,7 +1098,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final Customer customer = new Customer();
 
     /* Create list of element */
-    final List<Element> elementList = eDSAObject.getXmlContent();
+    final List<Element> elementList = cADbject.getXmlContent();
 
     /* An array list custom reference object */
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();
@@ -1222,7 +1222,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws IllegalAccessException
    * @throws InvocationTargetException
    */
-  public final Contact createContact(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception {
+  public final Contact createContact(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     logger.debug("---Inside createContact");
 
@@ -1230,7 +1230,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final Contact contact = new Contact();
 
     /* Create list of element */
-    final List<Element> elementList = eDSAObject.getXmlContent();
+    final List<Element> elementList = cADbject.getXmlContent();
 
     /* An array list custom reference object */
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();
@@ -1354,7 +1354,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws IllegalAccessException
    * @throws InvocationTargetException
    */
-  public final Opportunity createOpportunity(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception {
+  public final Opportunity createOpportunity(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     logger.debug("---Inside createOpportunity");
 
@@ -1362,7 +1362,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final Opportunity opportunity = new Opportunity();
 
     /* Create list of element */
-    final List<Element> elementList = eDSAObject.getXmlContent();
+    final List<Element> elementList = cADbject.getXmlContent();
 
     /* An array list custom reference object */
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();
@@ -1483,7 +1483,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws
    * @throws Exception
    */
-  public final Task createTask(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception {
+  public final Task createTask(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     logger.debug("---Inside createTask");
 
@@ -1491,7 +1491,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final Task task = new Task();
 
     /* Create list of element */
-    final List<Element> elementList = eDSAObject.getXmlContent();
+    final List<Element> elementList = cADbject.getXmlContent();
 
     /* An array list custom reference object */
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();
@@ -2215,7 +2215,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws IllegalAccessException
    * @throws InvocationTargetException
    */
-  public final SupportCase createSupportCase(final CADObject eDSAObject, final String crmFieldIntraSeparator) {
+  public final SupportCase createSupportCase(final CADObject cADbject, final String crmFieldIntraSeparator) {
 
     logger.debug("---Inside createSupportCase");
 
@@ -2223,7 +2223,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final SupportCase supportCase = new SupportCase();
 
     /* Create list of element */
-    final List<Element> elementList = eDSAObject.getXmlContent();
+    final List<Element> elementList = cADbject.getXmlContent();
 
     /* An array list custom reference object */
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();
@@ -2423,7 +2423,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws IllegalAccessException
    * @throws InvocationTargetException
    */
-  public final PhoneCall createPhoneCall(final CADObject eDSAObject, final String crmFieldIntraSeparator) {
+  public final PhoneCall createPhoneCall(final CADObject cADbject, final String crmFieldIntraSeparator) {
 
     logger.debug("---Inside createPhoneCall");
 
@@ -2431,7 +2431,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final PhoneCall phoneCall = new PhoneCall();
 
     /* Create list of element */
-    final List<Element> elementList = eDSAObject.getXmlContent();
+    final List<Element> elementList = cADbject.getXmlContent();
 
     /* An array list custom reference object */
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();

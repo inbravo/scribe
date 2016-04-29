@@ -20,12 +20,12 @@ public interface MSCRMServiceManager {
    * @param password
    * @param orgName
    * @param crmSecurityToken
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
   CADObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
-      final String password, final String orgName, final String[] crmSecurityToken, final CADObject eDSAObject) throws Exception;
+      final String password, final String orgName, final String[] crmSecurityToken, final CADObject cADbject) throws Exception;
 
   /**
    * 

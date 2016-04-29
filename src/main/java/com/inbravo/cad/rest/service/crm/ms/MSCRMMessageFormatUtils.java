@@ -713,24 +713,24 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * 
    * @param account
    * @param accountId
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final Entity createV5RetrieveCRMObjectReq(final CADObject eDSAObject, final String crmFieldIntraSeparator,
+  public static final Entity createV5RetrieveCRMObjectReq(final CADObject cADbject, final String crmFieldIntraSeparator,
       final String permittedDateFormats) throws Exception {
 
     /* Check for supported objects */
-    if (eDSAObject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Account.toString())
-        || (eDSAObject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Task.toString()))
-        || (eDSAObject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Contact.toString()))
-        || (eDSAObject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Lead.toString()))
-        || (eDSAObject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Opportunity.toString()))
-        || (eDSAObject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Incident.toString()))
-        || (eDSAObject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Case.toString()))) {
+    if (cADbject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Account.toString())
+        || (cADbject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Task.toString()))
+        || (cADbject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Contact.toString()))
+        || (cADbject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Lead.toString()))
+        || (cADbject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Opportunity.toString()))
+        || (cADbject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Incident.toString()))
+        || (cADbject.getObjectType().equalsIgnoreCase(MSCRMObjectType.Case.toString()))) {
 
       /* Create new V5 MS CRM object */
-      return createV5CRMObject(eDSAObject, crmFieldIntraSeparator, permittedDateFormats);
+      return createV5CRMObject(cADbject, crmFieldIntraSeparator, permittedDateFormats);
     } else {
 
       /* Else send not supported error to user */
@@ -743,24 +743,24 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * 
    * @param account
    * @param accountId
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final Entity createV5CRMObject(final CADObject eDSAObject, final String crmFieldIntraSeparator, final String permittedDateFormats)
+  public static final Entity createV5CRMObject(final CADObject cADbject, final String crmFieldIntraSeparator, final String permittedDateFormats)
       throws Exception {
 
     /* Create xml beans object */
     final Entity entity = Entity.Factory.newInstance();
 
     /* Set target name */
-    entity.setLogicalName(eDSAObject.getObjectType().trim());
+    entity.setLogicalName(cADbject.getObjectType().trim());
 
     /* Step 2: get all node attributes */
     final AttributeCollection attCol = entity.addNewAttributes();
 
     /* Iterate on the Element list and create SOAP object */
-    for (final Element element : eDSAObject.getXmlContent()) {
+    for (final Element element : cADbject.getXmlContent()) {
 
       /* Avoid if its local purpose regardingobjectid node */
       if (element.getNodeName().equalsIgnoreCase(regardingObjectidConst)) {
@@ -1001,10 +1001,10 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
     }
   }
 
-  public static final String[] getRegardingObjectInfo(final CADObject eDSAObject) {
+  public static final String[] getRegardingObjectInfo(final CADObject cADbject) {
 
     /* Iterate on the Element list and create SOAP object */
-    for (final Element element : eDSAObject.getXmlContent()) {
+    for (final Element element : cADbject.getXmlContent()) {
 
       if (logger.isDebugEnabled()) {
         logger.debug("---Inside getRegardingObjectInfo: node: '" + element.getNodeName() + "' with value : '" + element.getTextContent()
@@ -1053,25 +1053,25 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * 
    * @param account
    * @param accountId
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final BusinessEntity createCRMObject(final String mSCRMObjectType, final CADObject eDSAObject, final String crmFieldIntraSeparator)
+  public static final BusinessEntity createCRMObject(final String mSCRMObjectType, final CADObject cADbject, final String crmFieldIntraSeparator)
       throws Exception {
 
     if (mSCRMObjectType.equalsIgnoreCase(MSCRMObjectType.Account.toString())) {
-      return createCRMObjectTypeAccount(eDSAObject, crmFieldIntraSeparator);
+      return createCRMObjectTypeAccount(cADbject, crmFieldIntraSeparator);
     } else if (mSCRMObjectType.equalsIgnoreCase(MSCRMObjectType.Task.toString())) {
-      return createCRMObjectTypeTask(eDSAObject, crmFieldIntraSeparator);
+      return createCRMObjectTypeTask(cADbject, crmFieldIntraSeparator);
     } else if (mSCRMObjectType.equalsIgnoreCase(MSCRMObjectType.Contact.toString())) {
-      return createCRMObjectTypeContact(eDSAObject, crmFieldIntraSeparator);
+      return createCRMObjectTypeContact(cADbject, crmFieldIntraSeparator);
     } else if (mSCRMObjectType.equalsIgnoreCase(MSCRMObjectType.Lead.toString())) {
-      return createCRMObjectTypeLead(eDSAObject, crmFieldIntraSeparator);
+      return createCRMObjectTypeLead(cADbject, crmFieldIntraSeparator);
     } else if (mSCRMObjectType.equalsIgnoreCase(MSCRMObjectType.Opportunity.toString())) {
-      return createCRMObjectTypeOpportunity(eDSAObject, crmFieldIntraSeparator);
+      return createCRMObjectTypeOpportunity(cADbject, crmFieldIntraSeparator);
     } else if (mSCRMObjectType.equalsIgnoreCase(MSCRMObjectType.Incident.toString())) {
-      return createCRMObjectTypeIncident(eDSAObject, crmFieldIntraSeparator);
+      return createCRMObjectTypeIncident(cADbject, crmFieldIntraSeparator);
     } else {
 
       /* Throw user error */
@@ -1083,11 +1083,11 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * 
    * @param account
    * @param accountId
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final Account createCRMObjectTypeAccount(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Account createCRMObjectTypeAccount(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     final Account account = Account.Factory.newInstance();
@@ -1104,7 +1104,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         final String nsURL = node.getNamespaceURI();
 
         /* Iterate on the Element list and create SOAP object */
-        for (final Element element : eDSAObject.getXmlContent()) {
+        for (final Element element : cADbject.getXmlContent()) {
 
           if (logger.isDebugEnabled()) {
             logger.debug("---Inside createCRMObject_Account: adding node: " + element.getNodeName() + " with value : " + element.getTextContent());
@@ -1169,11 +1169,11 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * 
    * @param account
    * @param accountId
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final Task createCRMObjectTypeTask(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Task createCRMObjectTypeTask(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     final Task task = Task.Factory.newInstance();
@@ -1190,7 +1190,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         final String nsURL = node.getNamespaceURI();
 
         /* Iterate on the Element list and create SOAP object */
-        for (final Element element : eDSAObject.getXmlContent()) {
+        for (final Element element : cADbject.getXmlContent()) {
 
           if (logger.isDebugEnabled()) {
             logger.debug("---Inside createCRMObject_Task: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());
@@ -1254,11 +1254,11 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * 
    * @param account
    * @param accountId
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final Contact createCRMObjectTypeContact(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Contact createCRMObjectTypeContact(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     final Contact contact = Contact.Factory.newInstance();
@@ -1275,7 +1275,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         final String nsURL = node.getNamespaceURI();
 
         /* Iterate on the Element list and create SOAP object */
-        for (final Element element : eDSAObject.getXmlContent()) {
+        for (final Element element : cADbject.getXmlContent()) {
 
           if (logger.isDebugEnabled()) {
             logger.debug("---Inside createCRMObject_Contact: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());
@@ -1339,11 +1339,11 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * 
    * @param account
    * @param accountId
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final Lead createCRMObjectTypeLead(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Lead createCRMObjectTypeLead(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     final Lead lead = Lead.Factory.newInstance();
@@ -1361,7 +1361,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         final String nsURL = node.getNamespaceURI();
 
         /* Iterate on the Element list and create SOAP object */
-        for (final Element element : eDSAObject.getXmlContent()) {
+        for (final Element element : cADbject.getXmlContent()) {
           if (logger.isDebugEnabled()) {
             logger.debug("---Inside createCRMObject_Lead: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());
           }
@@ -1424,11 +1424,11 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * 
    * @param account
    * @param accountId
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final Opportunity createCRMObjectTypeOpportunity(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Opportunity createCRMObjectTypeOpportunity(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     final Opportunity opportunity = Opportunity.Factory.newInstance();
@@ -1446,7 +1446,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         final String nsURL = node.getNamespaceURI();
 
         /* Iterate on the Element list and create SOAP object */
-        for (final Element element : eDSAObject.getXmlContent()) {
+        for (final Element element : cADbject.getXmlContent()) {
 
           if (logger.isDebugEnabled()) {
             logger.debug("---Inside createCRMObject_Opportunity: adding node : " + element.getNodeName() + " with value : "
@@ -1511,11 +1511,11 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * 
    * @param account
    * @param accountId
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final Incident createCRMObjectTypeIncident(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Incident createCRMObjectTypeIncident(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     /* In MS CRM 'Incident' is actually a 'Case' */
@@ -1533,7 +1533,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         final String nsURL = node.getNamespaceURI();
 
         /* Iterate on the Element list and create SOAP object */
-        for (final Element element : eDSAObject.getXmlContent()) {
+        for (final Element element : cADbject.getXmlContent()) {
 
           if (logger.isDebugEnabled()) {
             logger.debug("---Inside createCRMObject_Incident: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());

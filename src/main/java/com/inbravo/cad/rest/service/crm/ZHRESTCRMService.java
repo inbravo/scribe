@@ -29,7 +29,6 @@ import org.xml.sax.SAXException;
 import com.inbravo.cad.exception.CADException;
 import com.inbravo.cad.exception.CADResponseCodes;
 import com.inbravo.cad.internal.service.dto.CADUser;
-import com.inbravo.cad.internal.service.dto.Tenant;
 import com.inbravo.cad.rest.resource.CADCommandObject;
 import com.inbravo.cad.rest.resource.CADObject;
 import com.inbravo.cad.rest.service.crm.session.CRMSessionManager;
@@ -59,38 +58,22 @@ public final class ZHRESTCRMService extends CRMService {
   private String permittedDateFormats;
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjects");
+
+    /* Get user from session manager */
+    final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
 
     PostMethod postMethod = null;
     try {
 
-      String serviceURL = null;
-      String serviceProtocol = null;
-      String sessionId = null;
-
-      /* Check if tenant is present in request */
-      if (eDSACommandObject.getTenant() != null) {
-
-        /* Get tenant from session manager */
-        final Tenant tenant = (Tenant) cRMSessionManager.getSessionInfo(eDSACommandObject.getTenant());
-
-        /* Get CRM information from tenant */
-        serviceURL = tenant.getCrmServiceURL();
-        serviceProtocol = tenant.getCrmServiceProtocol();
-        sessionId = tenant.getCrmSessionId();
-      } else {
-        /* Get agent from session manager */
-        final CADUser agent = (CADUser) cRMSessionManager.getSessionInfo(eDSACommandObject.getAgent());
-
-        /* Get CRM information from agent */
-        serviceURL = agent.getCrmServiceURL();
-        serviceProtocol = agent.getCrmServiceProtocol();
-        sessionId = agent.getCrmSessionId();
-      }
+      /* Get CRM information from user */
+      final String serviceURL = user.getCrmServiceURL();
+      final String serviceProtocol = user.getCrmServiceProtocol();
+      final String sessionId = user.getCrmSessionId();
 
       /* Create Zoho URL */
-      final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + eDSACommandObject.getObjectType() + "s/getRecords";
+      final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getRecords";
 
       logger.debug("---Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
@@ -119,7 +102,7 @@ public final class ZHRESTCRMService extends CRMService {
         final XPath xpath = XPathFactory.newInstance().newXPath();
 
         /* XPath Query for showing all nodes value */
-        final XPathExpression expr = xpath.compile("/response/result/" + eDSACommandObject.getObjectType() + "s/row");
+        final XPathExpression expr = xpath.compile("/response/result/" + cADCommandObject.getObjectType() + "s/row");
 
         /* Get node list from response document */
         final NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
@@ -152,7 +135,7 @@ public final class ZHRESTCRMService extends CRMService {
         } else {
 
           /* Create new EDSA object list */
-          final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+          final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
           /* Iterate over node list */
           for (int i = 0; i < nodeList.getLength(); i++) {
@@ -164,7 +147,7 @@ public final class ZHRESTCRMService extends CRMService {
             final Node node = nodeList.item(i);
 
             /* Create new EDSA object */
-            final CADObject eDSAObject = new CADObject();
+            final CADObject cADbject = new CADObject();
 
             /* Check if node has child nodes */
             if (node.hasChildNodes()) {
@@ -203,22 +186,22 @@ public final class ZHRESTCRMService extends CRMService {
               }
             }
             /* Add all CRM fields */
-            eDSAObject.setXmlContent(elementList);
+            cADbject.setXmlContent(elementList);
 
             /* Set type information in object */
-            eDSAObject.setObjectType(eDSACommandObject.getObjectType());
+            cADbject.setObjectType(cADCommandObject.getObjectType());
 
             /* Add EDSA object in list */
-            eDSAObjectList.add(eDSAObject);
+            cADbjectList.add(cADbject);
           }
 
           /* Check if no record found */
-          if (eDSAObjectList.size() == 0) {
+          if (cADbjectList.size() == 0) {
             throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM");
           }
 
           /* Set the final object in command object */
-          eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
+          cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
         }
       } else if (result == HttpStatus.SC_FORBIDDEN) {
         throw new CADException(CADResponseCodes._1022 + "Query is forbidden by Zoho CRM");
@@ -268,11 +251,11 @@ public final class ZHRESTCRMService extends CRMService {
         postMethod.releaseConnection();
       }
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects, query: " + query);
 
     /* Transfer the call to second method */
@@ -282,7 +265,7 @@ public final class ZHRESTCRMService extends CRMService {
 
       try {
         /* Query CRM object by Phone field */
-        returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, null, null, "Phone");
+        returnObject = this.getObjectsByPhoneField(cADCommandObject, query, null, null, "Phone");
 
       } catch (final CADException firstE) {
 
@@ -291,7 +274,7 @@ public final class ZHRESTCRMService extends CRMService {
 
           try {
             /* Query CRM object by Mobile field */
-            returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, null, null, "Mobile");
+            returnObject = this.getObjectsByPhoneField(cADCommandObject, query, null, null, "Mobile");
           } catch (final CADException secondE) {
 
             /* Check if record is again not found */
@@ -299,7 +282,7 @@ public final class ZHRESTCRMService extends CRMService {
 
               try {
                 /* Query CRM object by Home Phone field */
-                returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, null, null, "Home Phone");
+                returnObject = this.getObjectsByPhoneField(cADCommandObject, query, null, null, "Home Phone");
               } catch (final CADException thirdE) {
 
                 /* Check if record is again not found */
@@ -307,7 +290,7 @@ public final class ZHRESTCRMService extends CRMService {
 
                   try {
                     /* Query CRM object by Other Phone field */
-                    returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, null, null, "Other Phone");
+                    returnObject = this.getObjectsByPhoneField(cADCommandObject, query, null, null, "Other Phone");
                   } catch (final CADException fourthE) {
 
                     /* Throw the error to user */
@@ -323,35 +306,18 @@ public final class ZHRESTCRMService extends CRMService {
       return returnObject;
     } else {
 
+      /* Get user from session manager */
+      final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
+
       PostMethod postMethod = null;
       try {
 
-        String serviceURL = null;
-        String serviceProtocol = null;
-        String sessionId = null;
-
-        /* Check if tenant is present in request */
-        if (eDSACommandObject.getTenant() != null) {
-
-          /* Get tenant from session manager */
-          final Tenant tenant = (Tenant) cRMSessionManager.getSessionInfo(eDSACommandObject.getTenant());
-
-          /* Get CRM information from tenant */
-          serviceURL = tenant.getCrmServiceURL();
-          serviceProtocol = tenant.getCrmServiceProtocol();
-          sessionId = tenant.getCrmSessionId();
-        } else {
-          /* Get agent from session manager */
-          final CADUser agent = (CADUser) cRMSessionManager.getSessionInfo(eDSACommandObject.getAgent());
-
-          /* Get CRM information from agent */
-          serviceURL = agent.getCrmServiceURL();
-          serviceProtocol = agent.getCrmServiceProtocol();
-          sessionId = agent.getCrmSessionId();
-        }
-
+        /* Get CRM information from user */
+        final String serviceURL = user.getCrmServiceURL();
+        final String serviceProtocol = user.getCrmServiceProtocol();
+        final String sessionId = user.getCrmSessionId();
         /* Create Zoho URL */
-        final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + eDSACommandObject.getObjectType() + "s/getSearchRecords";
+        final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
 
         logger.debug("---Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
@@ -375,7 +341,7 @@ public final class ZHRESTCRMService extends CRMService {
         } else {
 
           /* Without query param this method is not applicable */
-          return this.getObjects(eDSACommandObject);
+          return this.getObjects(cADCommandObject);
         }
 
         /* Set request param to select all fields */
@@ -399,7 +365,7 @@ public final class ZHRESTCRMService extends CRMService {
           final XPath xpath = XPathFactory.newInstance().newXPath();
 
           /* XPath Query for showing all nodes value */
-          final XPathExpression expr = xpath.compile("/response/result/" + eDSACommandObject.getObjectType() + "s/row");
+          final XPathExpression expr = xpath.compile("/response/result/" + cADCommandObject.getObjectType() + "s/row");
 
           /* Get node list from response document */
           final NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
@@ -433,7 +399,7 @@ public final class ZHRESTCRMService extends CRMService {
           } else {
 
             /* Create new EDSA object list */
-            final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+            final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
             /* Iterate over node list */
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -445,7 +411,7 @@ public final class ZHRESTCRMService extends CRMService {
               final Node node = nodeList.item(i);
 
               /* Create new EDSA object */
-              final CADObject eDSAObject = new CADObject();
+              final CADObject cADbject = new CADObject();
 
               /* Check if node has child nodes */
               if (node.hasChildNodes()) {
@@ -486,22 +452,22 @@ public final class ZHRESTCRMService extends CRMService {
                 }
               }
               /* Add all CRM fields */
-              eDSAObject.setXmlContent(elementList);
+              cADbject.setXmlContent(elementList);
 
               /* Set type information in object */
-              eDSAObject.setObjectType(eDSACommandObject.getObjectType());
+              cADbject.setObjectType(cADCommandObject.getObjectType());
 
               /* Add EDSA object in list */
-              eDSAObjectList.add(eDSAObject);
+              cADbjectList.add(cADbject);
             }
 
             /* Check if no record found */
-            if (eDSAObjectList.size() == 0) {
+            if (cADbjectList.size() == 0) {
               throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM");
             }
 
             /* Set the final object in command object */
-            eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
+            cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
           }
         } else if (result == HttpStatus.SC_FORBIDDEN) {
           throw new CADException(CADResponseCodes._1022 + "Query is forbidden by Zoho CRM");
@@ -551,12 +517,12 @@ public final class ZHRESTCRMService extends CRMService {
           postMethod.releaseConnection();
         }
       }
-      return eDSACommandObject;
+      return cADCommandObject;
     }
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects, query: " + query + " & select: " + select);
 
     /* Transfer the call to second method */
@@ -566,7 +532,7 @@ public final class ZHRESTCRMService extends CRMService {
 
       try {
         /* Query CRM object by Phone field */
-        returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, select, null, "Phone");
+        returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, null, "Phone");
 
       } catch (final CADException firstE) {
 
@@ -575,7 +541,7 @@ public final class ZHRESTCRMService extends CRMService {
 
           try {
             /* Query CRM object by Mobile field */
-            returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, select, null, "Mobile");
+            returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, null, "Mobile");
           } catch (final CADException secondE) {
 
             /* Check if record is again not found */
@@ -583,7 +549,7 @@ public final class ZHRESTCRMService extends CRMService {
 
               try {
                 /* Query CRM object by Home Phone field */
-                returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, select, null, "Home Phone");
+                returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, null, "Home Phone");
               } catch (final CADException thirdE) {
 
                 /* Check if record is again not found */
@@ -591,7 +557,7 @@ public final class ZHRESTCRMService extends CRMService {
 
                   try {
                     /* Query CRM object by Other Phone field */
-                    returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, select, null, "Other Phone");
+                    returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, null, "Other Phone");
                   } catch (final CADException fourthE) {
 
                     /* Throw the error to user */
@@ -607,35 +573,19 @@ public final class ZHRESTCRMService extends CRMService {
       return returnObject;
     } else {
 
+      /* Get user from session manager */
+      final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
+
       PostMethod postMethod = null;
       try {
 
-        String serviceURL = null;
-        String serviceProtocol = null;
-        String sessionId = null;
-
-        /* Check if tenant is present in request */
-        if (eDSACommandObject.getTenant() != null) {
-
-          /* Get tenant from session manager */
-          final Tenant tenant = (Tenant) cRMSessionManager.getSessionInfo(eDSACommandObject.getTenant());
-
-          /* Get CRM information from tenant */
-          serviceURL = tenant.getCrmServiceURL();
-          serviceProtocol = tenant.getCrmServiceProtocol();
-          sessionId = tenant.getCrmSessionId();
-        } else {
-          /* Get agent from session manager */
-          final CADUser agent = (CADUser) cRMSessionManager.getSessionInfo(eDSACommandObject.getAgent());
-
-          /* Get CRM information from agent */
-          serviceURL = agent.getCrmServiceURL();
-          serviceProtocol = agent.getCrmServiceProtocol();
-          sessionId = agent.getCrmSessionId();
-        }
+        /* Get CRM information from user */
+        final String serviceURL = user.getCrmServiceURL();
+        final String serviceProtocol = user.getCrmServiceProtocol();
+        final String sessionId = user.getCrmSessionId();
 
         /* Create Zoho URL */
-        final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + eDSACommandObject.getObjectType() + "s/getSearchRecords";
+        final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
 
         logger.debug("---Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
@@ -659,13 +609,13 @@ public final class ZHRESTCRMService extends CRMService {
         } else {
 
           /* Without query param this method is not applicable */
-          return this.getObjects(eDSACommandObject);
+          return this.getObjects(cADCommandObject);
         }
 
         if (!select.equalsIgnoreCase("ALL")) {
 
           /* Create ZH select CRM fields information */
-          final String zhSelect = ZHCRMMessageFormatUtils.createZHSelect(eDSACommandObject, select);
+          final String zhSelect = ZHCRMMessageFormatUtils.createZHSelect(cADCommandObject, select);
 
           /* Validate query */
           if (zhSelect != null && !"".equals(zhSelect)) {
@@ -697,7 +647,7 @@ public final class ZHRESTCRMService extends CRMService {
           final XPath xpath = XPathFactory.newInstance().newXPath();
 
           /* XPath Query for showing all nodes value */
-          final XPathExpression expr = xpath.compile("/response/result/" + eDSACommandObject.getObjectType() + "s/row");
+          final XPathExpression expr = xpath.compile("/response/result/" + cADCommandObject.getObjectType() + "s/row");
 
           /* Get node list from response document */
           final NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
@@ -729,7 +679,7 @@ public final class ZHRESTCRMService extends CRMService {
             }
           } else {
             /* Create new EDSA object list */
-            final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+            final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
             /* Iterate over node list */
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -741,7 +691,7 @@ public final class ZHRESTCRMService extends CRMService {
               final Node node = nodeList.item(i);
 
               /* Create new EDSA object */
-              final CADObject eDSAObject = new CADObject();
+              final CADObject cADbject = new CADObject();
 
               /* Check if node has child nodes */
               if (node.hasChildNodes()) {
@@ -782,22 +732,22 @@ public final class ZHRESTCRMService extends CRMService {
                 }
               }
               /* Add all CRM fields */
-              eDSAObject.setXmlContent(elementList);
+              cADbject.setXmlContent(elementList);
 
               /* Set type information in object */
-              eDSAObject.setObjectType(eDSACommandObject.getObjectType());
+              cADbject.setObjectType(cADCommandObject.getObjectType());
 
               /* Add EDSA object in list */
-              eDSAObjectList.add(eDSAObject);
+              cADbjectList.add(cADbject);
             }
 
             /* Check if no record found */
-            if (eDSAObjectList.size() == 0) {
+            if (cADbjectList.size() == 0) {
               throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM");
             }
 
             /* Set the final object in command object */
-            eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
+            cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
           }
         } else if (result == HttpStatus.SC_FORBIDDEN) {
           throw new CADException(CADResponseCodes._1022 + "Query is forbidden by Zoho CRM");
@@ -848,12 +798,12 @@ public final class ZHRESTCRMService extends CRMService {
         }
       }
 
-      return eDSACommandObject;
+      return cADCommandObject;
     }
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select, final String order)
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
     logger.debug("---Inside getObjects, query: " + query + " & select: " + select + " & order: " + order);
 
@@ -864,7 +814,7 @@ public final class ZHRESTCRMService extends CRMService {
 
       try {
         /* Query CRM object by Phone field */
-        returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, select, order, "Phone");
+        returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, order, "Phone");
 
       } catch (final CADException firstE) {
 
@@ -873,7 +823,7 @@ public final class ZHRESTCRMService extends CRMService {
 
           try {
             /* Query CRM object by Home Phone field */
-            returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, select, order, "Mobile Phone");
+            returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, order, "Mobile Phone");
           } catch (final CADException secondE) {
 
             /* Check if record is again not found */
@@ -881,7 +831,7 @@ public final class ZHRESTCRMService extends CRMService {
 
               try {
                 /* Query CRM object by Home Phone field */
-                returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, select, order, "Home Phone");
+                returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, order, "Home Phone");
               } catch (final CADException thirdE) {
 
                 /* Check if record is again not found */
@@ -889,7 +839,7 @@ public final class ZHRESTCRMService extends CRMService {
 
                   try {
                     /* Query CRM object by Home Phone field */
-                    returnObject = this.getObjectsByPhoneField(eDSACommandObject, query, select, order, "Other Phone");
+                    returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, order, "Other Phone");
                   } catch (final CADException fourthE) {
 
                     /* Throw the error to user */
@@ -905,35 +855,19 @@ public final class ZHRESTCRMService extends CRMService {
       return returnObject;
     } else {
 
+      /* Get user from session manager */
+      final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
+
       PostMethod postMethod = null;
       try {
 
-        String serviceURL = null;
-        String serviceProtocol = null;
-        String sessionId = null;
-
-        /* Check if tenant is present in request */
-        if (eDSACommandObject.getTenant() != null) {
-
-          /* Get tenant from session manager */
-          final Tenant tenant = (Tenant) cRMSessionManager.getSessionInfo(eDSACommandObject.getTenant());
-
-          /* Get CRM information from tenant */
-          serviceURL = tenant.getCrmServiceURL();
-          serviceProtocol = tenant.getCrmServiceProtocol();
-          sessionId = tenant.getCrmSessionId();
-        } else {
-          /* Get agent from session manager */
-          final CADUser agent = (CADUser) cRMSessionManager.getSessionInfo(eDSACommandObject.getAgent());
-
-          /* Get CRM information from agent */
-          serviceURL = agent.getCrmServiceURL();
-          serviceProtocol = agent.getCrmServiceProtocol();
-          sessionId = agent.getCrmSessionId();
-        }
+        /* Get CRM information from user */
+        final String serviceURL = user.getCrmServiceURL();
+        final String serviceProtocol = user.getCrmServiceProtocol();
+        final String sessionId = user.getCrmSessionId();
 
         /* Create Zoho URL */
-        final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + eDSACommandObject.getObjectType() + "s/getSearchRecords";
+        final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
 
         logger.debug("---Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
@@ -957,13 +891,13 @@ public final class ZHRESTCRMService extends CRMService {
         } else {
 
           /* Without query param this method is not applicable */
-          return this.getObjects(eDSACommandObject);
+          return this.getObjects(cADCommandObject);
         }
 
         if (!select.equalsIgnoreCase("ALL")) {
 
           /* Create ZH select CRM fields information */
-          final String zhSelect = ZHCRMMessageFormatUtils.createZHSelect(eDSACommandObject, select);
+          final String zhSelect = ZHCRMMessageFormatUtils.createZHSelect(cADCommandObject, select);
 
           /* Validate query */
           if (zhSelect != null && !"".equals(zhSelect)) {
@@ -1008,7 +942,7 @@ public final class ZHRESTCRMService extends CRMService {
           final XPath xpath = XPathFactory.newInstance().newXPath();
 
           /* XPath Query for showing all nodes value */
-          final XPathExpression expr = xpath.compile("/response/result/" + eDSACommandObject.getObjectType() + "s/row");
+          final XPathExpression expr = xpath.compile("/response/result/" + cADCommandObject.getObjectType() + "s/row");
 
           /* Get node list from response document */
           final NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
@@ -1041,7 +975,7 @@ public final class ZHRESTCRMService extends CRMService {
           } else {
 
             /* Create new EDSA object list */
-            final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+            final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
             /* Iterate over node list */
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -1053,7 +987,7 @@ public final class ZHRESTCRMService extends CRMService {
               final Node node = nodeList.item(i);
 
               /* Create new EDSA object */
-              final CADObject eDSAObject = new CADObject();
+              final CADObject cADbject = new CADObject();
 
               /* Check if node has child nodes */
               if (node.hasChildNodes()) {
@@ -1095,22 +1029,22 @@ public final class ZHRESTCRMService extends CRMService {
               }
 
               /* Add all CRM fields */
-              eDSAObject.setXmlContent(elementList);
+              cADbject.setXmlContent(elementList);
 
               /* Set type information in object */
-              eDSAObject.setObjectType(eDSACommandObject.getObjectType());
+              cADbject.setObjectType(cADCommandObject.getObjectType());
 
               /* Add EDSA object in list */
-              eDSAObjectList.add(eDSAObject);
+              cADbjectList.add(cADbject);
             }
 
             /* Check if no record found */
-            if (eDSAObjectList.size() == 0) {
+            if (cADbjectList.size() == 0) {
               throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM");
             }
 
             /* Set the final object in command object */
-            eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
+            cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
           }
         } else if (result == HttpStatus.SC_FORBIDDEN) {
           throw new CADException(CADResponseCodes._1022 + "Query is forbidden by Zoho CRM");
@@ -1161,53 +1095,37 @@ public final class ZHRESTCRMService extends CRMService {
         }
       }
 
-      return eDSACommandObject;
+      return cADCommandObject;
     }
   }
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @param query
    * @param select
    * @param order
    * @return
    * @throws Exception
    */
-  private final CADCommandObject getObjectsByPhoneField(final CADCommandObject eDSACommandObject, final String query, final String select,
+  private final CADCommandObject getObjectsByPhoneField(final CADCommandObject cADCommandObject, final String query, final String select,
       final String order, final String phoneFieldName) throws Exception {
     logger.debug("---Inside getObjectsByAllPhoneNumbers, query: " + query + " & select: " + select + " & order: " + order + " & phoneFieldName: "
         + phoneFieldName);
 
+    /* Get user from session manager */
+    final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
+
     PostMethod postMethod = null;
     try {
 
-      String serviceURL = null;
-      String serviceProtocol = null;
-      String sessionId = null;
-
-      /* Check if tenant is present in request */
-      if (eDSACommandObject.getTenant() != null) {
-
-        /* Get tenant from session manager */
-        final Tenant tenant = (Tenant) cRMSessionManager.getSessionInfo(eDSACommandObject.getTenant());
-
-        /* Get CRM information from tenant */
-        serviceURL = tenant.getCrmServiceURL();
-        serviceProtocol = tenant.getCrmServiceProtocol();
-        sessionId = tenant.getCrmSessionId();
-      } else {
-        /* Get agent from session manager */
-        final CADUser agent = (CADUser) cRMSessionManager.getSessionInfo(eDSACommandObject.getAgent());
-
-        /* Get CRM information from agent */
-        serviceURL = agent.getCrmServiceURL();
-        serviceProtocol = agent.getCrmServiceProtocol();
-        sessionId = agent.getCrmSessionId();
-      }
+      /* Get CRM information from user */
+      final String serviceURL = user.getCrmServiceURL();
+      final String serviceProtocol = user.getCrmServiceProtocol();
+      final String sessionId = user.getCrmSessionId();
 
       /* Create Zoho URL */
-      final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + eDSACommandObject.getObjectType() + "s/getSearchRecords";
+      final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
 
       logger.debug("---Inside getObjectsByAllPhoneNumbers zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
@@ -1231,13 +1149,13 @@ public final class ZHRESTCRMService extends CRMService {
       } else {
 
         /* Without query param this method is not applicable */
-        return this.getObjects(eDSACommandObject);
+        return this.getObjects(cADCommandObject);
       }
 
       if (select != null && !select.equalsIgnoreCase("ALL")) {
 
         /* Create ZH select CRM fields information */
-        final String zhSelect = ZHCRMMessageFormatUtils.createZHSelect(eDSACommandObject, select);
+        final String zhSelect = ZHCRMMessageFormatUtils.createZHSelect(cADCommandObject, select);
 
         /* Validate query */
         if (zhSelect != null && !"".equals(zhSelect)) {
@@ -1282,7 +1200,7 @@ public final class ZHRESTCRMService extends CRMService {
         final XPath xpath = XPathFactory.newInstance().newXPath();
 
         /* XPath Query for showing all nodes value */
-        final XPathExpression expr = xpath.compile("/response/result/" + eDSACommandObject.getObjectType() + "s/row");
+        final XPathExpression expr = xpath.compile("/response/result/" + cADCommandObject.getObjectType() + "s/row");
 
         /* Get node list from response document */
         final NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
@@ -1315,7 +1233,7 @@ public final class ZHRESTCRMService extends CRMService {
         } else {
 
           /* Create new EDSA object list */
-          final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+          final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
           /* Iterate over node list */
           for (int i = 0; i < nodeList.getLength(); i++) {
@@ -1327,7 +1245,7 @@ public final class ZHRESTCRMService extends CRMService {
             final Node node = nodeList.item(i);
 
             /* Create new EDSA object */
-            final CADObject eDSAObject = new CADObject();
+            final CADObject cADbject = new CADObject();
 
             /* Check if node has child nodes */
             if (node.hasChildNodes()) {
@@ -1367,22 +1285,22 @@ public final class ZHRESTCRMService extends CRMService {
             }
 
             /* Add all CRM fields */
-            eDSAObject.setXmlContent(elementList);
+            cADbject.setXmlContent(elementList);
 
             /* Set type information in object */
-            eDSAObject.setObjectType(eDSACommandObject.getObjectType());
+            cADbject.setObjectType(cADCommandObject.getObjectType());
 
             /* Add EDSA object in list */
-            eDSAObjectList.add(eDSAObject);
+            cADbjectList.add(cADbject);
           }
 
           /* Check if no record found */
-          if (eDSAObjectList.size() == 0) {
+          if (cADbjectList.size() == 0) {
             throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM");
           }
 
           /* Set the final object in command object */
-          eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
+          cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
         }
       } else if (result == HttpStatus.SC_FORBIDDEN) {
         throw new CADException(CADResponseCodes._1022 + "Query is forbidden by Zoho CRM");
@@ -1432,42 +1350,26 @@ public final class ZHRESTCRMService extends CRMService {
         postMethod.releaseConnection();
       }
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside createObject");
+
+    /* Get user from session manager */
+    final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
 
     PostMethod postMethod = null;
     try {
 
-      String serviceURL = null;
-      String serviceProtocol = null;
-      String sessionId = null;
-
-      /* Check if tenant is present in request */
-      if (eDSACommandObject.getTenant() != null) {
-
-        /* Get tenant from session manager */
-        final Tenant tenant = (Tenant) cRMSessionManager.getSessionInfo(eDSACommandObject.getTenant());
-
-        /* Get CRM information from tenant */
-        serviceURL = tenant.getCrmServiceURL();
-        serviceProtocol = tenant.getCrmServiceProtocol();
-        sessionId = tenant.getCrmSessionId();
-      } else {
-        /* Get agent from session manager */
-        final CADUser agent = (CADUser) cRMSessionManager.getSessionInfo(eDSACommandObject.getAgent());
-
-        /* Get CRM information from agent */
-        serviceURL = agent.getCrmServiceURL();
-        serviceProtocol = agent.getCrmServiceProtocol();
-        sessionId = agent.getCrmSessionId();
-      }
+      /* Get CRM information from user */
+      final String serviceURL = user.getCrmServiceURL();
+      final String serviceProtocol = user.getCrmServiceProtocol();
+      final String sessionId = user.getCrmSessionId();
 
       /* Create Zoho URL */
-      final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + eDSACommandObject.getObjectType() + "s/insertRecords";
+      final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/insertRecords";
 
       logger.debug("---Inside createObject, zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
@@ -1475,7 +1377,7 @@ public final class ZHRESTCRMService extends CRMService {
       postMethod = new PostMethod(zohoURL);
 
       final String xmlData =
-          ZHCRMMessageFormatUtils.createRequestString(eDSACommandObject, spaceCharReplacement, permittedDateFormats, zohoInputDateFormat);
+          ZHCRMMessageFormatUtils.createRequestString(cADCommandObject, spaceCharReplacement, permittedDateFormats, zohoInputDateFormat);
 
       /* Validate xmlData */
       if (xmlData != null && !"".equals(xmlData)) {
@@ -1550,8 +1452,8 @@ public final class ZHRESTCRMService extends CRMService {
                   if (element.getAttribute("val").equalsIgnoreCase(("ID"))) {
 
                     /* Set object id in request object */
-                    eDSACommandObject.geteDSAObject()[0] =
-                        ZHCRMMessageFormatUtils.addNode("Id", element.getTextContent(), eDSACommandObject.geteDSAObject()[0]);
+                    cADCommandObject.getcADObject()[0] =
+                        ZHCRMMessageFormatUtils.addNode("Id", element.getTextContent(), cADCommandObject.getcADObject()[0]);
                   }
                 }
               }
@@ -1606,26 +1508,26 @@ public final class ZHRESTCRMService extends CRMService {
         postMethod.releaseConnection();
       }
     }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public CADCommandObject getObjectsCount(final CADCommandObject eDSACommandObject) throws Exception {
+  public CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
     throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
   }
 
   @Override
-  public CADCommandObject getObjectsCount(final CADCommandObject eDSACommandObject, final String query) throws Exception {
+  public CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
     throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
   }
 
   @Override
-  public CADCommandObject updateObject(final CADCommandObject eDSACommandObject) throws Exception {
+  public CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
     throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject eDSACommandObject, final String idToBeDeleted) throws Exception {
+  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
     throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
   }
 

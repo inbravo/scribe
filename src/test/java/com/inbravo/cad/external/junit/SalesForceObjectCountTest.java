@@ -53,11 +53,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -87,11 +87,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -121,11 +121,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -155,11 +155,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -189,11 +189,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -224,11 +224,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -258,11 +258,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -292,11 +292,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -326,11 +326,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -360,11 +360,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -395,11 +395,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForTenantWithDynamicQuery(tenantId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenantWithDynamicQuery(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -430,11 +430,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForAgentWithDynamicQuery(agentId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgentWithDynamicQuery(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -465,11 +465,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -493,11 +493,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get EDSA command object from response */
-      CADCommandObject eDSACommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = eDSACommandObject.geteDSAObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;

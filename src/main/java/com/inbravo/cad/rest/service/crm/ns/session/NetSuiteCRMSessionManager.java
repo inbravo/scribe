@@ -189,11 +189,11 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
     this.cRMSessionCache = cRMSessionCache;
   }
 
-  public final String getAgentIdSplitCharacter() {
+  public final String getCrmUserIdIdSplitCharacter() {
     return agentIdSplitCharacter;
   }
 
-  public final void setAgentIdSplitCharacter(final String agentIdSplitCharacter) {
+  public final void setCrmUserIdIdSplitCharacter(final String agentIdSplitCharacter) {
     this.agentIdSplitCharacter = agentIdSplitCharacter;
   }
 

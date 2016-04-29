@@ -28,15 +28,15 @@ public interface NSCRMGenericService {
 
   SearchRecord createEmployeeSearch(final String query, final String crmFieldIntraSeparator, final String inputDateFormat) throws Exception;
 
-  Task createTask(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception;
+  Task createTask(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 
-  Customer createCustomer(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception;
+  Customer createCustomer(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 
-  Opportunity createOpportunity(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception;
+  Opportunity createOpportunity(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 
-  Contact createContact(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception;
+  Contact createContact(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 
-  SupportCase createSupportCase(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception;
+  SupportCase createSupportCase(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 
-  PhoneCall createPhoneCall(final CADObject eDSAObject, final String crmFieldIntraSeparator) throws Exception;
+  PhoneCall createPhoneCall(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 }

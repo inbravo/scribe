@@ -4,11 +4,8 @@ import org.apache.log4j.Logger;
 
 import com.inbravo.cad.exception.CADException;
 import com.inbravo.cad.exception.CADResponseCodes;
-import com.inbravo.cad.internal.service.CADUserInfoService;
-import com.inbravo.cad.internal.service.SuperUserInfoService;
 import com.inbravo.cad.internal.service.dto.CADUser;
 import com.inbravo.cad.internal.service.dto.BasicObject;
-import com.inbravo.cad.internal.service.dto.Tenant;
 import com.inbravo.cad.rest.service.crm.cache.CRMSessionCache;
 import com.inbravo.cad.rest.service.crm.session.CRMSessionManager;
 import com.inbravo.cad.rest.service.crm.zh.auth.ZHAuthManager;
@@ -31,56 +28,46 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
   /* CRM session cache */
   private CRMSessionCache cRMSessionCache;
 
-  @SuppressWarnings("unused")
   @Override
   public final BasicObject getSessionInfo(final String id) throws Exception {
+
     logger.debug("---Inside getSessionInfo, id: " + id);
 
     /* Check if session is already available at cache */
-    final CADUser user = (BasicObject) cRMSessionCache.recover(id);
+    final CADUser user = (CADUser) cRMSessionCache.recover(id);
 
-    /* Check if basic object is null or not */
-    if (user == null) {
+    logger.debug("---Inside getSessionInfo, agent: " + id);
 
+    /* Validate crm service params */
+    this.validateUser(user);
 
-      logger.debug("---Inside getSessionInfo, agent: " + id);
+    /* Get session information from ZH */
+    final String sessionId =
+        zHAuthManager.getSessionId(user.getCrmUserId(), user.getCrmPassword(), user.getCrmServiceURL(), user.getCrmServiceProtocol());
 
-      /* Validate crm service params */
-      this.validateUser(user);
+    if (sessionId != null) {
 
-      /* Get session information from ZH */
-      final String sessionId =
-          zHAuthManager.getSessionId(agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmServiceURL(), agent.getCrmServiceProtocol());
+      /* Set CRM API token information */
+      user.setCrmSessionId(sessionId);
 
-      if (sessionId != null) {
+      /* Save this agent in session cache */
+      cRMSessionCache.admit(id, user);
 
-        /* Set CRM API token information */
-        agent.setCrmSessionId(sessionId);
-
-        /* Save this agent in session cache */
-        cRMSessionCache.admit(id, agent);
-
-        /* If everything is fine return true */
-        return agent;
-      } else {
-        /* Inform user about absent header value */
-        throw new CADException(CADResponseCodes._1012 + "Login attempt at ZH is failed. Check credentials.");
-      }
-
-      } else {
-        /* Inform user about absent header value */
-        throw new CADException(CADResponseCodes._1008 + "Agent/Tenant information is not valid");
-      }
+      /* If everything is fine return true */
+      return user;
+    } else {
+      /* Inform user about absent header value */
+      throw new CADException(CADResponseCodes._1012 + "Login attempt at ZH is failed. Check credentials.");
     }
   }
 
   @Override
-  public final boolean login(final String id) throws Exception {
+  public final boolean login(final String crmUserId, final String crmPassword) throws Exception {
     throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
   }
 
   @Override
-  public final boolean reset(final String id) throws Exception {
+  public final boolean reset(final String crmUserId, final String crmPassword) throws Exception {
     throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the EDSA");
   }
 
@@ -92,11 +79,11 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
     this.zHAuthManager = zHAuthManager;
   }
 
-  public final String getAgentIdSplitCharacter() {
+  public final String getCrmUserIdIdSplitCharacter() {
     return agentIdSplitCharacter;
   }
 
-  public final void setAgentIdSplitCharacter(final String agentIdSplitCharacter) {
+  public final void setCrmUserIdIdSplitCharacter(final String agentIdSplitCharacter) {
     this.agentIdSplitCharacter = agentIdSplitCharacter;
   }
 
@@ -107,15 +94,6 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
   public final void setcRMSessionCache(final CRMSessionCache cRMSessionCache) {
     this.cRMSessionCache = cRMSessionCache;
   }
-
-  public CADUserInfoService getAgentInfoService() {
-    return agentInfoService;
-  }
-
-  public final void setAgentInfoService(final CADUserInfoService agentInfoService) {
-    this.agentInfoService = agentInfoService;
-  }
-
 
   private final void validateUser(final CADUser user) {
 

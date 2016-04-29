@@ -176,11 +176,11 @@ public final class SFSOAPCRMService extends CRMService {
       if (queryResult.getRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] eDSAObjectArray = new CADObject[queryResult.getRecords().length];
+        final CADObject[] cADbjectArray = new CADObject[queryResult.getRecords().length];
         for (int i = 0; i < queryResult.getRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject eDSAObject = new CADObject();
+          final CADObject cADbject = new CADObject();
 
           /* Get record number i */
           final SObject sObject = queryResult.getRecords()[i];
@@ -189,7 +189,7 @@ public final class SFSOAPCRMService extends CRMService {
           final MessageElement[] fields = sObject.get_any();
 
           /* Set object type */
-          eDSAObject.setObjectType(sObject.getType());
+          cADbject.setObjectType(sObject.getType());
 
           /* Create list of elements */
           final List<Element> elementList = new ArrayList<Element>();
@@ -201,12 +201,12 @@ public final class SFSOAPCRMService extends CRMService {
           }
 
           /* Add all CRM fields */
-          eDSAObject.setXmlContent(elementList);
+          cADbject.setXmlContent(elementList);
 
           /* Set the object at array */
-          eDSAObjectArray[i] = eDSAObject;
+          cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjects object length: " + eDSAObjectArray.length);
+        logger.debug("---Inside getObjects object length: " + cADbjectArray.length);
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
@@ -216,7 +216,7 @@ public final class SFSOAPCRMService extends CRMService {
         }
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
         throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
@@ -245,12 +245,12 @@ public final class SFSOAPCRMService extends CRMService {
       if (queryResult.getRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] eDSAObjectArray = new CADObject[queryResult.getRecords().length];
+        final CADObject[] cADbjectArray = new CADObject[queryResult.getRecords().length];
 
         for (int i = 0; i < queryResult.getRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject eDSAObject = new CADObject();
+          final CADObject cADbject = new CADObject();
 
           /* Get record number i */
           final SObject sObject = queryResult.getRecords()[i];
@@ -259,7 +259,7 @@ public final class SFSOAPCRMService extends CRMService {
           final MessageElement[] fields = sObject.get_any();
 
           /* Set object type */
-          eDSAObject.setObjectType(sObject.getType());
+          cADbject.setObjectType(sObject.getType());
 
           /* Create list of elements */
           final List<Element> elementList = new ArrayList<Element>();
@@ -271,12 +271,12 @@ public final class SFSOAPCRMService extends CRMService {
           }
 
           /* Add all CRM fields */
-          eDSAObject.setXmlContent(elementList);
+          cADbject.setXmlContent(elementList);
 
           /* Set the object at array */
-          eDSAObjectArray[i] = eDSAObject;
+          cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjectsBySelectCriteria object length: " + eDSAObjectArray.length);
+        logger.debug("---Inside getObjectsBySelectCriteria object length: " + cADbjectArray.length);
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
@@ -286,7 +286,7 @@ public final class SFSOAPCRMService extends CRMService {
         }
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjectsBySelectCriteria no records in response");
         throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
@@ -376,12 +376,12 @@ public final class SFSOAPCRMService extends CRMService {
       if (queryResult.getRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] eDSAObjectArray = new CADObject[queryResult.getRecords().length];
+        final CADObject[] cADbjectArray = new CADObject[queryResult.getRecords().length];
 
         for (int i = 0; i < queryResult.getRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject eDSAObject = new CADObject();
+          final CADObject cADbject = new CADObject();
 
           /* Get record number i */
           final SObject sObject = queryResult.getRecords()[i];
@@ -390,7 +390,7 @@ public final class SFSOAPCRMService extends CRMService {
           final MessageElement[] fields = sObject.get_any();
 
           /* Set object type */
-          eDSAObject.setObjectType(sObject.getType());
+          cADbject.setObjectType(sObject.getType());
 
           /* Create list of elements */
           final List<Element> elementList = new ArrayList<Element>();
@@ -402,12 +402,12 @@ public final class SFSOAPCRMService extends CRMService {
           }
 
           /* Add all CRM fields */
-          eDSAObject.setXmlContent(elementList);
+          cADbject.setXmlContent(elementList);
 
           /* Set the object at array */
-          eDSAObjectArray[i] = eDSAObject;
+          cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjects object length: " + eDSAObjectArray.length);
+        logger.debug("---Inside getObjects object length: " + cADbjectArray.length);
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
@@ -417,7 +417,7 @@ public final class SFSOAPCRMService extends CRMService {
         }
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
         throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
@@ -446,12 +446,12 @@ public final class SFSOAPCRMService extends CRMService {
       if (searchResult.getSearchRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] eDSAObjectArray = new CADObject[searchResult.getSearchRecords().length];
+        final CADObject[] cADbjectArray = new CADObject[searchResult.getSearchRecords().length];
 
         for (int i = 0; i < searchResult.getSearchRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject eDSAObject = new CADObject();
+          final CADObject cADbject = new CADObject();
 
           /* Get record number i */
           final SearchRecord searchRecord = searchResult.getSearchRecords()[i];
@@ -460,7 +460,7 @@ public final class SFSOAPCRMService extends CRMService {
           final SObject sObject = searchRecord.getRecord();
 
           /* Set object type */
-          eDSAObject.setObjectType(sObject.getType());
+          cADbject.setObjectType(sObject.getType());
 
           /* Get all fields from the SObject */
           final MessageElement[] fields = sObject.get_any();
@@ -475,15 +475,15 @@ public final class SFSOAPCRMService extends CRMService {
           }
 
           /* Add all CRM fields */
-          eDSAObject.setXmlContent(elementList);
+          cADbject.setXmlContent(elementList);
 
           /* Set the object at array */
-          eDSAObjectArray[i] = eDSAObject;
+          cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjectsBySearchCriteria object length: " + eDSAObjectArray.length);
+        logger.debug("---Inside getObjectsBySearchCriteria object length: " + cADbjectArray.length);
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjectsBySearchCriteria no records in response");
         throw new CADException(CADResponseCodes._1004 + " anything in find query");
@@ -598,12 +598,12 @@ public final class SFSOAPCRMService extends CRMService {
       if (queryResult.getRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] eDSAObjectArray = new CADObject[queryResult.getRecords().length];
+        final CADObject[] cADbjectArray = new CADObject[queryResult.getRecords().length];
 
         for (int i = 0; i < queryResult.getRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject eDSAObject = new CADObject();
+          final CADObject cADbject = new CADObject();
 
           /* Get record number i */
           final SObject sObject = queryResult.getRecords()[i];
@@ -612,7 +612,7 @@ public final class SFSOAPCRMService extends CRMService {
           final MessageElement[] fields = sObject.get_any();
 
           /* Set object type */
-          eDSAObject.setObjectType(sObject.getType());
+          cADbject.setObjectType(sObject.getType());
 
           /* Create list of elements */
           final List<Element> elementList = new ArrayList<Element>();
@@ -624,12 +624,12 @@ public final class SFSOAPCRMService extends CRMService {
           }
 
           /* Add all CRM fields */
-          eDSAObject.setXmlContent(elementList);
+          cADbject.setXmlContent(elementList);
 
           /* Set the object at array */
-          eDSAObjectArray[i] = eDSAObject;
+          cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjects Object length: " + eDSAObjectArray.length);
+        logger.debug("---Inside getObjects Object length: " + cADbjectArray.length);
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
@@ -639,7 +639,7 @@ public final class SFSOAPCRMService extends CRMService {
         }
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
         throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
@@ -781,12 +781,12 @@ public final class SFSOAPCRMService extends CRMService {
       if (queryResult.getRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] eDSAObjectArray = new CADObject[queryResult.getRecords().length];
+        final CADObject[] cADbjectArray = new CADObject[queryResult.getRecords().length];
 
         for (int i = 0; i < queryResult.getRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject eDSAObject = new CADObject();
+          final CADObject cADbject = new CADObject();
 
           /* Get record number i */
           final SObject sObject = queryResult.getRecords()[i];
@@ -795,7 +795,7 @@ public final class SFSOAPCRMService extends CRMService {
           final MessageElement[] fields = sObject.get_any();
 
           /* Set object type */
-          eDSAObject.setObjectType(sObject.getType());
+          cADbject.setObjectType(sObject.getType());
 
           /* Create list of elements */
           final List<Element> elementList = new ArrayList<Element>();
@@ -807,12 +807,12 @@ public final class SFSOAPCRMService extends CRMService {
           }
 
           /* Add all CRM fields */
-          eDSAObject.setXmlContent(elementList);
+          cADbject.setXmlContent(elementList);
 
           /* Set the object at array */
-          eDSAObjectArray[i] = eDSAObject;
+          cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjects Object length: " + eDSAObjectArray.length);
+        logger.debug("---Inside getObjects Object length: " + cADbjectArray.length);
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
@@ -822,7 +822,7 @@ public final class SFSOAPCRMService extends CRMService {
         }
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(eDSAObjectArray);
+        cADCommandObject.setcADObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
         throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
@@ -853,7 +853,7 @@ public final class SFSOAPCRMService extends CRMService {
     if (queryResult != null) {
 
       /* Create one Object each record */
-      final CADObject eDSAObject = new CADObject();
+      final CADObject cADbject = new CADObject();
 
       /* Create list of elements */
       final List<Element> elementList = new ArrayList<Element>();
@@ -864,10 +864,10 @@ public final class SFSOAPCRMService extends CRMService {
       logger.debug("---Inside getObjectsCount objects count: " + queryResult.getSize());
 
       /* Add all CRM fields */
-      eDSAObject.setXmlContent(elementList);
+      cADbject.setXmlContent(elementList);
 
       /* Set the final object in command object */
-      cADCommandObject.setcADObject(new CADObject[] {eDSAObject});
+      cADCommandObject.setcADObject(new CADObject[] {cADbject});
     } else {
       logger.debug("---Inside getObjectsCount no response from Sales Force");
       throw new CADException(CADResponseCodes._1005);
@@ -909,7 +909,7 @@ public final class SFSOAPCRMService extends CRMService {
     if (queryResult != null) {
 
       /* Create one Object each record */
-      final CADObject eDSAObject = new CADObject();
+      final CADObject cADbject = new CADObject();
 
       /* Create list of elements */
       final List<Element> elementList = new ArrayList<Element>();
@@ -920,10 +920,10 @@ public final class SFSOAPCRMService extends CRMService {
       logger.debug("---Inside getObjectsCount objects count: " + queryResult.getSize());
 
       /* Add all CRM fields */
-      eDSAObject.setXmlContent(elementList);
+      cADbject.setXmlContent(elementList);
 
       /* Set the final object in command object */
-      cADCommandObject.setcADObject(new CADObject[] {eDSAObject});
+      cADCommandObject.setcADObject(new CADObject[] {cADbject});
     } else {
       logger.debug("---Inside getObjectsCount no response from Sales Force");
       throw new CADException(CADResponseCodes._1005);

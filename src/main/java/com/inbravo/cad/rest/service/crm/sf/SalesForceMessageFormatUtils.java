@@ -24,19 +24,19 @@ public final class SalesForceMessageFormatUtils extends CRMMessageFormatUtils {
     super();
   }
 
-  public final static MessageElement[] createMessageElementArray(final CADObject eDSAObject) throws Exception {
+  public final static MessageElement[] createMessageElementArray(final CADObject cADbject) throws Exception {
 
-    logger.debug("---Inside createMessageElementArray size of input Object:" + eDSAObject.getXmlContent().size());
+    logger.debug("---Inside createMessageElementArray size of input Object:" + cADbject.getXmlContent().size());
     MessageElement[] messageElementArray = null;
 
     /* Start the index from 0 */
     int index = 0;
 
     /* Create array with number of elements count from EDSAObject */
-    messageElementArray = new MessageElement[eDSAObject.getXmlContent().size()];
+    messageElementArray = new MessageElement[cADbject.getXmlContent().size()];
 
     /* Iterate on the Element list and create SOAP object */
-    for (final Element element : eDSAObject.getXmlContent()) {
+    for (final Element element : cADbject.getXmlContent()) {
       messageElementArray[index] = createMessageElement(element.getNodeName(), element.getTextContent());
       index++;
     }

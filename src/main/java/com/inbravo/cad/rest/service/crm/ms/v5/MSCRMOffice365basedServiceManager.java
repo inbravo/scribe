@@ -123,12 +123,12 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
 	 * 
 	 */
   public final CADObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
-      final String password, final String orgName, final String[] crmSecurityToken, final CADObject eDSAObject) throws Exception {
+      final String password, final String orgName, final String[] crmSecurityToken, final CADObject cADbject) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside createObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId + "& password: "
-          + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & eDSAObject: "
-          + eDSAObject);
+          + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & cADbject: "
+          + cADbject);
     }
 
     try {
@@ -141,10 +141,10 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final Create createRequest = createDocument.addNewCreate();
 
       /* Set object type in EDSA object */
-      eDSAObject.setObjectType(mSCRMObjectType.toLowerCase());
+      cADbject.setObjectType(mSCRMObjectType.toLowerCase());
 
       /* Add new account type xml beans object */
-      createRequest.setEntity(MSCRMMessageFormatUtils.createV5RetrieveCRMObjectReq(eDSAObject, crmFieldIntraSeparator, permittedDateFormats));
+      createRequest.setEntity(MSCRMMessageFormatUtils.createV5RetrieveCRMObjectReq(cADbject, crmFieldIntraSeparator, permittedDateFormats));
 
       /* Create new stub */
       final OrganizationServiceStub stub =
@@ -167,7 +167,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       }
 
       /* Check if object association is desired */
-      final String[] regardingObjInfo = MSCRMMessageFormatUtils.getRegardingObjectInfo(eDSAObject);
+      final String[] regardingObjInfo = MSCRMMessageFormatUtils.getRegardingObjectInfo(cADbject);
 
       /* Check if valid object association request from user */
       if (regardingObjInfo != null && regardingObjInfo.length == 3) {
@@ -183,7 +183,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       stub.cleanup();
 
       /* Add new node and return */
-      return MSCRMMessageFormatUtils.addNode("id", createResponse.getCreateResult(), eDSAObject);
+      return MSCRMMessageFormatUtils.addNode("id", createResponse.getCreateResult(), cADbject);
     } catch (final Exception e) {
 
       /* Sentralized exception handling */
@@ -373,32 +373,32 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final ArrayOfEntity entityArray = be.getEntities();
       final Entity[] entityStringArray = entityArray.getEntityArray();
 
-      final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
         /* Create new EDSA object */
-        final CADObject eDSAObject = new CADObject();
+        final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
-        eDSAObject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
+        cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
 
         /* Add EDSA object in list */
-        eDSAObjectList.add(eDSAObject);
+        cADbjectList.add(cADbject);
       }
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects eDSAObjectList.size: " + eDSAObjectList.size());
+        logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
       }
 
       /* Return error message for no record found */
-      if (eDSAObjectList.size() == 0) {
+      if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
         throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
       stub.cleanup();
-      return eDSAObjectList;
+      return cADbjectList;
     } catch (final Exception e) {
 
       /* Sentralized exception handling */
@@ -499,33 +499,33 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final ArrayOfEntity entityArray = be.getEntities();
       final Entity[] entities = entityArray.getEntityArray();
 
-      final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
       /* Iterate over entities and create edsa object */
       for (int i = 0; i < entities.length; i++) {
 
         /* Create new EDSA object */
-        final CADObject eDSAObject = new CADObject();
+        final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
-        eDSAObject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entities[i]));
+        cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entities[i]));
 
         /* Add EDSA object in list */
-        eDSAObjectList.add(eDSAObject);
+        cADbjectList.add(cADbject);
       }
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects eDSAObjectList.size: " + eDSAObjectList.size());
+        logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
       }
 
       /* Return error message for no record found */
-      if (eDSAObjectList.size() == 0) {
+      if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
         throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
-      return eDSAObjectList;
+      return cADbjectList;
     } catch (final Exception e) {
 
       /* Sentralized exception handling */
@@ -616,31 +616,31 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final ArrayOfEntity entityArray = be.getEntities();
       final Entity[] entityStringArray = entityArray.getEntityArray();
 
-      final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
         /* Create new EDSA object */
-        final CADObject eDSAObject = new CADObject();
+        final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
-        eDSAObject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
+        cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
 
         /* Add EDSA object in list */
-        eDSAObjectList.add(eDSAObject);
+        cADbjectList.add(cADbject);
       }
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects eDSAObjectList.size: " + eDSAObjectList.size());
+        logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
       }
 
       /* Return error message for no record found */
-      if (eDSAObjectList.size() == 0) {
+      if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
         throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
-      return eDSAObjectList;
+      return cADbjectList;
     } catch (final Exception e) {
 
       /* Sentralized exception handling */

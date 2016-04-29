@@ -79,19 +79,19 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
    * 
    * @return
    */
-  public final synchronized CRMService getService(final CADCommandObject eDSACommandObject) throws Exception {
+  public final synchronized CRMService getService(final CADCommandObject cADCommandObject) throws Exception {
 
     logger.debug("---Inside getService");
     CRMService cRMService = null;
 
     /* Get the tenant from request */
-    final String id = eDSACommandObject.getCrmUserId();
+    final String id = cADCommandObject.getCrmUserId();
 
     /* Create an empty tenant object */
     CADUser user = null;
 
     /* Pick information from cache if batch request */
-    if (eDSACommandObject.getBatch() != null) {
+    if (cADCommandObject.getBatch() != null) {
 
       logger.debug("---Inside getService: found a batch request. Going to fetch cached tenant information");
 
@@ -193,11 +193,11 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
     return cRMService;
   }
 
-  public final String getAgentIdSplitCharacter() {
+  public final String getCrmUserIdIdSplitCharacter() {
     return agentIdSplitCharacter;
   }
 
-  public final void setAgentIdSplitCharacter(final String agentIdSplitCharacter) {
+  public final void setCrmUserIdIdSplitCharacter(final String agentIdSplitCharacter) {
     this.agentIdSplitCharacter = agentIdSplitCharacter;
   }
 

@@ -34,63 +34,63 @@ public final class MSSOAPCRMService extends CRMService {
   private MSCRMObjectService mSCRMV5ObjectService;
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside createObject");
-    return this.getmSCRMObjectService(eDSACommandObject).createObject(eDSACommandObject);
+    return this.getmSCRMObjectService(cADCommandObject).createObject(cADCommandObject);
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject eDSACommandObject, final String idToBeDeleted) throws Exception {
+  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
     logger.debug("---Inside deleteObject idToBeDeleted: " + idToBeDeleted);
-    return this.getmSCRMObjectService(eDSACommandObject).deleteObject(eDSACommandObject, idToBeDeleted);
+    return this.getmSCRMObjectService(cADCommandObject).deleteObject(cADCommandObject, idToBeDeleted);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjects");
-    return this.getmSCRMObjectService(eDSACommandObject).getObjects(eDSACommandObject);
+    return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects query: " + query);
-    return this.getmSCRMObjectService(eDSACommandObject).getObjects(eDSACommandObject, query);
+    return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject, query);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select);
-    return this.getmSCRMObjectService(eDSACommandObject).getObjects(eDSACommandObject, query, select);
+    return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject, query, select);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select, final String order)
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
-    return this.getmSCRMObjectService(eDSACommandObject).getObjects(eDSACommandObject, query, select, order);
+    return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject, query, select, order);
   }
 
   @Override
-  public CADCommandObject getObjectsCount(CADCommandObject eDSACommandObject) throws Exception {
-    return this.getmSCRMObjectService(eDSACommandObject).getObjectsCount(eDSACommandObject);
+  public CADCommandObject getObjectsCount(CADCommandObject cADCommandObject) throws Exception {
+    return this.getmSCRMObjectService(cADCommandObject).getObjectsCount(cADCommandObject);
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(CADCommandObject eDSACommandObject, final String query) throws Exception {
-    return this.getmSCRMObjectService(eDSACommandObject).getObjectsCount(eDSACommandObject, query);
+  public final CADCommandObject getObjectsCount(CADCommandObject cADCommandObject, final String query) throws Exception {
+    return this.getmSCRMObjectService(cADCommandObject).getObjectsCount(cADCommandObject, query);
   }
 
   @Override
-  public final CADCommandObject updateObject(final CADCommandObject eDSACommandObject) throws Exception {
-    return this.getmSCRMObjectService(eDSACommandObject).updateObject(eDSACommandObject);
+  public final CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
+    return this.getmSCRMObjectService(cADCommandObject).updateObject(cADCommandObject);
   }
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @return
    */
-  private final MSCRMObjectService getmSCRMObjectService(final CADCommandObject eDSACommandObject) throws Exception {
+  private final MSCRMObjectService getmSCRMObjectService(final CADCommandObject cADCommandObject) throws Exception {
 
     /* CRM service params */
     CADUser agent = null;
@@ -100,12 +100,12 @@ public final class MSSOAPCRMService extends CRMService {
     String STSEnpoint = null;
 
     /* Check if CRM user id is found */
-    if (eDSACommandObject.getCrmUserId() != null && !"".equals(eDSACommandObject.getCrmUserId())) {
+    if (cADCommandObject.getCrmUserId() != null && !"".equals(cADCommandObject.getCrmUserId())) {
 
-      logger.debug("---Inside getmSCRMObjectService for user: " + eDSACommandObject.getCrmUserId());
+      logger.debug("---Inside getmSCRMObjectService for user: " + cADCommandObject.getCrmUserId());
 
       /* Check if session is already available at cache */
-      agent = (CADUser) cRMSessionCache.recover(eDSACommandObject.getCrmUserId().trim());
+      agent = (CADUser) cRMSessionCache.recover(cADCommandObject.getCrmUserId().trim());
 
       /* Get crm service URL */
       serviceURL = agent.getCrmServiceURL();
@@ -140,7 +140,7 @@ public final class MSSOAPCRMService extends CRMService {
       /* Check if tenant or agent request */
       if (agent != null) {
 
-        logger.debug("---Inside getmSCRMObjectService, adding MS login additonal info at agent: " + eDSACommandObject.getCrmUserId());
+        logger.debug("---Inside getmSCRMObjectService, adding MS login additonal info at agent: " + cADCommandObject.getCrmUserId());
 
         if (agent.getAdditionalInfo() != null) {
 
@@ -153,7 +153,7 @@ public final class MSSOAPCRMService extends CRMService {
         }
 
         /* Put back the agent back to cache */
-        cRMSessionCache.admit(eDSACommandObject.getCrmUserId().trim(), agent);
+        cRMSessionCache.admit(cADCommandObject.getCrmUserId().trim(), agent);
       }
     }
 

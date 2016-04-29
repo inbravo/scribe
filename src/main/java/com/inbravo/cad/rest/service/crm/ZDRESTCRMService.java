@@ -76,7 +76,7 @@ public final class ZDRESTCRMService extends CRMService {
         if (cADCommandObject.getCrmUserId() != null) {
 
           /* Get agent from session manager */
-          final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+          final CADUser agent = zDCRMSessionManager.getCrmUserIdWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
           /* Get CRM information from agent */
           serviceURL = agent.getCrmServiceURL();
@@ -122,7 +122,7 @@ public final class ZDRESTCRMService extends CRMService {
           final NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
 
           /* Create new EDSA object list */
-          final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+          final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
           /* Iterate over node list */
           for (int i = 0; i < nodeList.getLength(); i++) {
@@ -134,7 +134,7 @@ public final class ZDRESTCRMService extends CRMService {
             final Node node = nodeList.item(i);
 
             /* Create new EDSA object */
-            final CADObject eDSAObject = new CADObject();
+            final CADObject cADbject = new CADObject();
 
             /* Check if node has child nodes */
             if (node.hasChildNodes()) {
@@ -158,19 +158,19 @@ public final class ZDRESTCRMService extends CRMService {
               }
             }
             /* Add all CRM fields */
-            eDSAObject.setXmlContent(elementList);
+            cADbject.setXmlContent(elementList);
 
             /* Add EDSA object in list */
-            eDSAObjectList.add(eDSAObject);
+            cADbjectList.add(cADbject);
           }
 
           /* Check if no record found */
-          if (eDSAObjectList.size() == 0) {
+          if (cADbjectList.size() == 0) {
             throw new CADException(CADResponseCodes._1004 + "No records found at Zendesk");
           }
 
           /* Set the final object in command object */
-          cADCommandObject.setcADObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
+          cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
         } else if (result == HttpStatus.SC_FORBIDDEN) {
           throw new CADException(CADResponseCodes._1020 + "Query is forbidden by Zendesk CRM");
         } else if (result == HttpStatus.SC_BAD_REQUEST) {
@@ -269,7 +269,7 @@ public final class ZDRESTCRMService extends CRMService {
       if (cADCommandObject.getCrmUserId() != null) {
 
         /* Get agent from session manager */
-        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+        final CADUser agent = zDCRMSessionManager.getCrmUserIdWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
         serviceURL = agent.getCrmServiceURL();
@@ -375,7 +375,7 @@ public final class ZDRESTCRMService extends CRMService {
       if (cADCommandObject.getCrmUserId() != null) {
 
         /* Get agent from session manager */
-        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+        final CADUser agent = zDCRMSessionManager.getCrmUserIdWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
         serviceURL = agent.getCrmServiceURL();
@@ -465,7 +465,7 @@ public final class ZDRESTCRMService extends CRMService {
       if (cADCommandObject.getCrmUserId() != null) {
 
         /* Get agent from session manager */
-        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+        final CADUser agent = zDCRMSessionManager.getCrmUserIdWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
         serviceURL = agent.getCrmServiceURL();
@@ -565,7 +565,7 @@ public final class ZDRESTCRMService extends CRMService {
       if (cADCommandObject.getCrmUserId() != null) {
 
         /* Get agent from session manager */
-        final CADUser agent = zDCRMSessionManager.getAgentWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+        final CADUser agent = zDCRMSessionManager.getCrmUserIdWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
         serviceURL = agent.getCrmServiceURL();
@@ -618,7 +618,7 @@ public final class ZDRESTCRMService extends CRMService {
         /* Get node list from resposne document */
         final NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
 
-        final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+        final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
         /* Get select field list */
         List<String> selectFieldList = null;
@@ -635,7 +635,7 @@ public final class ZDRESTCRMService extends CRMService {
           final Node node = nodeList.item(i);
 
           /* Create new EDSA object */
-          final CADObject eDSAObject = new CADObject();
+          final CADObject cADbject = new CADObject();
 
           /* Check if node has child nodes */
           if (node.hasChildNodes()) {
@@ -672,19 +672,19 @@ public final class ZDRESTCRMService extends CRMService {
             }
 
             /* Add all CRM fields */
-            eDSAObject.setXmlContent(elementList);
+            cADbject.setXmlContent(elementList);
 
             /* Add EDSA object in list */
-            eDSAObjectList.add(eDSAObject);
+            cADbjectList.add(cADbject);
           }
         }
         /* Check if no record found */
-        if (eDSAObjectList.size() == 0) {
+        if (cADbjectList.size() == 0) {
           throw new CADException(CADResponseCodes._1004 + "No records found at Zendesk");
         }
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
+        cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
       } else if (result == HttpStatus.SC_BAD_REQUEST || result == HttpStatus.SC_METHOD_NOT_ALLOWED || result == HttpStatus.SC_NOT_ACCEPTABLE) {
         throw new CADException(CADResponseCodes._1003 + "Invalid request : "
             + ZDCRMMessageFormatUtils.getErrorFromResponse(getMethod.getResponseBodyAsStream()));

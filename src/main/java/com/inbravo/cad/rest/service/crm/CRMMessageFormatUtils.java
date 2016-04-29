@@ -277,16 +277,16 @@ public abstract class CRMMessageFormatUtils {
 
   /**
    * 
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final String getNodeValue(final String nodeName, final CADObject eDSAObject) throws Exception {
+  public static final String getNodeValue(final String nodeName, final CADObject cADbject) throws Exception {
 
     String idNodeValue = null;
 
     /* Iterate on the Element list and get id node value */
-    for (final Element element : eDSAObject.getXmlContent()) {
+    for (final Element element : cADbject.getXmlContent()) {
       if (element.getNodeName().equalsIgnoreCase(nodeName)) {
         idNodeValue = element.getTextContent();
       }
@@ -296,42 +296,42 @@ public abstract class CRMMessageFormatUtils {
 
   /**
    * 
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final CADObject setNodeValue(final String nodeName, final String nodeValue, final CADObject eDSAObject) throws Exception {
+  public static final CADObject setNodeValue(final String nodeName, final String nodeValue, final CADObject cADbject) throws Exception {
 
     /* Iterate on the Element list and set id node value */
-    for (final Element element : eDSAObject.getXmlContent()) {
+    for (final Element element : cADbject.getXmlContent()) {
       if (element.getNodeName().equalsIgnoreCase(nodeName)) {
         element.setTextContent(nodeValue);
       }
     }
-    return eDSAObject;
+    return cADbject;
   }
 
   /**
    * 
-   * @param eDSAObject
+   * @param cADbject
    * @return
    * @throws Exception
    */
-  public static final CADObject addNode(final String nodeName, final String nodeValue, final CADObject eDSAObject) throws Exception {
+  public static final CADObject addNode(final String nodeName, final String nodeValue, final CADObject cADbject) throws Exception {
 
     /* Create new node */
     final Element newElement = createMessageElement(nodeName, nodeValue);
 
     /* Add new node in list */
-    final List<Element> elementList = eDSAObject.getXmlContent();
+    final List<Element> elementList = cADbject.getXmlContent();
 
     /* Add element in list */
     elementList.add(newElement);
 
     /* Add updated list */
-    eDSAObject.setXmlContent(elementList);
+    cADbject.setXmlContent(elementList);
 
-    return eDSAObject;
+    return cADbject;
   }
 
   public static final CADObject createEDSAObject(final Map<String, String> additionalInfo) throws Exception {
@@ -343,7 +343,7 @@ public abstract class CRMMessageFormatUtils {
       final List<Element> elementList = new ArrayList<Element>();
 
       /* Create new EDSA object */
-      final CADObject eDSAObject = new CADObject();
+      final CADObject cADbject = new CADObject();
 
       for (final Entry<String, String> entry : additionalInfo.entrySet()) {
 
@@ -353,9 +353,9 @@ public abstract class CRMMessageFormatUtils {
       }
 
       /* Set element list */
-      eDSAObject.setXmlContent(elementList);
+      cADbject.setXmlContent(elementList);
 
-      return eDSAObject;
+      return cADbject;
     } else {
       return null;
     }

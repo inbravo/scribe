@@ -25,7 +25,6 @@
 	<classpathentry kind="lib" path="src/webapp/WEB-INF/lib/CrmDiscoveryService.jar"/>
 	<classpathentry kind="lib" path="src/webapp/WEB-INF/lib/CrmService.jar"/>
 	<classpathentry kind="lib" path="src/webapp/WEB-INF/lib/cxf-2.2.9.jar"/>
-	<classpathentry kind="lib" path="src/webapp/WEB-INF/lib/edsa.jar"/>
 	<classpathentry kind="lib" path="src/webapp/WEB-INF/lib/gson-2.2.4.jar"/>
 	<classpathentry kind="lib" path="src/webapp/WEB-INF/lib/httpcore-4.0.jar"/>
 	<classpathentry kind="lib" path="src/webapp/WEB-INF/lib/IVRService-test-client.jar"/>

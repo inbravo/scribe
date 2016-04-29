@@ -9,11 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 
 import com.inbravo.cad.exception.CADException;
 import com.inbravo.cad.exception.CADResponseCodes;
-import com.inbravo.cad.internal.service.CADUserInfoService;
-import com.inbravo.cad.internal.service.SuperUserInfoService;
 import com.inbravo.cad.internal.service.dto.CADUser;
-import com.inbravo.cad.internal.service.dto.BasicObject;
-import com.inbravo.cad.internal.service.dto.Tenant;
 import com.inbravo.cad.rest.constants.CRMConstants.MSCRMVersionType;
 import com.inbravo.cad.rest.service.crm.cache.CRMSessionCache;
 import com.inbravo.cad.rest.service.crm.ms.auth.MSAuthManager;
@@ -36,12 +32,6 @@ public final class MSCRMSessionManagerFactory implements ApplicationContextAware
   /* CRM session cache */
   private CRMSessionCache cRMSessionCache;
 
-  /* Agent information service */
-  private CADUserInfoService agentInfoService;
-
-  /* Tenant information service */
-  private SuperUserInfoService tenantInfoService;
-
   /* Agent id special character */
   private String agentIdSplitCharacter;
 
@@ -53,63 +43,14 @@ public final class MSCRMSessionManagerFactory implements ApplicationContextAware
    */
   public final MSCRMVersionType checkMSCRMVersion(final String id) throws Exception {
 
-    /* CRM service params */
-    CADUser agent = null;
-    Tenant tenant = null;
-    String serviceURL = null;
-    String servicePrototol = "https";
-    Map<String, String> nodeMap = null;
+    /* Get agent from cache */
+    final CADUser user = (CADUser) cRMSessionCache.recover(id.trim());
+
+    /* Get crm service URL */
     String STSEnpoint = null;
-
-    /* Check if session is already available at cache */
-    final BasicObject basicObject = (BasicObject) cRMSessionCache.recover(id);
-
-    /* Check if basic object is null or not */
-    if (basicObject == null) {
-
-      /* If agent */
-      if (id.contains(agentIdSplitCharacter)) {
-
-        /* Get agent information from LDAP(CRM info is stored at LDAP) */
-        agent = agentInfoService.getAgentInformation(id);
-
-        /* Get crm service URL */
-        serviceURL = agent.getCrmServiceURL();
-        servicePrototol = agent.getCrmServiceProtocol();
-        nodeMap = agent.getAdditionalInfo();
-      } else {
-
-        /* Get tenant information from LDAP(CRM info is stored at LDAP) */
-        tenant = tenantInfoService.getTenantInformation(id);
-      }
-
-      /* Get crm service URL */
-      serviceURL = tenant.getCrmServiceURL();
-      servicePrototol = tenant.getCrmServiceProtocol();
-      nodeMap = tenant.getAdditionalInfo();
-
-    } else if (basicObject instanceof CADUser) {
-
-      /* Else get agent from cache */
-      agent = (CADUser) cRMSessionCache.recover(id.trim());
-
-      /* Get crm service URL */
-      serviceURL = agent.getCrmServiceURL();
-      servicePrototol = agent.getCrmServiceProtocol();
-      nodeMap = agent.getAdditionalInfo();
-    } else if (basicObject instanceof Tenant) {
-
-      /* Else get tenant from cache */
-      tenant = (Tenant) cRMSessionCache.recover(id.trim());
-
-      /* Get crm service URL */
-      serviceURL = tenant.getCrmServiceURL();
-      servicePrototol = tenant.getCrmServiceProtocol();
-      nodeMap = tenant.getAdditionalInfo();
-    } else {
-      /* Inform user about absent header value */
-      throw new CADException(CADResponseCodes._1008 + "Agent/Tenant information is not valid");
-    }
+    final String serviceURL = user.getCrmServiceURL();
+    final String servicePrototol = user.getCrmServiceProtocol();
+    Map<String, String> nodeMap = user.getAdditionalInfo();
 
     /* Validate CRM service URL */
     if (serviceURL == null || "".equals(serviceURL)) {
@@ -135,38 +76,23 @@ public final class MSCRMSessionManagerFactory implements ApplicationContextAware
       /* Parse the reponse */
       STSEnpoint = nodeMap.get("STSEnpoint");
 
-      /* Check if tenant or agent request */
-      if (agent != null) {
 
-        logger.debug("---Inside checkMSCRMVersion, adding MS login additonal info at agent: " + id);
 
-        if (agent.getAdditionalInfo() != null) {
+      logger.debug("---Inside checkMSCRMVersion, adding MS login additonal info at agent: " + id);
 
-          /* Update agent additonal information */
-          agent.getAdditionalInfo().putAll(nodeMap);
-        } else {
+      if (user.getAdditionalInfo() != null) {
 
-          /* Update agent additonal information */
-          agent.setAdditionalInfo(nodeMap);
-        }
-
-        /* Put the agent back to cache */
-        cRMSessionCache.admit(id.trim(), agent);
+        /* Update agent additonal information */
+        user.getAdditionalInfo().putAll(nodeMap);
       } else {
 
-        if (tenant.getAdditionalInfo() != null) {
-
-          /* Update tenant additonal information */
-          tenant.getAdditionalInfo().putAll(nodeMap);
-        } else {
-
-          /* Update tenant additonal information */
-          tenant.setAdditionalInfo(nodeMap);
-        }
-
-        /* Put the tenant back to cache */
-        cRMSessionCache.admit(id.trim(), tenant);
+        /* Update agent additonal information */
+        user.setAdditionalInfo(nodeMap);
       }
+
+      /* Put the agent back to cache */
+      cRMSessionCache.admit(id.trim(), user);
+
     }
 
     /* Check if Live Id authentication is desired */
@@ -222,44 +148,16 @@ public final class MSCRMSessionManagerFactory implements ApplicationContextAware
   }
 
   /**
-   * @return the agentInfoService
-   */
-  public final CADUserInfoService getAgentInfoService() {
-    return this.agentInfoService;
-  }
-
-  /**
-   * @param agentInfoService the agentInfoService to set
-   */
-  public final void setAgentInfoService(final CADUserInfoService agentInfoService) {
-    this.agentInfoService = agentInfoService;
-  }
-
-  /**
-   * @return the tenantInfoService
-   */
-  public final SuperUserInfoService getTenantInfoService() {
-    return this.tenantInfoService;
-  }
-
-  /**
-   * @param tenantInfoService the tenantInfoService to set
-   */
-  public final void setTenantInfoService(final SuperUserInfoService tenantInfoService) {
-    this.tenantInfoService = tenantInfoService;
-  }
-
-  /**
    * @return the agentIdSplitCharacter
    */
-  public final String getAgentIdSplitCharacter() {
+  public final String getCrmUserIdIdSplitCharacter() {
     return this.agentIdSplitCharacter;
   }
 
   /**
    * @param agentIdSplitCharacter the agentIdSplitCharacter to set
    */
-  public final void setAgentIdSplitCharacter(final String agentIdSplitCharacter) {
+  public final void setCrmUserIdIdSplitCharacter(final String agentIdSplitCharacter) {
     this.agentIdSplitCharacter = agentIdSplitCharacter;
   }
 }

@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import com.inbravo.cad.exception.CADException;
 import com.inbravo.cad.exception.CADResponseCodes;
 import com.inbravo.cad.internal.service.dto.CADUser;
-import com.inbravo.cad.internal.service.dto.Tenant;
 import com.inbravo.cad.rest.resource.CADCommandObject;
 import com.inbravo.cad.rest.resource.CADObject;
 import com.inbravo.cad.rest.service.crm.ms.MSCRMObjectService;
@@ -36,69 +35,45 @@ public final class MSCRMV5LeadService extends MSCRMObjectService {
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside getObjects");
     }
 
-    /* Get respective CRM session id */
-    if (eDSACommandObject.getTenant() != null) {
-      final Tenant tenant = mSCRMSessionManager.getTenantWithCRMSessionInformation(eDSACommandObject.getTenant());
+    final CADUser agent = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-      /* Pass crm fields list null to fetch all fields */
-      final List<CADObject> eDSAObjectList =
-          mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), tenant.getCrmServiceProtocol(), tenant.getCrmServiceURL(),
-              tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmOrgName(), tenant.getCrmSecurityToken(), null);
+    final List<CADObject> cADbjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
+            agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(), null);
 
-      /* Set the final object in command object */
-      eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
-    } else if (eDSACommandObject.getAgent() != null) {
-      final CADUser agent = mSCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
+    /* Set the final object in command object */
+    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
 
-      final List<CADObject> eDSAObjectList =
-          mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-              agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(), null);
-
-      /* Set the final object in command object */
-      eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
-    }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside getObjects query: " + query);
     }
 
-    /* Get respective CRM session id */
-    if (eDSACommandObject.getTenant() != null) {
-      final Tenant tenant = mSCRMSessionManager.getTenantWithCRMSessionInformation(eDSACommandObject.getTenant());
+    final CADUser agent = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-      /* Pass crm fields list null to fetch all fields */
-      final List<CADObject> eDSAObjectList =
-          mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), tenant.getCrmServiceProtocol(), tenant.getCrmServiceURL(),
-              tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmOrgName(), tenant.getCrmSecurityToken(), null, query);
+    final List<CADObject> cADbjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
+            agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(), null, query);
 
-      /* Set the final object in command object */
-      eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
-    } else if (eDSACommandObject.getAgent() != null) {
-      final CADUser agent = mSCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
+    /* Set the final object in command object */
+    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
 
-      final List<CADObject> eDSAObjectList =
-          mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-              agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(), null, query);
-
-      /* Set the final object in command object */
-      eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
-    }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select) throws Exception {
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside getObjects query: " + query + " & select: " + select);
@@ -122,33 +97,21 @@ public final class MSCRMV5LeadService extends MSCRMObjectService {
       crmFieldToBeSelectedList.add(select);
     }
 
-    /* Get respective CRM session id */
-    if (eDSACommandObject.getTenant() != null) {
-      final Tenant tenant = mSCRMSessionManager.getTenantWithCRMSessionInformation(eDSACommandObject.getTenant());
+    final CADUser agent = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-      final List<CADObject> eDSAObjectList =
-          mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), tenant.getCrmServiceProtocol(), tenant.getCrmServiceURL(),
-              tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmOrgName(), tenant.getCrmSecurityToken(),
-              crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query);
+    final List<CADObject> cADbjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
+            agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(),
+            crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query);
 
-      /* Set the final object in command object */
-      eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
-    } else if (eDSACommandObject.getAgent() != null) {
-      final CADUser agent = mSCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
+    /* Set the final object in command object */
+    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
 
-      final List<CADObject> eDSAObjectList =
-          mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-              agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(),
-              crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query);
-
-      /* Set the final object in command object */
-      eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
-    }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject eDSACommandObject, final String query, final String select, final String order)
+  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
 
     if (logger.isDebugEnabled()) {
@@ -173,53 +136,41 @@ public final class MSCRMV5LeadService extends MSCRMObjectService {
       crmFieldToBeSelectedList.add(select);
     }
 
-    /* Get respective CRM session id */
-    if (eDSACommandObject.getTenant() != null) {
-      final Tenant tenant = mSCRMSessionManager.getTenantWithCRMSessionInformation(eDSACommandObject.getTenant());
+    final CADUser agent = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-      final List<CADObject> eDSAObjectList =
-          mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), tenant.getCrmServiceProtocol(), tenant.getCrmServiceURL(),
-              tenant.getCrmUserId(), tenant.getCrmPassword(), tenant.getCrmOrgName(), tenant.getCrmSecurityToken(),
-              crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query, order);
+    final List<CADObject> cADbjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
+            agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(),
+            crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query, order);
 
-      /* Set the final object in command object */
-      eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
-    } else if (eDSACommandObject.getAgent() != null) {
-      final CADUser agent = mSCRMSessionManager.getUserWithCRMSessionInformation(eDSACommandObject.getAgent());
+    /* Set the final object in command object */
+    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
 
-      final List<CADObject> eDSAObjectList =
-          mSCRMServiceManager.getObjects(eDSACommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-              agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(),
-              crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query, order);
-
-      /* Set the final object in command object */
-      eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
-    }
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
     throw new CADException(CADResponseCodes._1003 + notSupportedError);
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject eDSACommandObject, final String query) throws Exception {
+  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
     throw new CADException(CADResponseCodes._1003 + notSupportedError);
   }
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
     throw new CADException(CADResponseCodes._1003 + notSupportedError);
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject eDSACommandObject, final String idToBeDeleted) throws Exception {
+  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
     throw new CADException(CADResponseCodes._1003 + notSupportedError);
   }
 
   @Override
-  public CADCommandObject updateObject(final CADCommandObject eDSACommandObject) throws Exception {
+  public CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
     throw new CADException(CADResponseCodes._1003 + notSupportedError);
   }
 

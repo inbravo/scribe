@@ -163,11 +163,11 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
     return salesForceSOAPClient;
   }
 
-  public final String getAgentIdSplitCharacter() {
+  public final String getCrmUserIdIdSplitCharacter() {
     return agentIdSplitCharacter;
   }
 
-  public final void setAgentIdSplitCharacter(final String agentIdSplitCharacter) {
+  public final void setCrmUserIdIdSplitCharacter(final String agentIdSplitCharacter) {
     this.agentIdSplitCharacter = agentIdSplitCharacter;
   }
 }

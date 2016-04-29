@@ -38,13 +38,13 @@ public final class CADAttachmentUtils {
       logger.debug("---Inside getObjects, no. of objects in response: " + cADCommandObject.getcADObject().length);
 
       /* Get object array */
-      final CADObject[] eDSAObjectArr = cADCommandObject.getcADObject();
+      final CADObject[] cADbjectArr = cADCommandObject.getcADObject();
 
       /* Iterate over all objects */
-      for (final CADObject eDSAObject : eDSAObjectArr) {
+      for (final CADObject cADbject : cADbjectArr) {
 
         /* Get object content */
-        final List<Object> objectList = eDSAObject.getObjectContent();
+        final List<Object> objectList = cADbject.getObjectContent();
 
         /* If valid list */
         if (objectList != null && objectList.size() != 0) {

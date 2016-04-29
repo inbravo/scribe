@@ -49,13 +49,13 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @param searchResult
    * @return
    * @throws Exception
    */
   @SuppressWarnings("unused")
-  public static final CADCommandObject processResponse(final CADCommandObject eDSACommandObject, final SearchResult searchResult,
+  public static final CADCommandObject processResponse(final CADCommandObject cADCommandObject, final SearchResult searchResult,
       final Set<String> crmFieldToBeSelectedSet) throws Exception {
 
     logger.debug("---Inside processResponse crmFieldToBeSelectedSet size: " + crmFieldToBeSelectedSet.size());
@@ -102,7 +102,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
     int pageIndex = 0;
 
     /* Create EDSAObject list */
-    final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+    final List<CADObject> cADbjectList = new ArrayList<CADObject>();
 
     /* Check if records are not null */
     if (records != null) {
@@ -116,7 +116,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
       for (int i = 0, j = (pageIndex - 1) * 500; i < records.length; i++, j++) {
 
         /* Create one Object each record */
-        final CADObject eDSAObject = new CADObject();
+        final CADObject cADbject = new CADObject();
 
         /* Create list of elements */
         final List<Element> elementList = new ArrayList<Element>();
@@ -221,21 +221,21 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
         }
 
         /* Add all CRM fields */
-        eDSAObject.setXmlContent(elementList);
+        cADbject.setXmlContent(elementList);
 
         /* Set the object at array */
-        eDSAObjectList.add(eDSAObject);
+        cADbjectList.add(cADbject);
       }
     } else {
       /* Inform use about no records from NS */
       throw new CADException(CADResponseCodes._1004 + "No records found from NS");
     }
-    logger.debug("---Inside processCustomerInResponse records count in response: " + eDSAObjectList.size());
+    logger.debug("---Inside processCustomerInResponse records count in response: " + cADbjectList.size());
 
     /* Set the final object in command object */
-    eDSACommandObject.seteDSAObject(eDSAObjectList.toArray(new CADObject[eDSAObjectList.size()]));
+    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
 
-    return eDSACommandObject;
+    return cADCommandObject;
   }
 
   /**

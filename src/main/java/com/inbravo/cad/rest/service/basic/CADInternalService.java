@@ -17,9 +17,9 @@ public final class CADInternalService {
 
   private CRMServiceFactory cRMServiceFactory;
 
-  public final CADServiceFactory getServiceFactory(final CADCommandObject eDSACommandObject) throws Exception {
+  public final CADServiceFactory getServiceFactory(final CADCommandObject cADCommandObject) throws Exception {
 
-    logger.debug("---Inside getServiceFactory, Object type: " + eDSACommandObject.getObjectType() + ", providing CRM service");
+    logger.debug("---Inside getServiceFactory, Object type: " + cADCommandObject.getObjectType() + ", providing CRM service");
 
     /* Return CRM service factory */
     return cRMServiceFactory;

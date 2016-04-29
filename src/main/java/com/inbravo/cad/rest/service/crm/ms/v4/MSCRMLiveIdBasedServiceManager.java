@@ -62,10 +62,10 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
   private String crmServiceEndpoint = SOAPExecutor.CRM_ENDPOINT;
 
   public final CADObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
-      final String password, final String orgName, final String[] crmSecurityToken, final CADObject eDSAObject) throws Exception {
+      final String password, final String orgName, final String[] crmSecurityToken, final CADObject cADbject) throws Exception {
     logger.debug("---Inside createObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId + " & password: "
-        + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & eDSAObject: "
-        + eDSAObject);
+        + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & cADbject: "
+        + cADbject);
 
     try {
       /* Enable SOAP debugging using axis library */
@@ -77,7 +77,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final Create createRequest = createDocument.addNewCreate();
 
       /* Add new account type xml beans object */
-      createRequest.setEntity(MSCRMMessageFormatUtils.createCRMObject(mSCRMObjectType, eDSAObject, crmFieldIntraSeparator));
+      createRequest.setEntity(MSCRMMessageFormatUtils.createCRMObject(mSCRMObjectType, cADbject, crmFieldIntraSeparator));
 
       /* Create new stub */
       final CrmServiceCrmServiceSoap12Stub stub = new CrmServiceCrmServiceSoap12Stub(appProtocolType + "://" + crmHost + crmServiceEndpoint);
@@ -99,7 +99,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       stub.cleanup();
 
       /* Add new node and return */
-      return MSCRMMessageFormatUtils.addNode("id", result, eDSAObject);
+      return MSCRMMessageFormatUtils.addNode("id", result, cADbject);
     } catch (final AxisFault e) {
       throw new CADException(CADResponseCodes._1013 + " Recieved a web service error", e);
     } catch (final RemoteException e) {
@@ -175,29 +175,29 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final ArrayOfBusinessEntity entityArray = be.getBusinessEntities();
       final BusinessEntity[] entityStringArray = entityArray.getBusinessEntityArray();
 
-      final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
         /* Create new EDSA object */
-        final CADObject eDSAObject = new CADObject();
+        final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
-        eDSAObject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
+        cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
 
         /* Add EDSA object in list */
-        eDSAObjectList.add(eDSAObject);
+        cADbjectList.add(cADbject);
       }
-      logger.debug("---Inside getObjects eDSAObjectList.size: " + eDSAObjectList.size());
+      logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
 
       /* Return error message for no record found */
-      if (eDSAObjectList.size() == 0) {
+      if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
         throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
       stub.cleanup();
-      return eDSAObjectList;
+      return cADbjectList;
     } catch (final AxisFault e) {
       throw new CADException(CADResponseCodes._1013 + " Recieved a web service error", e);
     } catch (final RemoteException e) {
@@ -285,28 +285,28 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final ArrayOfBusinessEntity entityArray = be.getBusinessEntities();
       final BusinessEntity[] entityStringArray = entityArray.getBusinessEntityArray();
 
-      final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
         /* Create new EDSA object */
-        final CADObject eDSAObject = new CADObject();
+        final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
-        eDSAObject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
+        cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
 
         /* Add EDSA object in list */
-        eDSAObjectList.add(eDSAObject);
+        cADbjectList.add(cADbject);
       }
-      logger.debug("---Inside getObjects eDSAObjectList.size: " + eDSAObjectList.size());
+      logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
 
       /* Return error message for no record found */
-      if (eDSAObjectList.size() == 0) {
+      if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
         throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
-      return eDSAObjectList;
+      return cADbjectList;
     } catch (final AxisFault e) {
       throw new CADException(CADResponseCodes._1013 + " Recieved a web service error", e);
     } catch (final RemoteException e) {
@@ -384,28 +384,28 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final ArrayOfBusinessEntity entityArray = be.getBusinessEntities();
       final BusinessEntity[] entityStringArray = entityArray.getBusinessEntityArray();
 
-      final List<CADObject> eDSAObjectList = new ArrayList<CADObject>();
+      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
         /* Create new EDSA object */
-        final CADObject eDSAObject = new CADObject();
+        final CADObject cADbject = new CADObject();
 
         /* Add all CRM fields */
-        eDSAObject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
+        cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
 
         /* Add EDSA object in list */
-        eDSAObjectList.add(eDSAObject);
+        cADbjectList.add(cADbject);
       }
-      logger.debug("---Inside getObjects eDSAObjectList.size: " + eDSAObjectList.size());
+      logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
 
       /* Return error message for no record found */
-      if (eDSAObjectList.size() == 0) {
+      if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
         throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
-      return eDSAObjectList;
+      return cADbjectList;
     } catch (final AxisFault e) {
       throw new CADException(CADResponseCodes._1013 + " Recieved a web service error", e);
     } catch (final RemoteException e) {

@@ -30,7 +30,7 @@ public abstract class MSAuthManager implements ApplicationContextAware {
   /**
    * This API is required for distinguishing login type e.g. Office 365 or Live Id
    * 
-   * @param eDSACommandObject
+   * @param cADCommandObject
    * @return
    */
   public final synchronized Map<String, String> getMSCRMOrganizationInfo(final String serviceURL, final String serviceProtocol) throws Exception {
