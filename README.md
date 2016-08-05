@@ -1,16 +1,16 @@
-# CAD:  REST based seemless integration of different cloud based CRMs
+# CAD - REST based integration of cloud based CRMs
 ## Avoid CRM level complexity and access CRM objects using XML or JSON on http
 ### Supports following CRMs,
-	* SalesForce
+	1. SalesForce
 	2. NetSuite
 	3. MS Dynamics XRM
 	4. Zoho
 	5. ZenDesk ticketing system
 
 ### To get all CRM objects of type Contact from various CRM
-##### SalesForce: [cad-host]/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=sfdc
-##### Microsoft Dynamics XRM: [cad-host]/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ms
-##### NetSuite: [cad-host]/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ns
+	1. SalesForce: [cad-host]/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=sfdc
+	2. Microsoft Dynamics XRM: [cad-host]/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ms
+	3. NetSuite: [cad-host]/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ns
  
 * Get all Accounts:  HTTP GET [cad-host]/cad/object/account
 * Get all Accounts by id: HTTP GET [cad-host]/cad/object/account/Id='001A000000E9ZEuIAN'
