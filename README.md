@@ -11,7 +11,8 @@
 	1. SalesForce: [cad-host]/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=sfdc
 	2. Microsoft Dynamics XRM: [cad-host]/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ms
 	3. NetSuite: [cad-host]/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ns
- 
+
+### To get CRM objects using query criteria 
 * Get all Accounts:  HTTP GET [cad-host]/cad/object/account
 * Get all Accounts by id: HTTP GET [cad-host]/cad/object/account/Id='001A000000E9ZEuIAN'
 * Get all Accounts by name: HTTP GET [cad-host]/cad/object/account/name='Dickenson plc'
@@ -22,6 +23,8 @@
 * Get all Accounts from "TX" or "KS" states:  HTTP GET [cad-host]/cad/object/account/BillingState='TX'|BillingState='KS'
 * Get all direct customer Accounts:  HTTP GET [cad-host]/cad/object/account/type='Customer - Direct'
 * Get an account with name like "Genepoint":  HTTP GET [cad-host]/cad/object/account/name like '%Genepoint%'
+
+### To get some fields of CRM objects using query criteria 
 * Get an account with name and select Id, name, IsDeleted fields only:  HTTP GET [cad-host]/cad/object/account/name='Genepoint'/id,name,isdeleted 
 * Get an account with id and select Id, name, IsDeleted fields only:  HTTP GET [cad-host]/cad/object/account/id='DDDASDVCSDFSD234'/id,name,isdeleted
 
