@@ -8,3 +8,8 @@
 	3. MS Dynamics
 	4. Zoho
 	5. ZenDesk ticketing system
+
+### To download all CRM objects of type Contact from SalesForce, Microsoft Dynamics, NetSuite
+	http://<host>:<port>/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=sfdc
+	http://<host>:<port>/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ms
+	http://<host>:<port>/cad/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ns
