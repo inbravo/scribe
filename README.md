@@ -17,5 +17,5 @@ Search CRM objects with a Query criteria and Select criteria
 
 ##### For JSON  response add "?_type=json" Get JSON data for all Accounts: [cad-host]/cad/object/account?_type=json
 
-[get-all-objects.md]: https://github.com/inbravo/scribe/blob/master/get-all-objects.md
-[get-all-objects-with-some-fields.md]: https://github.com/inbravo/scribe/blob/master/get-all-objects-with-some-fields.md
+[get-all-objects.md]: https://github.com/inbravo/scribe/blob/master/docs/md/get-all-objects.md
+[get-all-objects-with-some-fields.md]: https://github.com/inbravo/scribe/blob/master/docs/md/get-all-objects-with-some-fields.md
