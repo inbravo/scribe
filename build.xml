@@ -1,8 +1,9 @@
-<project name="CAD" default="deploy-tomcat">
+<project name="Scribe" default="deploy-tomcat">
 
 	<property environment="env" />
 
-	<property name="tomcat.home" location="D:/opensource/Tomcat_7_40" />
+	<!-- Just put your tomcat server home directory here -->
+	<property name="tomcat.home" location="D:/opensource/apache-tomcat-8.5.4" />
 
 	<property name="properties.dir" location="${basedir}/src/main/resources" />
 	<property name="reports.dir" location="${tomcat.home}/webapps/cad_reports" />
@@ -11,7 +12,7 @@
 	<property name="build.classes.dir" location="${web.content.dir}/WEB-INF/classes" />
 	<property name="war.dir" location="${build.dir}/" />
 	<property name="lib.dir" value="${web.content.dir}/WEB-INF/lib" />
-	<property name="war.file.name" value="cad" />
+	<property name="war.file.name" value="scribe" />
 
 	<path id="project.classpath">
 		<fileset dir="${lib.dir}" />
