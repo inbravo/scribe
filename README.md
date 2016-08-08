@@ -1,4 +1,4 @@
-# Scribe [stateless microservice to integrate CRM on clouds]
+# Scribe [stateless microservice to integrate Cloud CRMs]
 
 - Talk to all CRMs in a generic methodology: REST
 - Use single communication format for all types of CRM
