@@ -9,10 +9,11 @@
 	3. MS Dynamics XRM
 	4. Zoho
 	5. ZenDesk ticketing system
-### To get all CRM objects of type Contact from various CRM
-	1. SalesForce: [scribe-host]/scribe/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=sfdc
-	2. Microsoft Dynamics XRM: [scribe-host]/scribe/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ms
-	3. NetSuite: [scribe-host]/scribe/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ns
+
+#### To get all CRM objects of type Contact from various CRM
+- SalesForce: [scribe-host]/scribe/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=sfdc
+- Microsoft Dynamics XRM: [scribe-host]/scribe/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ms
+- NetSuite: [scribe-host]/scribe/object/contact?CrmUserId=<crm-user-id>&CrmPassword=<crm-password>&crmtype=ns
 
 #### To get CRM objects using query criteria 
 - Get all Accounts:  HTTP GET [scribe-host]/scribe/object/account
