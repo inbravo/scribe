@@ -59,7 +59,7 @@ public final class ZDCRMTest {
 
         final String firstCookie = zDAuthManager.getSessionId("amit.dixit@impetus.co.in", "pilkhuwa", "amitdixitinc.zendesk.com", "http", 80);
 
-        final String secCookie = zDAuthManager.getSessionId("zoe.li@contactual.com", "1qaz2wsx", "ctl.zendesk.com", "http", 80);
+        final String secCookie = zDAuthManager.getSessionId("amit.dixit@impetus.co.in", "pilkhuwa", "amitdixitinc.zendesk.com", "http", 80);
 
         final String thirdCookie = zDAuthManager.getSessionId("vickytaurus@gmail.com", "mumbai", "vikas1234.zendesk.com", "http", 80);
 
@@ -88,7 +88,7 @@ public final class ZDCRMTest {
 
               for (int i = 0; i < 9; i++) {
                 try {
-                  test.dummySearch("zoe.li@contactual.com", "1qaz2wsx", "ctl.zendesk.com", "type:user", secCookie);
+                  test.dummySearch("amit@impetus.com", "1qaz2wsx", "amitdixitinc.zendesk.com", "type:user", secCookie);
                 } catch (final Exception e) {
                   System.out.println(e);
                 }
@@ -116,7 +116,7 @@ public final class ZDCRMTest {
 
               for (int i = 0; i < 9; i++) {
                 try {
-                  test.dummySearch("zoe.li@contactual.com", "1qaz2wsx", "ctl.zendesk.com", "type:user", secCookie);
+                  test.dummySearch("amit.dixit@impetus.co.in", "1qaz2wsx", "amitdixitinc.zendesk.com", "type:user", secCookie);
                 } catch (final Exception e) {
                   System.out.println(e);
                 }
