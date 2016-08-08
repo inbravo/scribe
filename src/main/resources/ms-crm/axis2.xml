@@ -401,7 +401,7 @@
         <!--  System predefined phases       -->
         <!--   After Postdispatch phase module author or service author can add any phase he want      -->
          <phase name="MustUnderstandPhase">
-            <handler name="MustUnderStandHandler" class="com.contactual.edsa.rest.service.crm.ms.auth.MSSOAPMustUnderstandHandler" />
+            <handler name="MustUnderStandHandler" class="com.inbravo.scribe.rest.service.crm.ms.auth.MSSOAPMustUnderstandHandler" />
         </phase>
         <phase name="OperationInPhase"/>
         <phase name="soapmonitorPhase"/>
