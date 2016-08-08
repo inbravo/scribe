@@ -50,9 +50,6 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
   /* Boolean value to enable SFDC CRM */
   private boolean sfdcCRMEnabled;
 
-  /* Boolean value to enable WAPI CRM interface */
-  private boolean wapiCRMEnabled;
-
   /* Boolean value to enable Zendesk CRM */
   private boolean zendeskCRMEnabled;
 
@@ -61,12 +58,6 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
 
   /* Boolean value to enable MS CRM */
   private boolean microsoftCRMEnabled;
-
-  /* Agent id special character */
-  private String agentIdSplitCharacter;
-
-  /* Boolean value to Contactual CRM */
-  private boolean contactualCRMEnabled;
 
   /* SCRM session cache for holding user/agent */
   private CRMSessionCache cRMSessionCache;
@@ -198,14 +189,6 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
     return cRMService;
   }
 
-  public final String getCrmUserIdIdSplitCharacter() {
-    return agentIdSplitCharacter;
-  }
-
-  public final void setCrmUserIdIdSplitCharacter(final String agentIdSplitCharacter) {
-    this.agentIdSplitCharacter = agentIdSplitCharacter;
-  }
-
   @Override
   public final void setApplicationContext(final ApplicationContext ApplicationContext) throws BeansException {
     this.applicationContext = ApplicationContext;
@@ -261,22 +244,6 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
 
   public final void setSfdcCRMEnabled(final boolean sfdcCRMEnabled) {
     this.sfdcCRMEnabled = sfdcCRMEnabled;
-  }
-
-  public final boolean isWapiCRMEnabled() {
-    return wapiCRMEnabled;
-  }
-
-  public final void setWapiCRMEnabled(final boolean wapiCRMEnabled) {
-    this.wapiCRMEnabled = wapiCRMEnabled;
-  }
-
-  public final boolean isContactualCRMEnabled() {
-    return contactualCRMEnabled;
-  }
-
-  public final void setContactualCRMEnabled(final boolean contactualCRMEnabled) {
-    this.contactualCRMEnabled = contactualCRMEnabled;
   }
 
   public final boolean isMicrosoftCRMEnabled() {

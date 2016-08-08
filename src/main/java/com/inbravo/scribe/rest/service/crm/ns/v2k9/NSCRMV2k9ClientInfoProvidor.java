@@ -299,12 +299,4 @@ public final class NSCRMV2k9ClientInfoProvidor {
           + this.webservicesDomain + "]";
     }
   }
-
-  public static void main(String[] args) throws Exception {
-
-    PropertyConfigurator.configure("D:/work/contactual_source/trunk/WEB/CAD/Properties/scribe-log4j.properties");
-    final NSCRMV2k9ClientInfoProvidor prov = new NSCRMV2k9ClientInfoProvidor();
-
-    System.out.println(prov.getNSCRMV2k9ClientInfo("thomas.wu@8x8.com", "welcome789"));
-  }
 }
