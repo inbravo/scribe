@@ -9,3 +9,4 @@ src/webapp/WEB-INF/lib/cad.jar
 cad.war
 src/webapp/WEB-INF/lib/scribe.jar
 scribe.war
+*.classpath

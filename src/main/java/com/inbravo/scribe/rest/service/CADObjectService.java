@@ -45,6 +45,7 @@ import com.inbravo.scribe.rest.service.basic.CADInternalService;
 import com.inbravo.scribe.rest.service.validator.CADRequestValidator;
 
 /**
+ * The core CRM adaptor service
  * 
  * @author amit.dixit
  * 
