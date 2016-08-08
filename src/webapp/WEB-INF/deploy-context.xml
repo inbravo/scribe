@@ -261,7 +261,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<property name="nSCRMGenericService" ref="nSCRMGenericService" />
 		<property name="crmFieldsSeparator"><value>${CRM_Field_Separator}</value></property>
 		<property name="orderFieldsSeparator"><value>${Order_By_Field_Separator}</value></property>
-		<property name="inputDateFormat"><value>${Mashup_Date_Format}</value></property>
+		<property name="inputDateFormat"><value>${Input_Date_Format}</value></property>
 		<property name="crmFieldIntraSeparator"><value>${NS_Field_Intra_Separator}</value></property>
 	</bean>
 
