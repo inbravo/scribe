@@ -27,7 +27,7 @@ After checking out the repo, run `ant tomcat-start` to start the service using A
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-## Selection of XML of JSON as response 
+## Selection of XML or JSON as response 
 
 - Add "?_type=json" Get JSON data for all Accounts: [cad-host]/cad/object/account?_type=json
 - Add "?_type=xml" Get XML data for all Accounts: [cad-host]/cad/object/account?_type=xml
