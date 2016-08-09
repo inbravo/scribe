@@ -16,12 +16,10 @@ Search CRM objects with a Query criteria and Select criteria
 -  [Query with Select Criteria][get-all-objects-with-some-fields.md]
 
 ## How to run 
---------------
 
 After checking out the repo, run `ant tomcat-start` to start the service using Apache Ant. 
 
 ## Contributing
---------------
 
 1. Fork it ( https://github.com/[my-github-username]/scribe/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
@@ -29,7 +27,10 @@ After checking out the repo, run `ant tomcat-start` to start the service using A
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-#### For JSON  response add "?_type=json" Get JSON data for all Accounts: [cad-host]/cad/object/account?_type=json
+## Selection of XML of JSON as response 
+
+- Add "?_type=json" Get JSON data for all Accounts: [cad-host]/cad/object/account?_type=json
+- Add "?_type=xml" Get XML data for all Accounts: [cad-host]/cad/object/account?_type=xml
 
 [get-all-objects.md]: https://github.com/inbravo/scribe/blob/master/docs/md/get-all-objects.md
 [get-all-objects-with-some-fields.md]: https://github.com/inbravo/scribe/blob/master/docs/md/get-all-objects-with-some-fields.md
