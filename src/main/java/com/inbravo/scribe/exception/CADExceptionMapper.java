@@ -130,30 +130,10 @@ public final class CADExceptionMapper implements ExceptionMapper<Exception> {
         logger.info(errorConstant + exception.getMessage());
         return Response.status(Response.Status.UNAUTHORIZED).type(MediaType.APPLICATION_XML).entity(getErrorXML(exception.getMessage())).build();
 
-      } else if (exception.getMessage().contains(CADResponseCodes._1007)) {
-        /* Inform user about the error */
-        logger.info(errorConstant + exception.getMessage());
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_XML)
-            .entity(getErrorXML("Configuration problem. Please contact customer care")).build();
-
       } else if (exception.getMessage().contains(CADResponseCodes._1008)) {
         /* Inform user about the error */
         logger.info(errorConstant + exception.getMessage());
         return Response.status(Response.Status.BAD_REQUEST).type(MediaType.APPLICATION_XML).entity(getErrorXML(exception.getMessage())).build();
-
-      } else if (exception.getMessage().contains(CADResponseCodes._1009)) {
-        return Response.status(Response.Status.UNAUTHORIZED).type(MediaType.APPLICATION_XML).entity(getErrorXML(exception.getMessage())).build();
-
-      } else if (exception.getMessage().contains(CADResponseCodes._1010)) {
-        logger.error("||||Internal Server Error||||Reason||||" + exception.getMessage(), exception);
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_XML)
-            .entity(getErrorXML("Configuration problem. Please contact customer care")).build();
-
-      } else if (exception.getMessage().contains(CADResponseCodes._1011)) {
-        /* Inform user about the error */
-        logger.info(errorConstant + exception.getMessage());
-        return Response.status(Response.Status.SERVICE_UNAVAILABLE).type(MediaType.APPLICATION_XML).entity(getErrorXML(exception.getMessage()))
-            .build();
 
       } else if (exception.getMessage().contains(CADResponseCodes._1012)) {
         /* Inform user about the error */

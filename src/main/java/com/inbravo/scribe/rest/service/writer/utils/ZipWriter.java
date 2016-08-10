@@ -156,8 +156,8 @@ public final class ZipWriter {
         tempFile.delete();
       }
 
-      /**/
-      throw new CADException(CADResponseCodes._1023 + "Problem while writing zip" + e);
+      /* Cant generate zip */
+      throw new CADException(CADResponseCodes._1000 + "Problem while writing zip" + e);
     } finally {
 
       try {
@@ -183,7 +183,9 @@ public final class ZipWriter {
         }
 
       } catch (final IOException e) {
-        throw new CADException(CADResponseCodes._1023 + "Problem while closing zip read/write streams");
+
+        /* Cant generate zip */
+        throw new CADException(CADResponseCodes._1000 + "Problem while closing zip read/write streams");
       }
     }
   }

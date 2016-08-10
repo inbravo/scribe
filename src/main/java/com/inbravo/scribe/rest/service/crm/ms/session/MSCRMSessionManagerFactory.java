@@ -77,7 +77,7 @@ public final class MSCRMSessionManagerFactory implements ApplicationContextAware
     if (serviceURL == null || "".equals(serviceURL)) {
 
       /* Send user error */
-      throw new CADException(CADResponseCodes._1009 + "CRM integration info is missing: CRM service URL");
+      throw new CADException(CADResponseCodes._1008 + "CRM integration info is missing: CRM service URL");
     }
 
     /* if additional info is available */

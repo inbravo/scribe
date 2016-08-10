@@ -136,14 +136,14 @@ public final class MSLiveIdManager extends MSAuthManager {
         if (result == null || (result.getValue() == null && !"".equals(result.getValue()))) {
 
           /* Report error to user */
-          throw new CADException(CADResponseCodes._1009 + "Security token not recieved from Live Id server");
+          throw new CADException(CADResponseCodes._1008 + "Security token not recieved from Live Id server");
         } else {
           return new String[] {result.getValue()};
         }
       } else {
 
         /* Report error to user */
-        throw new CADException(CADResponseCodes._1009 + "Invalid response from MS Live Id server");
+        throw new CADException(CADResponseCodes._1008 + "Invalid response from MS Live Id server");
       }
 
     } catch (final IOException e) {

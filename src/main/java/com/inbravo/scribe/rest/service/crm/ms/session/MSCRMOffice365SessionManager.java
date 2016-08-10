@@ -146,7 +146,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     if (agent.getCrmServiceURL() == null) {
 
       /* Inform user about missing credentials */
-      throw new CADException(CADResponseCodes._1009 + "CRM integration information is missing: MS CRM service URL");
+      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: MS CRM service URL");
     }
 
     if (agent.getCrmSecurityToken() == null) {
@@ -188,14 +188,14 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     if (agent.getCrmServiceURL() == null) {
 
       /* Inform user about missing credentials */
-      throw new CADException(CADResponseCodes._1009 + "CRM integration information is missing: CRM service URL");
+      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
     }
 
     /* Service protocol is a must for MS-CRM */
     if (agent.getCrmServiceProtocol() == null) {
 
       /* Inform user about missing credentials */
-      throw new CADException(CADResponseCodes._1009 + "CRM integration information is missing: CRM service Protocol");
+      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service Protocol");
     }
   }
 

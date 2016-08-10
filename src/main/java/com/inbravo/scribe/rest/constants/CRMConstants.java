@@ -28,9 +28,7 @@ package com.inbravo.scribe.rest.constants;
  */
 public interface CRMConstants {
 
-  public static final String salesForceCRM = "sfdc";
-
-  public static final String coCRM = "co";
+  public static final String salesForceCRM = "SF";
 
   public static final String microsoftCRM = "MS";
 

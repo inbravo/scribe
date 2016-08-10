@@ -154,7 +154,7 @@ public final class MSCRMDiscoveryManager {
       }
       return mSCRMUserInformation;
     } catch (final MalformedURLException e) {
-      throw new CADException(CADResponseCodes._1009 + "Protocol type is not found from the agent/tenant configuration", e);
+      throw new CADException(CADResponseCodes._1008 + "Protocol type is not found in CRM configuration", e);
     } catch (final AxisFault e) {
       throw new CADException(CADResponseCodes._1013 + "Recieved a web service error", e);
     } catch (final RemoteException e) {

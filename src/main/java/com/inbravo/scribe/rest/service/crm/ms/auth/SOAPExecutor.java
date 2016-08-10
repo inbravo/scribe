@@ -146,7 +146,7 @@ public final class SOAPExecutor {
         return postMethod.getResponseBodyAsString();
       } catch (final Exception exception) {
         /* Send user error */
-        throw new CADException(CADResponseCodes._1009 + "Problem in calling MS CRM URL: " + url);
+        throw new CADException(CADResponseCodes._1008 + "Problem in calling MS CRM URL: " + url);
       }
     } finally {
       if (postMethod != null) {
@@ -185,7 +185,7 @@ public final class SOAPExecutor {
       logger.debug("---Inside getHttpURL, exception: " + exception);
 
       /* Send user error */
-      throw new CADException(CADResponseCodes._1009 + "Problem in finding CRM integration information from customers CRM service URL");
+      throw new CADException(CADResponseCodes._1008 + "Problem in finding CRM integration information from customers CRM service URL");
     } finally {
 
       /* Release connection */

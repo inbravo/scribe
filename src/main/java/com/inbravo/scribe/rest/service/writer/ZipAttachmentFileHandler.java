@@ -60,16 +60,12 @@ public final class ZipAttachmentFileHandler {
         zWriter.write(outputStream, fileAttachments, zipName);
       } else {
         /* Inform user about error */
-        throw new CADException(CADResponseCodes._1023 + "Server file generation limit has reached");
+        throw new CADException(CADResponseCodes._1000 + "Server file generation limit has reached");
       }
 
     } catch (final Exception e) {
 
-      if (e.getMessage().contains(CADResponseCodes._1023)) {
-        throw new CADException(CADResponseCodes._1023 + "Server file generation limit has reached");
-      } else {
-        throw new CADException(CADResponseCodes._1000 + "Problem while file attachment service");
-      }
+      throw new CADException(CADResponseCodes._1000 + "Problem while file attachment service");
     } finally {
 
       try {

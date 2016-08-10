@@ -58,7 +58,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
     final CADUser user = (CADUser) cRMSessionCache.recover(crmUserId);
 
     /* Validate crm service params */
-    this.validateAgent(user);
+    this.validateUser(user);
 
     /* Login at Zen desk */
     if (zDAuthManager.login(user.getCrmAPIUserId(), user.getCrmAPIPassword(), user.getCrmServiceURL(), user.getCrmServiceProtocol(),
@@ -93,7 +93,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
     final CADUser user = (CADUser) cRMSessionCache.recover(id);
 
     /* Validate crm service params */
-    this.validateAgent(user);
+    this.validateUser(user);
 
     /* Login at Zen desk */
     String crmUserId = user.getCrmUserId();
@@ -133,7 +133,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
     final CADUser user = (CADUser) cRMSessionCache.recover(agentId);
 
     /* Validate crm service params */
-    this.validateAgent(user);
+    this.validateUser(user);
 
     String crmUserId = user.getCrmUserId();
     String crmPassword = user.getCrmPassword();
@@ -177,16 +177,16 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
     this.cRMSessionCache = cRMSessionCache;
   }
 
-  private final void validateAgent(final CADUser agent) {
+  private final void validateUser(final CADUser agent) {
 
     /* Service URL is a must for ZD */
     if (agent.getCrmServiceURL() == null) {
-      throw new CADException(CADResponseCodes._1009 + "CRM integration information is missing: CRM service URL");
+      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
     }
 
     /* Service protocol is a must for ZD */
     if (agent.getCrmServiceProtocol() == null) {
-      throw new CADException(CADResponseCodes._1009 + "CRM integration information is missing: CRM service Protocol");
+      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service Protocol");
     }
   }
 }

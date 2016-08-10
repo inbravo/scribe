@@ -128,7 +128,7 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
         throw new CADException(CADResponseCodes._1003 + "Following CRM: " + user.getCrmName() + " : integration is not enabled");
       }
 
-    } else if (user.getCrmName().contains(microsoftCRMConst)) {
+    } else if (user.getCrmName().equalsIgnoreCase(microsoftCRMConst)) {
 
       /* Check if Microsoft CRM is enabled */
       if (microsoftCRMEnabled) {
@@ -152,7 +152,7 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
         /* Inform user about missing implementation */
         throw new CADException(CADResponseCodes._1003 + "Following CRM: " + user.getCrmName() + " : integration is not enabled");
       }
-    } else if (user.getCrmName().contains(netsuiteCRMConst)) {
+    } else if (user.getCrmName().equalsIgnoreCase(netsuiteCRMConst)) {
 
       /* Check if Netsuite CRM is enabled */
       if (netsuiteCRMEnabled) {
@@ -164,7 +164,7 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
         /* Inform user about missing implementation */
         throw new CADException(CADResponseCodes._1003 + "Following CRM: " + user.getCrmName() + " : integration is not enabled");
       }
-    } else if (user.getCrmName().contains(zohoCRMConst)) {
+    } else if (user.getCrmName().equalsIgnoreCase(zohoCRMConst)) {
 
       /* Check if Zoho CRM is enabled */
       if (zohoCRMEnabled) {

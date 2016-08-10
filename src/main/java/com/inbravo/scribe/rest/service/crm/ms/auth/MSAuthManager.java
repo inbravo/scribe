@@ -65,7 +65,7 @@ public abstract class MSAuthManager implements ApplicationContextAware {
       if (serviceURL == null && "".equals(serviceURL)) {
 
         /* Send user error */
-        throw new CADException(CADResponseCodes._1009 + "CRM integration information is missing: MS CRM service URL");
+        throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: MS CRM service URL");
       }
 
       logger.debug("---Inside getMSCRMOrganizationInfo, calling WSDL serviceURL: " + serviceURL);

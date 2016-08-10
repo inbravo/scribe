@@ -120,12 +120,12 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
 
     /* Service URL is a must for ZH */
     if (user.getCrmServiceURL() == null) {
-      throw new CADException(CADResponseCodes._1009 + "CRM integration information is missing: CRM service URL");
+      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
     }
 
     /* Service protocol is a must for ZH */
     if (user.getCrmServiceProtocol() == null) {
-      throw new CADException(CADResponseCodes._1009 + "CRM integration information is missing: CRM service Protocol");
+      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service Protocol");
     }
   }
 }
