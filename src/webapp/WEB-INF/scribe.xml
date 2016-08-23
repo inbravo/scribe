@@ -234,9 +234,6 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<property name="permittedDateFormats"><value>${Permitted_Input_Date_Formats}</value></property>
 	</bean>
 	
-	<!-- Utility class for OLTP logging -->
-	<bean id="mutualDiagnosticLogUtils" class="com.inbravo.scribe.rest.service.log.MutualDiagnosticLogUtils" scope="prototype"/>
-	
 	<!-- NetSuite CRM implementation beans -->
 	<bean id="clientInfoProvidor" class="com.inbravo.scribe.rest.service.crm.ns.v2k9.NSCRMV2k9ClientInfoProvidor" scope="prototype">
 		<property name="nsGetRoleURLs"><value>${NS_Get_Role_Rest_URLs}</value></property>
@@ -295,9 +292,14 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<property name="urlEncodingType"><value>${Request_Param_Decoding_Type}</value></property>
 	</bean>
 	
+	<bean id="mutualDiagnosticLogService" class="com.inbravo.scribe.rest.service.log.MutualDiagnosticLogService" scope="singleton">
+		<property name="enabled"><value>${MDC_Logging_Enabled}</value></property>
+	</bean>
+		
 	<bean id="scribeObjectService" class="com.inbravo.scribe.rest.service.ScribeObjectService">
 		<property name="scribeInternalService" ref="scribeInternalService" />
 		<property name="scribeRequestValidator" ref="scribeRequestValidator" />
+		<property name="mutualDiagnosticLogService" ref="mutualDiagnosticLogService" />
 	</bean>
 
 	<!-- Attachment writer handler -->
