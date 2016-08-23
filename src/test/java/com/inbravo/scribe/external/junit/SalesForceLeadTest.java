@@ -22,8 +22,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.inbravo.scribe.external.junit.core.CADClientMgmt;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 
 /**
  * 
@@ -45,7 +45,7 @@ public class SalesForceLeadTest {
 
   public SalesForceLeadTest() throws Exception {
     sFLeadMgmt = new CADClientMgmt(cadURL, "/object/lead");
-    context = JAXBContext.newInstance(CADCommandObject.class);
+    context = JAXBContext.newInstance(ScribeCommandObject.class);
     unmarshaller = context.createUnmarshaller();
   }
 
@@ -90,7 +90,7 @@ public class SalesForceLeadTest {
     phone.appendChild(doc.createTextNode("777.444.3333"));
 
     /* Create CADObject */
-    CADObject cadObject = new CADObject();
+    ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(fname);
     arr.add(lname);
@@ -102,10 +102,10 @@ public class SalesForceLeadTest {
     cadObject.setXmlContent(arr);
 
     /* Create Lead object */
-    CADCommandObject cADCommandObject = new CADCommandObject();
+    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
     Response response = null;
@@ -114,7 +114,7 @@ public class SalesForceLeadTest {
       response = sFLeadMgmt.createObject(cADCommandObject);
 
       /* Retrieve the object the object */
-      cADCommandObject = (CADCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
+      cADCommandObject = (ScribeCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
 
       assertEquals("Lead creation is failed", Status.OK.getStatusCode(), response.getStatus());
     } catch (Exception e) {
@@ -130,7 +130,7 @@ public class SalesForceLeadTest {
     /* Step 2: Call update lead */
 
     String leadId = "";
-    List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+    List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
     for (Element element : elementList) {
       if (element.getNodeName().equalsIgnoreCase("Id")) {
         leadId = element.getFirstChild().getNodeValue();
@@ -158,13 +158,13 @@ public class SalesForceLeadTest {
     cadObject.setXmlContent(arr);
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
 
     try {
       response = sFLeadMgmt.updateObject(cADCommandObject);
 
       /* Retrieve the object */
-      cADCommandObject = (CADCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
+      cADCommandObject = (ScribeCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
 
       assertEquals("Lead updation is failed", Status.OK.getStatusCode(), response.getStatus());
     } catch (Exception e) {
@@ -234,7 +234,7 @@ public class SalesForceLeadTest {
     id.appendChild(doc.createTextNode("invalidId"));
 
     /* Create CADObject */
-    CADObject cadObject = new CADObject();
+    ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(fname);
     arr.add(lname);
@@ -246,10 +246,10 @@ public class SalesForceLeadTest {
     cadObject.setXmlContent(arr);
 
     /* Create Lead object */
-    CADCommandObject cADCommandObject = new CADCommandObject();
+    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
     Response response = null;
@@ -278,17 +278,17 @@ public class SalesForceLeadTest {
   public void Create_Invalid_Lead_With_Agent() throws ParserConfigurationException {
 
     /* Create CADObject */
-    CADObject cadObject = new CADObject();
+    ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
 
     /* Set element array at the CAD object */
     cadObject.setXmlContent(arr);
 
     /* Create Lead object */
-    CADCommandObject cADCommandObject = new CADCommandObject();
+    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
     Response response = null;
     /* Step 2: Call update lead */

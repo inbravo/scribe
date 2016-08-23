@@ -39,8 +39,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.service.crm.zd.auth.ZDAuthManager;
 
 /**
@@ -57,7 +57,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
   private final String GROUPS_TAG = "groups";
 
   @Override
-  public final String getSessionId(final String userId, final String password, final String crmURL, final String crmProtocol, final int port)
+  public final String getSessionId(final String userId, final String password, final String crmURL, final String crmProtocol, final String port)
       throws Exception {
     logger.debug("---Inside login userId: " + userId + " & password: " + password + " & crmURL: " + crmURL + " & crmProtocol: " + crmProtocol
         + " & crmPort: " + port);
@@ -66,7 +66,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
     if (crmProtocol == null || "".equalsIgnoreCase(crmProtocol)) {
 
       /* Send user error */
-      throw new CADException(CADResponseCodes._1003 + "Invalid protocol to communicate with ZD: " + crmProtocol);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Invalid protocol to communicate with ZD: " + crmProtocol);
     }
 
     /* Trick: Check all live users on CRM currently */
@@ -76,7 +76,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
     final HttpClient httpclient = new HttpClient();
 
     /* Set credentials */
-    httpclient.getState().setCredentials(new AuthScope(crmURL, port), new UsernamePasswordCredentials(userId, password));
+    httpclient.getState().setCredentials(new AuthScope(crmURL, this.validateCrmPort(port)), new UsernamePasswordCredentials(userId, password));
 
     try {
       int result = httpclient.executeMethod(getMethod);
@@ -85,14 +85,14 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
       /* Check for authentication */
       if (result == HttpStatus.SC_UNAUTHORIZED) {
         logger.debug("---Inside getSessionId found unauthorized user");
-        throw new CADException(CADResponseCodes._1012 + "Anauthorized by Zendesk CRM");
+        throw new ScribeException(ScribeResponseCodes._1012 + "Anauthorized by Zendesk CRM");
       } else {
         final String sessionId = getMethod.getResponseHeader("Set-Cookie").getValue();
         logger.debug("---Inside getSessionId sessionId: " + sessionId);
         return sessionId;
       }
     } catch (final IOException exception) {
-      throw new CADException(CADResponseCodes._1020 + "Communication error while communicating with Zendesk CRM", exception);
+      throw new ScribeException(ScribeResponseCodes._1020 + "Communication error while communicating with Zendesk CRM", exception);
     } finally {
       /* Release connection socket */
       if (getMethod != null) {
@@ -102,7 +102,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
   }
 
   @Override
-  public final boolean login(final String userId, final String password, final String crmURL, final String crmProtocol, final int port)
+  public final boolean login(final String userId, final String password, final String crmURL, final String crmProtocol, final String port)
       throws Exception {
     logger.debug("---Inside login userId: " + userId + " & password: " + password + " & crmURL: " + crmURL + " & crmProtocol: " + crmProtocol);
 
@@ -110,7 +110,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
     if (crmProtocol == null || "".equalsIgnoreCase(crmProtocol)) {
 
       /* Send user error */
-      throw new CADException(CADResponseCodes._1003 + "Invalid protocol to communicate with ZD: " + crmProtocol);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Invalid protocol to communicate with ZD: " + crmProtocol);
     }
 
     /* Trick: Check all live users on CRM currently */
@@ -120,7 +120,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
     final HttpClient httpclient = new HttpClient();
 
     /* Set credentials */
-    httpclient.getState().setCredentials(new AuthScope(crmURL, port), new UsernamePasswordCredentials(userId, password));
+    httpclient.getState().setCredentials(new AuthScope(crmURL, this.validateCrmPort(port)), new UsernamePasswordCredentials(userId, password));
 
     try {
       int result = httpclient.executeMethod(getMethod);
@@ -133,7 +133,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
         return true;
       }
     } catch (final IOException exception) {
-      throw new CADException(CADResponseCodes._1020 + "Communication error while communicating with Zendesk CRM", exception);
+      throw new ScribeException(ScribeResponseCodes._1020 + "Communication error while communicating with Zendesk CRM", exception);
     } finally {
       /* Release connection socket */
       if (getMethod != null) {
@@ -144,7 +144,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
 
   @Override
   public final Map<String, String> getSessionInfoAfterValidLogin(final String userId, final String password, final String crmURL,
-      final String crmProtocol, final int port) throws Exception {
+      final String crmProtocol, final String port) throws Exception {
     logger.debug("---Inside getSessionInfoAfterValidLogin userId: " + userId + " & password: " + password + " & crmURL: " + crmURL
         + " & crmProtocol: " + crmProtocol);
 
@@ -152,7 +152,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
     if (crmProtocol == null || "".equalsIgnoreCase(crmProtocol)) {
 
       /* Send user error */
-      throw new CADException(CADResponseCodes._1003 + "Invalid protocol to communicate with ZD: " + crmProtocol);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Invalid protocol to communicate with ZD: " + crmProtocol);
     }
 
     /* Trick: Check all live users on CRM currently */
@@ -162,7 +162,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
     final HttpClient httpclient = new HttpClient();
 
     /* Set credentials */
-    httpclient.getState().setCredentials(new AuthScope(crmURL, port), new UsernamePasswordCredentials(userId, password));
+    httpclient.getState().setCredentials(new AuthScope(crmURL, this.validateCrmPort(port)), new UsernamePasswordCredentials(userId, password));
 
     try {
       int result = httpclient.executeMethod(getMethod);
@@ -172,7 +172,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
       if (result == HttpStatus.SC_UNAUTHORIZED) {
 
         /* Return */
-        throw new CADException(CADResponseCodes._1012 + "Login attempt at ZD is failed. Check credentials");
+        throw new ScribeException(ScribeResponseCodes._1012 + "Login attempt at ZD is failed. Check credentials");
       } else {
 
         /* Create document factory */
@@ -241,21 +241,21 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
 
               return nodeMap;
             } else {
-              throw new CADException(CADResponseCodes._1020 + "User/Org information is not found in response");
+              throw new ScribeException(ScribeResponseCodes._1020 + "User/Org information is not found in response");
             }
           } else {
             return null;
           }
         } catch (final ParserConfigurationException exception) {
-          throw new CADException(CADResponseCodes._1012 + "Login attempt at ZD is failed. Check credentials", exception);
+          throw new ScribeException(ScribeResponseCodes._1012 + "Login attempt at ZD is failed. Check credentials", exception);
         } catch (final IllegalStateException exception) {
-          throw new CADException(CADResponseCodes._1012 + "Login attempt at ZD is failed. Check credentials", exception);
+          throw new ScribeException(ScribeResponseCodes._1012 + "Login attempt at ZD is failed. Check credentials", exception);
         } catch (final SAXException exception) {
-          throw new CADException(CADResponseCodes._1012 + "Login attempt at ZD is failed. Check credentials", exception);
+          throw new ScribeException(ScribeResponseCodes._1012 + "Login attempt at ZD is failed. Check credentials", exception);
         }
       }
     } catch (final IOException exception) {
-      throw new CADException(CADResponseCodes._1020 + "Communication error while communicating with Zendesk CRM", exception);
+      throw new ScribeException(ScribeResponseCodes._1020 + "Communication error while communicating with Zendesk CRM", exception);
     } finally {
       /* Release connection socket */
       if (getMethod != null) {

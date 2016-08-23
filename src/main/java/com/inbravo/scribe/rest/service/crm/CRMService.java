@@ -36,7 +36,7 @@ public abstract class CRMService implements CADService {
    * @param agentId
    * @param tenant
    * @return
-   * @throws CADException
+   * @throws ScribeException
    */
   public final String getTenantId(final String agentId, final String splitString) {
     final String[] agentIdArray = agentId.split(splitString);

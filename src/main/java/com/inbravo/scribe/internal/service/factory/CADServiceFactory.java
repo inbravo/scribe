@@ -21,7 +21,7 @@
 
 package com.inbravo.scribe.internal.service.factory;
 
-import com.inbravo.scribe.rest.resource.CADCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
 import com.inbravo.scribe.rest.service.basic.CADService;
 
 /**
@@ -31,5 +31,5 @@ import com.inbravo.scribe.rest.service.basic.CADService;
  */
 public interface CADServiceFactory {
 
-  public CADService getService(final CADCommandObject cADCommandObject) throws Exception;
+  public CADService getService(final ScribeCommandObject cADCommandObject) throws Exception;
 }

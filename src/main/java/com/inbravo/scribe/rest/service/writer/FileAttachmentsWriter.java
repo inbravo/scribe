@@ -38,8 +38,8 @@ import javax.ws.rs.ext.Provider;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.HTTPConstants;
 import com.inbravo.scribe.rest.service.msg.type.FileAttachment;
 import com.inbravo.scribe.rest.service.msg.type.FileAttachments;
@@ -99,7 +99,7 @@ public final class FileAttachmentsWriter implements MessageBodyWriter<FileAttach
       } else {
 
         /* Inform user about the error */
-        binaryContentWriter.write(CADResponseCodes._1004 + "No attachment records found");
+        binaryContentWriter.write(ScribeResponseCodes._1004 + "No attachment records found");
       }
 
     } catch (final Exception e) {
@@ -111,7 +111,7 @@ public final class FileAttachmentsWriter implements MessageBodyWriter<FileAttach
       }
 
       /* Write the content */
-      binaryContentWriter.write(CADResponseCodes._1001 + "Problem in writing zip attachment" + e);
+      binaryContentWriter.write(ScribeResponseCodes._1001 + "Problem in writing zip attachment" + e);
 
     } finally {
       try {
@@ -191,7 +191,7 @@ public final class FileAttachmentsWriter implements MessageBodyWriter<FileAttach
             }
           }
         } catch (final Exception e) {
-          throw new CADException(CADResponseCodes._1000 + "Problem in deleting temporary files", e);
+          throw new ScribeException(ScribeResponseCodes._1000 + "Problem in deleting temporary files", e);
         }
       }
     }.run();

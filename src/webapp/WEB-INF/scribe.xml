@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxrs
+http://cxf.apache.org/schemas/jaxrs.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-jaxrs-binding.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations"><value>classpath:scribe.properties</value></property>
+	</bean>
+
+	<bean id="log4jInitialization"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
+		<property name="targetMethod" value="initLogging" />
+		<property name="arguments"><list><value>classpath:scribe-log4j.properties</value></list></property>
+	</bean>
+
+	<bean id="salesForceSOAPClient" class="com.inbravo.scribe.rest.service.crm.sf.SalesForceSOAPClient" scope="singleton">
+		<property name="clientId"><value>${ClientId}</value></property>
+		<property name="timeout"><value>${Timeout}</value></property>
+		<property name="queryBatchSize"><value>${SFDC_Batch_Size}</value></property>
+	</bean>
+	
+	<bean id="cRMSessionCache" class="com.inbravo.scribe.rest.service.crm.cache.CRMSessionCache" scope="singleton">
+		<constructor-arg type="long"><value>${Default_Time_To_Live}</value></constructor-arg>
+		<constructor-arg type="long"><value>${Default_Access_Timeout}</value></constructor-arg>
+		<constructor-arg type="long"><value>${Default_Timer_Interval}</value></constructor-arg>
+		<constructor-arg type="int"><value>${Max_Cached_Quantity}</value></constructor-arg>
+	</bean>
+	
+	<bean id="salesForceCRMSessionManager" class="com.inbravo.scribe.rest.service.crm.sf.session.SalesForceCRMSessionManager" scope="singleton">
+		<property name="salesForceSOAPClient" ref="salesForceSOAPClient" />
+
+		<property name="cRMSessionCache" ref="cRMSessionCache" />
+	</bean>
+	
+	<bean id="sFSOAPCRMService" class="com.inbravo.scribe.rest.service.crm.SFSOAPCRMService">
+		<property name="cRMSessionManager" ref="salesForceCRMSessionManager" />
+		<property name="crmFieldsSeparator"><value>${CRM_Field_Separator}</value></property>
+		<property name="orderFieldsSeparator"><value>${Order_By_Field_Separator}</value></property>
+	</bean>
+	
+	<!-- Microsoft CRM implementation beans -->	
+	<bean id="sOAPExecutor" class="com.inbravo.scribe.rest.service.crm.ms.auth.SOAPExecutor" scope="prototype"/>	
+	
+	<bean id="mSCRMSessionManagerFactory" class="com.inbravo.scribe.rest.service.crm.ms.session.MSCRMSessionManagerFactory" scope="singleton">
+		<property name="cRMSessionCache" ref="cRMSessionCache" />
+		<property name="mSAuthManager" ref="mSLiveIdManager" />
+	</bean>
+	
+	<!-- MS CRM v4 services -->
+	<bean id="mSLiveIdManager" class="com.inbravo.scribe.rest.service.crm.ms.auth.MSLiveIdManager" scope="prototype">
+		<property name="liveIdLoginFileName"><value>${Live_Id_Login_File_Name}</value></property>
+		<property name="liveIdHost"><value>${Live_Id_Host}</value></property>
+		<property name="liveIdEndpoint"><value>${Live_Id_EndPoint}</value></property>
+		<property name="userPolicy"><value>${Live_Id_UserPolicy}</value></property>
+		<property name="sOAPExecutor" ref="sOAPExecutor" />
+	</bean>
+	
+	<bean id="mSCRMDiscoveryManager" class="com.inbravo.scribe.rest.service.crm.ms.auth.MSCRMDiscoveryManager" scope="prototype">
+		<property name="crmDiscoveryServiceEndpoint"><value>${CRM_Discovery_Service_Endpoint}</value></property>
+		<property name="mSAuthManager" ref="mSLiveIdManager" />
+	</bean>
+			
+	<bean id="mSCRMServiceManager" class="com.inbravo.scribe.rest.service.crm.ms.v4.MSCRMLiveIdBasedServiceManager" scope="prototype">
+		<property name="crmFieldsSeparator"><value>${CRM_Field_Separator}</value></property>
+		<property name="orderFieldsSeparator"><value>${Order_By_Field_Separator}</value></property>
+		<property name="crmAuthType"><value>${CRM_Auth_Type}</value></property>
+		<property name="crmServiceEndpoint"><value>${CRM_Service_Endpoint}</value></property>
+		<property name="crmFieldIntraSeparator"><value>${MS_Field_Intra_Separator}</value></property>
+	</bean>			
+	
+	<bean id="mSCRMLiveIdSessionManager" class="com.inbravo.scribe.rest.service.crm.ms.session.MSCRMLiveIdSessionManager" scope="singleton">
+		<property name="cRMSessionCache" ref="cRMSessionCache" />
+		<property name="mSCRMDiscoveryManager" ref="mSCRMDiscoveryManager" />
+	</bean>
+	
+	<bean id="mSCRMV4AccountService" class="com.inbravo.scribe.rest.service.crm.ms.v4.MSCRMV4AccountService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMLiveIdSessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV4TaskService" class="com.inbravo.scribe.rest.service.crm.ms.v4.MSCRMV4TaskService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMLiveIdSessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV4ContactService" class="com.inbravo.scribe.rest.service.crm.ms.v4.MSCRMV4ContactService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMLiveIdSessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV4LeadService" class="com.inbravo.scribe.rest.service.crm.ms.v4.MSCRMV4LeadService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMLiveIdSessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV4OpportunityService" class="com.inbravo.scribe.rest.service.crm.ms.v4.MSCRMV4OpportunityService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMLiveIdSessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV4IncidentService" class="com.inbravo.scribe.rest.service.crm.ms.v4.MSCRMV4IncidentService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMLiveIdSessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV4ObjectService" class="com.inbravo.scribe.rest.service.crm.ms.v4.MSCRMV4ObjectService" scope="prototype">
+		<property name="mSCRMV4AccountService" ref="mSCRMV4AccountService" />
+		<property name="mSCRMV4TaskService" ref="mSCRMV4TaskService" />
+		<property name="mSCRMV4ContactService" ref="mSCRMV4ContactService" />
+		<property name="mSCRMV4LeadService" ref="mSCRMV4LeadService" />
+		<property name="mSCRMV4IncidentService" ref="mSCRMV4IncidentService" />
+		<property name="mSCRMV4OpportunityService" ref="mSCRMV4OpportunityService" />
+	</bean>
+	
+	<!-- MS CRM V5 services -->	
+	<bean id="mSOffice365AuthManager" class="com.inbravo.scribe.rest.service.crm.ms.auth.MSOffice365AuthManager" scope="prototype">
+		<property name="msOffice365RequestTimeZone"><value>${Office_365_Request_TimeZone}</value></property>
+		<property name="msOffice365RequestDateFormat"><value>${Office_365_Request_Date_Format}</value></property>
+		<property name="loginFileName"><value>${Office_365_Login_File_Name}</value></property>
+		<property name="loginExpirationInMinutes"><value>${Office_365_Login_Request_Expiration}</value></property>
+		<property name="sOAPExecutor" ref="sOAPExecutor" />
+	</bean>
+	
+	<bean id="mSCRMOffice365SessionManager" class="com.inbravo.scribe.rest.service.crm.ms.session.MSCRMOffice365SessionManager" scope="singleton">
+		<property name="cRMSessionCache" ref="cRMSessionCache" />
+		<property name="mSOffice365AuthManager" ref="mSOffice365AuthManager" />
+	</bean>
+	
+	<bean id="mSCRMOffice365basedServiceManager" class="com.inbravo.scribe.rest.service.crm.ms.v5.MSCRMOffice365basedServiceManager" scope="prototype">
+		<property name="crmFieldsSeparator"><value>${CRM_Field_Separator}</value></property>
+		<property name="orderFieldsSeparator"><value>${Order_By_Field_Separator}</value></property>
+		<property name="crmAuthType"><value>${CRM_Auth_Type}</value></property>
+		<property name="crmServiceEndpoint"><value>${CRMV5_Service_Endpoint}</value></property>
+		<property name="msOffice365RequestTimeZone"><value>${Office_365_Request_TimeZone}</value></property>
+		<property name="msOffice365RequestDateFormat"><value>${Office_365_Request_Date_Format}</value></property>
+		<property name="loginExpirationInMinutes"><value>${Office_365_Login_Request_Expiration}</value></property>
+		<property name="timeout"><value>${MS_Session_Timeout}</value></property>
+		<property name="crmFieldIntraSeparator"><value>${MS_Field_Intra_Separator}</value></property>
+		<property name="permittedDateFormats"><value>${Permitted_Input_Date_Formats}</value></property>
+		<property name="maxRecordInSearch"><value>${MS_Batch_Size}</value></property>
+	</bean>		
+	
+	<bean id="mSCRMV5AccountService" class="com.inbravo.scribe.rest.service.crm.ms.v5.MSCRMV5AccountService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMOffice365SessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMOffice365basedServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV5TaskService" class="com.inbravo.scribe.rest.service.crm.ms.v5.MSCRMV5TaskService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMOffice365SessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMOffice365basedServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV5CaseService" class="com.inbravo.scribe.rest.service.crm.ms.v5.MSCRMV5CaseService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMOffice365SessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMOffice365basedServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV5ContactService" class="com.inbravo.scribe.rest.service.crm.ms.v5.MSCRMV5ContactService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMOffice365SessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMOffice365basedServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV5LeadService" class="com.inbravo.scribe.rest.service.crm.ms.v5.MSCRMV5LeadService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMOffice365SessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMOffice365basedServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV5OpportunityService" class="com.inbravo.scribe.rest.service.crm.ms.v5.MSCRMV5OpportunityService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMOffice365SessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMOffice365basedServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV5IncidentService" class="com.inbravo.scribe.rest.service.crm.ms.v5.MSCRMV5IncidentService" scope="prototype">
+		<property name="mSCRMSessionManager" ref="mSCRMOffice365SessionManager" />
+		<property name="mSCRMServiceManager" ref="mSCRMOffice365basedServiceManager" />
+	</bean>
+	
+	<bean id="mSCRMV5ObjectService" class="com.inbravo.scribe.rest.service.crm.ms.v5.MSCRMV5ObjectService" scope="prototype">
+		<property name="mSCRMV5AccountService" ref="mSCRMV5AccountService" />
+		<property name="mSCRMV5TaskService" ref="mSCRMV5TaskService" />
+		<property name="mSCRMV5ContactService" ref="mSCRMV5ContactService" />
+		<property name="mSCRMV5LeadService" ref="mSCRMV5LeadService" />
+		<property name="mSCRMV5IncidentService" ref="mSCRMV5IncidentService" />
+		<property name="mSCRMV5CaseService" ref="mSCRMV5CaseService" />
+		<property name="mSCRMV5OpportunityService" ref="mSCRMV5OpportunityService" />
+	</bean>
+	
+	<bean id="mSSOAPCRMService" class="com.inbravo.scribe.rest.service.crm.MSSOAPCRMService" scope="prototype">
+		<property name="mSCRMV4ObjectService" ref="mSCRMV4ObjectService" />
+		<property name="mSCRMV5ObjectService" ref="mSCRMV5ObjectService" />
+		<property name="cRMSessionCache" ref="cRMSessionCache" />
+		<property name="mSAuthManager" ref="mSOffice365AuthManager" />
+	</bean>
+	
+	<!-- Zendesk CRM implementation beans -->		
+	<bean id="zDAuthManager" class="com.inbravo.scribe.rest.service.crm.zd.auth.basic.ZDBasicAuthManager" scope="prototype"/>
+	
+	<bean id="zDCRMSessionManager" class="com.inbravo.scribe.rest.service.crm.zd.session.ZDCRMSessionManager" scope="singleton">
+		<property name="cRMSessionCache" ref="cRMSessionCache" />
+		<property name="zDAuthManager" ref="zDAuthManager" />
+
+	</bean>
+
+	<bean id="zDRESTCRMService" class="com.inbravo.scribe.rest.service.crm.zd.ZDV2RESTCRMService" scope="prototype">
+		<property name="zDCRMSessionManager" ref="zDCRMSessionManager" />
+		<property name="zdAPISubPath"><value>${ZD_API_Sub_Path}</value></property>
+		<property name="crmFieldsSeparator"><value>${CRM_Field_Separator}</value></property>
+		<property name="orderFieldsSeparator"><value>${Order_By_Field_Separator}</value></property>
+	</bean>
+	
+	<!-- Zoho CRM implementation beans -->		
+	<bean id="zHAuthManager" class="com.inbravo.scribe.rest.service.crm.zh.auth.basic.ZHBasicAuthManager" scope="prototype"/>
+	
+	<bean id="zHCRMSessionManager" class="com.inbravo.scribe.rest.service.crm.zh.session.ZHCRMSessionManager" scope="singleton">
+		<property name="cRMSessionCache" ref="cRMSessionCache" />
+		<property name="zHAuthManager" ref="zHAuthManager" />
+	</bean>
+	
+	<bean id="zHRESTCRMService" class="com.inbravo.scribe.rest.service.crm.ZHRESTCRMService" scope="prototype">
+		<property name="cRMSessionManager" ref="zHCRMSessionManager" />
+		<property name="crmFieldsSeparator"><value>${CRM_Field_Separator}</value></property>
+		<property name="orderFieldsSeparator"><value>${Order_By_Field_Separator}</value></property>
+		<property name="spaceCharReplacement"><value>${ZH_Space_Char_Replacement}</value></property>
+		<property name="queryPhoneFieldConst"><value>${Query_Phone_Field_Const}</value></property>
+		<property name="zohoInputDateFormat"><value>${ZH_Input_Date_Format}</value></property>
+		<property name="permittedDateFormats"><value>${Permitted_Input_Date_Formats}</value></property>
+	</bean>
+	
+	<!-- Utility class for OLTP logging -->
+	<bean id="mutualDiagnosticLogUtils" class="com.inbravo.scribe.rest.service.log.MutualDiagnosticLogUtils" scope="prototype"/>
+	
+	<!-- NetSuite CRM implementation beans -->
+	<bean id="clientInfoProvidor" class="com.inbravo.scribe.rest.service.crm.ns.v2k9.NSCRMV2k9ClientInfoProvidor" scope="prototype">
+		<property name="nsGetRoleURLs"><value>${NS_Get_Role_Rest_URLs}</value></property>
+	</bean>
+	
+	<bean id="netSuiteSOAPClient" class="com.inbravo.scribe.rest.service.crm.ns.NetSuiteSOAPClient" scope="singleton">
+		<property name="timeout"><value>${NS_Session_Timeout}</value></property>
+		<property name="maxRecordInSearch"><value>${NS_Batch_Size}</value></property>
+	</bean>
+	
+	<bean id="netSuiteCRMSessionManager" class="com.inbravo.scribe.rest.service.crm.ns.session.NetSuiteCRMSessionManager" scope="singleton">
+		<property name="netSuiteSOAPClient" ref="netSuiteSOAPClient" />
+		<property name="cRMSessionCache" ref="cRMSessionCache" />
+		<property name="clientInfoProvidor" ref="clientInfoProvidor" />
+	</bean>
+	
+	<bean id="nSCRMGenericService" class="com.inbravo.scribe.rest.service.crm.ns.v2k9.NSCRMV2K9Service"/>	
+	
+	<bean id="nSSOAPCRMService" class="com.inbravo.scribe.rest.service.crm.NSSOAPCRMService">
+		<property name="cRMSessionManager" ref="netSuiteCRMSessionManager" />
+		<property name="nSCRMGenericService" ref="nSCRMGenericService" />
+		<property name="crmFieldsSeparator"><value>${CRM_Field_Separator}</value></property>
+		<property name="orderFieldsSeparator"><value>${Order_By_Field_Separator}</value></property>
+		<property name="inputDateFormat"><value>${Input_Date_Format}</value></property>
+		<property name="crmFieldIntraSeparator"><value>${NS_Field_Intra_Separator}</value></property>
+	</bean>
+
+	<bean id="cRMServiceFactory" class="com.inbravo.scribe.rest.service.crm.factory.CRMServiceFactory" scope="singleton">
+		<property name="cRMSessionCache" ref="cRMSessionCache" />
+		<property name="sfdcCRMEnabled"><value>${SFDC_Enabled}</value></property>
+		<property name="zendeskCRMEnabled"><value>${ZD_Enabled}</value></property>	
+		<property name="netsuiteCRMEnabled"><value>${NS_Enabled}</value></property>	
+		<property name="zohoCRMEnabled"><value>${ZH_Enabled}</value></property>	
+		<property name="microsoftCRMEnabled"><value>${MS_CRM_Enabled}</value></property>	
+		<property name="salesForceCRMConst"><value>${SFDC_CRM_Const}</value></property>
+		<property name="microsoftCRMConst"><value>${MS_CRM_Const}</value></property>	
+		<property name="zendeskCRMConst"><value>${ZD_CRM_Const}</value></property>	
+		<property name="netsuiteCRMConst"><value>${NS_CRM_Const}</value></property>	
+		<property name="zohoCRMConst"><value>${ZH_CRM_Const}</value></property>	
+	</bean>
+	
+	<bean id="cRMSessionFactory" class="com.inbravo.scribe.rest.service.crm.session.CRMSessionFactory" scope="prototype">
+		<property name="crmServiceFactory" ref="cRMServiceFactory" />
+	</bean>
+	
+	<bean id="scribeInternalService" class="com.inbravo.scribe.rest.service.basic.ScribeInternalService" scope="prototype">
+		<property name="cRMServiceFactory" ref="cRMServiceFactory" />
+	</bean>
+	
+	<bean id="scribeExceptionMapper" class="com.inbravo.scribe.exception.ScribeExceptionMapper"/>
+		
+	<bean id="scribeLogService" class="com.inbravo.scribe.rest.service.ScribeLogService"/>
+	
+	<bean id="scribeRequestValidator" class="com.inbravo.scribe.rest.service.validator.ScribeRequestValidator" scope="prototype">
+		<property name="enableQueryParamDecoding"><value>${Enable_Request_Param_Decoding}</value></property>
+		<property name="urlEncodingType"><value>${Request_Param_Decoding_Type}</value></property>
+	</bean>
+	
+	<bean id="scribeObjectService" class="com.inbravo.scribe.rest.service.ScribeObjectService">
+		<property name="scribeInternalService" ref="scribeInternalService" />
+		<property name="scribeRequestValidator" ref="scribeRequestValidator" />
+	</bean>
+
+	<!-- Attachment writer handler -->
+	<bean id="zipWriter" class="com.inbravo.scribe.rest.service.writer.utils.ZipWriter" scope="prototype">
+		<property name="maxNoOfFileAllowedInZip"><value>${Max_Zip_Files_Size}</value></property>	
+	</bean>
+		
+	<!-- Zip writer object pool for managing the memory -->
+	<bean id="fileAttachmentPool" class="org.springframework.aop.target.CommonsPoolTargetSource">
+		<property name="targetBeanName" value="zipWriter" />
+		<property name="maxSize"><value>${Zip_Util_Pool_Size}</value></property>	
+	</bean>
+	
+	<!-- Attachment writer factory -->
+	<bean id="zipHandler" class="com.inbravo.scribe.rest.service.writer.ZipAttachmentFileHandler" scope="singleton">
+		<property name="pool" ref="fileAttachmentPool" />
+	</bean>		
+		
+	<bean id="fileAttachmentsWriter" class="com.inbravo.scribe.rest.service.writer.FileAttachmentsWriter" scope="prototype">
+		<property name="handler" ref="zipHandler" />
+	</bean>		
+		
+	<bean id="fileAttachmentWriter" class="com.inbravo.scribe.rest.service.writer.FileAttachmentWriter" scope="prototype"/>
+	
+	<jaxrs:server id="scribe" address="/">
+		<jaxrs:serviceBeans>
+			<ref bean="scribeObjectService" />
+			<ref bean="scribeLogService" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="scribeExceptionMapper" />
+			<ref bean="fileAttachmentWriter" />
+			<ref bean="fileAttachmentsWriter" />
+    	</jaxrs:providers>
+	</jaxrs:server>
+</beans>

@@ -53,13 +53,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.HTTPConstants;
 import com.inbravo.scribe.rest.constants.CRMConstants.ZDCRMFieldType;
 import com.inbravo.scribe.rest.constants.CRMConstants.ZDCRMObjectType;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 import com.inbravo.scribe.rest.service.crm.CRMMessageFormatUtils;
 
 /**
@@ -97,18 +97,18 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
         /* Check for '!=' operator */
         if (tempElement.contains(notEqualOperator)) {
-          throw new CADException(CADResponseCodes._1003 + notEqualOperator + " operator is not supported by Zendesk CRM");
+          throw new ScribeException(ScribeResponseCodes._1003 + notEqualOperator + " operator is not supported by Zendesk CRM");
         } else /* Check for '=' operator */
         if (tempElement.contains(equalOperator)) {
 
           if (tempElement.split(equalOperator)[1].trim().equalsIgnoreCase("NULL")) {
-            throw new CADException(CADResponseCodes._1003 + " 'NULL' value is not supported by Zendesk CRM");
+            throw new ScribeException(ScribeResponseCodes._1003 + " 'NULL' value is not supported by Zendesk CRM");
           } else {
             zdQuery = zdQuery + tempElement.split(equalOperator)[0].trim() + zdEqualOperator + tempElement.split(equalOperator)[1].trim();
           }
         } else /* Check for 'like' operator */
         if (tempElement.contains(likeOperator)) {
-          throw new CADException(CADResponseCodes._1003 + likeOperator + " operator is not supported by Zendesk CRM");
+          throw new ScribeException(ScribeResponseCodes._1003 + likeOperator + " operator is not supported by Zendesk CRM");
         } else /* Check for '&' */
         if (tempElement.contains(HTTPConstants.andClause)) {
 
@@ -116,7 +116,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
         } else /* Check for '|' operator */
         if (tempElement.contains(HTTPConstants.orClause)) {
 
-          throw new CADException(CADResponseCodes._1003 + "'" + HTTPConstants.orClause + "' is not supported by Zendesk CRM");
+          throw new ScribeException(ScribeResponseCodes._1003 + "'" + HTTPConstants.orClause + "' is not supported by Zendesk CRM");
         } /* Check for anything else */
         else {
           zdQuery = zdQuery + tempElement;
@@ -166,11 +166,11 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
     if (query == null) {
 
       /* Inform user about invalid input */
-      throw new CADException(CADResponseCodes._1008 + "Please provide valid query filter. Filter cant't be 'null' in case of object type 'ANY'");
+      throw new ScribeException(ScribeResponseCodes._1008 + "Please provide valid query filter. Filter cant't be 'null' in case of object type 'ANY'");
     } else if (query.equalsIgnoreCase(HTTPConstants.noCRMFilter)) {
 
       /* Inform user about invalid input */
-      throw new CADException(CADResponseCodes._1008 + "Please provide valid query filter. Filter can't be 'NONE' in case of object type 'ANY'");
+      throw new ScribeException(ScribeResponseCodes._1008 + "Please provide valid query filter. Filter can't be 'NONE' in case of object type 'ANY'");
     } else {
       return true;
     }
@@ -181,11 +181,11 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @param cADCommandObject
    * @return
    */
-  public static final String getCreateRequestXML(final CADCommandObject cADCommandObject) {
+  public static final String getCreateRequestXML(final ScribeCommandObject cADCommandObject) {
 
     /* Iterate over CAD object and create XML request */
-    if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length == 1) {
-      final CADObject cADbject = cADCommandObject.getcADObject()[0];
+    if (cADCommandObject.getObject() != null && cADCommandObject.getObject().length == 1) {
+      final ScribeObject cADbject = cADCommandObject.getObject()[0];
       final List<Element> elementList = cADbject.getXmlContent();
 
       /* Add start tag */
@@ -211,12 +211,12 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @return
    * @throws JAXBException
    */
-  public static final String getCreateRequestJSON(final CADCommandObject cADCommandObject) throws JAXBException {
+  public static final String getCreateRequestJSON(final ScribeCommandObject cADCommandObject) throws JAXBException {
 
     /* Iterate over CAD object and create JSON request */
-    if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length == 1) {
+    if (cADCommandObject.getObject() != null && cADCommandObject.getObject().length == 1) {
 
-      final CADObject cADbject = cADCommandObject.getcADObject()[0];
+      final ScribeObject cADbject = cADCommandObject.getObject()[0];
       String requestJSONStr = null;
 
       /* If user type of object */
@@ -240,7 +240,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
       } else {
 
         /* Throw user error */
-        throw new CADException(CADResponseCodes._1003 + " Object type : " + cADbject.getObjectType() + " is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + " Object type : " + cADbject.getObjectType() + " is not supported by CAD");
       }
 
       if (logger.isDebugEnabled()) {
@@ -363,10 +363,10 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @param cADCommandObject
    * @return
    */
-  public static final String getCreateQueryFromCommandObject(final CADCommandObject cADCommandObject) {
+  public static final String getCreateQueryFromCommandObject(final ScribeCommandObject cADCommandObject) {
 
-    if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length == 1) {
-      final CADObject cADbject = cADCommandObject.getcADObject()[0];
+    if (cADCommandObject.getObject() != null && cADCommandObject.getObject().length == 1) {
+      final ScribeObject cADbject = cADCommandObject.getObject()[0];
       final List<Element> elementList = cADbject.getXmlContent();
 
       /* Create request string */
@@ -556,10 +556,10 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   public static void main(String[] args) throws Exception {
 
-    final CADCommandObject cADCommandObject = new CADCommandObject();
+    final ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Create new CAD object list */
-    final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+    final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
     /* Create list of elements */
     final List<Element> elementList = new ArrayList<Element>();
@@ -571,7 +571,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
     elementList.add(ZDCRMMessageFormatUtils.createMessageElement("address", "pilkhuwa"));
 
     /* Create new CAD object */
-    final CADObject cADbject = new CADObject();
+    final ScribeObject cADbject = new ScribeObject();
 
     /* Set object type */
     cADbject.setObjectType("ticket");
@@ -583,7 +583,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
     cADbjectList.add(cADbject);
 
     /* Set the final object in command object */
-    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
+    cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
 
     System.out.println("" + getCreateRequestJSON(cADCommandObject));
   }

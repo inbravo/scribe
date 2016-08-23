@@ -23,11 +23,11 @@ package com.inbravo.scribe.rest.service.crm.ms.session;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.BasicObject;
-import com.inbravo.scribe.internal.service.dto.CADUser;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.service.crm.cache.BasicObject;
 import com.inbravo.scribe.rest.service.crm.cache.CRMSessionCache;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.ms.auth.MSOffice365AuthManager;
 import com.inbravo.scribe.rest.service.crm.session.CRMSessionManager;
 
@@ -58,7 +58,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     logger.debug("---Inside login agent from cache: " + crmUserId);
 
     /* Get agent information from cache */
-    final CADUser user = (CADUser) basicObject;
+    final ScribeCacheObject user = (ScribeCacheObject) basicObject;
 
     /* Validate crm service params */
     this.validateUser(user);
@@ -69,7 +69,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     if (crmSecurityToken != null) {
 
       /* Add token in agent */
-      user.setCrmSecurityToken(crmSecurityToken);
+      user.getcADMetaObject().setCrmSecurityToken(crmSecurityToken);
 
       /* Save this agent in session cache */
       cRMSessionCache.admit(crmUserId, user);
@@ -79,7 +79,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     } else {
 
       /* Inform user about absent header value */
-      throw new CADException(CADResponseCodes._1012 + "Login attempt at MS-CRM is failed. Check credentials");
+      throw new ScribeException(ScribeResponseCodes._1012 + "Login attempt at MS-CRM is failed. Check credentials");
     }
   }
 
@@ -101,7 +101,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     final BasicObject basicObject = (BasicObject) cRMSessionCache.recover(crmUserId);
 
     /* Get agent information from cache */
-    final CADUser user = (CADUser) basicObject;
+    final ScribeCacheObject user = (ScribeCacheObject) basicObject;
 
     /* Validate crm service params */
     this.validateUser(user);
@@ -112,7 +112,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     if (crmSecurityToken != null) {
 
       /* Add token in agent */
-      user.setCrmSecurityToken(crmSecurityToken);
+      user.getcADMetaObject().setCrmSecurityToken(crmSecurityToken);
 
       /* Save this agent in session cache */
       cRMSessionCache.admit(crmUserId, user);
@@ -122,7 +122,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     } else {
 
       /* Inform user about absent header value */
-      throw new CADException(CADResponseCodes._1012 + "Login attempt at MS-CRM is failed. Check credentials");
+      throw new ScribeException(ScribeResponseCodes._1012 + "Login attempt at MS-CRM is failed. Check credentials");
     }
   }
 
@@ -135,35 +135,35 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
    * @return
    * @throws Exception
    */
-  public final synchronized CADUser getCrmUserInfoWithCRMSessionInformation(final String agentId) throws Exception {
+  public final synchronized ScribeCacheObject getCrmUserInfoWithCRMSessionInformation(final String agentId) throws Exception {
 
     logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation agent: " + agentId);
 
-    /* Recover agent from cache */
-    final CADUser agent = (CADUser) cRMSessionCache.recover(agentId);
+    /* Recover cacheObject from cache */
+    final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(agentId);
 
     /* Service URL is must for MS-CRM */
-    if (agent.getCrmServiceURL() == null) {
+    if (cacheObject.getcADMetaObject().getCrmServiceURL() == null) {
 
       /* Inform user about missing credentials */
-      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: MS CRM service URL");
+      throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: MS CRM service URL");
     }
 
-    if (agent.getCrmSecurityToken() == null) {
+    if (cacheObject.getcADMetaObject().getCrmSecurityToken() == null) {
 
       logger.debug("---Inside getTenantWithCRMSessionInformation agent's CRM session is not found; Going to fetch session information");
 
       /* Get user information from Microsoft CRM */
-      final String[] crmSecurityToken = mSOffice365AuthManager.getCRMAuthToken(agent);
+      final String[] crmSecurityToken = mSOffice365AuthManager.getCRMAuthToken(cacheObject);
 
       /* Set CRM security token in agent */
-      agent.setCrmSecurityToken(crmSecurityToken);
+      cacheObject.getcADMetaObject().setCrmSecurityToken(crmSecurityToken);
     }
 
     /* Re-admit this agent with CRM session information */
-    cRMSessionCache.admit(agentId, agent);
+    cRMSessionCache.admit(agentId, cacheObject);
 
-    return agent;
+    return cacheObject;
   }
 
   public final String getCrmUserIdIdSplitCharacter() {
@@ -182,20 +182,20 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     this.cRMSessionCache = cRMSessionCache;
   }
 
-  private final void validateUser(final CADUser agent) {
+  private final void validateUser(final ScribeCacheObject agent) {
 
     /* Service URL is a must for MS-CRM */
-    if (agent.getCrmServiceURL() == null) {
+    if (agent.getcADMetaObject().getCrmServiceURL() == null) {
 
       /* Inform user about missing credentials */
-      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
+      throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
     }
 
     /* Service protocol is a must for MS-CRM */
-    if (agent.getCrmServiceProtocol() == null) {
+    if (agent.getcADMetaObject().getCrmServiceProtocol() == null) {
 
       /* Inform user about missing credentials */
-      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service Protocol");
+      throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service Protocol");
     }
   }
 

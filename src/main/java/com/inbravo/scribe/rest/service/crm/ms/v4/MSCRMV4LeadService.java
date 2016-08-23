@@ -27,11 +27,11 @@ import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.CADUser;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMObjectService;
 import com.inbravo.scribe.rest.service.crm.ms.session.MSCRMLiveIdSessionManager;
 
@@ -54,39 +54,41 @@ public final class MSCRMV4LeadService extends MSCRMObjectService {
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjects");
 
-    final CADUser agent = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-    final List<CADObject> cADObjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-            agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()}, null);
+    final List<ScribeObject> cADObjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject
+            .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(),
+            cacheObject.getcADMetaObject().getCrmOrgName(), new String[] {cacheObject.getcADMetaObject().getCrmSessionId()}, null);
 
     /* Set the final object in command object */
-    cADCommandObject.setcADObject(cADObjectList.toArray(new CADObject[cADObjectList.size()]));
+    cADCommandObject.setObject(cADObjectList.toArray(new ScribeObject[cADObjectList.size()]));
 
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects query: " + query);
 
-    final CADUser user = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-    final List<CADObject> cADObjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), user.getCrmServiceProtocol(), user.getCrmServiceURL(), user.getCrmUserId(),
-            user.getCrmPassword(), user.getCrmOrgName(), new String[] {user.getCrmSessionId()}, null, query);
+    final List<ScribeObject> cADObjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject
+            .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(),
+            cacheObject.getcADMetaObject().getCrmOrgName(), new String[] {cacheObject.getcADMetaObject().getCrmSessionId()}, null, query);
 
     /* Set the final object in command object */
-    cADCommandObject.setcADObject(cADObjectList.toArray(new CADObject[cADObjectList.size()]));
+    cADCommandObject.setObject(cADObjectList.toArray(new ScribeObject[cADObjectList.size()]));
 
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select);
 
     /* Create list to hold fields to be selected */
@@ -107,21 +109,22 @@ public final class MSCRMV4LeadService extends MSCRMObjectService {
       crmFieldToBeSelectedList.add(select);
     }
 
-    final CADUser user = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-    final List<CADObject> cADObjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), user.getCrmServiceProtocol(), user.getCrmServiceURL(), user.getCrmUserId(),
-            user.getCrmPassword(), user.getCrmOrgName(), new String[] {user.getCrmSessionId()},
-            crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query);
+    final List<ScribeObject> cADObjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject
+            .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(),
+            cacheObject.getcADMetaObject().getCrmOrgName(), new String[] {cacheObject.getcADMetaObject().getCrmSessionId()}, crmFieldToBeSelectedList
+                .toArray(new String[crmFieldToBeSelectedList.size()]), query);
 
     /* Set the final object in command object */
-    cADCommandObject.setcADObject(cADObjectList.toArray(new CADObject[cADObjectList.size()]));
+    cADCommandObject.setObject(cADObjectList.toArray(new ScribeObject[cADObjectList.size()]));
 
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
 
@@ -143,54 +146,56 @@ public final class MSCRMV4LeadService extends MSCRMObjectService {
       crmFieldToBeSelectedList.add(select);
     }
 
-    final CADUser user = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-    final List<CADObject> cADObjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), user.getCrmServiceProtocol(), user.getCrmServiceURL(), user.getCrmUserId(),
-            user.getCrmPassword(), user.getCrmOrgName(), new String[] {user.getCrmSessionId()},
-            crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query, order);
+    final List<ScribeObject> cADObjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject
+            .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(),
+            cacheObject.getcADMetaObject().getCrmOrgName(), new String[] {cacheObject.getcADMetaObject().getCrmSessionId()}, crmFieldToBeSelectedList
+                .toArray(new String[crmFieldToBeSelectedList.size()]), query, order);
 
     /* Set the final object in command object */
-    cADCommandObject.setcADObject(cADObjectList.toArray(new CADObject[cADObjectList.size()]));
+    cADCommandObject.setObject(cADObjectList.toArray(new ScribeObject[cADObjectList.size()]));
 
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + notSupportedError);
+  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + notSupportedError);
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + notSupportedError);
+  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + notSupportedError);
   }
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
 
-    final CADUser agent = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-    final CADObject cADObject =
-        mSCRMServiceManager.createObject(cADCommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-            agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), new String[] {agent.getCrmSessionId()},
-            cADCommandObject.getcADObject()[0]);
+    final ScribeObject cADObject =
+        mSCRMServiceManager.createObject(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject
+            .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(),
+            cacheObject.getcADMetaObject().getCrmOrgName(), new String[] {cacheObject.getcADMetaObject().getCrmSessionId()}, cADCommandObject
+                .getObject()[0]);
 
 
     /* Set the final object in command object */
-    cADCommandObject.setcADObject(new CADObject[] {cADObject});
+    cADCommandObject.setObject(new ScribeObject[] {cADObject});
 
     return cADCommandObject;
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + notSupportedError);
+  public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + notSupportedError);
   }
 
   @Override
-  public CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + notSupportedError);
+  public ScribeCommandObject updateObject(final ScribeCommandObject cADCommandObject) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + notSupportedError);
   }
 
   public final MSCRMLiveIdSessionManager getmSCRMSessionManager() {

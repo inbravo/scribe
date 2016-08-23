@@ -22,8 +22,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.inbravo.scribe.external.junit.core.CADClientMgmt;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 
 /**
  * 
@@ -45,7 +45,7 @@ public class SalesForceCaseTest {
 
   public SalesForceCaseTest() throws Exception {
     sFCaseMgmt = new CADClientMgmt(cadURL, "/object/case");
-    context = JAXBContext.newInstance(CADCommandObject.class);
+    context = JAXBContext.newInstance(ScribeCommandObject.class);
     unmarshaller = context.createUnmarshaller();
   }
 
@@ -82,7 +82,7 @@ public class SalesForceCaseTest {
     reason.appendChild(doc.createTextNode("ReasonCase" + value));
 
     /* Create CADObject */
-    CADObject cadObject = new CADObject();
+    ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(status);
     arr.add(reason);
@@ -93,10 +93,10 @@ public class SalesForceCaseTest {
     cadObject.setXmlContent(arr);
 
     /* Create Case object */
-    CADCommandObject cADCommandObject = new CADCommandObject();
+    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
     Response response = null;
@@ -105,7 +105,7 @@ public class SalesForceCaseTest {
       response = sFCaseMgmt.createObject(cADCommandObject);
 
       /* Retrieve the object the object */
-      cADCommandObject = (CADCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
+      cADCommandObject = (ScribeCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
 
       assertEquals("Case creation is failed", Status.OK.getStatusCode(), response.getStatus());
     } catch (Exception e) {
@@ -121,7 +121,7 @@ public class SalesForceCaseTest {
     /* Step 2: Call update case */
 
     String caseId = "";
-    List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+    List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
     for (Element element : elementList) {
       if (element.getNodeName().equalsIgnoreCase("Id")) {
         caseId = element.getFirstChild().getNodeValue();
@@ -152,13 +152,13 @@ public class SalesForceCaseTest {
     cadObject.setXmlContent(arr);
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
 
     try {
       response = sFCaseMgmt.updateObject(cADCommandObject);
 
       /* Retrieve the object */
-      cADCommandObject = (CADCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
+      cADCommandObject = (ScribeCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
 
       assertEquals("Case is updated successfully.", Status.OK.getStatusCode(), response.getStatus());
     } catch (Exception e) {
@@ -220,7 +220,7 @@ public class SalesForceCaseTest {
     id.appendChild(doc.createTextNode("invalidId"));
 
     /* Create CADObject */
-    CADObject cadObject = new CADObject();
+    ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(status);
     arr.add(reason);
@@ -231,10 +231,10 @@ public class SalesForceCaseTest {
     cadObject.setXmlContent(arr);
 
     /* Create Case object */
-    CADCommandObject cADCommandObject = new CADCommandObject();
+    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
     Response response = null;
@@ -263,17 +263,17 @@ public class SalesForceCaseTest {
   public void Create_Invalid_Case_With_Agent() throws ParserConfigurationException {
 
     /* Create CADObject */
-    CADObject cadObject = new CADObject();
+    ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
 
     /* Set element array at the CAD object */
     cadObject.setXmlContent(arr);
 
     /* Create Case object */
-    CADCommandObject cADCommandObject = new CADCommandObject();
+    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
     Response response = null;
     /* Step 2: Call update case */

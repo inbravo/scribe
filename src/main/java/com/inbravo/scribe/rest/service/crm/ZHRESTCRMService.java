@@ -46,11 +46,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.CADUser;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.session.CRMSessionManager;
 import com.inbravo.scribe.rest.service.crm.zh.ZHCRMMessageFormatUtils;
 
@@ -78,19 +78,19 @@ public final class ZHRESTCRMService extends CRMService {
   private String permittedDateFormats;
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjects");
 
     /* Get user from session manager */
-    final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject user = (ScribeCacheObject) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
 
     PostMethod postMethod = null;
     try {
 
       /* Get CRM information from user */
-      final String serviceURL = user.getCrmServiceURL();
-      final String serviceProtocol = user.getCrmServiceProtocol();
-      final String sessionId = user.getCrmSessionId();
+      final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
+      final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
+      final String sessionId = user.getcADMetaObject().getCrmSessionId();
 
       /* Create Zoho URL */
       final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getRecords";
@@ -140,7 +140,7 @@ public final class ZHRESTCRMService extends CRMService {
           if (errorMessage != null) {
 
             /* Send user error */
-            throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
+            throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
           } else {
 
             /* XPath Query for showing error message */
@@ -150,12 +150,12 @@ public final class ZHRESTCRMService extends CRMService {
             errorMessage = (Node) errorExpression.evaluate(document, XPathConstants.NODE);
 
             /* Send user error */
-            throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
+            throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
           }
         } else {
 
           /* Create new CAD object list */
-          final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+          final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
           /* Iterate over node list */
           for (int i = 0; i < nodeList.getLength(); i++) {
@@ -167,7 +167,7 @@ public final class ZHRESTCRMService extends CRMService {
             final Node node = nodeList.item(i);
 
             /* Create new CAD object */
-            final CADObject cADbject = new CADObject();
+            final ScribeObject cADbject = new ScribeObject();
 
             /* Check if node has child nodes */
             if (node.hasChildNodes()) {
@@ -217,20 +217,20 @@ public final class ZHRESTCRMService extends CRMService {
 
           /* Check if no record found */
           if (cADbjectList.size() == 0) {
-            throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM");
+            throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM");
           }
 
           /* Set the final object in command object */
-          cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
+          cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
         }
       } else if (result == HttpStatus.SC_FORBIDDEN) {
-        throw new CADException(CADResponseCodes._1022 + "Query is forbidden by Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Query is forbidden by Zoho CRM");
       } else if (result == HttpStatus.SC_BAD_REQUEST) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid request content");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid request content");
       } else if (result == HttpStatus.SC_UNAUTHORIZED) {
-        throw new CADException(CADResponseCodes._1012 + "Anauthorized by Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1012 + "Anauthorized by Zoho CRM");
       } else if (result == HttpStatus.SC_NOT_FOUND) {
-        throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM");
       } else if (result == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
 
         /* Create XML document from response */
@@ -250,21 +250,21 @@ public final class ZHRESTCRMService extends CRMService {
         if (errorMessage != null) {
 
           /* Send user error */
-          throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM : " + errorMessage.getTextContent());
+          throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM : " + errorMessage.getTextContent());
         } else {
 
           /* Send user error */
-          throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM");
         }
       }
-    } catch (final CADException exception) {
+    } catch (final ScribeException exception) {
       throw exception;
     } catch (final ParserConfigurationException exception) {
-      throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
+      throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
     } catch (final SAXException exception) {
-      throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
+      throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
     } catch (final IOException exception) {
-      throw new CADException(CADResponseCodes._1022 + "Communication error while communicating with Zoho CRM");
+      throw new ScribeException(ScribeResponseCodes._1022 + "Communication error while communicating with Zoho CRM");
     } finally {
       /* Release connection socket */
       if (postMethod != null) {
@@ -275,43 +275,43 @@ public final class ZHRESTCRMService extends CRMService {
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects, query: " + query);
 
     /* Transfer the call to second method */
     if (query != null && query.toUpperCase().startsWith(queryPhoneFieldConst.toUpperCase())) {
 
-      CADCommandObject returnObject = null;
+      ScribeCommandObject returnObject = null;
 
       try {
         /* Query CRM object by Phone field */
         returnObject = this.getObjectsByPhoneField(cADCommandObject, query, null, null, "Phone");
 
-      } catch (final CADException firstE) {
+      } catch (final ScribeException firstE) {
 
         /* Check if record is not found */
-        if (firstE.getMessage().contains(CADResponseCodes._1004)) {
+        if (firstE.getMessage().contains(ScribeResponseCodes._1004)) {
 
           try {
             /* Query CRM object by Mobile field */
             returnObject = this.getObjectsByPhoneField(cADCommandObject, query, null, null, "Mobile");
-          } catch (final CADException secondE) {
+          } catch (final ScribeException secondE) {
 
             /* Check if record is again not found */
-            if (secondE.getMessage().contains(CADResponseCodes._1004)) {
+            if (secondE.getMessage().contains(ScribeResponseCodes._1004)) {
 
               try {
                 /* Query CRM object by Home Phone field */
                 returnObject = this.getObjectsByPhoneField(cADCommandObject, query, null, null, "Home Phone");
-              } catch (final CADException thirdE) {
+              } catch (final ScribeException thirdE) {
 
                 /* Check if record is again not found */
-                if (thirdE.getMessage().contains(CADResponseCodes._1004)) {
+                if (thirdE.getMessage().contains(ScribeResponseCodes._1004)) {
 
                   try {
                     /* Query CRM object by Other Phone field */
                     returnObject = this.getObjectsByPhoneField(cADCommandObject, query, null, null, "Other Phone");
-                  } catch (final CADException fourthE) {
+                  } catch (final ScribeException fourthE) {
 
                     /* Throw the error to user */
                     throw fourthE;
@@ -327,15 +327,15 @@ public final class ZHRESTCRMService extends CRMService {
     } else {
 
       /* Get user from session manager */
-      final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
+      final ScribeCacheObject user = (ScribeCacheObject) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
 
       PostMethod postMethod = null;
       try {
 
         /* Get CRM information from user */
-        final String serviceURL = user.getCrmServiceURL();
-        final String serviceProtocol = user.getCrmServiceProtocol();
-        final String sessionId = user.getCrmSessionId();
+        final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
+        final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
+        final String sessionId = user.getcADMetaObject().getCrmSessionId();
         /* Create Zoho URL */
         final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
 
@@ -403,7 +403,7 @@ public final class ZHRESTCRMService extends CRMService {
             if (errorMessage != null) {
 
               /* Send user error */
-              throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
+              throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
             } else {
 
               /* XPath Query for showing error message */
@@ -413,13 +413,13 @@ public final class ZHRESTCRMService extends CRMService {
               errorMessage = (Node) errorExpression.evaluate(document, XPathConstants.NODE);
 
               /* Send user error */
-              throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
+              throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
             }
 
           } else {
 
             /* Create new CAD object list */
-            final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+            final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
             /* Iterate over node list */
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -431,7 +431,7 @@ public final class ZHRESTCRMService extends CRMService {
               final Node node = nodeList.item(i);
 
               /* Create new CAD object */
-              final CADObject cADbject = new CADObject();
+              final ScribeObject cADbject = new ScribeObject();
 
               /* Check if node has child nodes */
               if (node.hasChildNodes()) {
@@ -483,20 +483,20 @@ public final class ZHRESTCRMService extends CRMService {
 
             /* Check if no record found */
             if (cADbjectList.size() == 0) {
-              throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM");
+              throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM");
             }
 
             /* Set the final object in command object */
-            cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
+            cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
           }
         } else if (result == HttpStatus.SC_FORBIDDEN) {
-          throw new CADException(CADResponseCodes._1022 + "Query is forbidden by Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1022 + "Query is forbidden by Zoho CRM");
         } else if (result == HttpStatus.SC_BAD_REQUEST) {
-          throw new CADException(CADResponseCodes._1003 + "Invalid request content");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Invalid request content");
         } else if (result == HttpStatus.SC_UNAUTHORIZED) {
-          throw new CADException(CADResponseCodes._1012 + "Anauthorized by Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1012 + "Anauthorized by Zoho CRM");
         } else if (result == HttpStatus.SC_NOT_FOUND) {
-          throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM");
         } else if (result == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
 
           /* Create XML document from response */
@@ -516,21 +516,21 @@ public final class ZHRESTCRMService extends CRMService {
           if (errorMessage != null) {
 
             /* Send user error */
-            throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM : " + errorMessage.getTextContent());
+            throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM : " + errorMessage.getTextContent());
           } else {
 
             /* Send user error */
-            throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM");
+            throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM");
           }
         }
-      } catch (final CADException exception) {
+      } catch (final ScribeException exception) {
         throw exception;
       } catch (final ParserConfigurationException exception) {
-        throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
       } catch (final SAXException exception) {
-        throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
       } catch (final IOException exception) {
-        throw new CADException(CADResponseCodes._1022 + "Communication error while communicating with Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Communication error while communicating with Zoho CRM");
       } finally {
         /* Release connection socket */
         if (postMethod != null) {
@@ -542,43 +542,43 @@ public final class ZHRESTCRMService extends CRMService {
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects, query: " + query + " & select: " + select);
 
     /* Transfer the call to second method */
     if (query != null && query.toUpperCase().startsWith(queryPhoneFieldConst.toUpperCase())) {
 
-      CADCommandObject returnObject = null;
+      ScribeCommandObject returnObject = null;
 
       try {
         /* Query CRM object by Phone field */
         returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, null, "Phone");
 
-      } catch (final CADException firstE) {
+      } catch (final ScribeException firstE) {
 
         /* Check if record is not found */
-        if (firstE.getMessage().contains(CADResponseCodes._1004)) {
+        if (firstE.getMessage().contains(ScribeResponseCodes._1004)) {
 
           try {
             /* Query CRM object by Mobile field */
             returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, null, "Mobile");
-          } catch (final CADException secondE) {
+          } catch (final ScribeException secondE) {
 
             /* Check if record is again not found */
-            if (secondE.getMessage().contains(CADResponseCodes._1004)) {
+            if (secondE.getMessage().contains(ScribeResponseCodes._1004)) {
 
               try {
                 /* Query CRM object by Home Phone field */
                 returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, null, "Home Phone");
-              } catch (final CADException thirdE) {
+              } catch (final ScribeException thirdE) {
 
                 /* Check if record is again not found */
-                if (thirdE.getMessage().contains(CADResponseCodes._1004)) {
+                if (thirdE.getMessage().contains(ScribeResponseCodes._1004)) {
 
                   try {
                     /* Query CRM object by Other Phone field */
                     returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, null, "Other Phone");
-                  } catch (final CADException fourthE) {
+                  } catch (final ScribeException fourthE) {
 
                     /* Throw the error to user */
                     throw fourthE;
@@ -594,15 +594,15 @@ public final class ZHRESTCRMService extends CRMService {
     } else {
 
       /* Get user from session manager */
-      final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
+      final ScribeCacheObject user = (ScribeCacheObject) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
 
       PostMethod postMethod = null;
       try {
 
         /* Get CRM information from user */
-        final String serviceURL = user.getCrmServiceURL();
-        final String serviceProtocol = user.getCrmServiceProtocol();
-        final String sessionId = user.getCrmSessionId();
+        final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
+        final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
+        final String sessionId = user.getcADMetaObject().getCrmSessionId();
 
         /* Create Zoho URL */
         final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
@@ -685,7 +685,7 @@ public final class ZHRESTCRMService extends CRMService {
             if (errorMessage != null) {
 
               /* Send user error */
-              throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
+              throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
             } else {
 
               /* XPath Query for showing error message */
@@ -695,11 +695,11 @@ public final class ZHRESTCRMService extends CRMService {
               errorMessage = (Node) errorExpression.evaluate(document, XPathConstants.NODE);
 
               /* Send user error */
-              throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
+              throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
             }
           } else {
             /* Create new CAD object list */
-            final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+            final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
             /* Iterate over node list */
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -711,7 +711,7 @@ public final class ZHRESTCRMService extends CRMService {
               final Node node = nodeList.item(i);
 
               /* Create new CAD object */
-              final CADObject cADbject = new CADObject();
+              final ScribeObject cADbject = new ScribeObject();
 
               /* Check if node has child nodes */
               if (node.hasChildNodes()) {
@@ -763,20 +763,20 @@ public final class ZHRESTCRMService extends CRMService {
 
             /* Check if no record found */
             if (cADbjectList.size() == 0) {
-              throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM");
+              throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM");
             }
 
             /* Set the final object in command object */
-            cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
+            cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
           }
         } else if (result == HttpStatus.SC_FORBIDDEN) {
-          throw new CADException(CADResponseCodes._1022 + "Query is forbidden by Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1022 + "Query is forbidden by Zoho CRM");
         } else if (result == HttpStatus.SC_BAD_REQUEST) {
-          throw new CADException(CADResponseCodes._1003 + "Invalid request content");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Invalid request content");
         } else if (result == HttpStatus.SC_UNAUTHORIZED) {
-          throw new CADException(CADResponseCodes._1012 + "Anauthorized by Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1012 + "Anauthorized by Zoho CRM");
         } else if (result == HttpStatus.SC_NOT_FOUND) {
-          throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM");
         } else if (result == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
 
           /* Create XML document from response */
@@ -796,21 +796,21 @@ public final class ZHRESTCRMService extends CRMService {
           if (errorMessage != null) {
 
             /* Send user error */
-            throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM : " + errorMessage.getTextContent());
+            throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM : " + errorMessage.getTextContent());
           } else {
 
             /* Send user error */
-            throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM");
+            throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM");
           }
         }
-      } catch (final CADException exception) {
+      } catch (final ScribeException exception) {
         throw exception;
       } catch (final ParserConfigurationException exception) {
-        throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
       } catch (final SAXException exception) {
-        throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
       } catch (final IOException exception) {
-        throw new CADException(CADResponseCodes._1022 + "Communication error while communicating with Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Communication error while communicating with Zoho CRM");
       } finally {
         /* Release connection socket */
         if (postMethod != null) {
@@ -823,44 +823,44 @@ public final class ZHRESTCRMService extends CRMService {
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
     logger.debug("---Inside getObjects, query: " + query + " & select: " + select + " & order: " + order);
 
     /* Transfer the call to second method */
     if (query != null && query.toUpperCase().startsWith(queryPhoneFieldConst.toUpperCase())) {
 
-      CADCommandObject returnObject = null;
+      ScribeCommandObject returnObject = null;
 
       try {
         /* Query CRM object by Phone field */
         returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, order, "Phone");
 
-      } catch (final CADException firstE) {
+      } catch (final ScribeException firstE) {
 
         /* Check if record is not found */
-        if (firstE.getMessage().contains(CADResponseCodes._1004)) {
+        if (firstE.getMessage().contains(ScribeResponseCodes._1004)) {
 
           try {
             /* Query CRM object by Home Phone field */
             returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, order, "Mobile Phone");
-          } catch (final CADException secondE) {
+          } catch (final ScribeException secondE) {
 
             /* Check if record is again not found */
-            if (secondE.getMessage().contains(CADResponseCodes._1004)) {
+            if (secondE.getMessage().contains(ScribeResponseCodes._1004)) {
 
               try {
                 /* Query CRM object by Home Phone field */
                 returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, order, "Home Phone");
-              } catch (final CADException thirdE) {
+              } catch (final ScribeException thirdE) {
 
                 /* Check if record is again not found */
-                if (thirdE.getMessage().contains(CADResponseCodes._1004)) {
+                if (thirdE.getMessage().contains(ScribeResponseCodes._1004)) {
 
                   try {
                     /* Query CRM object by Home Phone field */
                     returnObject = this.getObjectsByPhoneField(cADCommandObject, query, select, order, "Other Phone");
-                  } catch (final CADException fourthE) {
+                  } catch (final ScribeException fourthE) {
 
                     /* Throw the error to user */
                     throw fourthE;
@@ -876,15 +876,15 @@ public final class ZHRESTCRMService extends CRMService {
     } else {
 
       /* Get user from session manager */
-      final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
+      final ScribeCacheObject user = (ScribeCacheObject) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
 
       PostMethod postMethod = null;
       try {
 
         /* Get CRM information from user */
-        final String serviceURL = user.getCrmServiceURL();
-        final String serviceProtocol = user.getCrmServiceProtocol();
-        final String sessionId = user.getCrmSessionId();
+        final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
+        final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
+        final String sessionId = user.getcADMetaObject().getCrmSessionId();
 
         /* Create Zoho URL */
         final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
@@ -980,7 +980,7 @@ public final class ZHRESTCRMService extends CRMService {
             if (errorMessage != null) {
 
               /* Send user error */
-              throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
+              throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
             } else {
 
               /* XPath Query for showing error message */
@@ -990,12 +990,12 @@ public final class ZHRESTCRMService extends CRMService {
               errorMessage = (Node) errorExpression.evaluate(document, XPathConstants.NODE);
 
               /* Send user error */
-              throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
+              throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
             }
           } else {
 
             /* Create new CAD object list */
-            final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+            final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
             /* Iterate over node list */
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -1007,7 +1007,7 @@ public final class ZHRESTCRMService extends CRMService {
               final Node node = nodeList.item(i);
 
               /* Create new CAD object */
-              final CADObject cADbject = new CADObject();
+              final ScribeObject cADbject = new ScribeObject();
 
               /* Check if node has child nodes */
               if (node.hasChildNodes()) {
@@ -1060,20 +1060,20 @@ public final class ZHRESTCRMService extends CRMService {
 
             /* Check if no record found */
             if (cADbjectList.size() == 0) {
-              throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM");
+              throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM");
             }
 
             /* Set the final object in command object */
-            cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
+            cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
           }
         } else if (result == HttpStatus.SC_FORBIDDEN) {
-          throw new CADException(CADResponseCodes._1022 + "Query is forbidden by Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1022 + "Query is forbidden by Zoho CRM");
         } else if (result == HttpStatus.SC_BAD_REQUEST) {
-          throw new CADException(CADResponseCodes._1003 + "Invalid request content");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Invalid request content");
         } else if (result == HttpStatus.SC_UNAUTHORIZED) {
-          throw new CADException(CADResponseCodes._1012 + "Anauthorized by Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1012 + "Anauthorized by Zoho CRM");
         } else if (result == HttpStatus.SC_NOT_FOUND) {
-          throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM");
         } else if (result == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
 
           /* Create XML document from response */
@@ -1093,21 +1093,21 @@ public final class ZHRESTCRMService extends CRMService {
           if (errorMessage != null) {
 
             /* Send user error */
-            throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM : " + errorMessage.getTextContent());
+            throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM : " + errorMessage.getTextContent());
           } else {
 
             /* Send user error */
-            throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM");
+            throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM");
           }
         }
-      } catch (final CADException exception) {
+      } catch (final ScribeException exception) {
         throw exception;
       } catch (final ParserConfigurationException exception) {
-        throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
       } catch (final SAXException exception) {
-        throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
       } catch (final IOException exception) {
-        throw new CADException(CADResponseCodes._1022 + "Communication error while communicating with Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Communication error while communicating with Zoho CRM");
       } finally {
         /* Release connection socket */
         if (postMethod != null) {
@@ -1128,21 +1128,21 @@ public final class ZHRESTCRMService extends CRMService {
    * @return
    * @throws Exception
    */
-  private final CADCommandObject getObjectsByPhoneField(final CADCommandObject cADCommandObject, final String query, final String select,
+  private final ScribeCommandObject getObjectsByPhoneField(final ScribeCommandObject cADCommandObject, final String query, final String select,
       final String order, final String phoneFieldName) throws Exception {
     logger.debug("---Inside getObjectsByAllPhoneNumbers, query: " + query + " & select: " + select + " & order: " + order + " & phoneFieldName: "
         + phoneFieldName);
 
     /* Get user from session manager */
-    final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject user = (ScribeCacheObject) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
 
     PostMethod postMethod = null;
     try {
 
       /* Get CRM information from user */
-      final String serviceURL = user.getCrmServiceURL();
-      final String serviceProtocol = user.getCrmServiceProtocol();
-      final String sessionId = user.getCrmSessionId();
+      final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
+      final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
+      final String sessionId = user.getcADMetaObject().getCrmSessionId();
 
       /* Create Zoho URL */
       final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
@@ -1238,7 +1238,7 @@ public final class ZHRESTCRMService extends CRMService {
           if (errorMessage != null) {
 
             /* Send user error */
-            throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
+            throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
           } else {
 
             /* XPath Query for showing error message */
@@ -1248,12 +1248,12 @@ public final class ZHRESTCRMService extends CRMService {
             errorMessage = (Node) errorExpression.evaluate(document, XPathConstants.NODE);
 
             /* Send user error */
-            throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
+            throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
           }
         } else {
 
           /* Create new CAD object list */
-          final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+          final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
           /* Iterate over node list */
           for (int i = 0; i < nodeList.getLength(); i++) {
@@ -1265,7 +1265,7 @@ public final class ZHRESTCRMService extends CRMService {
             final Node node = nodeList.item(i);
 
             /* Create new CAD object */
-            final CADObject cADbject = new CADObject();
+            final ScribeObject cADbject = new ScribeObject();
 
             /* Check if node has child nodes */
             if (node.hasChildNodes()) {
@@ -1316,20 +1316,20 @@ public final class ZHRESTCRMService extends CRMService {
 
           /* Check if no record found */
           if (cADbjectList.size() == 0) {
-            throw new CADException(CADResponseCodes._1004 + "No records found at Zoho CRM");
+            throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM");
           }
 
           /* Set the final object in command object */
-          cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
+          cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
         }
       } else if (result == HttpStatus.SC_FORBIDDEN) {
-        throw new CADException(CADResponseCodes._1022 + "Query is forbidden by Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Query is forbidden by Zoho CRM");
       } else if (result == HttpStatus.SC_BAD_REQUEST) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid request content");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid request content");
       } else if (result == HttpStatus.SC_UNAUTHORIZED) {
-        throw new CADException(CADResponseCodes._1012 + "Anauthorized by Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1012 + "Anauthorized by Zoho CRM");
       } else if (result == HttpStatus.SC_NOT_FOUND) {
-        throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM");
       } else if (result == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
 
         /* Create XML document from response */
@@ -1349,21 +1349,21 @@ public final class ZHRESTCRMService extends CRMService {
         if (errorMessage != null) {
 
           /* Send user error */
-          throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM : " + errorMessage.getTextContent());
+          throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM : " + errorMessage.getTextContent());
         } else {
 
           /* Send user error */
-          throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM");
         }
       }
-    } catch (final CADException exception) {
+    } catch (final ScribeException exception) {
       throw exception;
     } catch (final ParserConfigurationException exception) {
-      throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
+      throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
     } catch (final SAXException exception) {
-      throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
+      throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM");
     } catch (final IOException exception) {
-      throw new CADException(CADResponseCodes._1022 + "Communication error while communicating with Zoho CRM");
+      throw new ScribeException(ScribeResponseCodes._1022 + "Communication error while communicating with Zoho CRM");
     } finally {
       /* Release connection socket */
       if (postMethod != null) {
@@ -1374,19 +1374,19 @@ public final class ZHRESTCRMService extends CRMService {
   }
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside createObject");
 
     /* Get user from session manager */
-    final CADUser user = (CADUser) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject user = (ScribeCacheObject) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
 
     PostMethod postMethod = null;
     try {
 
       /* Get CRM information from user */
-      final String serviceURL = user.getCrmServiceURL();
-      final String serviceProtocol = user.getCrmServiceProtocol();
-      final String sessionId = user.getCrmSessionId();
+      final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
+      final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
+      final String sessionId = user.getcADMetaObject().getCrmSessionId();
 
       /* Create Zoho URL */
       final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/insertRecords";
@@ -1443,7 +1443,7 @@ public final class ZHRESTCRMService extends CRMService {
           final Node errorMessage = (Node) errorExpression.evaluate(document, XPathConstants.NODE);
 
           /* Send user error */
-          throw new CADException(CADResponseCodes._1004 + "Not able to create record at Zoho CRM : " + errorMessage.getTextContent());
+          throw new ScribeException(ScribeResponseCodes._1004 + "Not able to create record at Zoho CRM : " + errorMessage.getTextContent());
 
         } else {
 
@@ -1472,8 +1472,8 @@ public final class ZHRESTCRMService extends CRMService {
                   if (element.getAttribute("val").equalsIgnoreCase(("ID"))) {
 
                     /* Set object id in request object */
-                    cADCommandObject.getcADObject()[0] =
-                        ZHCRMMessageFormatUtils.addNode("Id", element.getTextContent(), cADCommandObject.getcADObject()[0]);
+                    cADCommandObject.getObject()[0] =
+                        ZHCRMMessageFormatUtils.addNode("Id", element.getTextContent(), cADCommandObject.getObject()[0]);
                   }
                 }
               }
@@ -1481,13 +1481,13 @@ public final class ZHRESTCRMService extends CRMService {
           }
         }
       } else if (result == HttpStatus.SC_FORBIDDEN) {
-        throw new CADException(CADResponseCodes._1022 + "Query is forbidden by Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1022 + "Query is forbidden by Zoho CRM");
       } else if (result == HttpStatus.SC_BAD_REQUEST) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid request content");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid request content");
       } else if (result == HttpStatus.SC_UNAUTHORIZED) {
-        throw new CADException(CADResponseCodes._1012 + "Anauthorized by Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1012 + "Anauthorized by Zoho CRM");
       } else if (result == HttpStatus.SC_NOT_FOUND) {
-        throw new CADException(CADResponseCodes._1004 + "Requested data not found at Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1004 + "Requested data not found at Zoho CRM");
       } else if (result == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
 
         /* Create XML document from response */
@@ -1507,21 +1507,21 @@ public final class ZHRESTCRMService extends CRMService {
         if (errorMessage != null) {
 
           /* Send user error */
-          throw new CADException(CADResponseCodes._1004 + "Not able to create record at Zoho CRM : " + errorMessage.getTextContent());
+          throw new ScribeException(ScribeResponseCodes._1004 + "Not able to create record at Zoho CRM : " + errorMessage.getTextContent());
         } else {
 
           /* Send user error */
-          throw new CADException(CADResponseCodes._1004 + "Not able to create record at Zoho CRM");
+          throw new ScribeException(ScribeResponseCodes._1004 + "Not able to create record at Zoho CRM");
         }
       }
-    } catch (final CADException exception) {
+    } catch (final ScribeException exception) {
       throw exception;
     } catch (final ParserConfigurationException exception) {
-      throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM", exception);
+      throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM", exception);
     } catch (final SAXException exception) {
-      throw new CADException(CADResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM", exception);
+      throw new ScribeException(ScribeResponseCodes._1022 + "Recieved an invalid XML from Zoho CRM", exception);
     } catch (final IOException exception) {
-      throw new CADException(CADResponseCodes._1022 + "Communication error while communicating with Zoho CRM", exception);
+      throw new ScribeException(ScribeResponseCodes._1022 + "Communication error while communicating with Zoho CRM", exception);
     } finally {
       /* Release connection socket */
       if (postMethod != null) {
@@ -1532,23 +1532,23 @@ public final class ZHRESTCRMService extends CRMService {
   }
 
   @Override
-  public CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
+  public ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
-  public CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
+  public ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
-  public CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
+  public ScribeCommandObject updateObject(final ScribeCommandObject cADCommandObject) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
+  public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   public final String getCrmFieldsSeparator() {

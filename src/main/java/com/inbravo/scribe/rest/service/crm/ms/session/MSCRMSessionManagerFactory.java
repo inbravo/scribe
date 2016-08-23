@@ -28,11 +28,11 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.CADUser;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.CRMConstants.MSCRMVersionType;
 import com.inbravo.scribe.rest.service.crm.cache.CRMSessionCache;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.ms.auth.MSAuthManager;
 
 /**
@@ -65,19 +65,19 @@ public final class MSCRMSessionManagerFactory implements ApplicationContextAware
   public final MSCRMVersionType checkMSCRMVersion(final String id) throws Exception {
 
     /* Get agent from cache */
-    final CADUser user = (CADUser) cRMSessionCache.recover(id.trim());
+    final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(id.trim());
 
     /* Get crm service URL */
     String STSEnpoint = null;
-    final String serviceURL = user.getCrmServiceURL();
-    final String servicePrototol = user.getCrmServiceProtocol();
-    Map<String, String> nodeMap = user.getAdditionalInfo();
+    final String serviceURL = cacheObject.getcADMetaObject().getCrmServiceURL();
+    final String servicePrototol = cacheObject.getcADMetaObject().getCrmServiceProtocol();
+    Map<String, String> nodeMap = cacheObject.getAdditionalInfo();
 
     /* Validate CRM service URL */
     if (serviceURL == null || "".equals(serviceURL)) {
 
       /* Send user error */
-      throw new CADException(CADResponseCodes._1008 + "CRM integration info is missing: CRM service URL");
+      throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration info is missing: CRM service URL");
     }
 
     /* if additional info is available */
@@ -97,22 +97,20 @@ public final class MSCRMSessionManagerFactory implements ApplicationContextAware
       /* Parse the reponse */
       STSEnpoint = nodeMap.get("STSEnpoint");
 
-
-
       logger.debug("---Inside checkMSCRMVersion, adding MS login additonal info at agent: " + id);
 
-      if (user.getAdditionalInfo() != null) {
+      if (cacheObject.getAdditionalInfo() != null) {
 
         /* Update agent additonal information */
-        user.getAdditionalInfo().putAll(nodeMap);
+        cacheObject.getAdditionalInfo().putAll(nodeMap);
       } else {
 
         /* Update agent additonal information */
-        user.setAdditionalInfo(nodeMap);
+        cacheObject.setAdditionalInfo(nodeMap);
       }
 
       /* Put the agent back to cache */
-      cRMSessionCache.admit(id.trim(), user);
+      cRMSessionCache.admit(id.trim(), cacheObject);
 
     }
 

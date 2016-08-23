@@ -26,14 +26,14 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.CADUser;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.internal.service.factory.CADServiceFactory;
 import com.inbravo.scribe.rest.constants.CRMConstants;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
 import com.inbravo.scribe.rest.service.crm.CRMService;
 import com.inbravo.scribe.rest.service.crm.cache.CRMSessionCache;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 
 /**
  * 
@@ -59,7 +59,7 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
   /* Boolean value to enable MS CRM */
   private boolean microsoftCRMEnabled;
 
-  /* SCRM session cache for holding user/agent */
+  /* SCRM session cache for holding cacheObject/agent */
   private CRMSessionCache cRMSessionCache;
 
   private ApplicationContext applicationContext;
@@ -80,43 +80,46 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
   private String zohoCRMConst = CRMConstants.zohoCRM;
 
   /**
-   * This method will check the user/agent configuration and instantiate the relevant service class
+   * This method will check the cacheObject/agent configuration and instantiate the relevant service
+   * class
    * 
    * @return
    */
-  public final synchronized CRMService getService(final CADCommandObject cADCommandObject) throws Exception {
+  public final synchronized CRMService getService(final ScribeCommandObject cADCommandObject) throws Exception {
 
     logger.debug("---Inside getService");
     CRMService cRMService = null;
 
-    /* Get the user from request */
-    final String id = cADCommandObject.getCrmUserId();
-
-    /* Create an empty user object */
-    CADUser user = null;
+    /* Create an empty cacheObject object */
+    ScribeCacheObject cacheObject = null;
 
     /* Pick information from cache if batch request */
     if (cADCommandObject.getBatch() != null) {
 
-      logger.debug("---Inside getService: found a batch request. Going to fetch cached user information");
+      logger.debug("---Inside getService: found a batch request. Going to fetch cached cacheObject information");
 
-      /* Check if user in cache */
-      user = (CADUser) cRMSessionCache.recover(id);
+      /* Check if cacheObject in cache */
+      cacheObject = (ScribeCacheObject) cRMSessionCache.recover(cADCommandObject.getCrmUserId());
     } else {
 
-      user = CADUser.build(cADCommandObject);
+      if (cADCommandObject.getMetaObject() != null) {
+
+        cacheObject = ScribeCacheObject.build(cADCommandObject.getMetaObject());
+      } else {
+
+        cacheObject = ScribeCacheObject.build(cADCommandObject);
+      }
     }
 
-    /* Validate user CRM information */
-    if (user.getCrmName() == null) {
+    /* Validate cacheObject CRM information */
+    if (cacheObject.getcADMetaObject().getCrmType() == null) {
 
-      /* Inform user about missing property */
-      throw new CADException(CADResponseCodes._1012 + "CRM integration information is missing");
+      /* Inform cacheObject about missing property */
+      throw new ScribeException(ScribeResponseCodes._1012 + "CRM integration information is missing");
     }
-
 
     /* Check target CRM service type */
-    if (user.getCrmName().equalsIgnoreCase(salesForceCRMConst)) {
+    if (cacheObject.getcADMetaObject().getCrmType().equalsIgnoreCase(salesForceCRMConst)) {
 
       /* Check if SFDC CRM is enabled */
       if (sfdcCRMEnabled) {
@@ -124,11 +127,12 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
         /* Retrieve Sales Force CRM implementation */
         cRMService = (CRMService) getApplicationContext().getBean("sFSOAPCRMService");
       } else {
-        /* Inform user about missing implementation */
-        throw new CADException(CADResponseCodes._1003 + "Following CRM: " + user.getCrmName() + " : integration is not enabled");
+        /* Inform cacheObject about missing implementation */
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+            + " : integration is not enabled");
       }
 
-    } else if (user.getCrmName().equalsIgnoreCase(microsoftCRMConst)) {
+    } else if (cacheObject.getcADMetaObject().getCrmType().equalsIgnoreCase(microsoftCRMConst)) {
 
       /* Check if Microsoft CRM is enabled */
       if (microsoftCRMEnabled) {
@@ -137,10 +141,11 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
         cRMService = (CRMService) getApplicationContext().getBean("mSSOAPCRMService");
       } else {
 
-        /* Inform user about missing implementation */
-        throw new CADException(CADResponseCodes._1003 + "Following CRM: " + user.getCrmName() + " : integration is not enabled");
+        /* Inform cacheObject about missing implementation */
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+            + " : integration is not enabled");
       }
-    } else if (user.getCrmName().contains(zendeskCRMConst)) {
+    } else if (cacheObject.getcADMetaObject().getCrmType().contains(zendeskCRMConst)) {
 
       /* Check if Zendesk CRM is enabled */
       if (zendeskCRMEnabled) {
@@ -149,10 +154,11 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
         cRMService = (CRMService) getApplicationContext().getBean("zDRESTCRMService");
       } else {
 
-        /* Inform user about missing implementation */
-        throw new CADException(CADResponseCodes._1003 + "Following CRM: " + user.getCrmName() + " : integration is not enabled");
+        /* Inform cacheObject about missing implementation */
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+            + " : integration is not enabled");
       }
-    } else if (user.getCrmName().equalsIgnoreCase(netsuiteCRMConst)) {
+    } else if (cacheObject.getcADMetaObject().getCrmType().equalsIgnoreCase(netsuiteCRMConst)) {
 
       /* Check if Netsuite CRM is enabled */
       if (netsuiteCRMEnabled) {
@@ -161,10 +167,11 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
         cRMService = (CRMService) getApplicationContext().getBean("nSSOAPCRMService");
       } else {
 
-        /* Inform user about missing implementation */
-        throw new CADException(CADResponseCodes._1003 + "Following CRM: " + user.getCrmName() + " : integration is not enabled");
+        /* Inform cacheObject about missing implementation */
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+            + " : integration is not enabled");
       }
-    } else if (user.getCrmName().equalsIgnoreCase(zohoCRMConst)) {
+    } else if (cacheObject.getcADMetaObject().getCrmType().equalsIgnoreCase(zohoCRMConst)) {
 
       /* Check if Zoho CRM is enabled */
       if (zohoCRMEnabled) {
@@ -173,18 +180,20 @@ public final class CRMServiceFactory implements ApplicationContextAware, CADServ
         cRMService = (CRMService) getApplicationContext().getBean("zHRESTCRMService");
       } else {
 
-        /* Inform user about missing implementation */
-        throw new CADException(CADResponseCodes._1003 + "Following CRM: " + user.getCrmName() + " : integration is not enabled");
+        /* Inform cacheObject about missing implementation */
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+            + " : integration is not enabled");
       }
     } else {
 
-      /* Inform user about missing implementation */
-      throw new CADException(CADResponseCodes._1003 + "Following CRM: " + user.getCrmName() + " : integration is not enabled");
+      /* Inform cacheObject about missing implementation */
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+          + " : integration is not enabled");
     }
 
 
-    /* Save this user in cache */
-    cRMSessionCache.admit(id, user);
+    /* Save this cacheObject in cache */
+    cRMSessionCache.admit(cADCommandObject.getCrmUserId(), cacheObject);
 
     return cRMService;
   }

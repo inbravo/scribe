@@ -42,9 +42,9 @@ import javax.ws.rs.ext.Provider;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADExceptionMapper;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeExceptionMapper;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.HTTPConstants;
 import com.inbravo.scribe.rest.service.msg.type.FileAttachment;
 
@@ -124,7 +124,7 @@ public final class FileAttachmentWriter implements MessageBodyWriter<FileAttachm
       } else {
 
         /* Write the content */
-        binaryContentWriter.writeBytes(CADExceptionMapper.getErrorXML(CADResponseCodes._1004 + "No file found"));
+        binaryContentWriter.writeBytes(ScribeExceptionMapper.getErrorXML(ScribeResponseCodes._1004 + "No file found"));
       }
 
     } catch (final Exception e) {
@@ -138,7 +138,7 @@ public final class FileAttachmentWriter implements MessageBodyWriter<FileAttachm
       }
 
       /* Write the content */
-      binaryContentWriter.writeBytes(CADExceptionMapper.getErrorXML(CADResponseCodes._1001 + "Problem in generating attachment file"));
+      binaryContentWriter.writeBytes(ScribeExceptionMapper.getErrorXML(ScribeResponseCodes._1001 + "Problem in generating attachment file"));
 
     } finally {
 
@@ -209,7 +209,7 @@ public final class FileAttachmentWriter implements MessageBodyWriter<FileAttachm
           }
 
         } catch (final Exception e) {
-          throw new CADException(CADResponseCodes._1000 + "Problem in deleting temporary files" + e, e);
+          throw new ScribeException(ScribeResponseCodes._1000 + "Problem in deleting temporary files" + e, e);
         }
       }
     }.run();

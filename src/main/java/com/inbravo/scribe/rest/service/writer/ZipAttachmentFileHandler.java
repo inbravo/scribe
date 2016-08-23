@@ -26,8 +26,8 @@ import java.io.OutputStream;
 import org.apache.log4j.Logger;
 import org.springframework.aop.target.CommonsPoolTargetSource;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.service.msg.type.FileAttachments;
 import com.inbravo.scribe.rest.service.writer.utils.ZipWriter;
 
@@ -60,12 +60,12 @@ public final class ZipAttachmentFileHandler {
         zWriter.write(outputStream, fileAttachments, zipName);
       } else {
         /* Inform user about error */
-        throw new CADException(CADResponseCodes._1000 + "Server file generation limit has reached");
+        throw new ScribeException(ScribeResponseCodes._1000 + "Server file generation limit has reached");
       }
 
     } catch (final Exception e) {
 
-      throw new CADException(CADResponseCodes._1000 + "Problem while file attachment service");
+      throw new ScribeException(ScribeResponseCodes._1000 + "Problem while file attachment service");
     } finally {
 
       try {
@@ -73,7 +73,7 @@ public final class ZipAttachmentFileHandler {
         pool.releaseTarget(zWriter);
         zWriter = null;
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1000 + "Problem while file attachment service");
+        throw new ScribeException(ScribeResponseCodes._1000 + "Problem while file attachment service");
       }
     }
   }

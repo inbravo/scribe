@@ -48,9 +48,9 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 import com.inbravo.scribe.rest.service.crm.CRMMessageFormatUtils;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMMessageFormatUtils;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMSchemaConstants;
@@ -143,8 +143,8 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
   /**
 	 * 
 	 */
-  public final CADObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
-      final String password, final String orgName, final String[] crmSecurityToken, final CADObject cADbject) throws Exception {
+  public final ScribeObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+      final String password, final String orgName, final String[] crmSecurityToken, final ScribeObject cADbject) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside createObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId + "& password: "
@@ -321,7 +321,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
    * @param crmFields
    * @return
    */
-  public final List<CADObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+  public final List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFields) throws Exception {
 
     if (logger.isDebugEnabled()) {
@@ -394,11 +394,11 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final ArrayOfEntity entityArray = be.getEntities();
       final Entity[] entityStringArray = entityArray.getEntityArray();
 
-      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+      final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
         /* Create new CAD object */
-        final CADObject cADbject = new CADObject();
+        final ScribeObject cADbject = new ScribeObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
@@ -414,7 +414,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       /* Return error message for no record found */
       if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
+        throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
@@ -441,7 +441,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
    * @param query
    * @return
    */
-  public final List<CADObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+  public final List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFieldsToSelect, final String query)
       throws Exception {
 
@@ -520,13 +520,13 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final ArrayOfEntity entityArray = be.getEntities();
       final Entity[] entities = entityArray.getEntityArray();
 
-      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+      final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
       /* Iterate over entities and create cad object */
       for (int i = 0; i < entities.length; i++) {
 
         /* Create new CAD object */
-        final CADObject cADbject = new CADObject();
+        final ScribeObject cADbject = new ScribeObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entities[i]));
@@ -542,7 +542,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       /* Return error message for no record found */
       if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
+        throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
@@ -559,7 +559,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
   /**
 	 * 
 	 */
-  public final List<CADObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+  public final List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFieldsToSelect, final String query,
       final String order) throws Exception {
 
@@ -637,11 +637,11 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final ArrayOfEntity entityArray = be.getEntities();
       final Entity[] entityStringArray = entityArray.getEntityArray();
 
-      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+      final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
         /* Create new CAD object */
-        final CADObject cADbject = new CADObject();
+        final ScribeObject cADbject = new ScribeObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
@@ -657,7 +657,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       /* Return error message for no record found */
       if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
+        throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
@@ -713,7 +713,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
         /* Set timeout */
         options.setTimeOutInMilliSeconds(Integer.parseInt(this.getTimeout()));
       } catch (final NumberFormatException e) {
-        throw new CADException(CADResponseCodes._1002 + "'MS_Session_Timeout' in scribe.properties");
+        throw new ScribeException(ScribeResponseCodes._1002 + "'MS_Session_Timeout' in scribe.properties");
       }
 
       /* Set all options */
@@ -733,7 +733,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       return stub;
     } catch (final AxisFault e) {
       logger.debug("---Inside createOrganizationServiceStub, AxisFault: " + e, e);
-      throw new CADException(CADResponseCodes._1015 + "Problem in creating SOAP request for MS office 365 login server", e);
+      throw new ScribeException(ScribeResponseCodes._1015 + "Problem in creating SOAP request for MS office 365 login server", e);
     }
   }
 
@@ -819,7 +819,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       return new SOAPHeaderBlock[] {actionHeader, messageIdHeader, replyToHeader, toHeader, wsseHeader};
 
     } catch (final XMLStreamException e) {
-      throw new CADException(CADResponseCodes._1015 + "Problem in adding security information to SOAP request to MS office 365 login server");
+      throw new ScribeException(ScribeResponseCodes._1015 + "Problem in adding security information to SOAP request to MS office 365 login server");
     }
   }
 
@@ -835,18 +835,18 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
 
       final AxisFault fault = (AxisFault) e;
       if (fault.getFaultReasonElement() != null) {
-        throw new CADException(CADResponseCodes._1013 + "Recieved a web service error : " + fault.getFaultReasonElement().getText(), e);
+        throw new ScribeException(ScribeResponseCodes._1013 + "Recieved a web service error : " + fault.getFaultReasonElement().getText(), e);
       } else if (fault.getFaultDetailElement() != null) {
-        throw new CADException(CADResponseCodes._1013 + "Recieved a web service error : " + fault.getFaultDetailElement().getText(), e);
+        throw new ScribeException(ScribeResponseCodes._1013 + "Recieved a web service error : " + fault.getFaultDetailElement().getText(), e);
       } else {
-        throw new CADException(CADResponseCodes._1013 + "Recieved a web service error: " + fault.getReason(), e);
+        throw new ScribeException(ScribeResponseCodes._1013 + "Recieved a web service error: " + fault.getReason(), e);
       }
 
     } else if (e instanceof RemoteException) {
 
       /* Wrap this into runtime exception and throw to user */
-      throw new CADException(CADResponseCodes._1015 + "Remote error", e);
-    } else if (e instanceof CADException) {
+      throw new ScribeException(ScribeResponseCodes._1015 + "Remote error", e);
+    } else if (e instanceof ScribeException) {
 
       /* Throw CAD exception to user */
       throw e;
@@ -861,11 +861,11 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
         if (message.getFaultMessage() != null && message.getFaultMessage().getOrganizationServiceFault() != null) {
 
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1013 + "SOAP error from MS CRM : "
+          throw new ScribeException(ScribeResponseCodes._1013 + "SOAP error from MS CRM : "
               + message.getFaultMessage().getOrganizationServiceFault().getMessage());
         } else {
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1013 + "Problem while communicating with MS CRM server", e);
+          throw new ScribeException(ScribeResponseCodes._1013 + "Problem while communicating with MS CRM server", e);
         }
       } else if (e instanceof IOrganizationService_Create_OrganizationServiceFaultFault_FaultMessage) {
 
@@ -875,11 +875,11 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
         if (message.getFaultMessage() != null && message.getFaultMessage().getOrganizationServiceFault() != null) {
 
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1013 + "SOAP error from MS CRM : "
+          throw new ScribeException(ScribeResponseCodes._1013 + "SOAP error from MS CRM : "
               + message.getFaultMessage().getOrganizationServiceFault().getMessage());
         } else {
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1013 + "Problem while communicating with MS CRM server", e);
+          throw new ScribeException(ScribeResponseCodes._1013 + "Problem while communicating with MS CRM server", e);
         }
       } else if (e instanceof IOrganizationService_Associate_OrganizationServiceFaultFault_FaultMessage) {
 
@@ -889,15 +889,15 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
         if (message.getFaultMessage() != null && message.getFaultMessage().getOrganizationServiceFault() != null) {
 
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1013 + "SOAP error from MS CRM : "
+          throw new ScribeException(ScribeResponseCodes._1013 + "SOAP error from MS CRM : "
               + message.getFaultMessage().getOrganizationServiceFault().getMessage());
         } else {
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1013 + "Problem while communicating with MS CRM server", e);
+          throw new ScribeException(ScribeResponseCodes._1013 + "Problem while communicating with MS CRM server", e);
         }
       } else {
         /* Throw user error */
-        throw new CADException(CADResponseCodes._1000 + "Problem while communicating with MS CRM server", e);
+        throw new ScribeException(ScribeResponseCodes._1000 + "Problem while communicating with MS CRM server", e);
       }
 
     }

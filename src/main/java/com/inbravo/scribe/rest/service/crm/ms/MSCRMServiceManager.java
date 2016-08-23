@@ -23,7 +23,7 @@ package com.inbravo.scribe.rest.service.crm.ms;
 
 import java.util.List;
 
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 
 /**
  * 
@@ -45,8 +45,8 @@ public interface MSCRMServiceManager {
    * @return
    * @throws Exception
    */
-  CADObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
-      final String password, final String orgName, final String[] crmSecurityToken, final CADObject cADbject) throws Exception;
+  ScribeObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+      final String password, final String orgName, final String[] crmSecurityToken, final ScribeObject cADbject) throws Exception;
 
   /**
    * 
@@ -61,7 +61,7 @@ public interface MSCRMServiceManager {
    * @return
    * @throws Exception
    */
-  List<CADObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+  List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFields) throws Exception;
 
   /**
@@ -78,7 +78,7 @@ public interface MSCRMServiceManager {
    * @return
    * @throws Exception
    */
-  List<CADObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+  List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFieldsToSelect, final String query)
       throws Exception;
 
@@ -97,7 +97,7 @@ public interface MSCRMServiceManager {
    * @return
    * @throws Exception
    */
-  List<CADObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+  List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFieldsToSelect, final String query,
       final String order) throws Exception;
 }

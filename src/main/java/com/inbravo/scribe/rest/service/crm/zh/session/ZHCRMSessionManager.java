@@ -23,11 +23,11 @@ package com.inbravo.scribe.rest.service.crm.zh.session;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.BasicObject;
-import com.inbravo.scribe.internal.service.dto.CADUser;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.service.crm.cache.BasicObject;
 import com.inbravo.scribe.rest.service.crm.cache.CRMSessionCache;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.session.CRMSessionManager;
 import com.inbravo.scribe.rest.service.crm.zh.auth.ZHAuthManager;
 
@@ -55,41 +55,42 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
     logger.debug("---Inside getSessionInfo, id: " + id);
 
     /* Check if session is already available at cache */
-    final CADUser user = (CADUser) cRMSessionCache.recover(id);
+    final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(id);
 
     logger.debug("---Inside getSessionInfo, agent: " + id);
 
     /* Validate crm service params */
-    this.validateUser(user);
+    this.validateCacheObject(cacheObject);
 
     /* Get session information from ZH */
     final String sessionId =
-        zHAuthManager.getSessionId(user.getCrmUserId(), user.getCrmPassword(), user.getCrmServiceURL(), user.getCrmServiceProtocol());
+        zHAuthManager.getSessionId(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject
+            .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmServiceProtocol());
 
     if (sessionId != null) {
 
       /* Set CRM API token information */
-      user.setCrmSessionId(sessionId);
+      cacheObject.getcADMetaObject().setCrmSessionId(sessionId);
 
       /* Save this agent in session cache */
-      cRMSessionCache.admit(id, user);
+      cRMSessionCache.admit(id, cacheObject);
 
       /* If everything is fine return true */
-      return user;
+      return cacheObject;
     } else {
       /* Inform user about absent header value */
-      throw new CADException(CADResponseCodes._1012 + "Login attempt at ZH is failed. Check credentials.");
+      throw new ScribeException(ScribeResponseCodes._1012 + "Login attempt at ZH is failed. Check credentials.");
     }
   }
 
   @Override
   public final boolean login(final String crmUserId, final String crmPassword) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
   public final boolean reset(final String crmUserId, final String crmPassword) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   public final ZHAuthManager getzHAuthManager() {
@@ -116,16 +117,16 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
     this.cRMSessionCache = cRMSessionCache;
   }
 
-  private final void validateUser(final CADUser user) {
+  private final void validateCacheObject(final ScribeCacheObject cacheObject) {
 
     /* Service URL is a must for ZH */
-    if (user.getCrmServiceURL() == null) {
-      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
+    if (cacheObject.getcADMetaObject().getCrmServiceURL() == null) {
+      throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
     }
 
     /* Service protocol is a must for ZH */
-    if (user.getCrmServiceProtocol() == null) {
-      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service Protocol");
+    if (cacheObject.getcADMetaObject().getCrmServiceProtocol() == null) {
+      throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service Protocol");
     }
   }
 }

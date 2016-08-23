@@ -25,10 +25,10 @@ import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.CRMConstants.MSCRMObjectType;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMObjectService;
 
 /**
@@ -61,54 +61,54 @@ public final class MSCRMV5ObjectService extends MSCRMObjectService implements Ap
   }
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside createObject");
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).createObject(cADCommandObject);
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
+  public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
     logger.debug("---Inside deleteObject idToBeDeleted: " + idToBeDeleted);
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).deleteObject(cADCommandObject, idToBeDeleted);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjects");
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects query: " + query);
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject, query);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select);
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject, query, select);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject, query, select, order);
   }
 
   @Override
-  public CADCommandObject getObjectsCount(CADCommandObject cADCommandObject) throws Exception {
+  public ScribeCommandObject getObjectsCount(ScribeCommandObject cADCommandObject) throws Exception {
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjectsCount(cADCommandObject);
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(CADCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjectsCount(ScribeCommandObject cADCommandObject, final String query) throws Exception {
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjectsCount(cADCommandObject, query);
   }
 
   @Override
-  public final CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject updateObject(final ScribeCommandObject cADCommandObject) throws Exception {
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).updateObject(cADCommandObject);
   }
 
@@ -130,7 +130,7 @@ public final class MSCRMV5ObjectService extends MSCRMObjectService implements Ap
     } else if (objectType.equalsIgnoreCase(MSCRMObjectType.Case.toString())) {
       return mSCRMV5CaseService;
     } else {
-      throw new CADException(CADResponseCodes._1003 + "Following object type is not supported by the CAD");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported by the CAD");
     }
   }
 

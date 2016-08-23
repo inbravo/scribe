@@ -21,7 +21,7 @@
 
 package com.inbravo.scribe.rest.service.crm.session;
 
-import com.inbravo.scribe.internal.service.dto.BasicObject;
+import com.inbravo.scribe.rest.service.crm.cache.BasicObject;
 
 /**
  * 

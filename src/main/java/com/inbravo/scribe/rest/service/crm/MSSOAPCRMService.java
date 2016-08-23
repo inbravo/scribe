@@ -25,11 +25,11 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.CADUser;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
 import com.inbravo.scribe.rest.service.crm.cache.CRMSessionCache;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMObjectService;
 import com.inbravo.scribe.rest.service.crm.ms.auth.MSAuthManager;
 
@@ -55,54 +55,54 @@ public final class MSSOAPCRMService extends CRMService {
   private MSCRMObjectService mSCRMV5ObjectService;
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside createObject");
     return this.getmSCRMObjectService(cADCommandObject).createObject(cADCommandObject);
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
+  public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
     logger.debug("---Inside deleteObject idToBeDeleted: " + idToBeDeleted);
     return this.getmSCRMObjectService(cADCommandObject).deleteObject(cADCommandObject, idToBeDeleted);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjects");
     return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects query: " + query);
     return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject, query);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select);
     return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject, query, select);
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
     return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject, query, select, order);
   }
 
   @Override
-  public CADCommandObject getObjectsCount(CADCommandObject cADCommandObject) throws Exception {
+  public ScribeCommandObject getObjectsCount(ScribeCommandObject cADCommandObject) throws Exception {
     return this.getmSCRMObjectService(cADCommandObject).getObjectsCount(cADCommandObject);
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(CADCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjectsCount(ScribeCommandObject cADCommandObject, final String query) throws Exception {
     return this.getmSCRMObjectService(cADCommandObject).getObjectsCount(cADCommandObject, query);
   }
 
   @Override
-  public final CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject updateObject(final ScribeCommandObject cADCommandObject) throws Exception {
     return this.getmSCRMObjectService(cADCommandObject).updateObject(cADCommandObject);
   }
 
@@ -111,10 +111,10 @@ public final class MSSOAPCRMService extends CRMService {
    * @param cADCommandObject
    * @return
    */
-  private final MSCRMObjectService getmSCRMObjectService(final CADCommandObject cADCommandObject) throws Exception {
+  private final MSCRMObjectService getmSCRMObjectService(final ScribeCommandObject cADCommandObject) throws Exception {
 
     /* CRM service params */
-    CADUser agent = null;
+    ScribeCacheObject agent = null;
     String serviceURL = null;
     String servicePrototol = "https";
     Map<String, String> nodeMap = null;
@@ -126,11 +126,11 @@ public final class MSSOAPCRMService extends CRMService {
       logger.debug("---Inside getmSCRMObjectService for user: " + cADCommandObject.getCrmUserId());
 
       /* Check if session is already available at cache */
-      agent = (CADUser) cRMSessionCache.recover(cADCommandObject.getCrmUserId().trim());
+      agent = (ScribeCacheObject) cRMSessionCache.recover(cADCommandObject.getCrmUserId().trim());
 
       /* Get crm service URL */
-      serviceURL = agent.getCrmServiceURL();
-      servicePrototol = agent.getCrmServiceProtocol();
+      serviceURL = cADCommandObject.getMetaObject().getCrmServiceURL();
+      servicePrototol = cADCommandObject.getMetaObject().getCrmServiceProtocol();
       nodeMap = agent.getAdditionalInfo();
     }
 
@@ -138,7 +138,7 @@ public final class MSSOAPCRMService extends CRMService {
     if (serviceURL == null && "".equals(serviceURL)) {
 
       /* Send user error */
-      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
+      throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
     }
 
     /* if additional info is available */

@@ -22,8 +22,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.inbravo.scribe.external.junit.core.CADClientMgmt;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 
 /**
  * 
@@ -45,7 +45,7 @@ public class SalesForceCampaignTest {
 
   public SalesForceCampaignTest() throws Exception {
     sFCampaignMgmt = new CADClientMgmt(cadURL, "/object/campaign");
-    context = JAXBContext.newInstance(CADCommandObject.class);
+    context = JAXBContext.newInstance(ScribeCommandObject.class);
     unmarshaller = context.createUnmarshaller();
   }
 
@@ -82,7 +82,7 @@ public class SalesForceCampaignTest {
     startdate.appendChild(doc.createTextNode("2010-12-12"));
 
     /* Create CADObject */
-    CADObject cadObject = new CADObject();
+    ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
 
     arr.add(startdate);
@@ -93,10 +93,10 @@ public class SalesForceCampaignTest {
     cadObject.setXmlContent(arr);
 
     /* Create Campaign object */
-    CADCommandObject cADCommandObject = new CADCommandObject();
+    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
     Response response = null;
@@ -105,7 +105,7 @@ public class SalesForceCampaignTest {
       response = sFCampaignMgmt.createObject(cADCommandObject);
 
       /* Retrieve the object the object */
-      cADCommandObject = (CADCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
+      cADCommandObject = (ScribeCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
 
       assertEquals("Campaign is created successfully.", Status.OK.getStatusCode(), response.getStatus());
     } catch (Exception e) {
@@ -120,7 +120,7 @@ public class SalesForceCampaignTest {
 
     /* Step 2: Call update campaign */
     String campaignId = "";
-    List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+    List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
     for (Element element : elementList) {
       if (element.getNodeName().equalsIgnoreCase("Id")) {
         campaignId = element.getFirstChild().getNodeValue();
@@ -151,13 +151,13 @@ public class SalesForceCampaignTest {
     cadObject.setXmlContent(arr);
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
 
     try {
       response = sFCampaignMgmt.updateObject(cADCommandObject);
 
       /* Retrieve the object */
-      cADCommandObject = (CADCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
+      cADCommandObject = (ScribeCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
 
       assertEquals("Campaign is updated successfully.", Status.OK.getStatusCode(), response.getStatus());
     } catch (Exception e) {
@@ -221,7 +221,7 @@ public class SalesForceCampaignTest {
     id.appendChild(doc.createTextNode("invalidId"));
 
     /* Create CADObject */
-    CADObject cadObject = new CADObject();
+    ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(status);
     arr.add(startdate);
@@ -232,10 +232,10 @@ public class SalesForceCampaignTest {
     cadObject.setXmlContent(arr);
 
     /* Create Campaign object */
-    CADCommandObject cADCommandObject = new CADCommandObject();
+    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
     Response response = null;
@@ -264,17 +264,17 @@ public class SalesForceCampaignTest {
   public void Create_Invalid_Campaign_With_Agent() throws ParserConfigurationException {
 
     /* Create CADObject */
-    CADObject cadObject = new CADObject();
+    ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
 
     /* Set element array at the CAD object */
     cadObject.setXmlContent(arr);
 
     /* Create Campaign object */
-    CADCommandObject cADCommandObject = new CADCommandObject();
+    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setcADObject(new CADObject[] {cadObject});
+    cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
     Response response = null;
     /* Step 2: Call update campaign */

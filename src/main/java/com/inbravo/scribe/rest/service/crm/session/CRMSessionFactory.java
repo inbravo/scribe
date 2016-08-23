@@ -26,8 +26,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.CRMConstants.MSCRMVersionType;
 import com.inbravo.scribe.rest.service.crm.factory.CRMServiceFactory;
 import com.inbravo.scribe.rest.service.crm.ms.session.MSCRMLiveIdSessionManager;
@@ -86,7 +86,7 @@ public final class CRMSessionFactory implements ApplicationContextAware {
 
       } else {
         /* Inform user about no implementation */
-        throw new CADException(CADResponseCodes._1003 + "Following CRM: " + crmType + " V " + vType + " : integration is not enabled");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + crmType + " V " + vType + " : integration is not enabled");
       }
     } else if (crmType.equalsIgnoreCase(crmServiceFactory.getZendeskCRMConst())) {
 
@@ -105,7 +105,7 @@ public final class CRMSessionFactory implements ApplicationContextAware {
     } else {
 
       /* Inform user about no implementation */
-      throw new CADException(CADResponseCodes._1003 + "Following CRM: '" + crmType + "' integration is not enabled");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: '" + crmType + "' integration is not enabled");
     }
   }
 

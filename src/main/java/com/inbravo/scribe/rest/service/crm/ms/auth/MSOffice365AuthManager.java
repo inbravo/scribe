@@ -32,10 +32,10 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.CADUser;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.service.crm.CRMMessageFormatUtils;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMMessageFormatUtils;
 
 /**
@@ -60,7 +60,7 @@ public final class MSOffice365AuthManager extends MSAuthManager {
   private String msOffice365RequestTimeZone = SOAPExecutor.OFFICE_365_REQUEST_TZ;
 
   @Override
-  public final String[] getCRMAuthToken(final CADUser cadUser) throws Exception {
+  public final String[] getCRMAuthToken(final ScribeCacheObject cacheObject) throws Exception {
 
     String stsEndpoint = null;
     String urnAddress = null;
@@ -69,21 +69,21 @@ public final class MSOffice365AuthManager extends MSAuthManager {
     String crmServiceURL = null;
     String crmServiceProtocal = null;
 
-    logger.debug("---Inside getCRMAuthToken for agent: " + cadUser.getCrmUserId());
+    logger.debug("---Inside getCRMAuthToken for agent: " + cacheObject.getcADMetaObject().getCrmUserId());
 
     /* Check if additonal info is present */
-    if (cadUser.getAdditionalInfo() != null) {
+    if (cacheObject.getAdditionalInfo() != null) {
 
       /* Parse the reponse */
-      stsEndpoint = cadUser.getAdditionalInfo().get("STSEnpoint");
-      urnAddress = cadUser.getAdditionalInfo().get("URNAddress");
+      stsEndpoint = cacheObject.getAdditionalInfo().get("STSEnpoint");
+      urnAddress = cacheObject.getAdditionalInfo().get("URNAddress");
     }
 
     /* get CRM credentials */
-    userName = cadUser.getCrmUserId();
-    password = cadUser.getCrmPassword();
-    crmServiceURL = cadUser.getCrmServiceURL();
-    crmServiceProtocal = cadUser.getCrmServiceProtocol();
+    userName = cacheObject.getcADMetaObject().getCrmUserId();
+    password = cacheObject.getcADMetaObject().getCrmPassword();
+    crmServiceURL = cacheObject.getcADMetaObject().getCrmServiceURL();
+    crmServiceProtocal = cacheObject.getcADMetaObject().getCrmServiceProtocol();
 
     logger.debug("---Inside getCRMAuthToken userName: " + userName + " & password: " + password + " & stsEndpoint: " + stsEndpoint
         + " & urnAddress: " + urnAddress + " & crmServiceURL: " + crmServiceURL + " & crmServiceProtocal: " + crmServiceProtocal);
@@ -156,11 +156,11 @@ public final class MSOffice365AuthManager extends MSAuthManager {
                     response,
                     "//*[local-name()='Reason' and namespace-uri()='http://www.w3.org/2003/05/soap-envelope']/*[local-name()='Text' and namespace-uri()='http://www.w3.org/2003/05/soap-envelope']/text()");
 
-        throw new CADException(CADResponseCodes._1012 + " MS Login request failed : " + error);
+        throw new ScribeException(ScribeResponseCodes._1012 + " MS Login request failed : " + error);
       }
 
     } catch (final IOException e) {
-      throw new CADException(CADResponseCodes._1015 + " Not able to connect to office 365 login server: " + stsEndpoint);
+      throw new ScribeException(ScribeResponseCodes._1015 + " Not able to connect to office 365 login server: " + stsEndpoint);
     }
   }
 

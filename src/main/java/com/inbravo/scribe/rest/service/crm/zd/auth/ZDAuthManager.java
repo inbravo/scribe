@@ -23,6 +23,9 @@ package com.inbravo.scribe.rest.service.crm.zd.auth;
 
 import java.util.Map;
 
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+
 /**
  * 
  * @author amit.dixit
@@ -30,10 +33,22 @@ import java.util.Map;
  */
 public interface ZDAuthManager {
 
-  String getSessionId(final String userId, final String password, final String crmURL, final String crmProtocol, final int port) throws Exception;
+  String getSessionId(final String userId, final String password, final String crmURL, final String crmProtocol, final String port) throws Exception;
 
-  boolean login(final String userId, final String password, final String crmURL, final String crmProtocol, final int port) throws Exception;
+  boolean login(final String userId, final String password, final String crmURL, final String crmProtocol, final String port) throws Exception;
 
   Map<String, String> getSessionInfoAfterValidLogin(final String userId, final String password, final String crmURL, final String crmProtocol,
-      final int port) throws Exception;
+      final String port) throws Exception;
+
+  default int validateCrmPort(final String crmPort) {
+
+    try {
+
+      return Integer.parseInt(crmPort);
+    } catch (final NumberFormatException e) {
+
+      /* Throw user error */
+      throw new ScribeException(ScribeResponseCodes._1003 + "CRM integration information is invalid: CRM Port");
+    }
+  }
 }

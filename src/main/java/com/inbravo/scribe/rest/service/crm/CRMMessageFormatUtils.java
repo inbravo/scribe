@@ -47,10 +47,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.HTTPConstants;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 
 /**
  * 
@@ -86,7 +86,7 @@ public abstract class CRMMessageFormatUtils {
       TEMPLATE_XML_ELEMENT.removeAttribute("xmlns:xsi");
 
     } catch (final Exception e) {
-      throw new CADException(CADResponseCodes._1000 + "Problem in initializing the system resources");
+      throw new ScribeException(ScribeResponseCodes._1000 + "Problem in initializing the system resources");
     }
   }
 
@@ -238,25 +238,25 @@ public abstract class CRMMessageFormatUtils {
 
     if (orderByClauseArray == null) {
       logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid");
-      throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid");
+      throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else if (orderByClauseArray.length == 0 && orderByClauseArray.length == 1) {
       logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid");
-      throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid");
+      throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else if (orderByClauseArray.length != 2) {
       logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid");
-      throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid");
+      throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else {
       if (orderByClauseArray[0] == null) {
         logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid");
-        throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid");
+        throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
       }
       if (orderByClauseArray[1] == null) {
         logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid");
-        throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid");
+        throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
       } else {
         if (!("ASC".equalsIgnoreCase(orderByClauseArray[1].trim()) || "DESC".equalsIgnoreCase(orderByClauseArray[1].trim()))) {
           logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
-          throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
+          throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
         }
       }
     }
@@ -275,7 +275,7 @@ public abstract class CRMMessageFormatUtils {
   public final static URL getFileURL(final String fileName) {
     final URL fileURL = CRMMessageFormatUtils.class.getClassLoader().getResource(fileName);
     if (fileURL == null) {
-      throw new CADException(CADResponseCodes._1002 + "Following file is not found on system: " + fileName);
+      throw new ScribeException(ScribeResponseCodes._1002 + "Following file is not found on system: " + fileName);
     } else {
       return fileURL;
     }
@@ -302,7 +302,7 @@ public abstract class CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final String getNodeValue(final String nodeName, final CADObject cADbject) throws Exception {
+  public static final String getNodeValue(final String nodeName, final ScribeObject cADbject) throws Exception {
 
     String idNodeValue = null;
 
@@ -321,7 +321,7 @@ public abstract class CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final CADObject setNodeValue(final String nodeName, final String nodeValue, final CADObject cADbject) throws Exception {
+  public static final ScribeObject setNodeValue(final String nodeName, final String nodeValue, final ScribeObject cADbject) throws Exception {
 
     /* Iterate on the Element list and set id node value */
     for (final Element element : cADbject.getXmlContent()) {
@@ -338,7 +338,7 @@ public abstract class CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final CADObject addNode(final String nodeName, final String nodeValue, final CADObject cADbject) throws Exception {
+  public static final ScribeObject addNode(final String nodeName, final String nodeValue, final ScribeObject cADbject) throws Exception {
 
     /* Create new node */
     final Element newElement = createMessageElement(nodeName, nodeValue);
@@ -355,7 +355,7 @@ public abstract class CRMMessageFormatUtils {
     return cADbject;
   }
 
-  public static final CADObject createCADObject(final Map<String, String> additionalInfo) throws Exception {
+  public static final ScribeObject createCADObject(final Map<String, String> additionalInfo) throws Exception {
 
     /* Get additional information */
     if (additionalInfo != null) {
@@ -364,7 +364,7 @@ public abstract class CRMMessageFormatUtils {
       final List<Element> elementList = new ArrayList<Element>();
 
       /* Create new CAD object */
-      final CADObject cADbject = new CADObject();
+      final ScribeObject cADbject = new ScribeObject();
 
       for (final Entry<String, String> entry : additionalInfo.entrySet()) {
 

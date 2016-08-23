@@ -23,11 +23,9 @@ package com.inbravo.scribe.rest.service.crm.ns.session;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.BasicObject;
-import com.inbravo.scribe.internal.service.dto.CADUser;
+import com.inbravo.scribe.rest.service.crm.cache.BasicObject;
 import com.inbravo.scribe.rest.service.crm.cache.CRMSessionCache;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.ns.NetSuiteSOAPClient;
 import com.inbravo.scribe.rest.service.crm.ns.v2k9.NSCRMV2k9ClientInfoProvidor;
 import com.inbravo.scribe.rest.service.crm.ns.v2k9.NSCRMV2k9ClientInfoProvidor.NSCRMV2k9ClientInfo;
@@ -67,10 +65,10 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
     logger.debug("---Inside getSoapBindingStub: " + crmUserId);
 
     /* Recover user from cache */
-    final CADUser user = (CADUser) cRMSessionCache.recover(crmUserId);
+    final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
 
     /* This code block will be usefull if cache size limit is reached */
-    if (user == null) {
+    if (cacheObject == null) {
 
       logger.debug("---Inside getSoapBindingStub, user not found in cache hence going for fresh fetch. Seems like cache limit is reached");
 
@@ -81,29 +79,31 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
     NetSuiteBindingStub soapBindingStub = null;
 
     /* Get SOAP stub */
-    if (user.getSoapStub() != null) {
+    if (cacheObject.getSoapStub() != null) {
 
       logger.debug("---Inside getSoapBindingStub, using stub from cache");
 
       /* Get stub from cache */
-      soapBindingStub = (NetSuiteBindingStub) user.getSoapStub();
+      soapBindingStub = (NetSuiteBindingStub) cacheObject.getSoapStub();
     } else {
 
       /* Get service URL information */
-      final NSCRMV2k9ClientInfo clientInfo = clientInfoProvidor.getNSCRMV2k9ClientInfo(user.getCrmUserId(), user.getCrmPassword());
+      final NSCRMV2k9ClientInfo clientInfo =
+          clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword());
 
       logger.debug("---Inside getSoapBindingStub, creating fresh stub, client info: " + clientInfo);
 
       /* TODO : Login at NetSuite : pass role id as 3 for admin role */
       soapBindingStub =
-          netSuiteSOAPClient.login(user.getCrmUserId(), user.getCrmPassword(), user.getCrmAccountId(), clientInfo.getWebservicesDomain());
+          netSuiteSOAPClient.login(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject
+              .getcADMetaObject().getCrmAccountId(), clientInfo.getWebservicesDomain());
 
       /* Set this stub in agent */
-      user.setSoapStub(soapBindingStub);
+      cacheObject.setSoapStub(soapBindingStub);
     }
 
     /* Re-admit this agent with CRM session information */
-    cRMSessionCache.admit(crmUserId, user);
+    cRMSessionCache.admit(crmUserId, cacheObject);
 
     return soapBindingStub;
   }
@@ -114,44 +114,34 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
     logger.debug("---Inside getSessionInfo id: " + crmUserId);
 
     /* Check if session is already available at cache */
-    final BasicObject basicObject = (BasicObject) cRMSessionCache.recover(crmUserId);
+    final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
 
-    /* Check the type of user */
-    if (basicObject instanceof CADUser) {
+    /* Get service URL information */
+    final NSCRMV2k9ClientInfo clientInfo =
+        clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword());
 
-      logger.debug("---Inside getSessionInfo agent: " + crmUserId);
+    logger.debug("---Inside getSessionInfo, clientInfo: " + clientInfo);
 
-      /* Get agent information from cache */
-      final CADUser agent = (CADUser) basicObject;
+    /* Login at NetSuite : pass role id as 3 for admin role */
+    final NetSuiteBindingStub soapBindingStub =
+        netSuiteSOAPClient.login(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject
+            .getcADMetaObject().getCrmAccountId(), clientInfo.getWebservicesDomain());
 
-      /* Get service URL information */
-      final NSCRMV2k9ClientInfo clientInfo = clientInfoProvidor.getNSCRMV2k9ClientInfo(agent.getCrmUserId(), agent.getCrmPassword());
+    /* Set this stub in agent */
+    cacheObject.setSoapStub(soapBindingStub);
 
-      logger.debug("---Inside getSessionInfo, clientInfo: " + clientInfo);
+    /* Set service URL */
+    if (cacheObject.getcADMetaObject().getCrmServiceURL() == null) {
 
-      /* Login at NetSuite : pass role id as 3 for admin role */
-      final NetSuiteBindingStub soapBindingStub =
-          netSuiteSOAPClient.login(agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmAccountId(), clientInfo.getWebservicesDomain());
-
-      /* Set this stub in agent */
-      agent.setSoapStub(soapBindingStub);
-
-      /* Set service URL */
-      if (agent.getCrmServiceURL() == null) {
-
-        agent.setCrmServiceURL(clientInfo.getSystemDomain());
-        agent.setCrmServiceProtocol(null);
-      }
-
-      /* Save this freshly updated agent in session cache */
-      cRMSessionCache.admit(crmUserId, agent);
-
-      /* If everything is fine return true */
-      return agent;
-    } else {
-      /* Inform user about absent header value */
-      throw new CADException(CADResponseCodes._1008 + " User information is not valid");
+      cacheObject.getcADMetaObject().setCrmServiceURL(clientInfo.getSystemDomain());
+      cacheObject.getcADMetaObject().setCrmServiceProtocol(null);
     }
+
+    /* Save this freshly updated agent in session cache */
+    cRMSessionCache.admit(crmUserId, cacheObject);
+
+    /* If everything is fine return true */
+    return cacheObject;
   }
 
 
@@ -161,29 +151,31 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
     logger.debug("---Inside login crmUserId: " + crmUserId);
 
     /* Check if session is already available at cache */
-    final CADUser user = (CADUser) cRMSessionCache.recover(crmUserId);
+    final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
 
     /* Get service URL information */
-    final NSCRMV2k9ClientInfo clientInfo = clientInfoProvidor.getNSCRMV2k9ClientInfo(user.getCrmUserId(), user.getCrmPassword());
+    final NSCRMV2k9ClientInfo clientInfo =
+        clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword());
 
     logger.debug("---Inside login clientInfo: " + clientInfo);
 
     /* Login at NetSuite : pass role id as 3 for admin role */
     final NetSuiteBindingStub soapBindingStub =
-        netSuiteSOAPClient.login(user.getCrmUserId(), user.getCrmPassword(), user.getCrmAccountId(), clientInfo.getWebservicesDomain());
+        netSuiteSOAPClient.login(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject
+            .getcADMetaObject().getCrmAccountId(), clientInfo.getWebservicesDomain());
 
     /* Set this stub in agent */
-    user.setSoapStub(soapBindingStub);
+    cacheObject.setSoapStub(soapBindingStub);
 
     /* Set service URL */
-    if (user.getCrmServiceURL() == null) {
+    if (cacheObject.getcADMetaObject().getCrmServiceURL() == null) {
 
-      user.setCrmServiceURL(clientInfo.getSystemDomain());
-      user.setCrmServiceProtocol(null);
+      cacheObject.getcADMetaObject().setCrmServiceURL(clientInfo.getSystemDomain());
+      cacheObject.getcADMetaObject().setCrmServiceProtocol(null);
     }
 
     /* Save this freshly updated agent in session cache */
-    cRMSessionCache.admit(crmUserId, user);
+    cRMSessionCache.admit(crmUserId, cacheObject);
 
     /* If everything is fine return true */
     return true;

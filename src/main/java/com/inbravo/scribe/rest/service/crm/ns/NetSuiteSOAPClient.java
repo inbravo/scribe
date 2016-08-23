@@ -30,8 +30,8 @@ import org.apache.axis.AxisFault;
 import org.apache.axis.message.SOAPHeaderElement;
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.netsuite.webservices.platform.NetSuiteBindingStub;
 import com.netsuite.webservices.platform.NetSuiteServiceLocator;
 import com.netsuite.webservices.platform.core.Passport;
@@ -91,7 +91,7 @@ public final class NetSuiteSOAPClient {
         if (logger.isDebugEnabled()) {
           logger.debug("---Inside createSoapBinding: nsServiceURL : " + nsServiceURL);
         }
-      } catch (final CADException e) {
+      } catch (final ScribeException e) {
 
         /* log this error */
         logger.debug("---Inside createSoapBinding error while getting web service url, going for default web service url of NS v2009.1");
@@ -114,7 +114,7 @@ public final class NetSuiteSOAPClient {
       } catch (final NumberFormatException e) {
 
         /* Inform the user about system error */
-        throw new CADException(CADResponseCodes._1002 + "'NS_Session_Timeout' in scribe.properties");
+        throw new ScribeException(ScribeResponseCodes._1002 + "'NS_Session_Timeout' in scribe.properties");
       }
     } catch (final ServiceException serviceException) {
 
@@ -122,7 +122,7 @@ public final class NetSuiteSOAPClient {
       logger.error("=*=Inside createSoapBinding", serviceException);
 
       /* Inform user about service exception */
-      throw new CADException(CADResponseCodes._1000 + "Service exception while creating NetSuite stub", serviceException);
+      throw new ScribeException(ScribeResponseCodes._1000 + "Service exception while creating NetSuite stub", serviceException);
     }
     return soapBindingStub;
   }
@@ -144,7 +144,7 @@ public final class NetSuiteSOAPClient {
     if (externalUsername == null & externalUsername == null & accountId == null) {
 
       /* Throw user error */
-      throw new CADException(CADResponseCodes._1008 + "NetSuite CRM credentials not found");
+      throw new ScribeException(ScribeResponseCodes._1008 + "NetSuite CRM credentials not found");
     }
 
     /* Create new Stub */
@@ -200,50 +200,50 @@ public final class NetSuiteSOAPClient {
           logger.debug("---Inside login, NetSuite login attempt is successfull? : " + status.isIsSuccess());
         }
       } else {
-        throw new CADException(CADResponseCodes._1021 + "NetSuite webservice error while login : Login status is not available");
+        throw new ScribeException(ScribeResponseCodes._1021 + "NetSuite webservice error while login : Login status is not available");
       }
 
     } catch (final ExceededRecordCountFault e) {
 
       /* Inform user about unexpected error */
-      throw new CADException(CADResponseCodes._1021 + "NetSuite webservice error : Response records count exceeded", e);
+      throw new ScribeException(ScribeResponseCodes._1021 + "NetSuite webservice error : Response records count exceeded", e);
     } catch (final ExceededRequestLimitFault e) {
 
       /* Inform user about unexpected error */
-      throw new CADException(CADResponseCodes._1021 + "NetSuite webservice error : Request limit is exceeded", e);
+      throw new ScribeException(ScribeResponseCodes._1021 + "NetSuite webservice error : Request limit is exceeded", e);
     } catch (final ExceededUsageLimitFault e) {
 
       /* Inform user about unexpected error */
-      throw new CADException(CADResponseCodes._1021 + "NetSuite webservice error : Usage limit is exceeded", e);
+      throw new ScribeException(ScribeResponseCodes._1021 + "NetSuite webservice error : Usage limit is exceeded", e);
     } catch (final InvalidSessionFault e) {
 
       /* Inform user about unexpected error */
-      throw new CADException(CADResponseCodes._1021 + "NetSuite webservice error : Invalid session fault", e);
+      throw new ScribeException(ScribeResponseCodes._1021 + "NetSuite webservice error : Invalid session fault", e);
     } catch (final InvalidCredentialsFault e) {
 
       /* Inform user about unexpected error */
-      throw new CADException(CADResponseCodes._1012 + "NetSuite webservice error : Credentials are not valid", e);
+      throw new ScribeException(ScribeResponseCodes._1012 + "NetSuite webservice error : Credentials are not valid", e);
     } catch (final AxisFault e) {
 
       logger.debug("---Inside login : AxisFault : " + e.dumpToString());
 
       /* Inform user about unexpected error */
-      throw new CADException(CADResponseCodes._1021 + "NetSuite webservice error while login : error dump : " + e.dumpToString());
+      throw new ScribeException(ScribeResponseCodes._1021 + "NetSuite webservice error while login : error dump : " + e.dumpToString());
     } catch (final RemoteException e) {
 
       /* Inform user about remote error */
-      logger.debug("---Inside login problem at NetSuite login: " + CADResponseCodes._1021 + " : Remote Error", e);
+      logger.debug("---Inside login problem at NetSuite login: " + ScribeResponseCodes._1021 + " : Remote Error", e);
 
       /* Inform user about remote error */
-      throw new CADException(CADResponseCodes._1021 + " : Remote Error : " + e);
+      throw new ScribeException(ScribeResponseCodes._1021 + " : Remote Error : " + e);
 
     } catch (final Exception e) {
 
       /* Inform user about remote error */
-      logger.error("---Inside login problem at NetSuite login: " + CADResponseCodes._1021 + " : Login Error", e);
+      logger.error("---Inside login problem at NetSuite login: " + ScribeResponseCodes._1021 + " : Login Error", e);
 
       /* Inform user about remote error */
-      throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
+      throw new ScribeException(ScribeResponseCodes._1021 + " : Login Error : " + e.getMessage());
     }
 
     return soapBindingStub;

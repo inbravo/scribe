@@ -27,10 +27,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 import com.inbravo.scribe.rest.service.msg.type.FileAttachment;
 import com.inbravo.scribe.rest.service.msg.type.FileAttachments;
 
@@ -48,21 +48,21 @@ public final class CADAttachmentUtils {
    * @return
    * @throws SQLException
    */
-  public static final FileAttachments createFileAttachments(final CADCommandObject cADCommandObject) throws SQLException {
+  public static final FileAttachments createFileAttachments(final ScribeCommandObject cADCommandObject) throws SQLException {
 
     /* Create attachment list */
     final List<FileAttachment> attachments = new ArrayList<FileAttachment>();
 
     /* If attachment request */
-    if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length != 0) {
+    if (cADCommandObject.getObject() != null && cADCommandObject.getObject().length != 0) {
 
-      logger.debug("---Inside getObjects, no. of objects in response: " + cADCommandObject.getcADObject().length);
+      logger.debug("---Inside getObjects, no. of objects in response: " + cADCommandObject.getObject().length);
 
       /* Get object array */
-      final CADObject[] cADbjectArr = cADCommandObject.getcADObject();
+      final ScribeObject[] cADbjectArr = cADCommandObject.getObject();
 
       /* Iterate over all objects */
-      for (final CADObject cADbject : cADbjectArr) {
+      for (final ScribeObject cADbject : cADbjectArr) {
 
         /* Get object content */
         final List<Object> objectList = cADbject.getObjectContent();
@@ -87,7 +87,7 @@ public final class CADAttachmentUtils {
       }
     } else {
       /* Inform user that object not found */
-      throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
+      throw new ScribeException(ScribeResponseCodes._1004 + cADCommandObject.getObjectType());
     }
 
     /* Check if attachments are found */
@@ -97,7 +97,7 @@ public final class CADAttachmentUtils {
       return new FileAttachments(attachments);
     } else {
       /* Inform user that object not found */
-      throw new CADException(CADResponseCodes._1004 + "Attachment file");
+      throw new ScribeException(ScribeResponseCodes._1004 + "Attachment file");
     }
   }
 }

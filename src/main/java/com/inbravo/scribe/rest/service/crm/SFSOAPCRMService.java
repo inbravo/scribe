@@ -29,10 +29,10 @@ import org.apache.axis.message.MessageElement;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 import com.inbravo.scribe.rest.service.crm.sf.SalesForceMessageFormatUtils;
 import com.inbravo.scribe.rest.service.crm.sf.session.SalesForceCRMSessionManager;
 import com.sforce.soap.partner.DeleteResult;
@@ -61,13 +61,13 @@ public final class SFSOAPCRMService extends CRMService {
   private String orderFieldsSeparator;
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
 
     /* Get Sales Force stub for the agent */
     final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     /* Create message element array */
-    final MessageElement[] messageElementArray = SalesForceMessageFormatUtils.createMessageElementArray(cADCommandObject.getcADObject()[0]);
+    final MessageElement[] messageElementArray = SalesForceMessageFormatUtils.createMessageElementArray(cADCommandObject.getObject()[0]);
 
     /* Create Sales object of type 'Account' */
     final SObject sObject = new SObject();
@@ -91,23 +91,23 @@ public final class SFSOAPCRMService extends CRMService {
           logger.debug("---Inside createObject object with id: " + saveResults[i].getId() + " is created");
 
           /* Set object id in object before sending back */
-          cADCommandObject.getcADObject()[0] =
-              SalesForceMessageFormatUtils.setNodeValue("Id", saveResults[i].getId(), cADCommandObject.getcADObject()[0]);
+          cADCommandObject.getObject()[0] =
+              SalesForceMessageFormatUtils.setNodeValue("Id", saveResults[i].getId(), cADCommandObject.getObject()[0]);
         } else {
           logger.info("---Inside createObject: error recieved from Sales Force: " + saveResults[i].getErrors()[0].getMessage());
-          throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
+          throw new ScribeException(ScribeResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
               + saveResults[i].getErrors()[0].getMessage() + " : Status Code : " + saveResults[i].getErrors()[0].getStatusCode() + " : Fields : "
               + saveResults[i].getErrors()[0].getFields());
         }
       }
     } else {
-      throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType());
+      throw new ScribeException(ScribeResponseCodes._1001 + cADCommandObject.getObjectType());
     }
     return cADCommandObject;
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
+  public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
 
     /* Get Sales Force stub for the agent */
     final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
@@ -129,20 +129,20 @@ public final class SFSOAPCRMService extends CRMService {
           logger.debug("---Inside deleteObject object with id: " + deleteResult[i].getId() + " is deleted");
         } else {
           logger.info("---Inside deleteObject: error recieved from Sales Force: " + deleteResult[i].getErrors()[0].getMessage());
-          throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
+          throw new ScribeException(ScribeResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
               + deleteResult[i].getErrors()[0].getMessage() + " : Status Code : " + deleteResult[i].getErrors()[0].getStatusCode() + " : Fields : "
               + deleteResult[i].getErrors()[0].getFields());
         }
       }
     } else {
-      throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType());
+      throw new ScribeException(ScribeResponseCodes._1001 + cADCommandObject.getObjectType());
     }
     /* Control will arrive to this return only after the success */
     return true;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
 
     /* Get Sales Force stub for the agent */
     final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
@@ -178,11 +178,11 @@ public final class SFSOAPCRMService extends CRMService {
           query = query + " From " + cADCommandObject.getObjectType();
         } else {
           logger.debug("---Inside getObjects no records in response");
-          throw new CADException(CADResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
+          throw new ScribeException(ScribeResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
         }
       } else {
         logger.debug("---Inside getObjects no response from Sales Force");
-        throw new CADException(CADResponseCodes._1005);
+        throw new ScribeException(ScribeResponseCodes._1005);
       }
 
       logger.debug("---Inside getObjects SOQL query: " + query);
@@ -197,11 +197,11 @@ public final class SFSOAPCRMService extends CRMService {
       if (queryResult.getRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] cADbjectArray = new CADObject[queryResult.getRecords().length];
+        final ScribeObject[] cADbjectArray = new ScribeObject[queryResult.getRecords().length];
         for (int i = 0; i < queryResult.getRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject cADbject = new CADObject();
+          final ScribeObject cADbject = new ScribeObject();
 
           /* Get record number i */
           final SObject sObject = queryResult.getRecords()[i];
@@ -237,19 +237,19 @@ public final class SFSOAPCRMService extends CRMService {
         }
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(cADbjectArray);
+        cADCommandObject.setObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
+        throw new ScribeException(ScribeResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
       logger.debug("---Inside getObjects no response from Sales Force");
-      throw new CADException(CADResponseCodes._1005);
+      throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
   }
 
-  private final CADCommandObject getObjectsBySelectCriteria(final CADCommandObject cADCommandObject, final String selectCriteria) throws Exception {
+  private final ScribeCommandObject getObjectsBySelectCriteria(final ScribeCommandObject cADCommandObject, final String selectCriteria) throws Exception {
 
     logger.debug("---Inside getObjectsBySelectCriteria selectCriteria: " + selectCriteria);
 
@@ -266,12 +266,12 @@ public final class SFSOAPCRMService extends CRMService {
       if (queryResult.getRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] cADbjectArray = new CADObject[queryResult.getRecords().length];
+        final ScribeObject[] cADbjectArray = new ScribeObject[queryResult.getRecords().length];
 
         for (int i = 0; i < queryResult.getRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject cADbject = new CADObject();
+          final ScribeObject cADbject = new ScribeObject();
 
           /* Get record number i */
           final SObject sObject = queryResult.getRecords()[i];
@@ -307,20 +307,20 @@ public final class SFSOAPCRMService extends CRMService {
         }
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(cADbjectArray);
+        cADCommandObject.setObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjectsBySelectCriteria no records in response");
-        throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
+        throw new ScribeException(ScribeResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
       logger.debug("---Inside getObjectsBySelectCriteria no response from Sales Force");
-      throw new CADException(CADResponseCodes._1005);
+      throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects query: " + query);
 
     /* Check if query is a SFDC find type */
@@ -378,11 +378,11 @@ public final class SFSOAPCRMService extends CRMService {
           }
         } else {
           logger.debug("---Inside getObjects no records in response");
-          throw new CADException(CADResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
+          throw new ScribeException(ScribeResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
         }
       } else {
         logger.debug("---Inside getObjects no response from Sales Force");
-        throw new CADException(CADResponseCodes._1005);
+        throw new ScribeException(ScribeResponseCodes._1005);
       }
 
       logger.debug("---Inside getObjects SOQL query: " + cadQuery);
@@ -397,12 +397,12 @@ public final class SFSOAPCRMService extends CRMService {
       if (queryResult.getRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] cADbjectArray = new CADObject[queryResult.getRecords().length];
+        final ScribeObject[] cADbjectArray = new ScribeObject[queryResult.getRecords().length];
 
         for (int i = 0; i < queryResult.getRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject cADbject = new CADObject();
+          final ScribeObject cADbject = new ScribeObject();
 
           /* Get record number i */
           final SObject sObject = queryResult.getRecords()[i];
@@ -438,19 +438,19 @@ public final class SFSOAPCRMService extends CRMService {
         }
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(cADbjectArray);
+        cADCommandObject.setObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
+        throw new ScribeException(ScribeResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
       logger.debug("---Inside getObjects no response from Sales Force");
-      throw new CADException(CADResponseCodes._1005);
+      throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
   }
 
-  private final CADCommandObject getObjectsBySearchCriteria(final CADCommandObject cADCommandObject, final String searchCriteria) throws Exception {
+  private final ScribeCommandObject getObjectsBySearchCriteria(final ScribeCommandObject cADCommandObject, final String searchCriteria) throws Exception {
     logger.debug("---Inside getObjectsBySearchCriteria searchCriteria: " + searchCriteria);
 
     /* Get Sales Force stub for the agent */
@@ -467,12 +467,12 @@ public final class SFSOAPCRMService extends CRMService {
       if (searchResult.getSearchRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] cADbjectArray = new CADObject[searchResult.getSearchRecords().length];
+        final ScribeObject[] cADbjectArray = new ScribeObject[searchResult.getSearchRecords().length];
 
         for (int i = 0; i < searchResult.getSearchRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject cADbject = new CADObject();
+          final ScribeObject cADbject = new ScribeObject();
 
           /* Get record number i */
           final SearchRecord searchRecord = searchResult.getSearchRecords()[i];
@@ -504,20 +504,20 @@ public final class SFSOAPCRMService extends CRMService {
         logger.debug("---Inside getObjectsBySearchCriteria object length: " + cADbjectArray.length);
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(cADbjectArray);
+        cADCommandObject.setObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjectsBySearchCriteria no records in response");
-        throw new CADException(CADResponseCodes._1004 + " anything in find query");
+        throw new ScribeException(ScribeResponseCodes._1004 + " anything in find query");
       }
     } else {
       logger.debug("---Inside getObjectsBySearchCriteria no response from Sales Force");
-      throw new CADException(CADResponseCodes._1005);
+      throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select);
 
     /* Get Sales Force stub for the agent */
@@ -595,16 +595,16 @@ public final class SFSOAPCRMService extends CRMService {
               }
             } else {
               logger.debug("---Inside getObjects no records in response");
-              throw new CADException(CADResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
+              throw new ScribeException(ScribeResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
             }
           } else {
             logger.debug("---Inside getObjects no response from Sales Force");
-            throw new CADException(CADResponseCodes._1005);
+            throw new ScribeException(ScribeResponseCodes._1005);
           }
         }
       } else {
         logger.debug("---Inside getObjects sSelect fields criteria is empty");
-        throw new CADException(CADResponseCodes._1008 + "Select fields criteria is empty");
+        throw new ScribeException(ScribeResponseCodes._1008 + "Select fields criteria is empty");
       }
 
       logger.debug("---Inside getObjects SOQL query: " + cadQuery);
@@ -619,12 +619,12 @@ public final class SFSOAPCRMService extends CRMService {
       if (queryResult.getRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] cADbjectArray = new CADObject[queryResult.getRecords().length];
+        final ScribeObject[] cADbjectArray = new ScribeObject[queryResult.getRecords().length];
 
         for (int i = 0; i < queryResult.getRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject cADbject = new CADObject();
+          final ScribeObject cADbject = new ScribeObject();
 
           /* Get record number i */
           final SObject sObject = queryResult.getRecords()[i];
@@ -660,19 +660,19 @@ public final class SFSOAPCRMService extends CRMService {
         }
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(cADbjectArray);
+        cADCommandObject.setObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
+        throw new ScribeException(ScribeResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
       logger.debug("---Inside getObjects no response from Sales Force");
-      throw new CADException(CADResponseCodes._1005);
+      throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
   }
 
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
 
@@ -751,16 +751,16 @@ public final class SFSOAPCRMService extends CRMService {
               }
             } else {
               logger.debug("---Inside getObjects no records in response");
-              throw new CADException(CADResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
+              throw new ScribeException(ScribeResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
             }
           } else {
             logger.debug("---Inside getObjects no response from Sales Force");
-            throw new CADException(CADResponseCodes._1005);
+            throw new ScribeException(ScribeResponseCodes._1005);
           }
         }
       } else {
         logger.debug("---Inside getObjects sSelect fields criteria is empty");
-        throw new CADException(CADResponseCodes._1008 + "Select fields criteria is empty");
+        throw new ScribeException(ScribeResponseCodes._1008 + "Select fields criteria is empty");
       }
 
       /* Create order by clause */
@@ -802,12 +802,12 @@ public final class SFSOAPCRMService extends CRMService {
       if (queryResult.getRecords() != null) {
 
         /* Create Object array with query result length */
-        final CADObject[] cADbjectArray = new CADObject[queryResult.getRecords().length];
+        final ScribeObject[] cADbjectArray = new ScribeObject[queryResult.getRecords().length];
 
         for (int i = 0; i < queryResult.getRecords().length; i++) {
 
           /* Create one Object each record */
-          final CADObject cADbject = new CADObject();
+          final ScribeObject cADbject = new ScribeObject();
 
           /* Get record number i */
           final SObject sObject = queryResult.getRecords()[i];
@@ -843,20 +843,20 @@ public final class SFSOAPCRMService extends CRMService {
         }
 
         /* Set the final object in command object */
-        cADCommandObject.setcADObject(cADbjectArray);
+        cADCommandObject.setObject(cADbjectArray);
       } else {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + cADCommandObject.getObjectType());
+        throw new ScribeException(ScribeResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
       logger.debug("---Inside getObjects no response from Sales Force");
-      throw new CADException(CADResponseCodes._1005);
+      throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjectsCount");
 
     /* Get Sales Force stub for the agent */
@@ -874,7 +874,7 @@ public final class SFSOAPCRMService extends CRMService {
     if (queryResult != null) {
 
       /* Create one Object each record */
-      final CADObject cADbject = new CADObject();
+      final ScribeObject cADbject = new ScribeObject();
 
       /* Create list of elements */
       final List<Element> elementList = new ArrayList<Element>();
@@ -888,16 +888,16 @@ public final class SFSOAPCRMService extends CRMService {
       cADbject.setXmlContent(elementList);
 
       /* Set the final object in command object */
-      cADCommandObject.setcADObject(new CADObject[] {cADbject});
+      cADCommandObject.setObject(new ScribeObject[] {cADbject});
     } else {
       logger.debug("---Inside getObjectsCount no response from Sales Force");
-      throw new CADException(CADResponseCodes._1005);
+      throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjectsCount");
 
     /* Get Sales Force stub for the agent */
@@ -930,7 +930,7 @@ public final class SFSOAPCRMService extends CRMService {
     if (queryResult != null) {
 
       /* Create one Object each record */
-      final CADObject cADbject = new CADObject();
+      final ScribeObject cADbject = new ScribeObject();
 
       /* Create list of elements */
       final List<Element> elementList = new ArrayList<Element>();
@@ -944,22 +944,22 @@ public final class SFSOAPCRMService extends CRMService {
       cADbject.setXmlContent(elementList);
 
       /* Set the final object in command object */
-      cADCommandObject.setcADObject(new CADObject[] {cADbject});
+      cADCommandObject.setObject(new ScribeObject[] {cADbject});
     } else {
       logger.debug("---Inside getObjectsCount no response from Sales Force");
-      throw new CADException(CADResponseCodes._1005);
+      throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject updateObject(final ScribeCommandObject cADCommandObject) throws Exception {
 
     /* Get Sales Force stub for the agent */
     final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
     /* Create message element array */
-    MessageElement[] messageElementArray = SalesForceMessageFormatUtils.createMessageElementArray(cADCommandObject.getcADObject()[0]);
+    MessageElement[] messageElementArray = SalesForceMessageFormatUtils.createMessageElementArray(cADCommandObject.getObject()[0]);
 
     /* Create Sales force CRM object */
     SObject sObject = new SObject();
@@ -983,17 +983,17 @@ public final class SFSOAPCRMService extends CRMService {
           logger.debug("---Object with id: " + saveResults[i].getId() + " is updated");
 
           /* Set object id in object before sending back */
-          cADCommandObject.getcADObject()[0] =
-              SalesForceMessageFormatUtils.setNodeValue("Id", saveResults[i].getId(), cADCommandObject.getcADObject()[0]);
+          cADCommandObject.getObject()[0] =
+              SalesForceMessageFormatUtils.setNodeValue("Id", saveResults[i].getId(), cADCommandObject.getObject()[0]);
         } else {
           logger.info("---Inside updateObject: error recieved from Sales Force: " + saveResults[i].getErrors()[0].getMessage());
-          throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
+          throw new ScribeException(ScribeResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
               + saveResults[i].getErrors()[0].getMessage() + " : Status Code : " + saveResults[i].getErrors()[0].getStatusCode() + " : Fields : "
               + saveResults[i].getErrors()[0].getFields());
         }
       }
     } else {
-      throw new CADException(CADResponseCodes._1001 + cADCommandObject.getObjectType());
+      throw new ScribeException(ScribeResponseCodes._1001 + cADCommandObject.getObjectType());
     }
     return cADCommandObject;
   }

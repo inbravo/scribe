@@ -29,7 +29,7 @@
 		<echo message="Going for compilation" />
 		<echo message="==========================================================" />
 		<mkdir dir="${build.classes.dir}" />
-		<javac destdir="${build.classes.dir}" debug="true">
+		<javac destdir="${build.classes.dir}" debug="true" includeantruntime="false">
 			<src path="${basedir}/src/main/java" />
 			<classpath refid="project.classpath" />
 		</javac>

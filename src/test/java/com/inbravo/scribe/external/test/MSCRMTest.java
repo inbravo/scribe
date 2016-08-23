@@ -24,8 +24,8 @@ import org.jaxen.SimpleNamespaceContext;
 import org.jaxen.XPath;
 import org.jaxen.function.StringFunction;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.CRMConstants.MSCRMObjectType;
 import com.inbravo.scribe.rest.service.crm.CRMMessageFormatUtils;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMMessageFormatUtils;
@@ -294,11 +294,11 @@ public class MSCRMTest {
       }
       return crmFields;
     } catch (final IOException e) {
-      throw new CADException(CADResponseCodes._1015 + " Not able to connect to MS CRM server");
+      throw new ScribeException(ScribeResponseCodes._1015 + " Not able to connect to MS CRM server");
     } catch (final SOAPException e) {
-      throw new CADException(CADResponseCodes._1013 + " CRM server invalidated your request");
+      throw new ScribeException(ScribeResponseCodes._1013 + " CRM server invalidated your request");
     } catch (final JaxenException e) {
-      throw new CADException(CADResponseCodes._1013 + " CRM server invalidated your request");
+      throw new ScribeException(ScribeResponseCodes._1013 + " CRM server invalidated your request");
     }
   }
 }

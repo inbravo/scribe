@@ -27,8 +27,8 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.sforce.soap.partner.CallOptions;
 import com.sforce.soap.partner.LoginResult;
 import com.sforce.soap.partner.QueryOptions;
@@ -59,16 +59,17 @@ public final class SalesForceSOAPClient {
   private String queryBatchSize;
 
   private final synchronized SoapBindingStub createSoapBinding() throws Exception {
+
     logger.debug("---Inside createSoapBinding");
     SoapBindingStub soapBindingStub = null;
     try {
       /* Going to create new stub */
       soapBindingStub = (SoapBindingStub) new SforceServiceLocator().getSoap();
-    } catch (ServiceException serviceException) {
+    } catch (final ServiceException serviceException) {
       /* log this error */
       logger.error("=*=Inside createSoapBinding", serviceException);
       /* Inform user about service exception */
-      throw new CADException(CADResponseCodes._1000 + "Service exception while creating Sales Force stub", serviceException);
+      throw new ScribeException(ScribeResponseCodes._1000 + "Service exception while creating Sales Force stub", serviceException);
     }
     return soapBindingStub;
   }
@@ -83,7 +84,7 @@ public final class SalesForceSOAPClient {
     logger.debug("---Inside login CRM user name: " + externalUsername + " & CRM Password:" + externalPassword);
 
     if (externalUsername == null & externalUsername == null) {
-      throw new CADException(CADResponseCodes._1008 + "Sales Force CRM credentials not found");
+      throw new ScribeException(ScribeResponseCodes._1008 + "Sales Force CRM credentials not found");
     }
 
     /* Call options */
@@ -100,7 +101,7 @@ public final class SalesForceSOAPClient {
       /* Set timeout */
       soapBindingStub.setTimeout(Integer.parseInt(getTimeout()));
     } catch (final NumberFormatException e) {
-      throw new CADException(CADResponseCodes._1002 + "'Timeout'");
+      throw new ScribeException(ScribeResponseCodes._1002 + "'Timeout'");
     }
     LoginResult loginResult = null;
     try {
@@ -111,34 +112,36 @@ public final class SalesForceSOAPClient {
     } catch (final InvalidIdFault invalidIdFault) {
 
       /* Inform user about invalid user id */
-      throw new CADException(CADResponseCodes._1006 + "Invalid Userid", invalidIdFault);
+      throw new ScribeException(ScribeResponseCodes._1006 + "Invalid Userid", invalidIdFault);
     } catch (final UnexpectedErrorFault unexpectedErrorFault) {
 
       /* Inform user about unexpected error */
-      throw new CADException(CADResponseCodes._1006 + "Unexpected Error", unexpectedErrorFault);
+      throw new ScribeException(ScribeResponseCodes._1006 + "Unexpected Error", unexpectedErrorFault);
     } catch (final LoginFault loginFault) {
 
       /* Inform user about login error */
       final ExceptionCode exCode = loginFault.getExceptionCode();
       final String exMessage = loginFault.getExceptionMessage();
+
       if (exCode == ExceptionCode.FUNCTIONALITY_NOT_ENABLED || exCode == ExceptionCode.INVALID_CLIENT || exCode == ExceptionCode.INVALID_LOGIN
           || exCode == ExceptionCode.LOGIN_DURING_RESTRICTED_DOMAIN || exCode == ExceptionCode.LOGIN_DURING_RESTRICTED_TIME
           || exCode == ExceptionCode.ORG_LOCKED || exCode == ExceptionCode.PASSWORD_LOCKOUT || exCode == ExceptionCode.SERVER_UNAVAILABLE
           || exCode == ExceptionCode.TRIAL_EXPIRED || exCode == ExceptionCode.UNSUPPORTED_CLIENT) {
-        logger.debug("---Inside login problem at SalesForce login: " + CADResponseCodes._1006 + "Exception code: " + exCode.getValue()
+        logger.debug("---Inside login problem at SalesForce login: " + ScribeResponseCodes._1006 + "Exception code: " + exCode.getValue()
             + " : Exception message: " + exMessage);
-        throw new CADException(CADResponseCodes._1006 + "Exception code: " + exCode.getValue() + " : Exception message: " + exMessage, loginFault);
+        throw new ScribeException(ScribeResponseCodes._1006 + "Exception code: " + exCode.getValue() + " : Exception message: " + exMessage,
+            loginFault);
       }
     } catch (final RemoteException remoteException) {
-      logger.debug("---Inside login problem at SalesForce login: " + CADResponseCodes._1006 + "Remote Error");
+      logger.debug("---Inside login problem at SalesForce login: " + ScribeResponseCodes._1006 + "Remote Error");
       /* Inform user about remote error */
-      throw new CADException(CADResponseCodes._1006 + "Remote Error", remoteException);
+      throw new ScribeException(ScribeResponseCodes._1006 + "Remote Error", remoteException);
     }
 
     /* Check if password is expired */
     if (loginResult.isPasswordExpired()) {
-      logger.debug("---Inside login: " + CADResponseCodes._1006 + "Password expired");
-      throw new CADException(CADResponseCodes._1006 + "Password expired");
+      logger.debug("---Inside login: " + ScribeResponseCodes._1006 + "Password expired");
+      throw new ScribeException(ScribeResponseCodes._1006 + "Password expired");
     }
 
     /* Set end point address */
@@ -153,7 +156,7 @@ public final class SalesForceSOAPClient {
     try {
       qo.setBatchSize(Integer.parseInt(queryBatchSize));
     } catch (final NumberFormatException numberFormatException) {
-      throw new CADException(CADResponseCodes._1002 + "'BatchSize'", numberFormatException);
+      throw new ScribeException(ScribeResponseCodes._1002 + "'BatchSize'", numberFormatException);
     }
 
     soapBindingStub.setHeader(new SforceServiceLocator().getServiceName().getNamespaceURI(), "QueryOptions", qo);

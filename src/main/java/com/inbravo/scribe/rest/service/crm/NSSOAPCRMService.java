@@ -27,10 +27,10 @@ import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.CRMConstants.NSCRMObjectType;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
 import com.inbravo.scribe.rest.service.crm.ns.NSCRMGenericService;
 import com.inbravo.scribe.rest.service.crm.ns.NetSuiteMessageFormatUtils;
 import com.inbravo.scribe.rest.service.crm.ns.session.NetSuiteCRMSessionManager;
@@ -73,7 +73,7 @@ public final class NSSOAPCRMService extends CRMService {
   private String crmFieldIntraSeparator;
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside createObject");
@@ -90,29 +90,29 @@ public final class NSSOAPCRMService extends CRMService {
     if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
 
       /* Create a new SupportCase */
-      record = nSCRMGenericService.createTask(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
+      record = nSCRMGenericService.createTask(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
     } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
 
       /* Create a new Task */
-      record = nSCRMGenericService.createSupportCase(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
+      record = nSCRMGenericService.createSupportCase(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
     } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.PhoneCall.toString())) {
 
       /* Create a new phone call */
-      record = nSCRMGenericService.createPhoneCall(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
+      record = nSCRMGenericService.createPhoneCall(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
     } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
       /* Create a new customer */
-      record = nSCRMGenericService.createCustomer(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
+      record = nSCRMGenericService.createCustomer(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
     } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
       /* Create a new customer */
-      record = nSCRMGenericService.createContact(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
+      record = nSCRMGenericService.createContact(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
     } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
 
       /* Create a new customer */
-      record = nSCRMGenericService.createOpportunity(cADCommandObject.getcADObject()[0], crmFieldIntraSeparator);
+      record = nSCRMGenericService.createOpportunity(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
     } else {
-      throw new CADException(CADResponseCodes._1003 + " Following CRM object:" + cADCommandObject.getObjectType() + ", is not supported by the CAD");
+      throw new ScribeException(ScribeResponseCodes._1003 + " Following CRM object:" + cADCommandObject.getObjectType() + ", is not supported by the CAD");
     }
 
     /* Get current system time before transaction */
@@ -145,10 +145,10 @@ public final class NSSOAPCRMService extends CRMService {
 
       if (stringBuffer.length() != 0) {
         /* Inform user about error */
-        throw new CADException(CADResponseCodes._1021 + "Not able to create : " + cADCommandObject.getObjectType() + " : " + stringBuffer);
+        throw new ScribeException(ScribeResponseCodes._1021 + "Not able to create : " + cADCommandObject.getObjectType() + " : " + stringBuffer);
       } else {
         /* Inform user about error */
-        throw new CADException(CADResponseCodes._1021 + "Not able to create : " + cADCommandObject.getObjectType());
+        throw new ScribeException(ScribeResponseCodes._1021 + "Not able to create : " + cADCommandObject.getObjectType());
       }
 
     } else {
@@ -161,8 +161,8 @@ public final class NSSOAPCRMService extends CRMService {
         logger.debug("---Inside createObject, created object with id: " + baseRef.getInternalId());
 
         /* Set object id in object before sending back */
-        cADCommandObject.getcADObject()[0] =
-            NetSuiteMessageFormatUtils.addNode(NSCRMFieldTypes.CRM_FIELD_ID, baseRef.getInternalId(), cADCommandObject.getcADObject()[0]);
+        cADCommandObject.getObject()[0] =
+            NetSuiteMessageFormatUtils.addNode(NSCRMFieldTypes.CRM_FIELD_ID, baseRef.getInternalId(), cADCommandObject.getObject()[0]);
       }
     }
 
@@ -170,14 +170,14 @@ public final class NSSOAPCRMService extends CRMService {
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
+  public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
 
     /* Inform user about error */
-    throw new CADException(CADResponseCodes._1003 + " Following operation is not supported by the CRM");
+    throw new ScribeException(ScribeResponseCodes._1003 + " Following operation is not supported by the CRM");
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
     logger.debug("---Inside getObjects");
 
     /* Get NS stub for the agent */
@@ -214,7 +214,7 @@ public final class NSSOAPCRMService extends CRMService {
     } else {
 
       /* Inform user about user error */
-      throw new CADException(CADResponseCodes._1003 + "Following CRM object is not supported by the CAD");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM object is not supported by the CAD");
     }
 
     SearchResult searchResult = null;
@@ -263,7 +263,7 @@ public final class NSSOAPCRMService extends CRMService {
       } else {
 
         /* Inform user about remote error */
-        throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
+        throw new ScribeException(ScribeResponseCodes._1021 + " : Login Error : " + e.getMessage());
       }
     }
 
@@ -272,7 +272,7 @@ public final class NSSOAPCRMService extends CRMService {
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects query: " + query);
 
 
@@ -313,7 +313,7 @@ public final class NSSOAPCRMService extends CRMService {
       } else {
 
         /* Inform user about user error */
-        throw new CADException(CADResponseCodes._1003 + "Following CRM object is not supported by the CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM object is not supported by the CAD");
       }
 
       SearchResult searchResult = null;
@@ -362,7 +362,7 @@ public final class NSSOAPCRMService extends CRMService {
         } else {
 
           /* Inform user about remote error */
-          throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
+          throw new ScribeException(ScribeResponseCodes._1021 + " : Login Error : " + e.getMessage());
         }
       }
 
@@ -374,17 +374,17 @@ public final class NSSOAPCRMService extends CRMService {
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
+  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
-  public final CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CAD");
+  public final ScribeCommandObject updateObject(final ScribeCommandObject cADCommandObject) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select);
 
     /* Trim the request variable */
@@ -430,7 +430,7 @@ public final class NSSOAPCRMService extends CRMService {
       } else {
 
         /* Inform user about user error */
-        throw new CADException(CADResponseCodes._1003 + "Following CRM object is not supported by the CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM object is not supported by the CAD");
       }
 
       SearchResult searchResult = null;
@@ -479,7 +479,7 @@ public final class NSSOAPCRMService extends CRMService {
         } else {
 
           /* Inform user about remote error */
-          throw new CADException(CADResponseCodes._1021 + " : Login Error : " + e.getMessage());
+          throw new ScribeException(ScribeResponseCodes._1021 + " : Login Error : " + e.getMessage());
         }
       }
 
@@ -517,18 +517,18 @@ public final class NSSOAPCRMService extends CRMService {
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject) throws Exception {
 
     /* Inform user about user error */
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by CAD");
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
 
     /* Inform user about user error */
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by CAD");
   }
 
   /**

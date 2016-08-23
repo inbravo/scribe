@@ -29,7 +29,7 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 import com.inbravo.scribe.rest.service.crm.CRMMessageFormatUtils;
 
 /**
@@ -45,7 +45,7 @@ public final class SalesForceMessageFormatUtils extends CRMMessageFormatUtils {
     super();
   }
 
-  public final static MessageElement[] createMessageElementArray(final CADObject cADbject) throws Exception {
+  public final static MessageElement[] createMessageElementArray(final ScribeObject cADbject) throws Exception {
 
     logger.debug("---Inside createMessageElementArray size of input Object:" + cADbject.getXmlContent().size());
     MessageElement[] messageElementArray = null;

@@ -23,10 +23,10 @@ package com.inbravo.scribe.rest.service.crm.ms.session;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.CADUser;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.service.crm.cache.CRMSessionCache;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.ms.auth.MSCRMDiscoveryManager;
 import com.inbravo.scribe.rest.service.crm.ms.dto.MSCRMUserInformation;
 import com.inbravo.scribe.rest.service.crm.session.CRMSessionManager;
@@ -50,7 +50,7 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
   public final boolean login(final String crmUserId, final String crmPassword) throws Exception {
 
     /* Check if session is already available at cache */
-    final CADUser user = (CADUser) cRMSessionCache.recover(crmUserId);
+    final ScribeCacheObject user = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
     logger.debug("---Inside login crmUserId: " + crmUserId);
 
     /* Get user information from Microsoft CRM */
@@ -65,7 +65,7 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
       return true;
     } else {
       /* Inform user about absent header value */
-      throw new CADException(CADResponseCodes._1012 + "Login attempt at MS-CRM is failed. Check credentials");
+      throw new ScribeException(ScribeResponseCodes._1012 + "Login attempt at MS-CRM is failed. Check credentials");
     }
   }
 
@@ -79,18 +79,18 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
   }
 
   @Override
-  public final CADUser getSessionInfo(final String crmUserId) throws Exception {
+  public final ScribeCacheObject getSessionInfo(final String crmUserId) throws Exception {
     logger.debug("---Inside getSessionInfo crmUserId: " + crmUserId);
 
     /* Check if session is already available at cache */
-    final CADUser user = (CADUser) cRMSessionCache.recover(crmUserId);
+    final ScribeCacheObject user = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
 
     logger.debug("---Inside login crmUserId: " + crmUserId);
 
     if (user == null) {
 
       /* Inform user about unauthorized agent */
-      throw new CADException(CADResponseCodes._1012 + "User");
+      throw new ScribeException(ScribeResponseCodes._1012 + "User");
     }
 
     /* Get user information from Microsoft CRM */
@@ -106,45 +106,45 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
       return user;
     } else {
       /* Inform user about absent header value */
-      throw new CADException(CADResponseCodes._1012 + "Login attempt at MS-CRM is failed. Check credentials");
+      throw new ScribeException(ScribeResponseCodes._1012 + "Login attempt at MS-CRM is failed. Check credentials");
     }
   }
 
 
-  public final synchronized CADUser getCrmUserInfoWithCRMSessionInformation(final String agentId) throws Exception {
+  public final synchronized ScribeCacheObject getCrmUserInfoWithCRMSessionInformation(final String agentId) throws Exception {
 
     logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation agent: " + agentId);
 
     /* Recover agent from cache */
-    final CADUser agent = (CADUser) cRMSessionCache.recover(agentId);
+    final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(agentId);
 
     /* Service URL is must for MS-CRM */
-    if (agent.getCrmServiceURL() == null) {
+    if (cacheObject.getcADMetaObject().getCrmServiceURL() == null) {
 
       /* Inform the user about error */
-      throw new CADException(CADResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
+      throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
     }
 
-    if (agent.getCrmSessionId() == null) {
+    if (cacheObject.getcADMetaObject().getCrmSessionId() == null) {
 
       logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation agent's CRM session is not found; Going to fetch session information");
 
       /* Get CRM service information from CRM */
-      final MSCRMUserInformation mSCRMUserInformation = mSCRMDiscoveryManager.getMSCRMUserInformation(agent);
+      final MSCRMUserInformation mSCRMUserInformation = mSCRMDiscoveryManager.getMSCRMUserInformation(cacheObject);
 
       logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation : CrmSessionId: " + mSCRMUserInformation.getCrmTicket());
 
       /* Set CRM ticket as session id at agent */
-      agent.setCrmSessionId(mSCRMUserInformation.getCrmTicket());
+      cacheObject.getcADMetaObject().setCrmSessionId(mSCRMUserInformation.getCrmTicket());
 
       /* Set CRM organization information at agent */
-      agent.setCrmOrgName(mSCRMUserInformation.getOrganizationName());
+      cacheObject.getcADMetaObject().setCrmOrgName(mSCRMUserInformation.getOrganizationName());
     }
 
     /* Re-admit this agent with CRM session information */
-    cRMSessionCache.admit(agentId, agent);
+    cRMSessionCache.admit(agentId, cacheObject);
 
-    return agent;
+    return cacheObject;
   }
 
   public final CRMSessionCache getcRMSessionCache() {

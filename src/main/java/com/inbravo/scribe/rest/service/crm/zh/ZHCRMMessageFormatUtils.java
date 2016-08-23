@@ -30,11 +30,11 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.w3c.dom.Element;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.HTTPConstants;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 import com.inbravo.scribe.rest.service.crm.CRMMessageFormatUtils;
 
 /**
@@ -262,7 +262,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @param cadSelect
    * @return
    */
-  public final static String createZHSelect(final CADCommandObject cADCommandObject, final String cadSelect) {
+  public final static String createZHSelect(final ScribeCommandObject cADCommandObject, final String cadSelect) {
 
     String zhSelect = "";
 
@@ -315,12 +315,12 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @param cADCommandObject
    * @return
    */
-  public static final String createRequestString(final CADCommandObject cADCommandObject, final String spaceCharReplacement,
+  public static final String createRequestString(final ScribeCommandObject cADCommandObject, final String spaceCharReplacement,
       final String permittedDateFormats, final String zHInputDateFormat) {
 
-    if (cADCommandObject.getcADObject() != null && cADCommandObject.getcADObject().length == 1) {
+    if (cADCommandObject.getObject() != null && cADCommandObject.getObject().length == 1) {
 
-      final CADObject cADbject = cADCommandObject.getcADObject()[0];
+      final ScribeObject cADbject = cADCommandObject.getObject()[0];
       final List<Element> elementList = cADbject.getXmlContent();
 
       /* Add start tag */
@@ -384,7 +384,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
       return zhDateTimeFormatter.print(iDT);
 
     } catch (final Exception e) {
-      throw new CADException(CADResponseCodes._1003 + "Following date input: " + iFieldValue + " is not acceptable at CAD", e);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following date input: " + iFieldValue + " is not acceptable at CAD", e);
     }
   }
 

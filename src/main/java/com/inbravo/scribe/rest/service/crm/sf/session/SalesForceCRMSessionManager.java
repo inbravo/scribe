@@ -24,11 +24,11 @@ package com.inbravo.scribe.rest.service.crm.sf.session;
 import org.apache.axis.message.SOAPHeaderElement;
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.BasicObject;
-import com.inbravo.scribe.internal.service.dto.CADUser;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.service.crm.cache.BasicObject;
 import com.inbravo.scribe.rest.service.crm.cache.CRMSessionCache;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.session.CRMSessionManager;
 import com.inbravo.scribe.rest.service.crm.sf.SalesForceSOAPClient;
 import com.sforce.soap.partner.SforceServiceLocator;
@@ -56,17 +56,17 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
     logger.debug("---Inside getSoapBindingStub: " + crmUserId);
 
     /* Recover agent from cache */
-    final CADUser user = (CADUser) cRMSessionCache.recover(crmUserId);
+    final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
 
     SoapBindingStub soapBindingStub = null;
 
     /* This code block will be usefull if cache size limit is reached */
-    if (user != null) {
+    if (cacheObject != null) {
 
       logger.debug("---Inside tenant not found in cache hence going for fresh fetch. Seems like cache limit is reached");
 
       /* Login at Sales Force */
-      soapBindingStub = salesForceSOAPClient.login(user.getCrmUserId(), user.getCrmPassword());
+      soapBindingStub = salesForceSOAPClient.login(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword());
     } else {
 
       /* Login at Sales Force */
@@ -83,14 +83,14 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
 
       /* Set session information at agent */
       /* Following session will be used for pagination */
-      user.setCrmSessionId(sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
+      cacheObject.getcADMetaObject().setCrmSessionId(sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
     } else {
       /* Inform user about absent header value */
-      throw new CADException(CADResponseCodes._1008 + "CRM session id not set with cache object");
+      throw new ScribeException(ScribeResponseCodes._1008 + "CRM session id not set with cache object");
     }
 
     /* Re-admit this agent with CRM session information */
-    cRMSessionCache.admit(crmUserId, user);
+    cRMSessionCache.admit(crmUserId, cacheObject);
 
     return soapBindingStub;
   }
@@ -123,17 +123,17 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
 
 
     /* Recover agent from cache */
-    final CADUser user = (CADUser) cRMSessionCache.recover(crmUserId);
+    final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
 
     SoapBindingStub soapBindingStub = null;
 
     /* This code block will be usefull if cache size limit is reached */
-    if (user != null) {
+    if (cacheObject != null) {
 
       logger.debug("---Inside login user not found in cache hence going for fresh fetch. Seems like cache limit is reached");
 
       /* Login at Sales Force */
-      soapBindingStub = salesForceSOAPClient.login(user.getCrmUserId(), user.getCrmPassword());
+      soapBindingStub = salesForceSOAPClient.login(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword());
     } else {
 
       /* Login at Sales Force */
@@ -150,14 +150,14 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
 
       /* Set session information at agent */
       /* Following session will be used for pagination */
-      user.setCrmSessionId(sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
+      cacheObject.getcADMetaObject().setCrmSessionId(sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
     } else {
       /* Inform user about absent header value */
-      throw new CADException(CADResponseCodes._1008 + "CRM session id not set with cache object");
+      throw new ScribeException(ScribeResponseCodes._1008 + "CRM session id not set with cache object");
     }
 
     /* Save this freshly updated tenant in cache */
-    cRMSessionCache.admit(crmUserId, user);
+    cRMSessionCache.admit(crmUserId, cacheObject);
 
     /* If everything is fine return true */
     return true;
@@ -165,7 +165,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
 
   @Override
   public final BasicObject getSessionInfo(final String id) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + "Following operation is not supported by the CRM");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CRM");
   }
 
   public final CRMSessionCache getcRMSessionCache() {

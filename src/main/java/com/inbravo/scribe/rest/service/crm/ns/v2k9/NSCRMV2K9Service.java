@@ -31,11 +31,11 @@ import java.util.StringTokenizer;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.HTTPConstants;
 import com.inbravo.scribe.rest.constants.CRMConstants.NSCRMObjectType;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 import com.inbravo.scribe.rest.service.crm.ns.NSCRMGenericService;
 import com.inbravo.scribe.rest.service.crm.ns.NetSuiteMessageFormatUtils;
 import com.inbravo.scribe.rest.service.crm.ns.type.NSCRMFieldTypes;
@@ -119,7 +119,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
       }
 
       /* Create customer search */
@@ -172,7 +172,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
       }
 
       /* Create contact search */
@@ -222,7 +222,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
       }
 
       /* Create SupportCaseSearch */
@@ -271,7 +271,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
       }
 
       /* Create TaskSearch */
@@ -321,7 +321,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new CADException(CADResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
       }
 
       /* Create OpportunitySearch */
@@ -400,7 +400,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         if (nodeName == null & nodeType == null) {
 
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
+          throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
         }
 
         try {
@@ -439,18 +439,18 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } catch (final ClassNotFoundException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
         } catch (final NoSuchMethodException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
         } catch (final IllegalArgumentException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
         } catch (final IllegalAccessException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
         } catch (final InvocationTargetException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
         }
       } else {
-        throw new CADException(CADResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
+        throw new ScribeException(ScribeResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
       }
     }
 
@@ -499,7 +499,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         if (nodeName == null & nodeType == null) {
 
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
+          throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
         }
 
         try {
@@ -539,19 +539,19 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } catch (final ClassNotFoundException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
         } catch (final NoSuchMethodException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
         } catch (final IllegalArgumentException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
         } catch (final IllegalAccessException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
         } catch (final InvocationTargetException e) {
-          throw new CADException(CADResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName
+          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName
               + " in CRM Object type 'Opportunity'");
         }
       } else {
-        throw new CADException(CADResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
+        throw new ScribeException(ScribeResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
       }
     }
 
@@ -600,7 +600,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         if (nodeName == null & nodeType == null) {
 
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
+          throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
         }
 
         try {
@@ -640,18 +640,18 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } catch (final ClassNotFoundException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Task'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Task'");
         } catch (final NoSuchMethodException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Task'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Task'");
         } catch (final IllegalArgumentException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Task'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Task'");
         } catch (final IllegalAccessException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Task'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Task'");
         } catch (final InvocationTargetException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Task'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Task'");
         }
       } else {
-        throw new CADException(CADResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
+        throw new ScribeException(ScribeResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
       }
     }
 
@@ -671,7 +671,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new CADException(CADResponseCodes._1003 + " Operator: '" + HTTPConstants.orClause + "' is not supported by NS CRM");
+        throw new ScribeException(ScribeResponseCodes._1003 + " Operator: '" + HTTPConstants.orClause + "' is not supported by NS CRM");
       }
 
       /* Create new employee search */
@@ -752,12 +752,12 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           if (nodeName == null & nodeType == null) {
 
             /* Throw user error */
-            throw new CADException(CADResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
+            throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
           }
         } else {
 
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
+          throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
         }
 
         try {
@@ -795,18 +795,18 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                     this.getNormalFieldForSearchOperation(nodeName.trim(), nodeType.trim(), cRMFieldValue, cRMFieldOperator, inputDateFormat));
           }
         } catch (final ClassNotFoundException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
         } catch (final NoSuchMethodException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
         } catch (final IllegalArgumentException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
         } catch (final IllegalAccessException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
         } catch (final InvocationTargetException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
         }
       } else {
-        throw new CADException(CADResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
+        throw new ScribeException(ScribeResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
       }
     }
 
@@ -855,7 +855,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         if (nodeName == null & nodeType == null) {
 
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
+          throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
         }
 
         try {
@@ -894,18 +894,18 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } catch (final ClassNotFoundException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
         } catch (final NoSuchMethodException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
         } catch (final IllegalArgumentException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
         } catch (final IllegalAccessException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
         } catch (final InvocationTargetException e) {
-          throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
         }
       } else {
-        throw new CADException(CADResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
+        throw new ScribeException(ScribeResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
       }
     }
 
@@ -933,7 +933,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         operator = SearchLongFieldOperator.fromString(cRMFieldOperator);
         searchLongField.setOperator(operator);
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid operator for type SearchLongFieldOperator '" + cRMFieldOperator + "'.");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid operator for type SearchLongFieldOperator '" + cRMFieldOperator + "'.");
       }
 
       try {
@@ -941,7 +941,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         searchLongField.setSearchValue(Long.valueOf(cRMFieldValue));
 
       } catch (final NumberFormatException e) {
-        throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'int/long' format");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'int/long' format");
       }
 
       return searchLongField;
@@ -959,14 +959,14 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         operator = SearchStringFieldOperator.fromString(cRMFieldOperator);
         searchStringField.setOperator(operator);
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid operator for type SearchStringFieldOperator '" + cRMFieldOperator + "'.");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid operator for type SearchStringFieldOperator '" + cRMFieldOperator + "'.");
       }
       try {
         /* Set value */
         searchStringField.setSearchValue(cRMFieldValue);
 
       } catch (final NumberFormatException e) {
-        throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'string' format");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'string' format");
       }
 
       return searchStringField;
@@ -981,7 +981,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         /* Set value */
         searchBooleanField.setSearchValue(Boolean.valueOf(cRMFieldValue));
       } catch (final NumberFormatException e) {
-        throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'boolean' format");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'boolean' format");
       }
       return searchBooleanField;
 
@@ -996,7 +996,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         operator = SearchDateFieldOperator.fromString(cRMFieldOperator);
         searchDateField.setOperator(operator);
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid operator for class SearchDateFieldOperator '" + cRMFieldOperator + "'.");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid operator for class SearchDateFieldOperator '" + cRMFieldOperator + "'.");
       }
 
       /* Create calander object */
@@ -1009,7 +1009,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         /* Set value */
         searchDateField.setSearchValue(calendar);
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be od format: '" + inputDateFormat
+        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be od format: '" + inputDateFormat
             + "'");
       }
 
@@ -1026,7 +1026,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         operator = SearchTextNumberFieldOperator.fromString(cRMFieldOperator);
         searchTextNumberField.setOperator(operator);
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid operator for type SearchTextNumberField '" + cRMFieldOperator + "'.");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid operator for type SearchTextNumberField '" + cRMFieldOperator + "'.");
       }
 
       try {
@@ -1034,7 +1034,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         searchTextNumberField.setSearchValue(cRMFieldValue);
 
       } catch (final NumberFormatException e) {
-        throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be of format 'text'");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be of format 'text'");
       }
 
       return searchTextNumberField;
@@ -1050,7 +1050,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         operator = SearchDoubleFieldOperator.fromString(cRMFieldOperator);
         searchDoubleField.setOperator(operator);
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid operator for type SearchDoubleFieldOperator '" + cRMFieldOperator + "'.");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid operator for type SearchDoubleFieldOperator '" + cRMFieldOperator + "'.");
       }
 
       try {
@@ -1058,7 +1058,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         searchDoubleField.setSearchValue(Double.valueOf(cRMFieldValue));
 
       } catch (final NumberFormatException e) {
-        throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be of format 'double'");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be of format 'double'");
       }
 
       return searchDoubleField;
@@ -1074,7 +1074,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         operator = SearchEnumMultiSelectFieldOperator.fromString(cRMFieldOperator);
         searchEnumMultiSelectField.setOperator(operator);
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid operator for class SearchEnumMultiSelectField '" + cRMFieldOperator + "'.");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid operator for class SearchEnumMultiSelectField '" + cRMFieldOperator + "'.");
       }
 
       try {
@@ -1085,7 +1085,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         searchEnumMultiSelectField.setSearchValue(value);
 
       } catch (final NumberFormatException e) {
-        throw new CADException(CADResponseCodes._1003 + " Value of CRM object field '" + cRMFieldName + "' should be of type: 'Select'");
+        throw new ScribeException(ScribeResponseCodes._1003 + " Value of CRM object field '" + cRMFieldName + "' should be of type: 'Select'");
       }
 
       return searchEnumMultiSelectField;
@@ -1093,7 +1093,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     } else {
 
       /* Throw user error */
-      throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field type: " + cRMFieldType);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field type: " + cRMFieldType);
     }
   }
 
@@ -1110,7 +1110,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws IllegalAccessException
    * @throws InvocationTargetException
    */
-  public final Customer createCustomer(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
+  public final Customer createCustomer(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     logger.debug("---Inside createCustomer");
 
@@ -1156,7 +1156,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             if (nodeName == null & nodeType == null) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
+              throw new ScribeException(ScribeResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
             }
 
           } else if (node != null && node.trim().equalsIgnoreCase(NSCRMFieldTypes.CRM_FIELD_REGARDINGOBJECTID)) {
@@ -1169,7 +1169,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
           } else {
             /* Throw user error */
-            throw new CADException(CADResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
+            throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
           }
 
           logger.debug("---Inside createCustomer, processing node " + nodeName + " of type: " + nodeType);
@@ -1194,13 +1194,13 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             }
 
           } catch (final NoSuchMethodException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
           } catch (final IllegalArgumentException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
           } catch (final IllegalAccessException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
           } catch (final InvocationTargetException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
           }
 
         } else {
@@ -1223,7 +1223,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
       }
     } else {
       logger.warn("---Inside createCustomer, empty element list.");
-      throw new CADException(CADResponseCodes._1008 + " Request data is not found in request");
+      throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
     return customer;
@@ -1242,7 +1242,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws IllegalAccessException
    * @throws InvocationTargetException
    */
-  public final Contact createContact(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
+  public final Contact createContact(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     logger.debug("---Inside createContact");
 
@@ -1288,7 +1288,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             if (nodeName == null & nodeType == null) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
+              throw new ScribeException(ScribeResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
             }
 
           } else if (node != null && node.trim().equalsIgnoreCase(NSCRMFieldTypes.CRM_FIELD_REGARDINGOBJECTID)) {
@@ -1301,7 +1301,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
           } else {
             /* Throw user error */
-            throw new CADException(CADResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
+            throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
           }
 
           logger.debug("---Inside createContact, processing node " + nodeName + " of type: " + nodeType);
@@ -1326,13 +1326,13 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             }
 
           } catch (final NoSuchMethodException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Contact'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Contact'");
           } catch (final IllegalArgumentException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Contact'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Contact'");
           } catch (final IllegalAccessException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Contact'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Contact'");
           } catch (final InvocationTargetException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Contact'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Contact'");
           }
 
         } else {
@@ -1355,7 +1355,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
       }
     } else {
       logger.warn("---Inside createCustomer, empty element list.");
-      throw new CADException(CADResponseCodes._1008 + " Request data is not found in request");
+      throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
     return contact;
@@ -1374,7 +1374,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws IllegalAccessException
    * @throws InvocationTargetException
    */
-  public final Opportunity createOpportunity(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
+  public final Opportunity createOpportunity(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     logger.debug("---Inside createOpportunity");
 
@@ -1420,7 +1420,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             if (nodeName == null & nodeType == null) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
+              throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
             }
 
           } else if (node != null && node.trim().equalsIgnoreCase(NSCRMFieldTypes.CRM_FIELD_REGARDINGOBJECTID)) {
@@ -1433,7 +1433,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
           } else {
             /* Throw user error */
-            throw new CADException(CADResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
+            throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
           }
 
           logger.debug("---Inside createOpportunity, processing node " + nodeName + " of type: " + nodeType);
@@ -1459,13 +1459,13 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             }
 
           } catch (final NoSuchMethodException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
           } catch (final IllegalArgumentException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
           } catch (final IllegalAccessException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
           } catch (final InvocationTargetException e) {
-            throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
           }
 
         } else {
@@ -1488,7 +1488,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
       }
     } else {
       logger.warn("---Inside createCustomer, empty element list.");
-      throw new CADException(CADResponseCodes._1008 + " Request data is not found in request");
+      throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
     return opportunity;
@@ -1503,7 +1503,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws
    * @throws Exception
    */
-  public final Task createTask(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
+  public final Task createTask(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     logger.debug("---Inside createTask");
 
@@ -1549,7 +1549,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             if (nodeName == null & nodeType == null) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
+              throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
             }
 
           } else if (node != null && node.trim().equalsIgnoreCase(NSCRMFieldTypes.CRM_FIELD_REGARDINGOBJECTID)) {
@@ -1562,7 +1562,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
           } else {
             /* Throw user error */
-            throw new CADException(CADResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
+            throw new ScribeException(ScribeResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
           }
 
           logger.debug("---Inside createTask, processing node " + nodeName + " of type: " + nodeType);
@@ -1654,7 +1654,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
               /* Set transaction information in task */
               task.setTransaction(opportunityRef);
             } else {
-              throw new CADException(CADResponseCodes._1008 + "Following 'TYPE' is not supported in 'REGARDINGOBJECTID' node. Please provide ."
+              throw new ScribeException(ScribeResponseCodes._1008 + "Following 'TYPE' is not supported in 'REGARDINGOBJECTID' node. Please provide ."
                   + NSCRMObjectType.Contact + "/" + NSCRMObjectType.SupportCase + "/" + NSCRMObjectType.Customer + "/" + NSCRMObjectType.SupportCase
                   + " only");
             }
@@ -1679,13 +1679,13 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
               }
 
             } catch (final NoSuchMethodException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Task'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Task'");
             } catch (final IllegalArgumentException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Task'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Task'");
             } catch (final IllegalAccessException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Task'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Task'");
             } catch (final InvocationTargetException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Task'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Task'");
             }
           }
 
@@ -1737,7 +1737,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
     } else {
       logger.warn("---Inside createTask, empty element list.");
-      throw new CADException(CADResponseCodes._1008 + " Request data is not found in request");
+      throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
     return task;
@@ -1759,7 +1759,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           return Long.valueOf(cRMFieldValue.trim());
 
         } catch (final Exception e) {
-          throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be 'int/long'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be 'int/long'");
         }
       } else if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.CREATE_STRING)) {
 
@@ -1768,7 +1768,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           return String.valueOf(cRMFieldValue.trim());
 
         } catch (final Exception e) {
-          throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be 'string'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be 'string'");
         }
 
       } else if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.CREATE_BOOLEAN)) {
@@ -1778,7 +1778,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           return Boolean.valueOf(cRMFieldValue.trim());
 
         } catch (final Exception e) {
-          throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be 'boolean'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be 'boolean'");
         }
 
       } else if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.CREATE_CALANDER)) {
@@ -1792,7 +1792,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
           return calendar;
         } catch (final Exception e) {
-          throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'long/int' format");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'long/int' format");
         }
 
       } else if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.CREATE_DURATION)) {
@@ -1809,7 +1809,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           return duration;
 
         } catch (final Exception e) {
-          throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'double' format");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'double' format");
         }
 
       } else if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.CREATE_DOUBLE)) {
@@ -1819,7 +1819,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           return Double.valueOf(cRMFieldValue.trim());
 
         } catch (final NumberFormatException e) {
-          throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'double' format");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'double' format");
         }
 
       } else if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.CREATE_RECORD_REF)) {
@@ -1865,7 +1865,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
       } else {
 
         /* Throw user error */
-        throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field type: " + cRMFieldType);
+        throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field type: " + cRMFieldType);
       }
     } else {
       return null;
@@ -1915,7 +1915,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     } else {
 
       /* Throw user error */
-      throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field type: " + cRMFieldType);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field type: " + cRMFieldType);
     }
   }
 
@@ -1962,7 +1962,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         multiSelectCustomFieldRef.setValue(list);
       } else {
         /* Throw user error */
-        throw new CADException(CADResponseCodes._1003 + "Field value is is invalid: " + cRMFieldType);
+        throw new ScribeException(ScribeResponseCodes._1003 + "Field value is is invalid: " + cRMFieldType);
       }
       return multiSelectCustomFieldRef;
 
@@ -1980,7 +1980,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         booleanCustomFieldRef.setValue(Boolean.valueOf((cRMFieldValue.trim())));
       } else {
         /* Throw user error */
-        throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'boolean' format");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'boolean' format");
       }
       return booleanCustomFieldRef;
     } else if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.CREATE_LONG_CUSTOM_FIELD_REF)) {
@@ -1997,7 +1997,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         longCustomFieldRef.setValue(Long.valueOf((cRMFieldValue.trim())));
       } else {
         /* Throw user error */
-        throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'long/int' format");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'long/int' format");
       }
       return longCustomFieldRef;
     } else if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.CREATE_DOUBLE_CUSTOM_FIELD_REF)) {
@@ -2014,7 +2014,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         doubleCustomFieldRef.setValue(Double.valueOf((cRMFieldValue.trim())));
       } else {
         /* Throw user error */
-        throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'double/float' format");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'double/float' format");
       }
       return doubleCustomFieldRef;
     } else if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.CREATE_DATE_CUSTOM_FIELD_REF)) {
@@ -2036,13 +2036,13 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         dateCustomFieldRef.setValue(calendar);
 
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'long/int' format");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'long/int' format");
       }
       return dateCustomFieldRef;
     } else {
 
       /* Throw user error */
-      throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field type: " + cRMFieldType);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field type: " + cRMFieldType);
     }
   }
 
@@ -2076,7 +2076,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         operator = SearchStringFieldOperator.fromString(cRMFieldOperator);
         searchStringCustomField.setOperator(operator);
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid operator for type SearchStringCustomField '" + cRMFieldOperator + "'.");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid operator for type SearchStringCustomField '" + cRMFieldOperator + "'.");
       }
       if (cRMFieldValue != null) {
 
@@ -2103,7 +2103,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         operator = SearchLongFieldOperator.fromString(cRMFieldOperator);
         searchLongCustomField.setOperator(operator);
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid operator for type SearchLongCustomFields '" + cRMFieldOperator + "'.");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid operator for type SearchLongCustomFields '" + cRMFieldOperator + "'.");
       }
 
       if (cRMFieldValue != null) {
@@ -2113,7 +2113,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           searchLongCustomField.setSearchValue(Long.valueOf(cRMFieldValue));
 
         } catch (final NumberFormatException e) {
-          throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in int/long format");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in int/long format");
         }
       }
 
@@ -2135,7 +2135,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         operator = SearchDateFieldOperator.fromString(cRMFieldOperator);
         searchDateCustomField.setOperator(operator);
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid operator for type SearchDateCustomField '" + cRMFieldOperator + "'.");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid operator for type SearchDateCustomField '" + cRMFieldOperator + "'.");
       }
 
       if (cRMFieldValue != null) {
@@ -2151,7 +2151,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           searchDateCustomField.setSearchValue(calendar);
 
         } catch (final Exception e) {
-          throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'long/int' format");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'long/int' format");
         }
       }
 
@@ -2174,7 +2174,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           searchBooleanCustomField.setSearchValue(Boolean.valueOf(cRMFieldValue));
 
         } catch (final Exception e) {
-          throw new CADException(CADResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'boolean' format");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be in 'boolean' format");
         }
       }
 
@@ -2192,7 +2192,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         operator = SearchMultiSelectFieldOperator.fromString(cRMFieldOperator);
         searchMultiSelectCustomField.setOperator(operator);
       } catch (final Exception e) {
-        throw new CADException(CADResponseCodes._1003 + "Invalid operator for class SearchMultiSelectCustomField '" + cRMFieldOperator + "'.");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Invalid operator for class SearchMultiSelectCustomField '" + cRMFieldOperator + "'.");
       }
 
       /* Set value */
@@ -2219,7 +2219,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     } else {
 
       /* Throw user error */
-      throw new CADException(CADResponseCodes._1003 + "Following type: " + cRMFieldType + " is not supported");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following type: " + cRMFieldType + " is not supported");
     }
   }
 
@@ -2235,7 +2235,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws IllegalAccessException
    * @throws InvocationTargetException
    */
-  public final SupportCase createSupportCase(final CADObject cADbject, final String crmFieldIntraSeparator) {
+  public final SupportCase createSupportCase(final ScribeObject cADbject, final String crmFieldIntraSeparator) {
 
     logger.debug("---Inside createSupportCase");
 
@@ -2281,7 +2281,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             if (nodeName == null & nodeType == null) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
+              throw new ScribeException(ScribeResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
             }
 
           } else if (node != null && node.trim().equalsIgnoreCase(NSCRMFieldTypes.CRM_FIELD_REGARDINGOBJECTID)) {
@@ -2294,7 +2294,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
           } else {
             /* Throw user error */
-            throw new CADException(CADResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
+            throw new ScribeException(ScribeResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
           }
 
           logger.debug("---Inside createSupportCase, processing node " + nodeName + " of type: " + nodeType);
@@ -2348,7 +2348,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
               supportCase.setCompany(companyRef);
 
             } else {
-              throw new CADException(CADResponseCodes._1008 + "Following 'TYPE' is not supported in 'REGARDINGOBJECTID' node. Please provide ."
+              throw new ScribeException(ScribeResponseCodes._1008 + "Following 'TYPE' is not supported in 'REGARDINGOBJECTID' node. Please provide ."
                   + NSCRMObjectType.Contact + "/" + NSCRMObjectType.SupportCase + "/" + NSCRMObjectType.Customer + " only");
             }
           } else {
@@ -2372,13 +2372,13 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
               }
 
             } catch (final NoSuchMethodException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
             } catch (final IllegalArgumentException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
             } catch (final IllegalAccessException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
             } catch (final InvocationTargetException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
             }
           }
 
@@ -2425,7 +2425,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
     } else {
       logger.warn("---Inside createSupportCase, empty element list.");
-      throw new CADException(CADResponseCodes._1008 + " Request data is not found in request");
+      throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
     return supportCase;
@@ -2443,7 +2443,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @throws IllegalAccessException
    * @throws InvocationTargetException
    */
-  public final PhoneCall createPhoneCall(final CADObject cADbject, final String crmFieldIntraSeparator) {
+  public final PhoneCall createPhoneCall(final ScribeObject cADbject, final String crmFieldIntraSeparator) {
 
     logger.debug("---Inside createPhoneCall");
 
@@ -2489,7 +2489,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             if (nodeName == null & nodeType == null) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
+              throw new ScribeException(ScribeResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
             }
 
           } else if (node != null && node.trim().equalsIgnoreCase(NSCRMFieldTypes.CRM_FIELD_REGARDINGOBJECTID)) {
@@ -2502,7 +2502,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
           } else {
             /* Throw user error */
-            throw new CADException(CADResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
+            throw new ScribeException(ScribeResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
           }
 
           logger.debug("---Inside createPhoneCall, processing node " + nodeName + " of type: " + nodeType);
@@ -2574,7 +2574,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
               /* Set support case information in phoneCall */
               phoneCall.setSupportCase(supportRef);
             } else {
-              throw new CADException(CADResponseCodes._1008 + "Following 'TYPE' is not supported in 'REGARDINGOBJECTID' node. Please provide ."
+              throw new ScribeException(ScribeResponseCodes._1008 + "Following 'TYPE' is not supported in 'REGARDINGOBJECTID' node. Please provide ."
                   + NSCRMObjectType.Contact + "/" + NSCRMObjectType.SupportCase + "/" + NSCRMObjectType.Customer + " only");
             }
           } else {
@@ -2596,13 +2596,13 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                     .invoke(phoneCall, this.getNSCRMFieldObject(nodeName, nodeType, element.getTextContent()));
               }
             } catch (final NoSuchMethodException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
             } catch (final IllegalArgumentException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
             } catch (final IllegalAccessException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
             } catch (final InvocationTargetException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
             }
           }
 
@@ -2654,7 +2654,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
       }
     } else {
       logger.warn("---Inside createPhoneCall, empty element list.");
-      throw new CADException(CADResponseCodes._1008 + " Request data is not found in request");
+      throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
     return phoneCall;
@@ -2703,7 +2703,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         if (nodeName == null & nodeType == null) {
 
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
+          throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + cRMFieldName + "' is not in correct format");
         }
 
         try {
@@ -2740,18 +2740,18 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                     this.getNormalFieldForSearchOperation(nodeName.trim(), nodeType.trim(), cRMFieldValue, cRMFieldOperator, inputDateFormat));
           }
         } catch (final ClassNotFoundException e) {
-          throw new CADException(CADResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
+          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
         } catch (final NoSuchMethodException e) {
-          throw new CADException(CADResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
+          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
         } catch (final IllegalArgumentException e) {
-          throw new CADException(CADResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
+          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
         } catch (final IllegalAccessException e) {
-          throw new CADException(CADResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
+          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
         } catch (final InvocationTargetException e) {
-          throw new CADException(CADResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
+          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
         }
       } else {
-        throw new CADException(CADResponseCodes._1003 + " CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
+        throw new ScribeException(ScribeResponseCodes._1003 + " CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
       }
     }
 
@@ -2817,15 +2817,15 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * 
    * @param value
    * @return
-   * @throws CADException
+   * @throws ScribeException
    */
-  private final String[] splitCustomMutliSelectValue(final String value) throws CADException {
+  private final String[] splitCustomMutliSelectValue(final String value) throws ScribeException {
 
     /* Verify value */
     if (value == null) {
-      throw new CADException(CADResponseCodes._1003 + "Value of MultiSelect Custom CRM object field value '" + value + "' invalid format");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Value of MultiSelect Custom CRM object field value '" + value + "' invalid format");
     } else if (value != null && !value.matches("^..*__..*$")) {
-      throw new CADException(CADResponseCodes._1003 + "Value of MultiSelect Custom CRM object field value '" + value + "' invalid format");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Value of MultiSelect Custom CRM object field value '" + value + "' invalid format");
     }
     final String[] splitResult = new String[2];
     splitResult[0] = value.replaceAll("__.*$", "");
@@ -2841,7 +2841,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    * @return a 3 element String array. element 0 => search key, element 1 => search operator and
    *         element 2 => search value.
    */
-  private final String[] splitSearchString(final String searchString) throws CADException {
+  private final String[] splitSearchString(final String searchString) throws ScribeException {
 
     final String[] finalResult = new String[3];
 
@@ -2851,7 +2851,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     /* Check if length is less than 1 */
     if (splitResult.length <= 1) {
       logger.error("---Inside splitSearchString: invalid search string: " + searchString);
-      throw new CADException(CADResponseCodes._1003 + "Invalid search string: '" + searchString
+      throw new ScribeException(ScribeResponseCodes._1003 + "Invalid search string: '" + searchString
           + "' search string should contain at least 2 words for NS CRM");
     }
     /* Key */

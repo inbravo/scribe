@@ -57,11 +57,11 @@ public final class ZDCRMTest {
         /* Create auth manager */
         ZDAuthManager zDAuthManager = new ZDBasicAuthManager();
 
-        final String firstCookie = zDAuthManager.getSessionId("amit.dixit@impetus.co.in", "pilkhuwa", "amitdixitinc.zendesk.com", "http", 80);
+        final String firstCookie = zDAuthManager.getSessionId("amit.dixit@impetus.co.in", "pilkhuwa", "amitdixitinc.zendesk.com", "http", "80");
 
-        final String secCookie = zDAuthManager.getSessionId("amit.dixit@impetus.co.in", "pilkhuwa", "amitdixitinc.zendesk.com", "http", 80);
+        final String secCookie = zDAuthManager.getSessionId("amit.dixit@impetus.co.in", "pilkhuwa", "amitdixitinc.zendesk.com", "http", "80");
 
-        final String thirdCookie = zDAuthManager.getSessionId("vickytaurus@gmail.com", "mumbai", "vikas1234.zendesk.com", "http", 80);
+        final String thirdCookie = zDAuthManager.getSessionId("vickytaurus@gmail.com", "mumbai", "vikas1234.zendesk.com", "http", "80");
 
         System.out.println("Session id: " + firstCookie);
         System.out.println("Session id: " + secCookie);

@@ -32,8 +32,8 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.service.msg.type.FileAttachment;
 import com.inbravo.scribe.rest.service.msg.type.FileAttachments;
 
@@ -157,7 +157,7 @@ public final class ZipWriter {
       }
 
       /* Cant generate zip */
-      throw new CADException(CADResponseCodes._1000 + "Problem while writing zip" + e);
+      throw new ScribeException(ScribeResponseCodes._1000 + "Problem while writing zip" + e);
     } finally {
 
       try {
@@ -185,7 +185,7 @@ public final class ZipWriter {
       } catch (final IOException e) {
 
         /* Cant generate zip */
-        throw new CADException(CADResponseCodes._1000 + "Problem while closing zip read/write streams");
+        throw new ScribeException(ScribeResponseCodes._1000 + "Problem while closing zip read/write streams");
       }
     }
   }

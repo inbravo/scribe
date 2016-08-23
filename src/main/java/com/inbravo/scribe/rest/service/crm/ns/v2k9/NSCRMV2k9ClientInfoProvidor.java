@@ -32,8 +32,8 @@ import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 
 /**
  * The purpose of this class is to provide data center URLS for each customer
@@ -102,7 +102,7 @@ public final class NSCRMV2k9ClientInfoProvidor {
     if (userEmail == null || "".equals(userEmail) || password == null || "".equals(password)) {
 
       /* Inform user invalid credentials */
-      throw new CADException(CADResponseCodes._1012 + "Invalid credentials");
+      throw new ScribeException(ScribeResponseCodes._1012 + "Invalid credentials");
     }
 
     /* Create a HTTP Get type request */
@@ -139,13 +139,13 @@ public final class NSCRMV2k9ClientInfoProvidor {
           logger.debug("---Inside getNSCRMV2k9ClientInfo: found error from NS: " + result);
         }
         /* Inform user about service exception */
-        throw new CADException(CADResponseCodes._1012 + "Service error from NetSuite : " + result);
+        throw new ScribeException(ScribeResponseCodes._1012 + "Service error from NetSuite : " + result);
       }
 
     } catch (final Exception exception) {
 
       /* Inform user about service exception */
-      throw new CADException(CADResponseCodes._1021 + "Service exception while finding web service url for NetSuite", exception);
+      throw new ScribeException(ScribeResponseCodes._1021 + "Service exception while finding web service url for NetSuite", exception);
     } finally {
 
       /* Release connection */
@@ -182,7 +182,7 @@ public final class NSCRMV2k9ClientInfoProvidor {
       return new NSCRMV2k9ClientInfo(restDomain, systemDomain, webservicesDomain);
     } else {
       /* Inform user about service exception */
-      throw new CADException(CADResponseCodes._1021 + "Service exception while finding web service url from NetSuite using rest url");
+      throw new ScribeException(ScribeResponseCodes._1021 + "Service exception while finding web service url from NetSuite using rest url");
     }
   }
 
@@ -205,7 +205,7 @@ public final class NSCRMV2k9ClientInfoProvidor {
       } else {
 
         /* Inform user about service exception */
-        throw new CADException(CADResponseCodes._1021 + "No more NS REST URLs for finding web service location");
+        throw new ScribeException(ScribeResponseCodes._1021 + "No more NS REST URLs for finding web service location");
       }
     } else {
 

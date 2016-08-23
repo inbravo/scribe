@@ -53,12 +53,12 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.HTTPConstants;
 import com.inbravo.scribe.rest.constants.CRMConstants.MSCRMObjectType;
 import com.inbravo.scribe.rest.constants.CRMConstants.MSCRMSchemaType;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 import com.inbravo.scribe.rest.service.crm.CRMMessageFormatUtils;
 import com.microsoft.schemas.crm._2006.query.ArrayOfAnyType;
 import com.microsoft.schemas.crm._2006.query.ArrayOfConditionExpression;
@@ -324,7 +324,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
           /* Validate the element */
           if (tempElement.split(notEqualOperator).length < 2) {
-            throw new CADException(CADResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
+            throw new ScribeException(ScribeResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
           }
 
           /* Create condition expression */
@@ -354,7 +354,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
           /* Validate the element */
           if (tempElement.split(equalOperator).length < 2) {
-            throw new CADException(CADResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
+            throw new ScribeException(ScribeResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
           }
 
           /* Create condition expression */
@@ -384,7 +384,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
           /* Validate the element */
           if (tempElement.split(likeOperator).length < 2) {
-            throw new CADException(CADResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
+            throw new ScribeException(ScribeResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
           }
 
           /* Create condition expression */
@@ -410,7 +410,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
             conditionExpression.setValues(arrayOfAnyType);
           }
         } else {
-          throw new CADException(CADResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
+          throw new ScribeException(ScribeResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
         }
       }
     }
@@ -490,7 +490,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
           /* Validate the element */
           if (tempElement.split(notEqualOperator).length < 2) {
-            throw new CADException(CADResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
+            throw new ScribeException(ScribeResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
           }
 
           /* Create condition expression */
@@ -526,7 +526,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
           /* Validate the element */
           if (tempElement.split(equalOperator).length < 2) {
-            throw new CADException(CADResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
+            throw new ScribeException(ScribeResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
           }
 
           /* Create condition expression */
@@ -565,7 +565,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
           /* Validate the element */
           if (tempElement.split(likeOperator).length < 2) {
-            throw new CADException(CADResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
+            throw new ScribeException(ScribeResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
           }
 
           /* Create condition expression */
@@ -597,7 +597,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
             conditionExpression.setValues(arrayOfAnyType);
           }
         } else {
-          throw new CADException(CADResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
+          throw new ScribeException(ScribeResponseCodes._1008 + "Query criteria is invalid: '" + tempElement + "'");
         }
       }
     }
@@ -690,29 +690,29 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
       if (logger.isDebugEnabled()) {
         logger.debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
       }
-      throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid");
+      throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else if (orderByClauseArray.length == 0 || orderByClauseArray.length == 1) {
       if (logger.isDebugEnabled()) {
         logger.debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
       }
-      throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid");
+      throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else if (orderByClauseArray.length != 2) {
       if (logger.isDebugEnabled()) {
         logger.debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
       }
-      throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid");
+      throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else {
       if (orderByClauseArray[0] == null) {
         if (logger.isDebugEnabled()) {
           logger.debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
         }
-        throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid");
+        throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
       }
       if (orderByClauseArray[1] == null) {
         if (logger.isDebugEnabled()) {
           logger.debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
         }
-        throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid");
+        throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
       } else {
 
         if (!("ASC".equalsIgnoreCase(orderByClauseArray[1]) || "DESC".equalsIgnoreCase(orderByClauseArray[1]))) {
@@ -720,7 +720,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
             logger
                 .debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
           }
-          throw new CADException(CADResponseCodes._1008 + "Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
+          throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
         }
       }
     }
@@ -738,7 +738,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final Entity createV5RetrieveCRMObjectReq(final CADObject cADbject, final String crmFieldIntraSeparator,
+  public static final Entity createV5RetrieveCRMObjectReq(final ScribeObject cADbject, final String crmFieldIntraSeparator,
       final String permittedDateFormats) throws Exception {
 
     /* Check for supported objects */
@@ -755,7 +755,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
     } else {
 
       /* Else send not supported error to user */
-      throw new CADException(CADResponseCodes._1003 + "Following object type is not supported by the CAD");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported by the CAD");
     }
   }
 
@@ -768,7 +768,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final Entity createV5CRMObject(final CADObject cADbject, final String crmFieldIntraSeparator, final String permittedDateFormats)
+  public static final Entity createV5CRMObject(final ScribeObject cADbject, final String crmFieldIntraSeparator, final String permittedDateFormats)
       throws Exception {
 
     /* Create xml beans object */
@@ -832,7 +832,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
             } catch (final XmlValueOutOfRangeException e) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
+              throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
                   + ": type should be : " + MSV5DataTypes.OPTION_SET + " or " + MSV5DataTypes.TWO_OPTIONS);
             }
           } else
@@ -856,7 +856,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
             } catch (final XmlValueOutOfRangeException e) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
+              throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
                   + ": type should be : " + MSV5DataTypes.DATE_TIME);
             }
 
@@ -881,7 +881,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
             } catch (final XmlValueOutOfRangeException e) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
+              throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
                   + ": type should be : " + MSV5DataTypes.NUMBER + " or " + MSV5DataTypes.WHOLE_NUMBER);
             }
 
@@ -906,7 +906,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
             } catch (final XmlValueOutOfRangeException e) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
+              throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
                   + ": type should be : " + MSV5DataTypes.TEXT);
             }
 
@@ -931,7 +931,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
             } catch (final XmlValueOutOfRangeException e) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
+              throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
                   + ": type should be : " + MSV5DataTypes.FLOATING_POINT);
             }
 
@@ -956,7 +956,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
             } catch (final XmlValueOutOfRangeException e) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
+              throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
                   + ": type should be : " + MSV5DataTypes.MULTIPLE_LIST);
             }
 
@@ -981,20 +981,20 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
             } catch (final XmlValueOutOfRangeException e) {
 
               /* Throw user error */
-              throw new CADException(CADResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
+              throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM field value is not valid: " + element.getTextContent()
                   + ": type should be : " + MSV5DataTypes.CURRENCY);
             }
 
           } else {
 
             /* Throw user error */
-            throw new CADException(CADResponseCodes._1003 + "Following MS CRM field type is not supported: " + crmFieldtype);
+            throw new ScribeException(ScribeResponseCodes._1003 + "Following MS CRM field type is not supported: " + crmFieldtype);
 
           }
         } else {
 
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1003 + "Following CRM field name is not valid: " + element.getTextContent()
+          throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM field name is not valid: " + element.getTextContent()
               + ": It should contain type information seperated by: " + crmFieldIntraSeparator);
         }
       }
@@ -1018,11 +1018,11 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
     } else {
       /* Throw user error */
-      throw new CADException(CADResponseCodes._1003 + "Following CRM date value is not accepted by CAD: " + dateStr);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM date value is not accepted by CAD: " + dateStr);
     }
   }
 
-  public static final String[] getRegardingObjectInfo(final CADObject cADbject) {
+  public static final String[] getRegardingObjectInfo(final ScribeObject cADbject) {
 
     /* Iterate on the Element list and create SOAP object */
     for (final Element element : cADbject.getXmlContent()) {
@@ -1056,7 +1056,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
         } else {
           /* Throw user error */
-          throw new CADException(CADResponseCodes._1003 + "Following object type is not supported for object association by CAD");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported for object association by CAD");
         }
         return new String[] {element.getTextContent(), element.getAttribute("type"), schema};
 
@@ -1078,7 +1078,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final BusinessEntity createCRMObject(final String mSCRMObjectType, final CADObject cADbject, final String crmFieldIntraSeparator)
+  public static final BusinessEntity createCRMObject(final String mSCRMObjectType, final ScribeObject cADbject, final String crmFieldIntraSeparator)
       throws Exception {
 
     if (mSCRMObjectType.equalsIgnoreCase(MSCRMObjectType.Account.toString())) {
@@ -1096,7 +1096,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
     } else {
 
       /* Throw user error */
-      throw new CADException(CADResponseCodes._1003 + "Following object type is not supported by the CAD");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported by the CAD");
     }
   }
 
@@ -1108,7 +1108,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final Account createCRMObjectTypeAccount(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Account createCRMObjectTypeAccount(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     final Account account = Account.Factory.newInstance();
@@ -1194,7 +1194,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final Task createCRMObjectTypeTask(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Task createCRMObjectTypeTask(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     final Task task = Task.Factory.newInstance();
@@ -1279,7 +1279,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final Contact createCRMObjectTypeContact(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Contact createCRMObjectTypeContact(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     final Contact contact = Contact.Factory.newInstance();
@@ -1364,7 +1364,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final Lead createCRMObjectTypeLead(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Lead createCRMObjectTypeLead(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     final Lead lead = Lead.Factory.newInstance();
@@ -1449,7 +1449,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final Opportunity createCRMObjectTypeOpportunity(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Opportunity createCRMObjectTypeOpportunity(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     final Opportunity opportunity = Opportunity.Factory.newInstance();
@@ -1536,7 +1536,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
    * @return
    * @throws Exception
    */
-  public static final Incident createCRMObjectTypeIncident(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception {
+  public static final Incident createCRMObjectTypeIncident(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
     /* Create xml beans object */
     /* In MS CRM 'Incident' is actually a 'Case' */

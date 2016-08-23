@@ -27,18 +27,17 @@ import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.CADUser;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMObjectService;
 import com.inbravo.scribe.rest.service.crm.ms.session.MSCRMOffice365SessionManager;
 
 /**
  * Service class for supporting Lead object in MS CRM.
  * 
- * @author vikas.verma
  * 
  */
 public final class MSCRMV5LeadService extends MSCRMObjectService {
@@ -56,45 +55,47 @@ public final class MSCRMV5LeadService extends MSCRMObjectService {
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside getObjects");
     }
 
-    final CADUser agent = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-    final List<CADObject> cADbjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-            agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(), null);
+    final List<ScribeObject> cADbjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject
+            .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(),
+            cacheObject.getcADMetaObject().getCrmOrgName(), cacheObject.getcADMetaObject().getCrmSecurityToken(), null);
 
     /* Set the final object in command object */
-    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
+    cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
 
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside getObjects query: " + query);
     }
 
-    final CADUser agent = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-    final List<CADObject> cADbjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-            agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(), null, query);
+    final List<ScribeObject> cADbjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject
+            .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(),
+            cacheObject.getcADMetaObject().getCrmOrgName(), cacheObject.getcADMetaObject().getCrmSecurityToken(), null, query);
 
     /* Set the final object in command object */
-    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
+    cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
 
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside getObjects query: " + query + " & select: " + select);
@@ -118,21 +119,22 @@ public final class MSCRMV5LeadService extends MSCRMObjectService {
       crmFieldToBeSelectedList.add(select);
     }
 
-    final CADUser agent = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-    final List<CADObject> cADbjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-            agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(),
-            crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query);
+    final List<ScribeObject> cADbjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject
+            .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(),
+            cacheObject.getcADMetaObject().getCrmOrgName(), cacheObject.getcADMetaObject().getCrmSecurityToken(), crmFieldToBeSelectedList
+                .toArray(new String[crmFieldToBeSelectedList.size()]), query);
 
     /* Set the final object in command object */
-    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
+    cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
 
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjects(final CADCommandObject cADCommandObject, final String query, final String select, final String order)
+  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
 
     if (logger.isDebugEnabled()) {
@@ -157,42 +159,43 @@ public final class MSCRMV5LeadService extends MSCRMObjectService {
       crmFieldToBeSelectedList.add(select);
     }
 
-    final CADUser agent = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
+    final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
-    final List<CADObject> cADbjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), agent.getCrmServiceProtocol(), agent.getCrmServiceURL(),
-            agent.getCrmUserId(), agent.getCrmPassword(), agent.getCrmOrgName(), agent.getCrmSecurityToken(),
-            crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query, order);
+    final List<ScribeObject> cADbjectList =
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject
+            .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(),
+            cacheObject.getcADMetaObject().getCrmOrgName(), cacheObject.getcADMetaObject().getCrmSecurityToken(), crmFieldToBeSelectedList
+                .toArray(new String[crmFieldToBeSelectedList.size()]), query, order);
 
     /* Set the final object in command object */
-    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
+    cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
 
     return cADCommandObject;
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + notSupportedError);
+  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + notSupportedError);
   }
 
   @Override
-  public final CADCommandObject getObjectsCount(final CADCommandObject cADCommandObject, final String query) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + notSupportedError);
+  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + notSupportedError);
   }
 
   @Override
-  public final CADCommandObject createObject(final CADCommandObject cADCommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + notSupportedError);
+  public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + notSupportedError);
   }
 
   @Override
-  public final boolean deleteObject(final CADCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + notSupportedError);
+  public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + notSupportedError);
   }
 
   @Override
-  public CADCommandObject updateObject(final CADCommandObject cADCommandObject) throws Exception {
-    throw new CADException(CADResponseCodes._1003 + notSupportedError);
+  public ScribeCommandObject updateObject(final ScribeCommandObject cADCommandObject) throws Exception {
+    throw new ScribeException(ScribeResponseCodes._1003 + notSupportedError);
   }
 
   /**

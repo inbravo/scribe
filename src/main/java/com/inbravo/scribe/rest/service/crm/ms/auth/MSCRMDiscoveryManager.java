@@ -29,9 +29,9 @@ import java.rmi.RemoteException;
 import org.apache.axis2.AxisFault;
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.CADUser;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.ms.dto.MSCRMUserInformation;
 import com.microsoft.schemas.crm._2007.CrmDiscoveryService.CrmDiscoveryServiceLocator;
 import com.microsoft.schemas.crm._2007.CrmDiscoveryService.CrmDiscoveryServiceSoap;
@@ -97,7 +97,7 @@ public final class MSCRMDiscoveryManager {
    * @throws IOException
    * @throws SOAPException
    */
-  public final MSCRMUserInformation getMSCRMUserInformation(final CADUser user) throws Exception {
+  public final MSCRMUserInformation getMSCRMUserInformation(final ScribeCacheObject user) throws Exception {
 
     logger.debug("---Inside getMSCRMUserInformation");
     try {
@@ -107,13 +107,13 @@ public final class MSCRMDiscoveryManager {
       String crmServiceURL = null;
       String crmServiceProtocal = null;
 
-      logger.debug("---Inside getMSCRMUserInformation for agent: " + user.getCrmUserId());
+      logger.debug("---Inside getMSCRMUserInformation for agent: " + user.getcADMetaObject().getCrmUserId());
 
       /* get CRM credentials */
-      userName = user.getCrmUserId();
-      password = user.getCrmPassword();
-      crmServiceURL = user.getCrmServiceURL();
-      crmServiceProtocal = user.getCrmServiceProtocol();
+      userName = user.getcADMetaObject().getCrmUserId();
+      password = user.getcADMetaObject().getCrmPassword();
+      crmServiceURL = user.getcADMetaObject().getCrmServiceURL();
+      crmServiceProtocal = user.getcADMetaObject().getCrmServiceProtocol();
 
       /* First get Microsoft passport ticket */
       final String[] passportTicket = mSAuthManager.getCRMAuthToken(user);
@@ -154,11 +154,11 @@ public final class MSCRMDiscoveryManager {
       }
       return mSCRMUserInformation;
     } catch (final MalformedURLException e) {
-      throw new CADException(CADResponseCodes._1008 + "Protocol type is not found in CRM configuration", e);
+      throw new ScribeException(ScribeResponseCodes._1008 + "Protocol type is not found in CRM configuration", e);
     } catch (final AxisFault e) {
-      throw new CADException(CADResponseCodes._1013 + "Recieved a web service error", e);
+      throw new ScribeException(ScribeResponseCodes._1013 + "Recieved a web service error", e);
     } catch (final RemoteException e) {
-      throw new CADException(CADResponseCodes._1013 + "Communication error", e);
+      throw new ScribeException(ScribeResponseCodes._1013 + "Communication error", e);
     }
   }
 

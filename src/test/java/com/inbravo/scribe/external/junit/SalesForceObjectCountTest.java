@@ -15,7 +15,7 @@ import javax.xml.bind.Unmarshaller;
 import org.w3c.dom.Element;
 
 import com.inbravo.scribe.external.junit.core.CADClientMgmt;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
 
 /**
  * 
@@ -37,7 +37,7 @@ public class SalesForceObjectCountTest {
   Unmarshaller unmarshaller;
 
   public SalesForceObjectCountTest() throws Exception {
-    context = JAXBContext.newInstance(CADCommandObject.class);
+    context = JAXBContext.newInstance(ScribeCommandObject.class);
     unmarshaller = context.createUnmarshaller();
   }
 
@@ -53,11 +53,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -87,11 +87,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -121,11 +121,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -155,11 +155,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -189,11 +189,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -224,11 +224,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -258,11 +258,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -292,11 +292,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -326,11 +326,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -360,11 +360,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -395,11 +395,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenantWithDynamicQuery(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenantWithDynamicQuery(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -430,11 +430,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgentWithDynamicQuery(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgentWithDynamicQuery(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -465,11 +465,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;
@@ -493,11 +493,11 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      CADCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
-      List<Element> elementList = cADCommandObject.getcADObject()[0].getXmlContent();
+      List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
       for (Element element : elementList) {
         if (element.getNodeName().equalsIgnoreCase("Count")) {
           countStatus = true;

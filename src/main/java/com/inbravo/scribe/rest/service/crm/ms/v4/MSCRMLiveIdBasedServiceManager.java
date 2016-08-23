@@ -34,9 +34,9 @@ import org.apache.axis2.client.ServiceClient;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlCursor;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMMessageFormatUtils;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMSchemaConstants;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMServiceManager;
@@ -82,8 +82,8 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
 
   private String crmServiceEndpoint = SOAPExecutor.CRM_ENDPOINT;
 
-  public final CADObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
-      final String password, final String orgName, final String[] crmSecurityToken, final CADObject cADbject) throws Exception {
+  public final ScribeObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+      final String password, final String orgName, final String[] crmSecurityToken, final ScribeObject cADbject) throws Exception {
     logger.debug("---Inside createObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId + " & password: "
         + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & cADbject: "
         + cADbject);
@@ -122,9 +122,9 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       /* Add new node and return */
       return MSCRMMessageFormatUtils.addNode("id", result, cADbject);
     } catch (final AxisFault e) {
-      throw new CADException(CADResponseCodes._1013 + " Recieved a web service error", e);
+      throw new ScribeException(ScribeResponseCodes._1013 + " Recieved a web service error", e);
     } catch (final RemoteException e) {
-      throw new CADException(CADResponseCodes._1015 + " Communication error", e);
+      throw new ScribeException(ScribeResponseCodes._1015 + " Communication error", e);
     }
   }
 
@@ -139,7 +139,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
    * @param crmFields
    * @return
    */
-  public final List<CADObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+  public final List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFields) throws Exception {
     logger.debug("---Inside getObjects crmHost: " + crmHost + " & userId: " + " & appProtocolType: " + appProtocolType + userId + " & password: "
         + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & crmFields: "
@@ -196,11 +196,11 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final ArrayOfBusinessEntity entityArray = be.getBusinessEntities();
       final BusinessEntity[] entityStringArray = entityArray.getBusinessEntityArray();
 
-      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+      final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
         /* Create new CAD object */
-        final CADObject cADbject = new CADObject();
+        final ScribeObject cADbject = new ScribeObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
@@ -213,21 +213,21 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       /* Return error message for no record found */
       if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
+        throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
       stub.cleanup();
       return cADbjectList;
     } catch (final AxisFault e) {
-      throw new CADException(CADResponseCodes._1013 + " Recieved a web service error", e);
+      throw new ScribeException(ScribeResponseCodes._1013 + " Recieved a web service error", e);
     } catch (final RemoteException e) {
-      throw new CADException(CADResponseCodes._1015 + " Communication error", e);
-    } catch (final CADException e) {
+      throw new ScribeException(ScribeResponseCodes._1015 + " Communication error", e);
+    } catch (final ScribeException e) {
       /* Throw CAD exception to user */
       throw e;
     } catch (final Exception e) {
-      throw new CADException(CADResponseCodes._1000 + " Problem while communicating with MS CRM server", e);
+      throw new ScribeException(ScribeResponseCodes._1000 + " Problem while communicating with MS CRM server", e);
     }
   }
 
@@ -243,7 +243,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
    * @param query
    * @return
    */
-  public final List<CADObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+  public final List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFieldsToSelect, final String query)
       throws Exception {
     logger.debug("---Inside getObjects crmHost: " + crmHost + " & userId: " + " & appProtocolType: " + appProtocolType + userId + " & password: "
@@ -306,11 +306,11 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final ArrayOfBusinessEntity entityArray = be.getBusinessEntities();
       final BusinessEntity[] entityStringArray = entityArray.getBusinessEntityArray();
 
-      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+      final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
         /* Create new CAD object */
-        final CADObject cADbject = new CADObject();
+        final ScribeObject cADbject = new ScribeObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
@@ -323,24 +323,24 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       /* Return error message for no record found */
       if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
+        throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
       return cADbjectList;
     } catch (final AxisFault e) {
-      throw new CADException(CADResponseCodes._1013 + " Recieved a web service error", e);
+      throw new ScribeException(ScribeResponseCodes._1013 + " Recieved a web service error", e);
     } catch (final RemoteException e) {
-      throw new CADException(CADResponseCodes._1015 + " Communication error", e);
-    } catch (final CADException e) {
+      throw new ScribeException(ScribeResponseCodes._1015 + " Communication error", e);
+    } catch (final ScribeException e) {
       /* Throw CAD exception to user */
       throw e;
     } catch (final Exception e) {
-      throw new CADException(CADResponseCodes._1000 + " Problem while communicating with MS CRM server", e);
+      throw new ScribeException(ScribeResponseCodes._1000 + " Problem while communicating with MS CRM server", e);
     }
   }
 
-  public final List<CADObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
+  public final List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFieldsToSelect, final String query,
       final String order) throws Exception {
     logger.debug("---Inside getObjects crmHost: " + crmHost + " & userId: " + " & appProtocolType: " + appProtocolType + userId + " & password: "
@@ -405,11 +405,11 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final ArrayOfBusinessEntity entityArray = be.getBusinessEntities();
       final BusinessEntity[] entityStringArray = entityArray.getBusinessEntityArray();
 
-      final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+      final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
         /* Create new CAD object */
-        final CADObject cADbject = new CADObject();
+        final ScribeObject cADbject = new ScribeObject();
 
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
@@ -422,20 +422,20 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       /* Return error message for no record found */
       if (cADbjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
-        throw new CADException(CADResponseCodes._1004 + mSCRMObjectType);
+        throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
       return cADbjectList;
     } catch (final AxisFault e) {
-      throw new CADException(CADResponseCodes._1013 + " Recieved a web service error", e);
+      throw new ScribeException(ScribeResponseCodes._1013 + " Recieved a web service error", e);
     } catch (final RemoteException e) {
-      throw new CADException(CADResponseCodes._1015 + " Communication error", e);
-    } catch (final CADException e) {
+      throw new ScribeException(ScribeResponseCodes._1015 + " Communication error", e);
+    } catch (final ScribeException e) {
       /* Throw CAD exception to user */
       throw e;
     } catch (final Exception e) {
-      throw new CADException(CADResponseCodes._1000 + " Problem while communicating with MS CRM server", e);
+      throw new ScribeException(ScribeResponseCodes._1000 + " Problem while communicating with MS CRM server", e);
     }
   }
 

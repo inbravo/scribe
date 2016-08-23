@@ -32,10 +32,10 @@ import javax.xml.soap.SOAPMessage;
 import org.apache.log4j.Logger;
 import org.jaxen.XPath;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.internal.service.dto.CADUser;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.service.crm.CRMMessageFormatUtils;
+import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
 import com.inbravo.scribe.rest.service.crm.ms.MSCRMMessageFormatUtils;
 
 /**
@@ -62,20 +62,20 @@ public final class MSLiveIdManager extends MSAuthManager {
   /**
 	 * 
 	 */
-  public final String[] getCRMAuthToken(final CADUser user) throws Exception {
+  public final String[] getCRMAuthToken(final ScribeCacheObject user) throws Exception {
 
     String userName = null;
     String password = null;
     String crmServiceURL = null;
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getCRMAuthToken for user: " + user.getCrmUserId());
+      logger.debug("---Inside getCRMAuthToken for user: " + user.getcADMetaObject().getCrmUserId());
     }
 
     /* get CRM credentials */
-    userName = user.getCrmUserId();
-    password = user.getCrmPassword();
-    crmServiceURL = user.getCrmServiceURL();
+    userName = user.getcADMetaObject().getCrmUserId();
+    password = user.getcADMetaObject().getCrmPassword();
+    crmServiceURL = user.getcADMetaObject().getCrmServiceURL();
 
     if (logger.isDebugEnabled()) {
 
@@ -136,29 +136,29 @@ public final class MSLiveIdManager extends MSAuthManager {
         if (result == null || (result.getValue() == null && !"".equals(result.getValue()))) {
 
           /* Report error to user */
-          throw new CADException(CADResponseCodes._1008 + "Security token not recieved from Live Id server");
+          throw new ScribeException(ScribeResponseCodes._1008 + "Security token not recieved from Live Id server");
         } else {
           return new String[] {result.getValue()};
         }
       } else {
 
         /* Report error to user */
-        throw new CADException(CADResponseCodes._1008 + "Invalid response from MS Live Id server");
+        throw new ScribeException(ScribeResponseCodes._1008 + "Invalid response from MS Live Id server");
       }
 
     } catch (final IOException e) {
 
       /* Report error to user */
-      throw new CADException(CADResponseCodes._1015 + "Not able to connect to MS Live Id server: " + "https://" + liveIdHost + liveIdEndpoint);
+      throw new ScribeException(ScribeResponseCodes._1015 + "Not able to connect to MS Live Id server: " + "https://" + liveIdHost + liveIdEndpoint);
     } catch (final SOAPException e) {
 
       /* Report error to user */
-      throw new CADException(CADResponseCodes._1012 + "SOAP error from Microsoft Live Id server, Error : " + e.getMessage());
+      throw new ScribeException(ScribeResponseCodes._1012 + "SOAP error from Microsoft Live Id server, Error : " + e.getMessage());
     } catch (final Exception e) {
 
       /* Report error to user and system */
       logger.error("=*=Exception at getCRMAuthToken ", e);
-      throw new CADException(CADResponseCodes._1012 + "Error during MS Live Id authentication");
+      throw new ScribeException(ScribeResponseCodes._1012 + "Error during MS Live Id authentication");
     }
   }
 

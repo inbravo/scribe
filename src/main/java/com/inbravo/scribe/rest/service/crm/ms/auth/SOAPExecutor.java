@@ -49,8 +49,8 @@ import org.jaxen.SimpleNamespaceContext;
 import org.jaxen.XPath;
 import org.jaxen.dom.DOMXPath;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 
 /**
  * 
@@ -146,7 +146,7 @@ public final class SOAPExecutor {
         return postMethod.getResponseBodyAsString();
       } catch (final Exception exception) {
         /* Send user error */
-        throw new CADException(CADResponseCodes._1008 + "Problem in calling MS CRM URL: " + url);
+        throw new ScribeException(ScribeResponseCodes._1008 + "Problem in calling MS CRM URL: " + url);
       }
     } finally {
       if (postMethod != null) {
@@ -185,7 +185,7 @@ public final class SOAPExecutor {
       logger.debug("---Inside getHttpURL, exception: " + exception);
 
       /* Send user error */
-      throw new CADException(CADResponseCodes._1008 + "Problem in finding CRM integration information from customers CRM service URL");
+      throw new ScribeException(ScribeResponseCodes._1008 + "Problem in finding CRM integration information from customers CRM service URL");
     } finally {
 
       /* Release connection */

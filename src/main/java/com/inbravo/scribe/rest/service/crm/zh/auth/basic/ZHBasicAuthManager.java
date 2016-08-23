@@ -28,8 +28,8 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.service.crm.zh.auth.ZHAuthManager;
 
 /**
@@ -50,7 +50,7 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
     if (crmProtocol == null || "".equalsIgnoreCase(crmProtocol)) {
 
       /* Send user error */
-      throw new CADException(CADResponseCodes._1003 + "Invalid protocol to communicate with Zoho: " + crmProtocol);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Invalid protocol to communicate with Zoho: " + crmProtocol);
     }
 
     String loginURL = crmURL;
@@ -89,7 +89,7 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
       /* Check for authentication */
       if (result == HttpStatus.SC_UNAUTHORIZED) {
         logger.debug("---Inside getSessionId found unauthorized user");
-        throw new CADException(CADResponseCodes._1012 + "Anauthorized by Zoho CRM");
+        throw new ScribeException(ScribeResponseCodes._1012 + "Anauthorized by Zoho CRM");
       } else {
         /* Response string */
         final String response = getMethod.getResponseBodyAsString();
@@ -103,11 +103,11 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
         } else {
           final String reason = response.substring(response.indexOf("=") + 1, response.lastIndexOf("=") - 6);
 
-          throw new CADException(CADResponseCodes._1022 + "No session id is found in response from Zoho CRM : " + reason);
+          throw new ScribeException(ScribeResponseCodes._1022 + "No session id is found in response from Zoho CRM : " + reason);
         }
       }
     } catch (final IOException exception) {
-      throw new CADException(CADResponseCodes._1022 + "Communication error while communicating with Zoho CRM", exception);
+      throw new ScribeException(ScribeResponseCodes._1022 + "Communication error while communicating with Zoho CRM", exception);
     } finally {
       /* Release connection socket */
       if (getMethod != null) {
@@ -124,7 +124,7 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
     if (crmProtocol == null || "".equalsIgnoreCase(crmProtocol)) {
 
       /* Send user error */
-      throw new CADException(CADResponseCodes._1003 + "Invalid protocol to communicate with Zoho CRM: " + crmProtocol);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Invalid protocol to communicate with Zoho CRM: " + crmProtocol);
     }
 
     String loginURL = crmURL;
@@ -175,11 +175,11 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
         } else {
           final String reason = response.substring(response.indexOf("=") + 1, response.lastIndexOf("=") - 6);
 
-          throw new CADException(CADResponseCodes._1022 + "No session id is found in response from Zoho CRM : " + reason);
+          throw new ScribeException(ScribeResponseCodes._1022 + "No session id is found in response from Zoho CRM : " + reason);
         }
       }
     } catch (final IOException exception) {
-      throw new CADException(CADResponseCodes._1022 + "Communication error while communicating with Zoho CRM", exception);
+      throw new ScribeException(ScribeResponseCodes._1022 + "Communication error while communicating with Zoho CRM", exception);
     } finally {
       /* Release connection socket */
       if (getMethod != null) {

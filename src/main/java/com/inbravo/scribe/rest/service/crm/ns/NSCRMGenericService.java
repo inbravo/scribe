@@ -21,7 +21,7 @@
 
 package com.inbravo.scribe.rest.service.crm.ns;
 
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 import com.netsuite.webservices.activities.scheduling.PhoneCall;
 import com.netsuite.webservices.activities.scheduling.Task;
 import com.netsuite.webservices.lists.relationships.Contact;
@@ -49,15 +49,15 @@ public interface NSCRMGenericService {
 
   SearchRecord createEmployeeSearch(final String query, final String crmFieldIntraSeparator, final String inputDateFormat) throws Exception;
 
-  Task createTask(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
+  Task createTask(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 
-  Customer createCustomer(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
+  Customer createCustomer(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 
-  Opportunity createOpportunity(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
+  Opportunity createOpportunity(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 
-  Contact createContact(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
+  Contact createContact(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 
-  SupportCase createSupportCase(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
+  SupportCase createSupportCase(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 
-  PhoneCall createPhoneCall(final CADObject cADbject, final String crmFieldIntraSeparator) throws Exception;
+  PhoneCall createPhoneCall(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception;
 }

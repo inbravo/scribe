@@ -31,10 +31,10 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
-import com.inbravo.scribe.exception.CADException;
-import com.inbravo.scribe.exception.CADResponseCodes;
-import com.inbravo.scribe.rest.resource.CADCommandObject;
-import com.inbravo.scribe.rest.resource.CADObject;
+import com.inbravo.scribe.exception.ScribeException;
+import com.inbravo.scribe.exception.ScribeResponseCodes;
+import com.inbravo.scribe.rest.resource.ScribeCommandObject;
+import com.inbravo.scribe.rest.resource.ScribeObject;
 import com.inbravo.scribe.rest.service.crm.CRMMessageFormatUtils;
 import com.netsuite.webservices.platform.core.BooleanCustomFieldRef;
 import com.netsuite.webservices.platform.core.CustomFieldList;
@@ -76,7 +76,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
    * @throws Exception
    */
   @SuppressWarnings("unused")
-  public static final CADCommandObject processResponse(final CADCommandObject cADCommandObject, final SearchResult searchResult,
+  public static final ScribeCommandObject processResponse(final ScribeCommandObject cADCommandObject, final SearchResult searchResult,
       final Set<String> crmFieldToBeSelectedSet) throws Exception {
 
     logger.debug("---Inside processResponse crmFieldToBeSelectedSet size: " + crmFieldToBeSelectedSet.size());
@@ -84,7 +84,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
     if (searchResult == null) {
 
       /* Inform use about no response from NS */
-      throw new CADException(CADResponseCodes._1004 + "No records found from NS");
+      throw new ScribeException(ScribeResponseCodes._1004 + "No records found from NS");
     }
 
     /* Get record list */
@@ -109,10 +109,10 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
         }
 
         /* Inform use about message from NS */
-        throw new CADException(CADResponseCodes._1004 + "No records found from NS : " + stringBuffer);
+        throw new ScribeException(ScribeResponseCodes._1004 + "No records found from NS : " + stringBuffer);
       } else {
         /* Inform use about no records from NS */
-        throw new CADException(CADResponseCodes._1004 + "No records found from NS");
+        throw new ScribeException(ScribeResponseCodes._1004 + "No records found from NS");
       }
     }
 
@@ -123,7 +123,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
     int pageIndex = 0;
 
     /* Create CADObject list */
-    final List<CADObject> cADbjectList = new ArrayList<CADObject>();
+    final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
     /* Check if records are not null */
     if (records != null) {
@@ -137,7 +137,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
       for (int i = 0, j = (pageIndex - 1) * 500; i < records.length; i++, j++) {
 
         /* Create one Object each record */
-        final CADObject cADbject = new CADObject();
+        final ScribeObject cADbject = new ScribeObject();
 
         /* Create list of elements */
         final List<Element> elementList = new ArrayList<Element>();
@@ -232,11 +232,11 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
               }
 
             } catch (final IllegalArgumentException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in processing CRM fields in response from NS");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in processing CRM fields in response from NS");
             } catch (final IllegalAccessException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in processing CRM fields in response from NS");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in processing CRM fields in response from NS");
             } catch (final InvocationTargetException e) {
-              throw new CADException(CADResponseCodes._1003 + "Found problem in processing CRM fields in response from NS");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in processing CRM fields in response from NS");
             }
           }
         }
@@ -249,12 +249,12 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
       }
     } else {
       /* Inform use about no records from NS */
-      throw new CADException(CADResponseCodes._1004 + "No records found from NS");
+      throw new ScribeException(ScribeResponseCodes._1004 + "No records found from NS");
     }
     logger.debug("---Inside processCustomerInResponse records count in response: " + cADbjectList.size());
 
     /* Set the final object in command object */
-    cADCommandObject.setcADObject(cADbjectList.toArray(new CADObject[cADbjectList.size()]));
+    cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
 
     return cADCommandObject;
   }
