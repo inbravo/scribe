@@ -78,7 +78,7 @@ public final class ScribeObjectService {
       final @PathParam(HTTPConstants.ObjectType) String ObjectType, final @PathParam(HTTPConstants.select) String select) throws Exception {
 
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select specific CRM fields with dynamic query. Object type: " + ObjectType);
 
@@ -104,7 +104,7 @@ public final class ScribeObjectService {
     /* Update the object for removing requestObject */
     cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
     return Response.ok(cADCommandObject).build();
@@ -127,7 +127,7 @@ public final class ScribeObjectService {
       final @PathParam(HTTPConstants.order) String order) throws Exception {
 
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select specific CRM fields with dynamic query and order. Object type: " + ObjectType);
 
@@ -156,7 +156,7 @@ public final class ScribeObjectService {
     /* Update the object for removing requestObject */
     cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
     return Response.ok(cADCommandObject).build();
@@ -175,7 +175,7 @@ public final class ScribeObjectService {
   public final Response getObjects(@QueryParam("") ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
       throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select all CRM fields. Object type: " + ObjectType);
 
@@ -198,7 +198,7 @@ public final class ScribeObjectService {
     /* Update the object for removing requestObject */
     cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
     return Response.ok(cADCommandObject).build();
@@ -216,7 +216,7 @@ public final class ScribeObjectService {
   public final Response getObjectsCount(@QueryParam("") ScribeCommandObject cADCommandObject,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getAllObjectsCount Object type: " + ObjectType);
 
@@ -239,7 +239,7 @@ public final class ScribeObjectService {
     /* Update the object for removing requestObject */
     cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
     return Response.ok(cADCommandObject).build();
@@ -257,7 +257,7 @@ public final class ScribeObjectService {
   public final Response getObjects(@QueryParam("") ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.query) String query,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select all CRM fields by dynamic query. Object type: " + ObjectType);
 
@@ -282,7 +282,7 @@ public final class ScribeObjectService {
     /* Update the object for removing requestObject */
     cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
     return Response.ok(cADCommandObject).build();
@@ -300,7 +300,7 @@ public final class ScribeObjectService {
   public final Response getObjectsCount(@QueryParam("") ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.query) String query,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjectsCount Object type: " + ObjectType);
 
@@ -325,7 +325,7 @@ public final class ScribeObjectService {
     /* Update the object for removing requestObject */
     cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
     return Response.ok(cADCommandObject).build();
@@ -343,7 +343,7 @@ public final class ScribeObjectService {
   public final Response createObject(ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
       throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside createObject object type: " + ObjectType);
 
@@ -361,7 +361,7 @@ public final class ScribeObjectService {
     /* Update the object for removing requestObject */
     cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
     return Response.ok(cADCommandObject).build();
@@ -379,7 +379,7 @@ public final class ScribeObjectService {
   public final Response updateObject(ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
       throws Exception {
     final long transactionId = System.currentTimeMillis();
-    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, CAD-TransId : [" + transactionId
+    logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside updateObject object type: " + ObjectType);
 
@@ -397,7 +397,7 @@ public final class ScribeObjectService {
     /* Update the object for removing requestObject */
     cADCommandObject.setObjectType(null);
 
-    logger.info("==**== Transaction completed, CAD-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+    logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
         + "] ==**== ");
 
     return Response.ok(cADCommandObject).build();

@@ -228,7 +228,7 @@ public final class NetSuiteSOAPClient {
       logger.debug("---Inside login : AxisFault : " + e.dumpToString());
 
       /* Inform user about unexpected error */
-      throw new ScribeException(ScribeResponseCodes._1021 + "NetSuite webservice error while login : error dump : " + e.dumpToString());
+      throw new ScribeException(ScribeResponseCodes._1021 + "NetSuite webservice error while login : reason : " + e.getFaultString());
     } catch (final RemoteException e) {
 
       /* Inform user about remote error */

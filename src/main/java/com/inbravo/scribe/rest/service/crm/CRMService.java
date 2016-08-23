@@ -21,14 +21,14 @@
 
 package com.inbravo.scribe.rest.service.crm;
 
-import com.inbravo.scribe.rest.service.basic.CADService;
+import com.inbravo.scribe.rest.service.basic.ScribeService;
 
 /**
  * 
  * @author amit.dixit
  * 
  */
-public abstract class CRMService implements CADService {
+public abstract class CRMService implements ScribeService {
 
   /**
    * Common validation logic for all the methods

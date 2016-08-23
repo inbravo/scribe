@@ -114,24 +114,24 @@ public final class MSSOAPCRMService extends CRMService {
   private final MSCRMObjectService getmSCRMObjectService(final ScribeCommandObject cADCommandObject) throws Exception {
 
     /* CRM service params */
-    ScribeCacheObject agent = null;
+    ScribeCacheObject cacheObject = null;
     String serviceURL = null;
     String servicePrototol = "https";
     Map<String, String> nodeMap = null;
     String STSEnpoint = null;
 
     /* Check if CRM user id is found */
-    if (cADCommandObject.getCrmUserId() != null && !"".equals(cADCommandObject.getCrmUserId())) {
+    if (cADCommandObject.getMetaObject().getCrmUserId() != null && !"".equals(cADCommandObject.getMetaObject().getCrmUserId())) {
 
       logger.debug("---Inside getmSCRMObjectService for user: " + cADCommandObject.getCrmUserId());
 
       /* Check if session is already available at cache */
-      agent = (ScribeCacheObject) cRMSessionCache.recover(cADCommandObject.getCrmUserId().trim());
+      cacheObject = (ScribeCacheObject) cRMSessionCache.recover(cADCommandObject.getCrmUserId().trim());
 
       /* Get crm service URL */
       serviceURL = cADCommandObject.getMetaObject().getCrmServiceURL();
       servicePrototol = cADCommandObject.getMetaObject().getCrmServiceProtocol();
-      nodeMap = agent.getAdditionalInfo();
+      nodeMap = cacheObject.getAdditionalInfo();
     }
 
     /* Validate CRM URL */
@@ -159,22 +159,22 @@ public final class MSSOAPCRMService extends CRMService {
       STSEnpoint = nodeMap.get("STSEnpoint");
 
       /* Check if tenant or agent request */
-      if (agent != null) {
+      if (cacheObject != null) {
 
         logger.debug("---Inside getmSCRMObjectService, adding MS login additonal info at agent: " + cADCommandObject.getCrmUserId());
 
-        if (agent.getAdditionalInfo() != null) {
+        if (cacheObject.getAdditionalInfo() != null) {
 
           /* Update agent additonal information */
-          agent.getAdditionalInfo().putAll(nodeMap);
+          cacheObject.getAdditionalInfo().putAll(nodeMap);
         } else {
 
           /* Update agent additonal information */
-          agent.setAdditionalInfo(nodeMap);
+          cacheObject.setAdditionalInfo(nodeMap);
         }
 
         /* Put back the agent back to cache */
-        cRMSessionCache.admit(cADCommandObject.getCrmUserId().trim(), agent);
+        cRMSessionCache.admit(cADCommandObject.getCrmUserId().trim(), cacheObject);
       }
     }
 

@@ -1,0 +1,9 @@
+#=====================================================================================================================================================
+#	Scribe URLs for different CRM
+#=====================================================================================================================================================
+	#.	SFDC :	http://localhost:8080/scribe/object/contact?MetaObject.CrmUserId=amit.dixit@impetus.co.in&MetaObject.CrmPassword=neustar01mm9gWxj3GVA5w0cCDxs7tZX3&MetaObject.CrmType=sfdc
+	#.	NS	:	http://localhost:8080/scribe/object/contact?MetaObject.CrmUserId=amit.dixit@impetus.co.in&MetaObject.CrmPassword=neustar01mm9gWxj3GVA5w0cCDxs7tZX3&MetaObject.CrmType=ns&MetaObject.CrmAccountId=amit
+	#.	MS	:	http://localhost:8080/scribe/object/contact?MetaObject.CrmUserId=amit.dixit@impetus.co.in&MetaObject.CrmPassword=neustar01mm9gWxj3GVA5w0cCDxs7tZX3&MetaObject.crmtype=ms&MetaObject.crmServiceUrl=impetus.com
+	#.	ZD	:	http://localhost:8080/scribe/object/contact?MetaObject.CrmUserId=amit.dixit@impetus.co.in&MetaObject.CrmPassword=neustar01mm9gWxj3GVA5w0cCDxs7tZX3&MetaObject.crmtype=ZD&MetaObject.crmServiceUrl=ms&MetaObject.crmServiceProtocol=https&MetaObject.crmPort=80
+	#.	ZH	:	http://localhost:8080/scribe/object/contact?MetaObject.CrmUserId=amit.dixit@impetus.co.in&MetaObject.CrmPassword=neustar01mm9gWxj3GVA5w0cCDxs7tZX3&MetaObject.crmtype=ZH&MetaObject.crmServiceUrl=ms&MetaObject.crmServiceProtocol=https&MetaObject.crmPort=80
+			
