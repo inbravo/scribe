@@ -21,7 +21,7 @@ import javax.xml.transform.TransformerException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.inbravo.scribe.external.junit.core.CADClientMgmt;
+import com.inbravo.scribe.external.junit.core.ScribeClientMgmt;
 import com.inbravo.scribe.rest.resource.ScribeCommandObject;
 import com.inbravo.scribe.rest.resource.ScribeObject;
 
@@ -35,7 +35,7 @@ public class SalesForceCampaignTest {
   private String agentId = "crmtest~~ag2";
   private String cadURL = "http://localhost:8080/cad/";
 
-  CADClientMgmt sFCampaignMgmt;
+  ScribeClientMgmt sFCampaignMgmt;
 
   /* Create JAXBContext for the object */
   JAXBContext context;
@@ -44,7 +44,7 @@ public class SalesForceCampaignTest {
   Unmarshaller unmarshaller;
 
   public SalesForceCampaignTest() throws Exception {
-    sFCampaignMgmt = new CADClientMgmt(cadURL, "/object/campaign");
+    sFCampaignMgmt = new ScribeClientMgmt(cadURL, "/object/campaign");
     context = JAXBContext.newInstance(ScribeCommandObject.class);
     unmarshaller = context.createUnmarshaller();
   }

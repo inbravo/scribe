@@ -78,7 +78,7 @@ public final class ScribeObject {
   @Override
   public final String toString() {
 
-    String returnString = "CADObject [ObjectType=" + ObjectType;
+    String returnString = "ScribeObject [ObjectType=" + ObjectType;
     returnString = returnString + ", xmlContent=";
 
     if (xmlContent != null) {

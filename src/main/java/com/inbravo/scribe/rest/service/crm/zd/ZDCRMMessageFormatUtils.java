@@ -255,7 +255,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param cADCommandObject
+   * @param elementList
    * @return
    * @throws JAXBException
    */
@@ -290,7 +290,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param cADCommandObject
+   * @param elementList
    * @return
    * @throws JAXBException
    */
@@ -325,7 +325,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
   /**
    * 
-   * @param cADCommandObject
+   * @param elementList
    * @return
    * @throws JAXBException
    */

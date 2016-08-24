@@ -198,6 +198,6 @@ public final class ScribeExceptionMapper implements ExceptionMapper<Exception> {
   }
 
   public final static String getErrorXML(final String error) {
-    return "<CAD>" + "<Error>" + error + "</Error>" + "</CAD>";
+    return "<Scribe>" + "<Error>" + error + "</Error>" + "</Scribe>";
   }
 }

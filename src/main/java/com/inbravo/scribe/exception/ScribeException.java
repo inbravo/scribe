@@ -31,8 +31,6 @@ public final class ScribeException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
 
-  private int cADTransId;
-
   public ScribeException(final Throwable throwable) {
     super(throwable);
   }
@@ -47,18 +45,5 @@ public final class ScribeException extends RuntimeException {
 
   public ScribeException(final String errorMessage, final Exception cause) {
     super(errorMessage, cause);
-  }
-
-  public ScribeException(final String errorMessage, final Exception cause, final int cADTransId) {
-    super(errorMessage, cause);
-    this.cADTransId = cADTransId;
-  }
-
-  public final int getCADTransId() {
-    return this.cADTransId;
-  }
-
-  public final void setCADTransId(final int cADTransId) {
-    this.cADTransId = cADTransId;
   }
 }

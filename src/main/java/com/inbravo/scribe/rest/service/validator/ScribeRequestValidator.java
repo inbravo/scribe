@@ -45,21 +45,21 @@ public final class ScribeRequestValidator {
 
   /**
    * 
-   * @param cADCommandObject
+   * @param ScribeCommandObject
    * @param ObjectType
    * @param checkInputObject
    * @throws ScribeException
    */
-  public final void validateRequestObject(final ScribeCommandObject cADCommandObject, final String ObjectType, final boolean checkInputObject)
+  public final void validateRequestObject(final ScribeCommandObject ScribeCommandObject, final String ObjectType, final boolean checkInputObject)
       throws Exception {
 
-    if (cADCommandObject != null && cADCommandObject.getMetaObject() != null) {
+    if (ScribeCommandObject != null && ScribeCommandObject.getMetaObject() != null) {
 
-      logger.debug("---Inside validateRequestObject Object type: " + cADCommandObject.getObjectType());
+      logger.debug("---Inside validateRequestObject Object type: " + ScribeCommandObject.getObjectType());
 
       /* Create Exception if both Tenant/Agent are null */
-      if (cADCommandObject.getMetaObject().getCrmUserId() == null && cADCommandObject.getMetaObject().getCrmPassword() == null
-          && cADCommandObject.getMetaObject().getCrmType() == null) {
+      if (ScribeCommandObject.getMetaObject().getCrmUserId() == null && ScribeCommandObject.getMetaObject().getCrmPassword() == null
+          && ScribeCommandObject.getMetaObject().getCrmType() == null) {
 
         /* Inform user about invalid request */
         throw new ScribeException(ScribeResponseCodes._1008 + "CRM information is not present in request");
@@ -67,26 +67,26 @@ public final class ScribeRequestValidator {
 
       /* Check for a valid input Object */
       if (checkInputObject) {
-        logger.debug("---Inside validateRequestObject checking the input CAD object");
+        logger.debug("---Inside validateRequestObject checking the input Scribe object");
 
         /* Check is user id is valid */
-        if (cADCommandObject.getObject() == null) {
-          logger.debug("---Inside validateRequestObject no CAD object in request");
+        if (ScribeCommandObject.getObject() == null) {
+          logger.debug("---Inside validateRequestObject no Scribe object in request");
 
           /* Inform user about invalid request */
           throw new ScribeException(ScribeResponseCodes._1008 + "CRM object information is not present in request");
         }
 
         /* Check is user id is valid */
-        if (cADCommandObject.getObject()[0] == null) {
-          logger.debug("---Inside validateRequestObject invalid CAD object in request");
+        if (ScribeCommandObject.getObject()[0] == null) {
+          logger.debug("---Inside validateRequestObject invalid Scribe object in request");
 
           /* Inform user about invalid request */
           throw new ScribeException(ScribeResponseCodes._1008 + "CRM object information is not valid");
         }
 
         /* Check is user id is valid */
-        if (cADCommandObject.getObject()[0].getXmlContent() == null) {
+        if (ScribeCommandObject.getObject()[0].getXmlContent() == null) {
           logger.debug("---Inside validateRequestObject invalid XML content in request");
 
           /* Inform user about invalid request */

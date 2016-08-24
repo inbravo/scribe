@@ -24,7 +24,6 @@ package com.inbravo.scribe.rest.service.crm;
 import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -353,33 +352,6 @@ public abstract class CRMMessageFormatUtils {
     cADbject.setXmlContent(elementList);
 
     return cADbject;
-  }
-
-  public static final ScribeObject createCADObject(final Map<String, String> additionalInfo) throws Exception {
-
-    /* Get additional information */
-    if (additionalInfo != null) {
-
-      /* Create list of elements */
-      final List<Element> elementList = new ArrayList<Element>();
-
-      /* Create new CAD object */
-      final ScribeObject cADbject = new ScribeObject();
-
-      for (final Entry<String, String> entry : additionalInfo.entrySet()) {
-
-        /* Create element from response */
-        elementList.add(createMessageElement(entry.getKey(), entry.getValue()));
-
-      }
-
-      /* Set element list */
-      cADbject.setXmlContent(elementList);
-
-      return cADbject;
-    } else {
-      return null;
-    }
   }
 
   public static final String getValueFromXML(final String inputXML, final String xPathQuery) throws Exception {

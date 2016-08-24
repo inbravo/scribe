@@ -14,7 +14,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.w3c.dom.Element;
 
-import com.inbravo.scribe.external.junit.core.CADClientMgmt;
+import com.inbravo.scribe.external.junit.core.ScribeClientMgmt;
 import com.inbravo.scribe.rest.resource.ScribeCommandObject;
 
 /**
@@ -28,7 +28,7 @@ public class SalesForceObjectCountTest {
   private String tenantId = "crmtest";
   private String cadURL = "http://localhost:8080/cad/";
 
-  CADClientMgmt sFAccountMgmt;
+  ScribeClientMgmt sFAccountMgmt;
 
   /* Create JAXBContext for the object */
   JAXBContext context;
@@ -49,7 +49,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Account_Object_Count_For_Agent() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/account/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/account/count");
 
     try {
       /* Get CAD command object from response */
@@ -83,7 +83,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Lead_Object_Count_For_Agent() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/lead/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/lead/count");
 
     try {
       /* Get CAD command object from response */
@@ -117,7 +117,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Case_Object_Count_For_Agent() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/case/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/case/count");
 
     try {
       /* Get CAD command object from response */
@@ -151,7 +151,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Contact_Object_Count_For_Agent() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/contact/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/contact/count");
 
     try {
       /* Get CAD command object from response */
@@ -185,7 +185,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Campaign_Object_Count_For_Agent() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/campaign/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/campaign/count");
 
     try {
       /* Get CAD command object from response */
@@ -220,7 +220,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Account_Object_Count_For_Tenant() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/account/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/account/count");
 
     try {
       /* Get CAD command object from response */
@@ -254,7 +254,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Lead_Object_Count_For_Tenant() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/lead/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/lead/count");
 
     try {
       /* Get CAD command object from response */
@@ -288,7 +288,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Case_Object_Count_For_Tenant() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/case/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/case/count");
 
     try {
       /* Get CAD command object from response */
@@ -322,7 +322,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Contact_Object_Count_For_Tenant() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/contact/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/contact/count");
 
     try {
       /* Get CAD command object from response */
@@ -356,7 +356,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Campaign_Object_Count_For_Tenant() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/campaign/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/campaign/count");
 
     try {
       /* Get CAD command object from response */
@@ -391,7 +391,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Action_Object_Count_For_Tenant_With_Dynamic_Query() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/campaign/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/campaign/count");
 
     try {
       /* Get CAD command object from response */
@@ -426,7 +426,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Action_Object_Count_For_Agent_With_Dynamic_Query() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/account/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/account/count");
 
     try {
       /* Get CAD command object from response */
@@ -461,7 +461,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Invalid_Object_Count_For_Tenant() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/NARCOXX/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/NARCOXX/count");
 
     try {
       /* Get CAD command object from response */
@@ -489,7 +489,7 @@ public class SalesForceObjectCountTest {
   @org.junit.Test
   public void Test_Invalid_Object_Count_For_Agent() throws Exception {
 
-    sFAccountMgmt = new CADClientMgmt(cadURL, "/object/NARCOXX/count");
+    sFAccountMgmt = new ScribeClientMgmt(cadURL, "/object/NARCOXX/count");
 
     try {
       /* Get CAD command object from response */

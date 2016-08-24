@@ -22,7 +22,7 @@
 package com.inbravo.scribe.exception;
 
 /**
- * This class contains CAD response codes
+ * This class contains Scribe response codes
  * 
  * @author amit.dixit
  * 

@@ -154,7 +154,7 @@ public final class ZHRESTCRMService extends CRMService {
           }
         } else {
 
-          /* Create new CAD object list */
+          /* Create new Scribe object list */
           final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
           /* Iterate over node list */
@@ -166,7 +166,7 @@ public final class ZHRESTCRMService extends CRMService {
             /* Get node from node list */
             final Node node = nodeList.item(i);
 
-            /* Create new CAD object */
+            /* Create new Scribe object */
             final ScribeObject cADbject = new ScribeObject();
 
             /* Check if node has child nodes */
@@ -418,7 +418,7 @@ public final class ZHRESTCRMService extends CRMService {
 
           } else {
 
-            /* Create new CAD object list */
+            /* Create new Scribe object list */
             final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
             /* Iterate over node list */
@@ -430,7 +430,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Get node from node list */
               final Node node = nodeList.item(i);
 
-              /* Create new CAD object */
+              /* Create new Scribe object */
               final ScribeObject cADbject = new ScribeObject();
 
               /* Check if node has child nodes */
@@ -698,7 +698,7 @@ public final class ZHRESTCRMService extends CRMService {
               throw new ScribeException(ScribeResponseCodes._1004 + "No records found at Zoho CRM : " + errorMessage.getTextContent());
             }
           } else {
-            /* Create new CAD object list */
+            /* Create new Scribe object list */
             final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
             /* Iterate over node list */
@@ -710,7 +710,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Get node from node list */
               final Node node = nodeList.item(i);
 
-              /* Create new CAD object */
+              /* Create new Scribe object */
               final ScribeObject cADbject = new ScribeObject();
 
               /* Check if node has child nodes */
@@ -994,7 +994,7 @@ public final class ZHRESTCRMService extends CRMService {
             }
           } else {
 
-            /* Create new CAD object list */
+            /* Create new Scribe object list */
             final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
             /* Iterate over node list */
@@ -1006,7 +1006,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Get node from node list */
               final Node node = nodeList.item(i);
 
-              /* Create new CAD object */
+              /* Create new Scribe object */
               final ScribeObject cADbject = new ScribeObject();
 
               /* Check if node has child nodes */
@@ -1252,7 +1252,7 @@ public final class ZHRESTCRMService extends CRMService {
           }
         } else {
 
-          /* Create new CAD object list */
+          /* Create new Scribe object list */
           final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
           /* Iterate over node list */
@@ -1264,7 +1264,7 @@ public final class ZHRESTCRMService extends CRMService {
             /* Get node from node list */
             final Node node = nodeList.item(i);
 
-            /* Create new CAD object */
+            /* Create new Scribe object */
             final ScribeObject cADbject = new ScribeObject();
 
             /* Check if node has child nodes */

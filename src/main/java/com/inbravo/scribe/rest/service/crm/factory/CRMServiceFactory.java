@@ -28,7 +28,7 @@ import org.springframework.context.ApplicationContextAware;
 
 import com.inbravo.scribe.exception.ScribeException;
 import com.inbravo.scribe.exception.ScribeResponseCodes;
-import com.inbravo.scribe.internal.service.factory.CADServiceFactory;
+import com.inbravo.scribe.internal.service.factory.ScribeServiceFactory;
 import com.inbravo.scribe.rest.constants.CRMConstants;
 import com.inbravo.scribe.rest.resource.ScribeCommandObject;
 import com.inbravo.scribe.rest.service.crm.CRMService;
@@ -40,7 +40,7 @@ import com.inbravo.scribe.rest.service.crm.cache.ScribeCacheObject;
  * @author amit.dixit
  * 
  */
-public final class CRMServiceFactory implements ApplicationContextAware, CADServiceFactory {
+public final class CRMServiceFactory implements ApplicationContextAware, ScribeServiceFactory {
 
   private final Logger logger = Logger.getLogger(CRMServiceFactory.class.getName());
 

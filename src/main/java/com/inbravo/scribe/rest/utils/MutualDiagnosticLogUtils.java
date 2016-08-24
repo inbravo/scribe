@@ -46,22 +46,22 @@ public final class MutualDiagnosticLogUtils {
    * @param extTransId
    * @param userId
    */
-  public final void addTransactionInfo(final ScribeCommandObject cADCommandObject) {
+  public final void addTransactionInfo(final ScribeCommandObject scribeCommandObject) {
 
     if (enabled) {
 
       /* If Scribe transaction id is not null */
-      if (cADCommandObject.getIntTansId() != null) {
+      if (scribeCommandObject.getIntTansId() != null) {
 
         /* Add internal transaction id information in MDC */
-        MDC.put(intTransIdConst, cADCommandObject.getIntTansId());
+        MDC.put(intTransIdConst, scribeCommandObject.getIntTansId());
       }
 
       /* If external transaction id is not null */
-      if (cADCommandObject.getExtTransId() != null) {
+      if (scribeCommandObject.getExtTransId() != null) {
 
         /* Add external transaction id information in MDC */
-        MDC.put(extTransIdConst, cADCommandObject.getExtTransId());
+        MDC.put(extTransIdConst, scribeCommandObject.getExtTransId());
       }
     }
   }

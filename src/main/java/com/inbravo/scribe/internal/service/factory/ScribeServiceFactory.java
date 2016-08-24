@@ -19,38 +19,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.inbravo.scribe.rest.service.basic;
+package com.inbravo.scribe.internal.service.factory;
 
-import org.apache.log4j.Logger;
-
-import com.inbravo.scribe.internal.service.factory.ScribeServiceFactory;
 import com.inbravo.scribe.rest.resource.ScribeCommandObject;
-import com.inbravo.scribe.rest.service.crm.factory.CRMServiceFactory;
+import com.inbravo.scribe.rest.service.basic.ScribeService;
 
 /**
  * 
  * @author amit.dixit
  * 
  */
-public final class ScribeInternalService {
+public interface ScribeServiceFactory {
 
-  private final Logger logger = Logger.getLogger(ScribeInternalService.class.getName());
-
-  private CRMServiceFactory cRMServiceFactory;
-
-  public final ScribeServiceFactory getServiceFactory(final ScribeCommandObject cADCommandObject) throws Exception {
-
-    logger.debug("---Inside getServiceFactory, Object type: " + cADCommandObject.getObjectType() + ", providing CRM service");
-
-    /* Return CRM service factory */
-    return cRMServiceFactory;
-  }
-
-  public final CRMServiceFactory getcRMServiceFactory() {
-    return cRMServiceFactory;
-  }
-
-  public final void setcRMServiceFactory(final CRMServiceFactory cRMServiceFactory) {
-    this.cRMServiceFactory = cRMServiceFactory;
-  }
+  public ScribeService getService(final ScribeCommandObject cADCommandObject) throws Exception;
 }
