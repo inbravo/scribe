@@ -112,14 +112,14 @@ public final class CRMServiceFactory implements ApplicationContextAware, ScribeS
     }
 
     /* Validate cacheObject CRM information */
-    if (cacheObject.getcADMetaObject().getCrmType() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmType() == null) {
 
       /* Inform cacheObject about missing property */
       throw new ScribeException(ScribeResponseCodes._1012 + "CRM integration information is missing");
     }
 
     /* Check target CRM service type */
-    if (cacheObject.getcADMetaObject().getCrmType().equalsIgnoreCase(salesForceCRMConst)) {
+    if (cacheObject.getScribeMetaObject().getCrmType().equalsIgnoreCase(salesForceCRMConst)) {
 
       /* Check if SFDC CRM is enabled */
       if (sfdcCRMEnabled) {
@@ -128,11 +128,11 @@ public final class CRMServiceFactory implements ApplicationContextAware, ScribeS
         cRMService = (CRMService) getApplicationContext().getBean("sFSOAPCRMService");
       } else {
         /* Inform cacheObject about missing implementation */
-        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getScribeMetaObject().getCrmType()
             + " : integration is not enabled");
       }
 
-    } else if (cacheObject.getcADMetaObject().getCrmType().equalsIgnoreCase(microsoftCRMConst)) {
+    } else if (cacheObject.getScribeMetaObject().getCrmType().equalsIgnoreCase(microsoftCRMConst)) {
 
       /* Check if Microsoft CRM is enabled */
       if (microsoftCRMEnabled) {
@@ -142,10 +142,10 @@ public final class CRMServiceFactory implements ApplicationContextAware, ScribeS
       } else {
 
         /* Inform cacheObject about missing implementation */
-        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getScribeMetaObject().getCrmType()
             + " : integration is not enabled");
       }
-    } else if (cacheObject.getcADMetaObject().getCrmType().contains(zendeskCRMConst)) {
+    } else if (cacheObject.getScribeMetaObject().getCrmType().contains(zendeskCRMConst)) {
 
       /* Check if Zendesk CRM is enabled */
       if (zendeskCRMEnabled) {
@@ -155,10 +155,10 @@ public final class CRMServiceFactory implements ApplicationContextAware, ScribeS
       } else {
 
         /* Inform cacheObject about missing implementation */
-        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getScribeMetaObject().getCrmType()
             + " : integration is not enabled");
       }
-    } else if (cacheObject.getcADMetaObject().getCrmType().equalsIgnoreCase(netsuiteCRMConst)) {
+    } else if (cacheObject.getScribeMetaObject().getCrmType().equalsIgnoreCase(netsuiteCRMConst)) {
 
       /* Check if Netsuite CRM is enabled */
       if (netsuiteCRMEnabled) {
@@ -168,10 +168,10 @@ public final class CRMServiceFactory implements ApplicationContextAware, ScribeS
       } else {
 
         /* Inform cacheObject about missing implementation */
-        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getScribeMetaObject().getCrmType()
             + " : integration is not enabled");
       }
-    } else if (cacheObject.getcADMetaObject().getCrmType().equalsIgnoreCase(zohoCRMConst)) {
+    } else if (cacheObject.getScribeMetaObject().getCrmType().equalsIgnoreCase(zohoCRMConst)) {
 
       /* Check if Zoho CRM is enabled */
       if (zohoCRMEnabled) {
@@ -181,13 +181,13 @@ public final class CRMServiceFactory implements ApplicationContextAware, ScribeS
       } else {
 
         /* Inform cacheObject about missing implementation */
-        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getScribeMetaObject().getCrmType()
             + " : integration is not enabled");
       }
     } else {
 
       /* Inform cacheObject about missing implementation */
-      throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getcADMetaObject().getCrmType()
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM: " + cacheObject.getScribeMetaObject().getCrmType()
           + " : integration is not enabled");
     }
 

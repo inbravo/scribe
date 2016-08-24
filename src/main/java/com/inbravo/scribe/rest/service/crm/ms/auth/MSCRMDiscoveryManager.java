@@ -107,13 +107,13 @@ public final class MSCRMDiscoveryManager {
       String crmServiceURL = null;
       String crmServiceProtocal = null;
 
-      logger.debug("---Inside getMSCRMUserInformation for agent: " + user.getcADMetaObject().getCrmUserId());
+      logger.debug("---Inside getMSCRMUserInformation for agent: " + user.getScribeMetaObject().getCrmUserId());
 
       /* get CRM credentials */
-      userName = user.getcADMetaObject().getCrmUserId();
-      password = user.getcADMetaObject().getCrmPassword();
-      crmServiceURL = user.getcADMetaObject().getCrmServiceURL();
-      crmServiceProtocal = user.getcADMetaObject().getCrmServiceProtocol();
+      userName = user.getScribeMetaObject().getCrmUserId();
+      password = user.getScribeMetaObject().getCrmPassword();
+      crmServiceURL = user.getScribeMetaObject().getCrmServiceURL();
+      crmServiceProtocal = user.getScribeMetaObject().getCrmServiceProtocol();
 
       /* First get Microsoft passport ticket */
       final String[] passportTicket = mSAuthManager.getCRMAuthToken(user);

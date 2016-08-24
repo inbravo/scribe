@@ -66,7 +66,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
       logger.debug("---Inside tenant not found in cache hence going for fresh fetch. Seems like cache limit is reached");
 
       /* Login at Sales Force */
-      soapBindingStub = salesForceSOAPClient.login(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword());
+      soapBindingStub = salesForceSOAPClient.login(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword());
     } else {
 
       /* Login at Sales Force */
@@ -83,7 +83,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
 
       /* Set session information at agent */
       /* Following session will be used for pagination */
-      cacheObject.getcADMetaObject().setCrmSessionId(sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
+      cacheObject.getScribeMetaObject().setCrmSessionId(sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
     } else {
       /* Inform user about absent header value */
       throw new ScribeException(ScribeResponseCodes._1008 + "CRM session id not set with cache object");
@@ -133,7 +133,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
       logger.debug("---Inside login user not found in cache hence going for fresh fetch. Seems like cache limit is reached");
 
       /* Login at Sales Force */
-      soapBindingStub = salesForceSOAPClient.login(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword());
+      soapBindingStub = salesForceSOAPClient.login(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword());
     } else {
 
       /* Login at Sales Force */
@@ -150,7 +150,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
 
       /* Set session information at agent */
       /* Following session will be used for pagination */
-      cacheObject.getcADMetaObject().setCrmSessionId(sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
+      cacheObject.getScribeMetaObject().setCrmSessionId(sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
     } else {
       /* Inform user about absent header value */
       throw new ScribeException(ScribeResponseCodes._1008 + "CRM session id not set with cache object");

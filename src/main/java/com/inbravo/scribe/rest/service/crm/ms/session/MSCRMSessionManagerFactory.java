@@ -69,8 +69,8 @@ public final class MSCRMSessionManagerFactory implements ApplicationContextAware
 
     /* Get crm service URL */
     String STSEnpoint = null;
-    final String serviceURL = cacheObject.getcADMetaObject().getCrmServiceURL();
-    final String servicePrototol = cacheObject.getcADMetaObject().getCrmServiceProtocol();
+    final String serviceURL = cacheObject.getScribeMetaObject().getCrmServiceURL();
+    final String servicePrototol = cacheObject.getScribeMetaObject().getCrmServiceProtocol();
     Map<String, String> nodeMap = cacheObject.getAdditionalInfo();
 
     /* Validate CRM service URL */

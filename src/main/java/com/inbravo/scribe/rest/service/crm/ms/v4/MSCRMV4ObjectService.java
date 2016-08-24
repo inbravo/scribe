@@ -127,7 +127,7 @@ public final class MSCRMV4ObjectService extends MSCRMObjectService implements Ap
     } else if (objectType.equalsIgnoreCase(MSCRMObjectType.Incident.toString())) {
       return mSCRMV4IncidentService;
     } else {
-      throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported by the CAD");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported by the Scribe");
     }
   }
 

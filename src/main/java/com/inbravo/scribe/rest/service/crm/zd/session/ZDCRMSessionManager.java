@@ -61,8 +61,8 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
     this.validateUser(cacheObject);
 
     /* Login at Zen desk */
-    if (zDAuthManager.login(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject
-        .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject.getcADMetaObject().getCrmPort())) {
+    if (zDAuthManager.login(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword(), cacheObject
+        .getScribeMetaObject().getCrmServiceURL(), cacheObject.getScribeMetaObject().getCrmServiceProtocol(), cacheObject.getScribeMetaObject().getCrmPort())) {
 
       /* Save this agent in session cache */
       cRMSessionCache.admit(crmUserId, cacheObject);
@@ -96,20 +96,20 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
     this.validateUser(user);
 
     /* Login at Zen desk */
-    String crmUserId = user.getcADMetaObject().getCrmUserId();
-    String crmPassword = user.getcADMetaObject().getCrmPassword();
+    String crmUserId = user.getScribeMetaObject().getCrmUserId();
+    String crmPassword = user.getScribeMetaObject().getCrmPassword();
 
     /* Check if CRM API token is present */
-    if (user.getcADMetaObject().getCrmSecurityToken() != null && !user.getcADMetaObject().getCrmSecurityToken()[0].equals("")) {
+    if (user.getScribeMetaObject().getCrmSecurityToken() != null && !user.getScribeMetaObject().getCrmSecurityToken()[0].equals("")) {
 
       crmUserId += "/token";
-      crmPassword = user.getcADMetaObject().getCrmSecurityToken()[0];
+      crmPassword = user.getScribeMetaObject().getCrmSecurityToken()[0];
     }
 
     /* Get session information from ZD */
     final Map<String, String> additionalInfoMap =
-        zDAuthManager.getSessionInfoAfterValidLogin(crmUserId, crmPassword, user.getcADMetaObject().getCrmServiceURL(), user.getcADMetaObject()
-            .getCrmServiceProtocol(), user.getcADMetaObject().getCrmPort());
+        zDAuthManager.getSessionInfoAfterValidLogin(crmUserId, crmPassword, user.getScribeMetaObject().getCrmServiceURL(), user.getScribeMetaObject()
+            .getCrmServiceProtocol(), user.getScribeMetaObject().getCrmPort());
 
     if (additionalInfoMap != null) {
 
@@ -136,23 +136,23 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
     /* Validate crm service params */
     this.validateUser(cacheObject);
 
-    String crmUserId = cacheObject.getcADMetaObject().getCrmUserId();
-    String crmPassword = cacheObject.getcADMetaObject().getCrmPassword();
+    String crmUserId = cacheObject.getScribeMetaObject().getCrmUserId();
+    String crmPassword = cacheObject.getScribeMetaObject().getCrmPassword();
 
     /* Check if CRM API token is present */
-    if (cacheObject.getcADMetaObject().getCrmSecurityToken() != null && !cacheObject.getcADMetaObject().getCrmSecurityToken()[0].equals("")) {
+    if (cacheObject.getScribeMetaObject().getCrmSecurityToken() != null && !cacheObject.getScribeMetaObject().getCrmSecurityToken()[0].equals("")) {
 
       crmUserId += "/token";
-      crmPassword = cacheObject.getcADMetaObject().getCrmSecurityToken()[0];
+      crmPassword = cacheObject.getScribeMetaObject().getCrmSecurityToken()[0];
     }
 
     /* Check for ZD session id */
-    if (cacheObject.getcADMetaObject().getCrmSessionId() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmSessionId() == null) {
 
       /* Set CRM session id in cache object */
-      cacheObject.getcADMetaObject().setCrmSessionId(
-          zDAuthManager.getSessionId(crmUserId, crmPassword, cacheObject.getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject()
-              .getCrmServiceProtocol(), cacheObject.getcADMetaObject().getCrmPort()));
+      cacheObject.getScribeMetaObject().setCrmSessionId(
+          zDAuthManager.getSessionId(crmUserId, crmPassword, cacheObject.getScribeMetaObject().getCrmServiceURL(), cacheObject.getScribeMetaObject()
+              .getCrmServiceProtocol(), cacheObject.getScribeMetaObject().getCrmPort()));
     }
 
     /* Re-admit this agent with CRM session information */
@@ -188,12 +188,12 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
   private final void validateUser(final ScribeCacheObject cacheObject) {
 
     /* Service URL is a must for ZD */
-    if (cacheObject.getcADMetaObject().getCrmServiceURL() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmServiceURL() == null) {
       throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
     }
 
     /* Service protocol is a must for ZD */
-    if (cacheObject.getcADMetaObject().getCrmServiceProtocol() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmServiceProtocol() == null) {
       throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service Protocol");
     }
   }

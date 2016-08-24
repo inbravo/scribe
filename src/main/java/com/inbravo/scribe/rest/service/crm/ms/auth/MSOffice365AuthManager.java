@@ -69,7 +69,7 @@ public final class MSOffice365AuthManager extends MSAuthManager {
     String crmServiceURL = null;
     String crmServiceProtocal = null;
 
-    logger.debug("---Inside getCRMAuthToken for agent: " + cacheObject.getcADMetaObject().getCrmUserId());
+    logger.debug("---Inside getCRMAuthToken for agent: " + cacheObject.getScribeMetaObject().getCrmUserId());
 
     /* Check if additonal info is present */
     if (cacheObject.getAdditionalInfo() != null) {
@@ -80,10 +80,10 @@ public final class MSOffice365AuthManager extends MSAuthManager {
     }
 
     /* get CRM credentials */
-    userName = cacheObject.getcADMetaObject().getCrmUserId();
-    password = cacheObject.getcADMetaObject().getCrmPassword();
-    crmServiceURL = cacheObject.getcADMetaObject().getCrmServiceURL();
-    crmServiceProtocal = cacheObject.getcADMetaObject().getCrmServiceProtocol();
+    userName = cacheObject.getScribeMetaObject().getCrmUserId();
+    password = cacheObject.getScribeMetaObject().getCrmPassword();
+    crmServiceURL = cacheObject.getScribeMetaObject().getCrmServiceURL();
+    crmServiceProtocal = cacheObject.getScribeMetaObject().getCrmServiceProtocol();
 
     logger.debug("---Inside getCRMAuthToken userName: " + userName + " & password: " + password + " & stsEndpoint: " + stsEndpoint
         + " & urnAddress: " + urnAddress + " & crmServiceURL: " + crmServiceURL + " & crmServiceProtocal: " + crmServiceProtocal);

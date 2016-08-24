@@ -69,7 +69,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     if (crmSecurityToken != null) {
 
       /* Add token in agent */
-      user.getcADMetaObject().setCrmSecurityToken(crmSecurityToken);
+      user.getScribeMetaObject().setCrmSecurityToken(crmSecurityToken);
 
       /* Save this agent in session cache */
       cRMSessionCache.admit(crmUserId, user);
@@ -112,7 +112,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     if (crmSecurityToken != null) {
 
       /* Add token in agent */
-      user.getcADMetaObject().setCrmSecurityToken(crmSecurityToken);
+      user.getScribeMetaObject().setCrmSecurityToken(crmSecurityToken);
 
       /* Save this agent in session cache */
       cRMSessionCache.admit(crmUserId, user);
@@ -143,13 +143,13 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(agentId);
 
     /* Service URL is must for MS-CRM */
-    if (cacheObject.getcADMetaObject().getCrmServiceURL() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmServiceURL() == null) {
 
       /* Inform user about missing credentials */
       throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: MS CRM service URL");
     }
 
-    if (cacheObject.getcADMetaObject().getCrmSecurityToken() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmSecurityToken() == null) {
 
       logger.debug("---Inside getTenantWithCRMSessionInformation agent's CRM session is not found; Going to fetch session information");
 
@@ -157,7 +157,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
       final String[] crmSecurityToken = mSOffice365AuthManager.getCRMAuthToken(cacheObject);
 
       /* Set CRM security token in agent */
-      cacheObject.getcADMetaObject().setCrmSecurityToken(crmSecurityToken);
+      cacheObject.getScribeMetaObject().setCrmSecurityToken(crmSecurityToken);
     }
 
     /* Re-admit this agent with CRM session information */
@@ -185,14 +185,14 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
   private final void validateUser(final ScribeCacheObject agent) {
 
     /* Service URL is a must for MS-CRM */
-    if (agent.getcADMetaObject().getCrmServiceURL() == null) {
+    if (agent.getScribeMetaObject().getCrmServiceURL() == null) {
 
       /* Inform user about missing credentials */
       throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
     }
 
     /* Service protocol is a must for MS-CRM */
-    if (agent.getcADMetaObject().getCrmServiceProtocol() == null) {
+    if (agent.getScribeMetaObject().getCrmServiceProtocol() == null) {
 
       /* Inform user about missing credentials */
       throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service Protocol");

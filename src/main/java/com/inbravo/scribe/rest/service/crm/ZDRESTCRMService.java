@@ -101,11 +101,11 @@ public final class ZDRESTCRMService extends CRMService {
           final ScribeCacheObject cacheObject = zDCRMSessionManager.getCrmUserIdWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
           /* Get CRM information from agent */
-          serviceURL = cacheObject.getcADMetaObject().getCrmServiceURL();
-          serviceProtocol = cacheObject.getcADMetaObject().getCrmServiceProtocol();
-          userId = cacheObject.getcADMetaObject().getCrmUserId();
-          password = cacheObject.getcADMetaObject().getCrmPassword();
-          crmPort = cacheObject.getcADMetaObject().getCrmPort();
+          serviceURL = cacheObject.getScribeMetaObject().getCrmServiceURL();
+          serviceProtocol = cacheObject.getScribeMetaObject().getCrmServiceProtocol();
+          userId = cacheObject.getScribeMetaObject().getCrmUserId();
+          password = cacheObject.getScribeMetaObject().getCrmPassword();
+          crmPort = cacheObject.getScribeMetaObject().getCrmPort();
         }
 
         /* Create Zen desk URL */
@@ -313,12 +313,12 @@ public final class ZDRESTCRMService extends CRMService {
         final ScribeCacheObject agent = zDCRMSessionManager.getCrmUserIdWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
-        serviceURL = agent.getcADMetaObject().getCrmServiceURL();
-        serviceProtocol = agent.getcADMetaObject().getCrmServiceProtocol();
-        userId = agent.getcADMetaObject().getCrmUserId();
-        password = agent.getcADMetaObject().getCrmPassword();
-        sessionId = agent.getcADMetaObject().getCrmSessionId();
-        crmPort = agent.getcADMetaObject().getCrmPort();
+        serviceURL = agent.getScribeMetaObject().getCrmServiceURL();
+        serviceProtocol = agent.getScribeMetaObject().getCrmServiceProtocol();
+        userId = agent.getScribeMetaObject().getCrmUserId();
+        password = agent.getScribeMetaObject().getCrmPassword();
+        sessionId = agent.getScribeMetaObject().getCrmSessionId();
+        crmPort = agent.getScribeMetaObject().getCrmPort();
       }
 
       String crmObjectId = null;
@@ -419,12 +419,12 @@ public final class ZDRESTCRMService extends CRMService {
         final ScribeCacheObject agent = zDCRMSessionManager.getCrmUserIdWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
-        serviceURL = agent.getcADMetaObject().getCrmServiceURL();
-        serviceProtocol = agent.getcADMetaObject().getCrmServiceProtocol();
-        userId = agent.getcADMetaObject().getCrmUserId();
-        password = agent.getcADMetaObject().getCrmPassword();
-        sessionId = agent.getcADMetaObject().getCrmSessionId();
-        crmPort = agent.getcADMetaObject().getCrmPort();
+        serviceURL = agent.getScribeMetaObject().getCrmServiceURL();
+        serviceProtocol = agent.getScribeMetaObject().getCrmServiceProtocol();
+        userId = agent.getScribeMetaObject().getCrmUserId();
+        password = agent.getScribeMetaObject().getCrmPassword();
+        sessionId = agent.getScribeMetaObject().getCrmSessionId();
+        crmPort = agent.getScribeMetaObject().getCrmPort();
       }
 
       /* Create Zen desk URL */
@@ -510,12 +510,12 @@ public final class ZDRESTCRMService extends CRMService {
         final ScribeCacheObject agent = zDCRMSessionManager.getCrmUserIdWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
-        serviceURL = agent.getcADMetaObject().getCrmServiceURL();
-        serviceProtocol = agent.getcADMetaObject().getCrmServiceProtocol();
-        userId = agent.getcADMetaObject().getCrmUserId();
-        password = agent.getcADMetaObject().getCrmPassword();
-        sessionId = agent.getcADMetaObject().getCrmSessionId();
-        crmPort = agent.getcADMetaObject().getCrmPort();
+        serviceURL = agent.getScribeMetaObject().getCrmServiceURL();
+        serviceProtocol = agent.getScribeMetaObject().getCrmServiceProtocol();
+        userId = agent.getScribeMetaObject().getCrmUserId();
+        password = agent.getScribeMetaObject().getCrmPassword();
+        sessionId = agent.getScribeMetaObject().getCrmSessionId();
+        crmPort = agent.getScribeMetaObject().getCrmPort();
       }
 
       /* Check if id is available in request */
@@ -611,12 +611,12 @@ public final class ZDRESTCRMService extends CRMService {
         final ScribeCacheObject agent = zDCRMSessionManager.getCrmUserIdWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
         /* Get CRM information from agent */
-        serviceURL = agent.getcADMetaObject().getCrmServiceURL();
-        serviceProtocol = agent.getcADMetaObject().getCrmServiceProtocol();
-        userId = agent.getcADMetaObject().getCrmUserId();
-        password = agent.getcADMetaObject().getCrmPassword();
-        sessionId = agent.getcADMetaObject().getCrmSessionId();
-        crmPort = agent.getcADMetaObject().getCrmPort();
+        serviceURL = agent.getScribeMetaObject().getCrmServiceURL();
+        serviceProtocol = agent.getScribeMetaObject().getCrmServiceProtocol();
+        userId = agent.getScribeMetaObject().getCrmUserId();
+        password = agent.getScribeMetaObject().getCrmPassword();
+        sessionId = agent.getScribeMetaObject().getCrmSessionId();
+        crmPort = agent.getScribeMetaObject().getCrmPort();
       }
 
       /* Create Zen desk URL */

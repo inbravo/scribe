@@ -40,13 +40,13 @@ public final class ScribeCacheObject implements BasicObject {
   /* For SFDC/NS CRM */
   private Stub soapStub;
 
-  private ScribeMetaObject cADMetaObject;
+  private ScribeMetaObject scribeMetaObject;
 
   /* For MS/NS CRM */
   private Map<String, String> additionalInfo;
 
-  public ScribeCacheObject(final ScribeMetaObject cADMetaObject) {
-    this.cADMetaObject = cADMetaObject;
+  public ScribeCacheObject(final ScribeMetaObject scribeMetaObject) {
+    this.scribeMetaObject = scribeMetaObject;
   }
 
   public Stub getSoapStub() {
@@ -66,12 +66,12 @@ public final class ScribeCacheObject implements BasicObject {
   }
 
 
-  public ScribeMetaObject getcADMetaObject() {
-    return cADMetaObject;
+  public ScribeMetaObject getScribeMetaObject() {
+    return scribeMetaObject;
   }
 
-  public void setcADMetaObject(final ScribeMetaObject cADMetaObject) {
-    this.cADMetaObject = cADMetaObject;
+  public void setScribeMetaObject(final ScribeMetaObject scribeMetaObject) {
+    this.scribeMetaObject = scribeMetaObject;
   }
 
   /**

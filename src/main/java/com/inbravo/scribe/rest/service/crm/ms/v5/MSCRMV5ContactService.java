@@ -62,8 +62,8 @@ public final class MSCRMV5ContactService extends MSCRMObjectService {
     final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
     final List<ScribeObject> cADbjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject.getcADMetaObject().getCrmServiceURL(),
-            cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject.getcADMetaObject().getCrmOrgName(), cacheObject.getcADMetaObject().getCrmSecurityToken(), null);
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getScribeMetaObject().getCrmServiceProtocol(), cacheObject.getScribeMetaObject().getCrmServiceURL(),
+            cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword(), cacheObject.getScribeMetaObject().getCrmOrgName(), cacheObject.getScribeMetaObject().getCrmSecurityToken(), null);
 
     /* Set the final object in command object */
     cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
@@ -78,8 +78,8 @@ public final class MSCRMV5ContactService extends MSCRMObjectService {
     final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
     final List<ScribeObject> cADbjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject.getcADMetaObject().getCrmServiceURL(),
-            cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject.getcADMetaObject().getCrmOrgName(), cacheObject.getcADMetaObject().getCrmSecurityToken(), null, query);
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getScribeMetaObject().getCrmServiceProtocol(), cacheObject.getScribeMetaObject().getCrmServiceURL(),
+            cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword(), cacheObject.getScribeMetaObject().getCrmOrgName(), cacheObject.getScribeMetaObject().getCrmSecurityToken(), null, query);
 
     /* Set the final object in command object */
     cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
@@ -112,8 +112,8 @@ public final class MSCRMV5ContactService extends MSCRMObjectService {
     final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
     final List<ScribeObject> cADbjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject.getcADMetaObject().getCrmServiceURL(),
-            cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject.getcADMetaObject().getCrmOrgName(), cacheObject.getcADMetaObject().getCrmSecurityToken(),
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getScribeMetaObject().getCrmServiceProtocol(), cacheObject.getScribeMetaObject().getCrmServiceURL(),
+            cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword(), cacheObject.getScribeMetaObject().getCrmOrgName(), cacheObject.getScribeMetaObject().getCrmSecurityToken(),
             crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query);
 
     /* Set the final object in command object */
@@ -148,9 +148,9 @@ public final class MSCRMV5ContactService extends MSCRMObjectService {
     final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
     final List<ScribeObject> cADbjectList =
-        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getcADMetaObject().getCrmServiceProtocol(), cacheObject.getcADMetaObject().getCrmServiceURL(),
- cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(),
-            cacheObject.getcADMetaObject().getCrmOrgName(), cacheObject.getcADMetaObject().getCrmSecurityToken(),
+        mSCRMServiceManager.getObjects(cADCommandObject.getObjectType(), cacheObject.getScribeMetaObject().getCrmServiceProtocol(), cacheObject.getScribeMetaObject().getCrmServiceURL(),
+ cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword(),
+            cacheObject.getScribeMetaObject().getCrmOrgName(), cacheObject.getScribeMetaObject().getCrmSecurityToken(),
             crmFieldToBeSelectedList.toArray(new String[crmFieldToBeSelectedList.size()]), query, order);
 
     /* Set the final object in command object */

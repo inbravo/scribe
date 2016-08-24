@@ -69,13 +69,13 @@ public final class MSLiveIdManager extends MSAuthManager {
     String crmServiceURL = null;
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getCRMAuthToken for user: " + user.getcADMetaObject().getCrmUserId());
+      logger.debug("---Inside getCRMAuthToken for user: " + user.getScribeMetaObject().getCrmUserId());
     }
 
     /* get CRM credentials */
-    userName = user.getcADMetaObject().getCrmUserId();
-    password = user.getcADMetaObject().getCrmPassword();
-    crmServiceURL = user.getcADMetaObject().getCrmServiceURL();
+    userName = user.getScribeMetaObject().getCrmUserId();
+    password = user.getScribeMetaObject().getCrmPassword();
+    crmServiceURL = user.getScribeMetaObject().getCrmServiceURL();
 
     if (logger.isDebugEnabled()) {
 

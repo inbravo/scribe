@@ -89,14 +89,14 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
 
       /* Get service URL information */
       final NSCRMV2k9ClientInfo clientInfo =
-          clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword());
+          clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword());
 
       logger.debug("---Inside getSoapBindingStub, creating fresh stub, client info: " + clientInfo);
 
       /* TODO : Login at NetSuite : pass role id as 3 for admin role */
       soapBindingStub =
-          netSuiteSOAPClient.login(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject
-              .getcADMetaObject().getCrmAccountId(), clientInfo.getWebservicesDomain());
+          netSuiteSOAPClient.login(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword(), cacheObject
+              .getScribeMetaObject().getCrmAccountId(), clientInfo.getWebservicesDomain());
 
       /* Set this stub in agent */
       cacheObject.setSoapStub(soapBindingStub);
@@ -118,23 +118,23 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
 
     /* Get service URL information */
     final NSCRMV2k9ClientInfo clientInfo =
-        clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword());
+        clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword());
 
     logger.debug("---Inside getSessionInfo, clientInfo: " + clientInfo);
 
     /* Login at NetSuite : pass role id as 3 for admin role */
     final NetSuiteBindingStub soapBindingStub =
-        netSuiteSOAPClient.login(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject
-            .getcADMetaObject().getCrmAccountId(), clientInfo.getWebservicesDomain());
+        netSuiteSOAPClient.login(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword(), cacheObject
+            .getScribeMetaObject().getCrmAccountId(), clientInfo.getWebservicesDomain());
 
     /* Set this stub in agent */
     cacheObject.setSoapStub(soapBindingStub);
 
     /* Set service URL */
-    if (cacheObject.getcADMetaObject().getCrmServiceURL() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmServiceURL() == null) {
 
-      cacheObject.getcADMetaObject().setCrmServiceURL(clientInfo.getSystemDomain());
-      cacheObject.getcADMetaObject().setCrmServiceProtocol(null);
+      cacheObject.getScribeMetaObject().setCrmServiceURL(clientInfo.getSystemDomain());
+      cacheObject.getScribeMetaObject().setCrmServiceProtocol(null);
     }
 
     /* Save this freshly updated agent in session cache */
@@ -155,23 +155,23 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
 
     /* Get service URL information */
     final NSCRMV2k9ClientInfo clientInfo =
-        clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword());
+        clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword());
 
     logger.debug("---Inside login clientInfo: " + clientInfo);
 
     /* Login at NetSuite : pass role id as 3 for admin role */
     final NetSuiteBindingStub soapBindingStub =
-        netSuiteSOAPClient.login(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject
-            .getcADMetaObject().getCrmAccountId(), clientInfo.getWebservicesDomain());
+        netSuiteSOAPClient.login(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword(), cacheObject
+            .getScribeMetaObject().getCrmAccountId(), clientInfo.getWebservicesDomain());
 
     /* Set this stub in agent */
     cacheObject.setSoapStub(soapBindingStub);
 
     /* Set service URL */
-    if (cacheObject.getcADMetaObject().getCrmServiceURL() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmServiceURL() == null) {
 
-      cacheObject.getcADMetaObject().setCrmServiceURL(clientInfo.getSystemDomain());
-      cacheObject.getcADMetaObject().setCrmServiceProtocol(null);
+      cacheObject.getScribeMetaObject().setCrmServiceURL(clientInfo.getSystemDomain());
+      cacheObject.getScribeMetaObject().setCrmServiceProtocol(null);
     }
 
     /* Save this freshly updated agent in session cache */

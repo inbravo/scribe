@@ -64,13 +64,13 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
 
     /* Get session information from ZH */
     final String sessionId =
-        zHAuthManager.getSessionId(cacheObject.getcADMetaObject().getCrmUserId(), cacheObject.getcADMetaObject().getCrmPassword(), cacheObject
-            .getcADMetaObject().getCrmServiceURL(), cacheObject.getcADMetaObject().getCrmServiceProtocol());
+        zHAuthManager.getSessionId(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword(), cacheObject
+            .getScribeMetaObject().getCrmServiceURL(), cacheObject.getScribeMetaObject().getCrmServiceProtocol());
 
     if (sessionId != null) {
 
       /* Set CRM API token information */
-      cacheObject.getcADMetaObject().setCrmSessionId(sessionId);
+      cacheObject.getScribeMetaObject().setCrmSessionId(sessionId);
 
       /* Save this agent in session cache */
       cRMSessionCache.admit(id, cacheObject);
@@ -120,12 +120,12 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
   private final void validateCacheObject(final ScribeCacheObject cacheObject) {
 
     /* Service URL is a must for ZH */
-    if (cacheObject.getcADMetaObject().getCrmServiceURL() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmServiceURL() == null) {
       throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
     }
 
     /* Service protocol is a must for ZH */
-    if (cacheObject.getcADMetaObject().getCrmServiceProtocol() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmServiceProtocol() == null) {
       throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service Protocol");
     }
   }

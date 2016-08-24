@@ -119,13 +119,13 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
     final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(agentId);
 
     /* Service URL is must for MS-CRM */
-    if (cacheObject.getcADMetaObject().getCrmServiceURL() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmServiceURL() == null) {
 
       /* Inform the user about error */
       throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: CRM service URL");
     }
 
-    if (cacheObject.getcADMetaObject().getCrmSessionId() == null) {
+    if (cacheObject.getScribeMetaObject().getCrmSessionId() == null) {
 
       logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation agent's CRM session is not found; Going to fetch session information");
 
@@ -135,10 +135,10 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
       logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation : CrmSessionId: " + mSCRMUserInformation.getCrmTicket());
 
       /* Set CRM ticket as session id at agent */
-      cacheObject.getcADMetaObject().setCrmSessionId(mSCRMUserInformation.getCrmTicket());
+      cacheObject.getScribeMetaObject().setCrmSessionId(mSCRMUserInformation.getCrmTicket());
 
       /* Set CRM organization information at agent */
-      cacheObject.getcADMetaObject().setCrmOrgName(mSCRMUserInformation.getOrganizationName());
+      cacheObject.getScribeMetaObject().setCrmOrgName(mSCRMUserInformation.getOrganizationName());
     }
 
     /* Re-admit this agent with CRM session information */

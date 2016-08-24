@@ -199,7 +199,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
-        /* Create new CAD object */
+        /* Create new Scribe object */
         final ScribeObject cADbject = new ScribeObject();
 
         /* Add all CRM fields */
@@ -309,7 +309,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
-        /* Create new CAD object */
+        /* Create new Scribe object */
         final ScribeObject cADbject = new ScribeObject();
 
         /* Add all CRM fields */
@@ -408,7 +408,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
-        /* Create new CAD object */
+        /* Create new Scribe object */
         final ScribeObject cADbject = new ScribeObject();
 
         /* Add all CRM fields */

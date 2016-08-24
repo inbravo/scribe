@@ -88,9 +88,9 @@ public final class ZHRESTCRMService extends CRMService {
     try {
 
       /* Get CRM information from user */
-      final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
-      final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
-      final String sessionId = user.getcADMetaObject().getCrmSessionId();
+      final String serviceURL = user.getScribeMetaObject().getCrmServiceURL();
+      final String serviceProtocol = user.getScribeMetaObject().getCrmServiceProtocol();
+      final String sessionId = user.getScribeMetaObject().getCrmSessionId();
 
       /* Create Zoho URL */
       final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getRecords";
@@ -333,9 +333,9 @@ public final class ZHRESTCRMService extends CRMService {
       try {
 
         /* Get CRM information from user */
-        final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
-        final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
-        final String sessionId = user.getcADMetaObject().getCrmSessionId();
+        final String serviceURL = user.getScribeMetaObject().getCrmServiceURL();
+        final String serviceProtocol = user.getScribeMetaObject().getCrmServiceProtocol();
+        final String sessionId = user.getScribeMetaObject().getCrmSessionId();
         /* Create Zoho URL */
         final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
 
@@ -600,9 +600,9 @@ public final class ZHRESTCRMService extends CRMService {
       try {
 
         /* Get CRM information from user */
-        final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
-        final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
-        final String sessionId = user.getcADMetaObject().getCrmSessionId();
+        final String serviceURL = user.getScribeMetaObject().getCrmServiceURL();
+        final String serviceProtocol = user.getScribeMetaObject().getCrmServiceProtocol();
+        final String sessionId = user.getScribeMetaObject().getCrmSessionId();
 
         /* Create Zoho URL */
         final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
@@ -882,9 +882,9 @@ public final class ZHRESTCRMService extends CRMService {
       try {
 
         /* Get CRM information from user */
-        final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
-        final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
-        final String sessionId = user.getcADMetaObject().getCrmSessionId();
+        final String serviceURL = user.getScribeMetaObject().getCrmServiceURL();
+        final String serviceProtocol = user.getScribeMetaObject().getCrmServiceProtocol();
+        final String sessionId = user.getScribeMetaObject().getCrmSessionId();
 
         /* Create Zoho URL */
         final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
@@ -1140,9 +1140,9 @@ public final class ZHRESTCRMService extends CRMService {
     try {
 
       /* Get CRM information from user */
-      final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
-      final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
-      final String sessionId = user.getcADMetaObject().getCrmSessionId();
+      final String serviceURL = user.getScribeMetaObject().getCrmServiceURL();
+      final String serviceProtocol = user.getScribeMetaObject().getCrmServiceProtocol();
+      final String sessionId = user.getScribeMetaObject().getCrmSessionId();
 
       /* Create Zoho URL */
       final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
@@ -1384,9 +1384,9 @@ public final class ZHRESTCRMService extends CRMService {
     try {
 
       /* Get CRM information from user */
-      final String serviceURL = user.getcADMetaObject().getCrmServiceURL();
-      final String serviceProtocol = user.getcADMetaObject().getCrmServiceProtocol();
-      final String sessionId = user.getcADMetaObject().getCrmSessionId();
+      final String serviceURL = user.getScribeMetaObject().getCrmServiceURL();
+      final String serviceProtocol = user.getScribeMetaObject().getCrmServiceProtocol();
+      final String sessionId = user.getScribeMetaObject().getCrmSessionId();
 
       /* Create Zoho URL */
       final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/insertRecords";
