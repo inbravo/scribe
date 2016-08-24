@@ -141,15 +141,15 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
   private static final String msCRMRetrieveMultipleCommand = "RetrieveMultiple";
 
   /**
-	 * 
-	 */
+   * 
+   */
   public final ScribeObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
-      final String password, final String orgName, final String[] crmSecurityToken, final ScribeObject cADbject) throws Exception {
+      final String password, final String orgName, final String[] crmSecurityToken, final ScribeObject scribeObject) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside createObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId + "& password: "
-          + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & cADbject: "
-          + cADbject);
+          + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & scribeObject: "
+          + scribeObject);
     }
 
     try {
@@ -161,11 +161,11 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
 
       final Create createRequest = createDocument.addNewCreate();
 
-      /* Set object type in CAD object */
-      cADbject.setObjectType(mSCRMObjectType.toLowerCase());
+      /* Set object type in Scribe object */
+      scribeObject.setObjectType(mSCRMObjectType.toLowerCase());
 
       /* Add new account type xml beans object */
-      createRequest.setEntity(MSCRMMessageFormatUtils.createV5RetrieveCRMObjectReq(cADbject, crmFieldIntraSeparator, permittedDateFormats));
+      createRequest.setEntity(MSCRMMessageFormatUtils.createV5RetrieveCRMObjectReq(scribeObject, crmFieldIntraSeparator, permittedDateFormats));
 
       /* Create new stub */
       final OrganizationServiceStub stub =
@@ -188,7 +188,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       }
 
       /* Check if object association is desired */
-      final String[] regardingObjInfo = MSCRMMessageFormatUtils.getRegardingObjectInfo(cADbject);
+      final String[] regardingObjInfo = MSCRMMessageFormatUtils.getRegardingObjectInfo(scribeObject);
 
       /* Check if valid object association request from user */
       if (regardingObjInfo != null && regardingObjInfo.length == 3) {
@@ -204,7 +204,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       stub.cleanup();
 
       /* Add new node and return */
-      return MSCRMMessageFormatUtils.addNode("id", createResponse.getCreateResult(), cADbject);
+      return MSCRMMessageFormatUtils.addNode("id", createResponse.getCreateResult(), scribeObject);
     } catch (final Exception e) {
 
       /* Sentralized exception handling */
@@ -394,32 +394,32 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final ArrayOfEntity entityArray = be.getEntities();
       final Entity[] entityStringArray = entityArray.getEntityArray();
 
-      final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
+      final List<ScribeObject> ScribebjectList = new ArrayList<ScribeObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
-        /* Create new CAD object */
-        final ScribeObject cADbject = new ScribeObject();
+        /* Create new Scribe object */
+        final ScribeObject Scribebject = new ScribeObject();
 
         /* Add all CRM fields */
-        cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
+        Scribebject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
 
-        /* Add CAD object in list */
-        cADbjectList.add(cADbject);
+        /* Add Scribe object in list */
+        ScribebjectList.add(Scribebject);
       }
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
+        logger.debug("---Inside getObjects ScribebjectList.size: " + ScribebjectList.size());
       }
 
       /* Return error message for no record found */
-      if (cADbjectList.size() == 0) {
+      if (ScribebjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
       stub.cleanup();
-      return cADbjectList;
+      return ScribebjectList;
     } catch (final Exception e) {
 
       /* Sentralized exception handling */
@@ -520,33 +520,33 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final ArrayOfEntity entityArray = be.getEntities();
       final Entity[] entities = entityArray.getEntityArray();
 
-      final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
+      final List<ScribeObject> ScribebjectList = new ArrayList<ScribeObject>();
 
-      /* Iterate over entities and create cad object */
+      /* Iterate over entities and create Scribe object */
       for (int i = 0; i < entities.length; i++) {
 
-        /* Create new CAD object */
-        final ScribeObject cADbject = new ScribeObject();
+        /* Create new Scribe object */
+        final ScribeObject Scribebject = new ScribeObject();
 
         /* Add all CRM fields */
-        cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entities[i]));
+        Scribebject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entities[i]));
 
-        /* Add CAD object in list */
-        cADbjectList.add(cADbject);
+        /* Add Scribe object in list */
+        ScribebjectList.add(Scribebject);
       }
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
+        logger.debug("---Inside getObjects ScribebjectList.size: " + ScribebjectList.size());
       }
 
       /* Return error message for no record found */
-      if (cADbjectList.size() == 0) {
+      if (ScribebjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
-      return cADbjectList;
+      return ScribebjectList;
     } catch (final Exception e) {
 
       /* Sentralized exception handling */
@@ -637,31 +637,31 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final ArrayOfEntity entityArray = be.getEntities();
       final Entity[] entityStringArray = entityArray.getEntityArray();
 
-      final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
+      final List<ScribeObject> ScribebjectList = new ArrayList<ScribeObject>();
       for (int i = 0; i < entityStringArray.length; i++) {
 
-        /* Create new CAD object */
-        final ScribeObject cADbject = new ScribeObject();
+        /* Create new Scribe object */
+        final ScribeObject Scribebject = new ScribeObject();
 
         /* Add all CRM fields */
-        cADbject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
+        Scribebject.setXmlContent(MSCRMMessageFormatUtils.createV5EntityFromBusinessObject(entityStringArray[i]));
 
-        /* Add CAD object in list */
-        cADbjectList.add(cADbject);
+        /* Add Scribe object in list */
+        ScribebjectList.add(Scribebject);
       }
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
+        logger.debug("---Inside getObjects ScribebjectList.size: " + ScribebjectList.size());
       }
 
       /* Return error message for no record found */
-      if (cADbjectList.size() == 0) {
+      if (ScribebjectList.size() == 0) {
         logger.debug("---Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
       /* Call stub cleanup */
-      return cADbjectList;
+      return ScribebjectList;
     } catch (final Exception e) {
 
       /* Sentralized exception handling */
@@ -848,7 +848,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       throw new ScribeException(ScribeResponseCodes._1015 + "Remote error", e);
     } else if (e instanceof ScribeException) {
 
-      /* Throw CAD exception to user */
+      /* Throw Scribe exception to user */
       throw e;
     } else {
 
