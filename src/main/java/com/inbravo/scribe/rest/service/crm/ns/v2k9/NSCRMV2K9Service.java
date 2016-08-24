@@ -439,15 +439,20 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } catch (final ClassNotFoundException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'SupportCase'");
         } catch (final NoSuchMethodException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'SupportCase'");
         } catch (final IllegalArgumentException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'SupportCase'");
         } catch (final IllegalAccessException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'SupportCase'");
         } catch (final InvocationTargetException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'SupportCase'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'SupportCase'");
         }
       } else {
         throw new ScribeException(ScribeResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
@@ -539,13 +544,17 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } catch (final ClassNotFoundException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Opportunity'");
         } catch (final NoSuchMethodException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Opportunity'");
         } catch (final IllegalArgumentException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Opportunity'");
         } catch (final IllegalAccessException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Opportunity'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Opportunity'");
         } catch (final InvocationTargetException e) {
           throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName
               + " in CRM Object type 'Opportunity'");
@@ -795,15 +804,20 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                     this.getNormalFieldForSearchOperation(nodeName.trim(), nodeType.trim(), cRMFieldValue, cRMFieldOperator, inputDateFormat));
           }
         } catch (final ClassNotFoundException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Customer'");
         } catch (final NoSuchMethodException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Customer'");
         } catch (final IllegalArgumentException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Customer'");
         } catch (final IllegalAccessException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Customer'");
         } catch (final InvocationTargetException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Customer'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Customer'");
         }
       } else {
         throw new ScribeException(ScribeResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
@@ -894,15 +908,20 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } catch (final ClassNotFoundException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Employee'");
         } catch (final NoSuchMethodException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Employee'");
         } catch (final IllegalArgumentException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Employee'");
         } catch (final IllegalAccessException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Employee'");
         } catch (final InvocationTargetException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Employee'");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Employee'");
         }
       } else {
         throw new ScribeException(ScribeResponseCodes._1003 + "CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
@@ -1009,8 +1028,8 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         /* Set value */
         searchDateField.setSearchValue(calendar);
       } catch (final Exception e) {
-        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be od format: '" + inputDateFormat
-            + "'");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Value of CRM object field '" + cRMFieldName + "' should be od format: '"
+            + inputDateFormat + "'");
       }
 
       return searchDateField;
@@ -1194,13 +1213,17 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             }
 
           } catch (final NoSuchMethodException e) {
-            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                + " in CRM Object type 'Customer'");
           } catch (final IllegalArgumentException e) {
-            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                + " in CRM Object type 'Customer'");
           } catch (final IllegalAccessException e) {
-            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                + " in CRM Object type 'Customer'");
           } catch (final InvocationTargetException e) {
-            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Customer'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                + " in CRM Object type 'Customer'");
           }
 
         } else {
@@ -1459,13 +1482,17 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             }
 
           } catch (final NoSuchMethodException e) {
-            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                + " in CRM Object type 'Opportunity'");
           } catch (final IllegalArgumentException e) {
-            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                + " in CRM Object type 'Opportunity'");
           } catch (final IllegalAccessException e) {
-            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                + " in CRM Object type 'Opportunity'");
           } catch (final InvocationTargetException e) {
-            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'Opportunity'");
+            throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                + " in CRM Object type 'Opportunity'");
           }
 
         } else {
@@ -2372,13 +2399,17 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
               }
 
             } catch (final NoSuchMethodException e) {
-              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                  + " in CRM Object type 'SupportCase'");
             } catch (final IllegalArgumentException e) {
-              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                  + " in CRM Object type 'SupportCase'");
             } catch (final IllegalAccessException e) {
-              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                  + " in CRM Object type 'SupportCase'");
             } catch (final InvocationTargetException e) {
-              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'SupportCase'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                  + " in CRM Object type 'SupportCase'");
             }
           }
 
@@ -2596,13 +2627,17 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                     .invoke(phoneCall, this.getNSCRMFieldObject(nodeName, nodeType, element.getTextContent()));
               }
             } catch (final NoSuchMethodException e) {
-              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                  + " in CRM Object type 'PhoneCall'");
             } catch (final IllegalArgumentException e) {
-              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                  + " in CRM Object type 'PhoneCall'");
             } catch (final IllegalAccessException e) {
-              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                  + " in CRM Object type 'PhoneCall'");
             } catch (final InvocationTargetException e) {
-              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName + " in CRM Object type 'PhoneCall'");
+              throw new ScribeException(ScribeResponseCodes._1003 + "Found problem in tracing CRM field: " + nodeName
+                  + " in CRM Object type 'PhoneCall'");
             }
           }
 
@@ -2740,15 +2775,20 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                     this.getNormalFieldForSearchOperation(nodeName.trim(), nodeType.trim(), cRMFieldValue, cRMFieldOperator, inputDateFormat));
           }
         } catch (final ClassNotFoundException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
+          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Contact'");
         } catch (final NoSuchMethodException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
+          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Contact'");
         } catch (final IllegalArgumentException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
+          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Contact'");
         } catch (final IllegalAccessException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
+          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Contact'");
         } catch (final InvocationTargetException e) {
-          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName + " in CRM Object type 'Contact'");
+          throw new ScribeException(ScribeResponseCodes._1003 + " Found problem in tracing CRM field: " + cRMFieldName
+              + " in CRM Object type 'Contact'");
         }
       } else {
         throw new ScribeException(ScribeResponseCodes._1003 + " CRM field format should be CRMFIELDNAME" + crmFieldIntraSeparator + "CRMFIELDTYPE");
@@ -2850,6 +2890,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
     /* Check if length is less than 1 */
     if (splitResult.length <= 1) {
+
       logger.error("---Inside splitSearchString: invalid search string: " + searchString);
       throw new ScribeException(ScribeResponseCodes._1003 + "Invalid search string: '" + searchString
           + "' search string should contain at least 2 words for NS CRM");

@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.inbravo.scribe.rest.service.log;
+package com.inbravo.scribe.rest.utils;
 
 import org.apache.log4j.MDC;
 
@@ -30,7 +30,7 @@ import com.inbravo.scribe.rest.resource.ScribeCommandObject;
  * @author amit.dixit
  * 
  */
-public final class MutualDiagnosticLogService {
+public final class MutualDiagnosticLogUtils {
 
   private static final String intTransIdConst = "INT";
 

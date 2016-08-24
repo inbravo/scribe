@@ -1,4 +1,4 @@
-# Scribe - stateless microservice to integrate cloud CRMs
+# Scribe - stateless microservice to integrate cloud CRM
 
 - Talk to all CRMs in a generic methodology: REST
 - Use single communication format for all types of CRM
@@ -10,10 +10,10 @@
 	4. Zoho
 	5. ZenDesk ticketing system
 
-Search CRM objects with a Query criteria and Select criteria
+Samples
 --------------
--  [Query Criteria][get-all-objects.md]
--  [Query with Select Criteria][get-all-objects-with-some-fields.md]
+-  [SalesForce][salesforce.md]
+-  [NetSuite][netsuite.md]
 
 ## How to run 
 
@@ -32,6 +32,6 @@ After checking out the repo, run `ant tomcat-start` to start the service using A
 - Add "?_type=json" Get JSON data for all Accounts: [cad-host]/cad/object/account?_type=json
 - Add "?_type=xml" Get XML data for all Accounts: [cad-host]/cad/object/account?_type=xml
 
-[get-all-objects.md]: https://github.com/inbravo/scribe/blob/master/docs/md/get-all-objects.md
-[get-all-objects-with-some-fields.md]: https://github.com/inbravo/scribe/blob/master/docs/md/get-all-objects-with-some-fields.md
+[salesforce.md]: https://github.com/inbravo/scribe/blob/master/docs/md/salesforce.md
+[netsuite.md]: https://github.com/inbravo/scribe/blob/master/docs/md/netsuite.md
 

@@ -73,7 +73,7 @@ public final class NSSOAPCRMService extends CRMService {
   private String crmFieldIntraSeparator;
 
   @Override
-  public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject createObject(final ScribeCommandObject scribeCommandObject) throws Exception {
 
     if (logger.isDebugEnabled()) {
       logger.debug("---Inside createObject");
@@ -81,38 +81,39 @@ public final class NSSOAPCRMService extends CRMService {
 
     /* Get NS stub for the agent */
     final NetSuiteBindingStub soapBindingStub =
-        cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
+        cRMSessionManager.getSoapBindingStub(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword());
 
     /* Create NS CRM basic object type */
     Record record = null;
 
     /* Check if object type is task */
-    if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
+    if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
 
       /* Create a new SupportCase */
-      record = nSCRMGenericService.createTask(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
-    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
+      record = nSCRMGenericService.createTask(scribeCommandObject.getObject()[0], crmFieldIntraSeparator);
+    } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
 
       /* Create a new Task */
-      record = nSCRMGenericService.createSupportCase(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
-    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.PhoneCall.toString())) {
+      record = nSCRMGenericService.createSupportCase(scribeCommandObject.getObject()[0], crmFieldIntraSeparator);
+    } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.PhoneCall.toString())) {
 
       /* Create a new phone call */
-      record = nSCRMGenericService.createPhoneCall(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
-    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
+      record = nSCRMGenericService.createPhoneCall(scribeCommandObject.getObject()[0], crmFieldIntraSeparator);
+    } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
       /* Create a new customer */
-      record = nSCRMGenericService.createCustomer(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
-    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
+      record = nSCRMGenericService.createCustomer(scribeCommandObject.getObject()[0], crmFieldIntraSeparator);
+    } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
       /* Create a new customer */
-      record = nSCRMGenericService.createContact(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
-    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
+      record = nSCRMGenericService.createContact(scribeCommandObject.getObject()[0], crmFieldIntraSeparator);
+    } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
 
       /* Create a new customer */
-      record = nSCRMGenericService.createOpportunity(cADCommandObject.getObject()[0], crmFieldIntraSeparator);
+      record = nSCRMGenericService.createOpportunity(scribeCommandObject.getObject()[0], crmFieldIntraSeparator);
     } else {
-      throw new ScribeException(ScribeResponseCodes._1003 + " Following CRM object:" + cADCommandObject.getObjectType() + ", is not supported by the CAD");
+      throw new ScribeException(ScribeResponseCodes._1003 + " Following CRM object:" + scribeCommandObject.getObjectType()
+          + ", is not supported by the CAD");
     }
 
     /* Get current system time before transaction */
@@ -145,10 +146,10 @@ public final class NSSOAPCRMService extends CRMService {
 
       if (stringBuffer.length() != 0) {
         /* Inform user about error */
-        throw new ScribeException(ScribeResponseCodes._1021 + "Not able to create : " + cADCommandObject.getObjectType() + " : " + stringBuffer);
+        throw new ScribeException(ScribeResponseCodes._1021 + "Not able to create : " + scribeCommandObject.getObjectType() + " : " + stringBuffer);
       } else {
         /* Inform user about error */
-        throw new ScribeException(ScribeResponseCodes._1021 + "Not able to create : " + cADCommandObject.getObjectType());
+        throw new ScribeException(ScribeResponseCodes._1021 + "Not able to create : " + scribeCommandObject.getObjectType());
       }
 
     } else {
@@ -161,53 +162,56 @@ public final class NSSOAPCRMService extends CRMService {
         logger.debug("---Inside createObject, created object with id: " + baseRef.getInternalId());
 
         /* Set object id in object before sending back */
-        cADCommandObject.getObject()[0] =
-            NetSuiteMessageFormatUtils.addNode(NSCRMFieldTypes.CRM_FIELD_ID, baseRef.getInternalId(), cADCommandObject.getObject()[0]);
+        scribeCommandObject.getObject()[0] =
+            NetSuiteMessageFormatUtils.addNode(NSCRMFieldTypes.CRM_FIELD_ID, baseRef.getInternalId(), scribeCommandObject.getObject()[0]);
+
+        scribeCommandObject.getObject()[0].setObjectType(baseRef.getName());
       }
     }
 
-    return cADCommandObject;
+    return scribeCommandObject;
   }
 
   @Override
-  public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
+  public final boolean deleteObject(final ScribeCommandObject scribeCommandObject, final String idToBeDeleted) throws Exception {
 
     /* Inform user about error */
     throw new ScribeException(ScribeResponseCodes._1003 + " Following operation is not supported by the CRM");
   }
 
   @Override
-  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject scribeCommandObject) throws Exception {
     logger.debug("---Inside getObjects");
 
     /* Get NS stub for the agent */
-    NetSuiteBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
+    NetSuiteBindingStub soapBindingStub =
+        cRMSessionManager.getSoapBindingStub(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword());
 
     SearchRecord searchRecord = null;
 
     /* Check CRM object type */
-    if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
+    if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
       /* Get custom customer search record */
       searchRecord = new CustomerSearch();
 
-    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
+    } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
       /* Get custom contact search record */
       searchRecord = new ContactSearch();
-    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
+    } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
 
       /* Get custom employee search record */
       searchRecord = new EmployeeSearch();
-    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
+    } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
 
       /* Get custom support case search record */
       searchRecord = new SupportCaseSearch();
-    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
+    } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
 
       /* Get task search record */
       searchRecord = new TaskSearch();
-    } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
+    } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
 
       /* Get opportunity search record */
       searchRecord = new OpportunitySearch();
@@ -241,10 +245,10 @@ public final class NSSOAPCRMService extends CRMService {
       logger.debug("---Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
 
       /* If invalid session fault is given. Login again */
-      if (cRMSessionManager.login(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword())) {
+      if (cRMSessionManager.login(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword())) {
 
         /* Get Sales Force stub for the agent */
-        soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
+        soapBindingStub = cRMSessionManager.getSoapBindingStub(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword());
 
         /* Get current system time before transaction */
         final long transStartTime = System.currentTimeMillis();
@@ -268,16 +272,17 @@ public final class NSSOAPCRMService extends CRMService {
     }
 
     /* Process the response */
-    return NetSuiteMessageFormatUtils.processResponse(cADCommandObject, searchResult, new TreeSet<String>(String.CASE_INSENSITIVE_ORDER));
+    return NetSuiteMessageFormatUtils.processResponse(scribeCommandObject, searchResult, new TreeSet<String>(String.CASE_INSENSITIVE_ORDER));
   }
 
   @Override
-  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject scribeCommandObject, final String query) throws Exception {
     logger.debug("---Inside getObjects query: " + query);
 
 
     /* Get NS stub for the agent */
-    NetSuiteBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
+    NetSuiteBindingStub soapBindingStub =
+        cRMSessionManager.getSoapBindingStub(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword());
 
     /* Add filter expression */
     if (query != null && !"NONE".equalsIgnoreCase(query)) {
@@ -285,28 +290,28 @@ public final class NSSOAPCRMService extends CRMService {
       SearchRecord searchRecord = null;
 
       /* Check CRM object type */
-      if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
+      if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
         /* Get custom customer search record */
         searchRecord = nSCRMGenericService.createCustomerSearch(query, crmFieldIntraSeparator, inputDateFormat);
 
-      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
+      } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
         /* Get custom contact search record */
         searchRecord = nSCRMGenericService.createContactSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
+      } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
 
         /* Get custom employee search record */
         searchRecord = nSCRMGenericService.createEmployeeSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
+      } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
 
         /* Get custom support case search record */
         searchRecord = nSCRMGenericService.createSupportCaseSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
+      } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
 
         /* Get task search record */
         searchRecord = nSCRMGenericService.createTaskSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
+      } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
 
         /* Get opportunity search record */
         searchRecord = nSCRMGenericService.createOpportunitySearch(query, crmFieldIntraSeparator, inputDateFormat);
@@ -340,10 +345,10 @@ public final class NSSOAPCRMService extends CRMService {
         logger.debug("---Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
 
         /* If invalid session fault is given. Login again */
-        if (cRMSessionManager.login(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword())) {
+        if (cRMSessionManager.login(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword())) {
 
           /* Get Sales Force stub for the agent */
-          soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
+          soapBindingStub = cRMSessionManager.getSoapBindingStub(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword());
 
           /* Get current system time before transaction */
           final long transStartTime = System.currentTimeMillis();
@@ -367,24 +372,25 @@ public final class NSSOAPCRMService extends CRMService {
       }
 
       /* Process the response */
-      return NetSuiteMessageFormatUtils.processResponse(cADCommandObject, searchResult, new TreeSet<String>(String.CASE_INSENSITIVE_ORDER));
+      return NetSuiteMessageFormatUtils.processResponse(scribeCommandObject, searchResult, new TreeSet<String>(String.CASE_INSENSITIVE_ORDER));
     }
 
-    return cADCommandObject;
+    return scribeCommandObject;
   }
 
   @Override
-  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
+  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject scribeCommandObject, final String query) throws Exception {
     throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
-  public final ScribeCommandObject updateObject(final ScribeCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject updateObject(final ScribeCommandObject scribeCommandObject) throws Exception {
     throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
   }
 
   @Override
-  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject scribeCommandObject, final String query, final String select)
+      throws Exception {
     logger.debug("---Inside getObjects query: " + query + " & select: " + select);
 
     /* Trim the request variable */
@@ -394,7 +400,8 @@ public final class NSSOAPCRMService extends CRMService {
     final String trimmedSelect = this.applyTrimming(select);
 
     /* Get NS stub for the agent */
-    NetSuiteBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
+    NetSuiteBindingStub soapBindingStub =
+        cRMSessionManager.getSoapBindingStub(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword());
 
     /* Add filter expression */
     if (trimmedQuery != null && !"NONE".equalsIgnoreCase(trimmedQuery)) {
@@ -402,28 +409,28 @@ public final class NSSOAPCRMService extends CRMService {
       SearchRecord searchRecord = null;
 
       /* Check CRM object type */
-      if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
+      if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
         /* Get custom customer search record */
         searchRecord = nSCRMGenericService.createCustomerSearch(trimmedQuery, crmFieldIntraSeparator, inputDateFormat);
 
-      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
+      } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
         /* Get custom contact search record */
         searchRecord = nSCRMGenericService.createContactSearch(trimmedQuery, crmFieldIntraSeparator, inputDateFormat);
-      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
+      } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Employee.toString())) {
 
         /* Get custom employee search record */
         searchRecord = nSCRMGenericService.createEmployeeSearch(trimmedQuery, crmFieldIntraSeparator, inputDateFormat);
-      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
+      } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
 
         /* Get custom support case search record */
         searchRecord = nSCRMGenericService.createSupportCaseSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
+      } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Task.toString())) {
 
         /* Get task search record */
         searchRecord = nSCRMGenericService.createTaskSearch(query, crmFieldIntraSeparator, inputDateFormat);
-      } else if (cADCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
+      } else if (scribeCommandObject.getObjectType().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
 
         /* Get opportunity search record */
         searchRecord = nSCRMGenericService.createOpportunitySearch(query, crmFieldIntraSeparator, inputDateFormat);
@@ -457,10 +464,10 @@ public final class NSSOAPCRMService extends CRMService {
         logger.debug("---Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
 
         /* If invalid session fault is given. Login again */
-        if (cRMSessionManager.login(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword())) {
+        if (cRMSessionManager.login(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword())) {
 
           /* Get Sales Force stub for the agent */
-          soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
+          soapBindingStub = cRMSessionManager.getSoapBindingStub(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword());
 
           /* Get current system time before transaction */
           final long transStartTime = System.currentTimeMillis();
@@ -510,22 +517,22 @@ public final class NSSOAPCRMService extends CRMService {
       }
 
       /* Process the response */
-      return NetSuiteMessageFormatUtils.processResponse(cADCommandObject, searchResult, crmFieldToBeSelectedSet);
+      return NetSuiteMessageFormatUtils.processResponse(scribeCommandObject, searchResult, crmFieldToBeSelectedSet);
     }
 
-    return cADCommandObject;
+    return scribeCommandObject;
   }
 
   @Override
-  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject) throws Exception {
+  public final ScribeCommandObject getObjectsCount(final ScribeCommandObject scribeCommandObject) throws Exception {
 
     /* Inform user about user error */
     throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by CAD");
   }
 
   @Override
-  public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
-      throws Exception {
+  public final ScribeCommandObject getObjects(final ScribeCommandObject scribeCommandObject, final String query, final String select,
+      final String order) throws Exception {
 
     /* Inform user about user error */
     throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by CAD");

@@ -292,14 +292,14 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<property name="urlEncodingType"><value>${Request_Param_Decoding_Type}</value></property>
 	</bean>
 	
-	<bean id="mutualDiagnosticLogService" class="com.inbravo.scribe.rest.service.log.MutualDiagnosticLogService" scope="singleton">
+	<bean id="mutualDiagnosticLogUtils" class="com.inbravo.scribe.rest.utils.MutualDiagnosticLogUtils" scope="singleton">
 		<property name="enabled"><value>${MDC_Logging_Enabled}</value></property>
 	</bean>
 		
 	<bean id="scribeObjectService" class="com.inbravo.scribe.rest.service.ScribeObjectService">
 		<property name="scribeInternalService" ref="scribeInternalService" />
 		<property name="scribeRequestValidator" ref="scribeRequestValidator" />
-		<property name="mutualDiagnosticLogService" ref="mutualDiagnosticLogService" />
+		<property name="mutualDiagnosticLogUtils" ref="mutualDiagnosticLogUtils" />
 	</bean>
 
 	<!-- Attachment writer handler -->

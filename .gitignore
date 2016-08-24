@@ -15,3 +15,4 @@ src/webapp/WEB-INF/classes/LiveIdLogin.xml
 src/webapp/WEB-INF/classes/MSOffice365Login.xml
 src/webapp/WEB-INF/classes/scribe-log4j.properties
 src/webapp/WEB-INF/classes/scribe.properties
+docs/scribe.txt

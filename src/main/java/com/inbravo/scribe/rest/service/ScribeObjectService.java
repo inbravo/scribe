@@ -42,8 +42,8 @@ import com.inbravo.scribe.exception.ScribeResponseCodes;
 import com.inbravo.scribe.rest.constants.HTTPConstants;
 import com.inbravo.scribe.rest.resource.ScribeCommandObject;
 import com.inbravo.scribe.rest.service.basic.ScribeInternalService;
-import com.inbravo.scribe.rest.service.log.MutualDiagnosticLogService;
 import com.inbravo.scribe.rest.service.validator.ScribeRequestValidator;
+import com.inbravo.scribe.rest.utils.MutualDiagnosticLogUtils;
 
 /**
  * The core CRM adaptor service
@@ -64,7 +64,7 @@ public final class ScribeObjectService {
 
   private ScribeRequestValidator scribeRequestValidator;
 
-  private MutualDiagnosticLogService mutualDiagnosticLogService;
+  private MutualDiagnosticLogUtils mutualDiagnosticLogUtils;
 
   /**
    * This API will do dynamic query based on the select criteria obtained from user. User will also
@@ -91,7 +91,7 @@ public final class ScribeObjectService {
       cADCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
 
       /* Update the request object for requestObject from URL */
       cADCommandObject.setObjectType(ObjectType);
@@ -119,7 +119,7 @@ public final class ScribeObjectService {
     } finally {
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.discardTransactionInfo();
+      mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
     return Response.ok(cADCommandObject).build();
@@ -151,7 +151,7 @@ public final class ScribeObjectService {
       cADCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
 
       /* Update the request object for requestObject from URL */
       cADCommandObject.setObjectType(ObjectType);
@@ -181,7 +181,7 @@ public final class ScribeObjectService {
     } finally {
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.discardTransactionInfo();
+      mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
     return Response.ok(cADCommandObject).build();
@@ -210,7 +210,7 @@ public final class ScribeObjectService {
       cADCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
 
       /* Update the request object for requestObject from URL */
       cADCommandObject.setObjectType(ObjectType);
@@ -234,7 +234,7 @@ public final class ScribeObjectService {
     } finally {
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.discardTransactionInfo();
+      mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
     return Response.ok(cADCommandObject).build();
@@ -262,7 +262,7 @@ public final class ScribeObjectService {
       cADCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
 
       /* Update the request object for requestObject from URL */
       cADCommandObject.setObjectType(ObjectType);
@@ -286,7 +286,7 @@ public final class ScribeObjectService {
     } finally {
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.discardTransactionInfo();
+      mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
     return Response.ok(cADCommandObject).build();
@@ -314,7 +314,7 @@ public final class ScribeObjectService {
       cADCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
 
       /* Update the request object for requestObject from URL */
       cADCommandObject.setObjectType(ObjectType);
@@ -339,7 +339,7 @@ public final class ScribeObjectService {
     } finally {
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.discardTransactionInfo();
+      mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
     return Response.ok(cADCommandObject).build();
@@ -367,7 +367,7 @@ public final class ScribeObjectService {
       cADCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
 
       /* Update the request object for requestObject from URL */
       cADCommandObject.setObjectType(ObjectType);
@@ -393,7 +393,7 @@ public final class ScribeObjectService {
     } finally {
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.discardTransactionInfo();
+      mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
     return Response.ok(cADCommandObject).build();
@@ -421,7 +421,7 @@ public final class ScribeObjectService {
       cADCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
 
       /* Update the request object for requestObject from URL */
       cADCommandObject.setObjectType(ObjectType);
@@ -440,7 +440,7 @@ public final class ScribeObjectService {
     } finally {
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.discardTransactionInfo();
+      mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
     return Response.ok(cADCommandObject).build();
@@ -468,7 +468,7 @@ public final class ScribeObjectService {
       cADCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
 
       /* Update the request object for requestObject from URL */
       cADCommandObject.setObjectType(ObjectType);
@@ -487,7 +487,7 @@ public final class ScribeObjectService {
     } finally {
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogService.discardTransactionInfo();
+      mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
     return Response.ok(cADCommandObject).build();
@@ -561,11 +561,12 @@ public final class ScribeObjectService {
     this.scribeRequestValidator = scribeRequestValidator;
   }
 
-  public final MutualDiagnosticLogService getMutualDiagnosticLogService() {
-    return mutualDiagnosticLogService;
+  public MutualDiagnosticLogUtils getMutualDiagnosticLogUtils() {
+    return mutualDiagnosticLogUtils;
   }
 
-  public final void setMutualDiagnosticLogService(final MutualDiagnosticLogService mutualDiagnosticLogService) {
-    this.mutualDiagnosticLogService = mutualDiagnosticLogService;
+  public void setMutualDiagnosticLogUtils(final MutualDiagnosticLogUtils mutualDiagnosticLogUtils) {
+    this.mutualDiagnosticLogUtils = mutualDiagnosticLogUtils;
   }
+
 }
