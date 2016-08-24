@@ -17,4 +17,4 @@ MetaObject.CrmUserId=[Your-CRM-User-Id]&MetaObject.CrmPassword=[Your-CRM-Passwor
 
 - MetaObject.CrmUserId need your CRM user id
 - MetaObject.CrmPassword is your CRM password
-- MetaObject.CrmType is your CRM type, which is <b>'SFDC'</b> in case of NetSuite CRM
+- MetaObject.CrmType is your CRM type, which is <b>'SFDC'</b> in case of SalesForce CRM
