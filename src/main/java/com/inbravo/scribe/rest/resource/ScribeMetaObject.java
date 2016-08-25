@@ -26,6 +26,7 @@ import java.util.Arrays;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * 
@@ -38,7 +39,7 @@ public final class ScribeMetaObject {
   @XmlElement(name = "CrmUserId")
   private String crmUserId;
 
-  @XmlElement(name = "CrmPassword")
+  @XmlTransient
   private String crmPassword;
 
   @XmlElement(name = "CrmType")
@@ -50,10 +51,10 @@ public final class ScribeMetaObject {
   @XmlElement(name = "CrmAccountId")
   private String crmAccountId;
 
-  @XmlElement(name = "CrmSessionId")
+  @XmlTransient
   private String crmSessionId;
 
-  @XmlElement(name = "CrmOrgName")
+  @XmlTransient
   private String crmOrgName;
 
   @XmlElement(name = "CrmServiceURL")
@@ -65,7 +66,7 @@ public final class ScribeMetaObject {
   @XmlElement(name = "CrmPort")
   private String crmPort;
 
-  @XmlElement(name = "CrmSecurityToken")
+  @XmlTransient
   private String[] crmSecurityToken;
 
   public final String getCrmSessionId() {

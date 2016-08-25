@@ -83,10 +83,10 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
   private String crmServiceEndpoint = SOAPExecutor.CRM_ENDPOINT;
 
   public final ScribeObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
-      final String password, final String orgName, final String[] crmSecurityToken, final ScribeObject cADbject) throws Exception {
+      final String password, final String orgName, final String[] crmSecurityToken, final ScribeObject scribeObject) throws Exception {
     logger.debug("---Inside createObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId + " & password: "
-        + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & cADbject: "
-        + cADbject);
+        + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & scribeObject: "
+        + scribeObject);
 
     try {
       /* Enable SOAP debugging using axis library */
@@ -98,7 +98,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       final Create createRequest = createDocument.addNewCreate();
 
       /* Add new account type xml beans object */
-      createRequest.setEntity(MSCRMMessageFormatUtils.createCRMObject(mSCRMObjectType, cADbject, crmFieldIntraSeparator));
+      createRequest.setEntity(MSCRMMessageFormatUtils.createCRMObject(mSCRMObjectType, scribeObject, crmFieldIntraSeparator));
 
       /* Create new stub */
       final CrmServiceCrmServiceSoap12Stub stub = new CrmServiceCrmServiceSoap12Stub(appProtocolType + "://" + crmHost + crmServiceEndpoint);
@@ -120,7 +120,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       stub.cleanup();
 
       /* Add new node and return */
-      return MSCRMMessageFormatUtils.addNode("id", result, cADbject);
+      return MSCRMMessageFormatUtils.addNode("id", result, scribeObject);
     } catch (final AxisFault e) {
       throw new ScribeException(ScribeResponseCodes._1013 + " Recieved a web service error", e);
     } catch (final RemoteException e) {

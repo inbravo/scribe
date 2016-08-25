@@ -14,6 +14,7 @@ Samples
 --------------
 -  [SalesForce][salesforce.md]
 -  [NetSuite][netsuite.md]
+-  [Microsoft][microsoft.md]
 
 ## How to run 
 
@@ -34,4 +35,5 @@ After checking out the repo, run `ant tomcat-start` to start the service using A
 
 [salesforce.md]: https://github.com/inbravo/scribe/blob/master/docs/md/salesforce.md
 [netsuite.md]: https://github.com/inbravo/scribe/blob/master/docs/md/netsuite.md
+[microsoft.md]: https://github.com/inbravo/scribe/blob/master/docs/md/microsoft.md
 

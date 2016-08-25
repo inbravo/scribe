@@ -85,12 +85,12 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
 
   @Override
   public final boolean login(final String crmUserId, final String crmPassword) throws Exception {
-    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the Scribe");
   }
 
   @Override
   public final boolean reset(final String crmUserId, final String crmPassword) throws Exception {
-    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the Scribe");
   }
 
   public final ZHAuthManager getzHAuthManager() {
