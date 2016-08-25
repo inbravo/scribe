@@ -1,8 +1,8 @@
 # Scribe - stateless microservice to integrate cloud CRM
 
-- Talk to all CRMs in a generic methodology: REST
-- Use single communication format for all types of CRM
-- Avoid CRM level complexity and access CRM objects using XML or JSON
+- Talk to all CRMs in a simple language: REST
+- Use single communication format for all types of CRM:	XML or JSON on HTTP
+- Avoid CRM level complexity and access Cloud CRM in a seamless way
 - Scribe supports following CRM,
 	1. SalesForce
 	2. NetSuite
