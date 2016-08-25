@@ -1,5 +1,8 @@
 # Scribe - stateless microservice to integrate cloud CRM
 
+[![License](http://img.shields.io/:license-MIT-blue.svg)](https://github.com/inbravo/scribe/edit/master/LICENSE "MIT Licence")
+[![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)](https://github.com/inbravo/scribe/edit/master)
+
 - Talk to all CRMs in a simple language: REST
 - Use single communication format for all types of CRM:	XML or JSON on HTTP
 - Avoid CRM level complexity and access Cloud CRM in a seamless way
