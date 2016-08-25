@@ -755,7 +755,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
     } else {
 
       /* Else send not supported error to user */
-      throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported by the CAD");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported by the Scribe");
     }
   }
 
@@ -1018,7 +1018,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
     } else {
       /* Throw user error */
-      throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM date value is not accepted by CAD: " + dateStr);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM date value is not accepted by Scribe: " + dateStr);
     }
   }
 
@@ -1056,7 +1056,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
         } else {
           /* Throw user error */
-          throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported for object association by CAD");
+          throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported for object association by Scribe");
         }
         return new String[] {element.getTextContent(), element.getAttribute("type"), schema};
 
@@ -1096,7 +1096,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
     } else {
 
       /* Throw user error */
-      throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported by the CAD");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported by the Scribe");
     }
   }
 

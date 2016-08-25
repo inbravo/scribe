@@ -183,7 +183,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
    */
   public static final String getCreateRequestXML(final ScribeCommandObject cADCommandObject) {
 
-    /* Iterate over CAD object and create XML request */
+    /* Iterate over Scribe object and create XML request */
     if (cADCommandObject.getObject() != null && cADCommandObject.getObject().length == 1) {
       final ScribeObject cADbject = cADCommandObject.getObject()[0];
       final List<Element> elementList = cADbject.getXmlContent();
@@ -213,7 +213,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
    */
   public static final String getCreateRequestJSON(final ScribeCommandObject cADCommandObject) throws JAXBException {
 
-    /* Iterate over CAD object and create JSON request */
+    /* Iterate over Scribe object and create JSON request */
     if (cADCommandObject.getObject() != null && cADCommandObject.getObject().length == 1) {
 
       final ScribeObject cADbject = cADCommandObject.getObject()[0];
@@ -240,7 +240,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
       } else {
 
         /* Throw user error */
-        throw new ScribeException(ScribeResponseCodes._1003 + " Object type : " + cADbject.getObjectType() + " is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + " Object type : " + cADbject.getObjectType() + " is not supported by Scribe");
       }
 
       if (logger.isDebugEnabled()) {
@@ -558,7 +558,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
     final ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
-    /* Create new CAD object list */
+    /* Create new Scribe object list */
     final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
     /* Create list of elements */
@@ -570,7 +570,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
     /* Add element in list */
     elementList.add(ZDCRMMessageFormatUtils.createMessageElement("address", "pilkhuwa"));
 
-    /* Create new CAD object */
+    /* Create new Scribe object */
     final ScribeObject cADbject = new ScribeObject();
 
     /* Set object type */
@@ -579,7 +579,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
     /* Add all CRM fields */
     cADbject.setXmlContent(elementList);
 
-    /* Add CAD object in list */
+    /* Add Scribe object in list */
     cADbjectList.add(cADbject);
 
     /* Set the final object in command object */

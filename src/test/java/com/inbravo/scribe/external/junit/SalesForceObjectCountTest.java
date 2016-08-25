@@ -53,7 +53,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -87,7 +87,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -121,7 +121,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -155,7 +155,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -189,7 +189,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -224,7 +224,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -258,7 +258,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -292,7 +292,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -326,7 +326,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -360,7 +360,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -395,7 +395,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenantWithDynamicQuery(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForTenantWithDynamicQuery(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -430,7 +430,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgentWithDynamicQuery(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForAgentWithDynamicQuery(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -465,7 +465,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForTenant(tenantId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForTenant(tenantId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;
@@ -493,7 +493,7 @@ public class SalesForceObjectCountTest {
 
     try {
       /* Get CAD command object from response */
-      ScribeCommandObject cADCommandObject = sFAccountMgmt.getCADCommandObjectForAgent(agentId);
+      ScribeCommandObject cADCommandObject = sFAccountMgmt.getScribeCommandObjectForAgent(agentId);
 
       /* Check if count node exists in response */
       boolean countStatus = false;

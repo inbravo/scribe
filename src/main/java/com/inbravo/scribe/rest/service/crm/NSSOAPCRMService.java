@@ -113,7 +113,7 @@ public final class NSSOAPCRMService extends CRMService {
       record = nSCRMGenericService.createOpportunity(scribeCommandObject.getObject()[0], crmFieldIntraSeparator);
     } else {
       throw new ScribeException(ScribeResponseCodes._1003 + " Following CRM object:" + scribeCommandObject.getObjectType()
-          + ", is not supported by the CAD");
+          + ", is not supported by the Scribe");
     }
 
     /* Get current system time before transaction */
@@ -218,7 +218,7 @@ public final class NSSOAPCRMService extends CRMService {
     } else {
 
       /* Inform user about user error */
-      throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM object is not supported by the CAD");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM object is not supported by the Scribe");
     }
 
     SearchResult searchResult = null;
@@ -318,7 +318,7 @@ public final class NSSOAPCRMService extends CRMService {
       } else {
 
         /* Inform user about user error */
-        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM object is not supported by the CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM object is not supported by the Scribe");
       }
 
       SearchResult searchResult = null;
@@ -380,12 +380,12 @@ public final class NSSOAPCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjectsCount(final ScribeCommandObject scribeCommandObject, final String query) throws Exception {
-    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the Scribe");
   }
 
   @Override
   public final ScribeCommandObject updateObject(final ScribeCommandObject scribeCommandObject) throws Exception {
-    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the Scribe");
   }
 
   @Override
@@ -437,7 +437,7 @@ public final class NSSOAPCRMService extends CRMService {
       } else {
 
         /* Inform user about user error */
-        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM object is not supported by the CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Following CRM object is not supported by the Scribe");
       }
 
       SearchResult searchResult = null;
@@ -527,7 +527,7 @@ public final class NSSOAPCRMService extends CRMService {
   public final ScribeCommandObject getObjectsCount(final ScribeCommandObject scribeCommandObject) throws Exception {
 
     /* Inform user about user error */
-    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by Scribe");
   }
 
   @Override
@@ -535,7 +535,7 @@ public final class NSSOAPCRMService extends CRMService {
       final String order) throws Exception {
 
     /* Inform user about user error */
-    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by Scribe");
   }
 
   /**

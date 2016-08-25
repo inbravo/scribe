@@ -119,7 +119,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by Scribe");
       }
 
       /* Create customer search */
@@ -172,7 +172,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by Scribe");
       }
 
       /* Create contact search */
@@ -222,7 +222,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by Scribe");
       }
 
       /* Create SupportCaseSearch */
@@ -271,7 +271,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by Scribe");
       }
 
       /* Create TaskSearch */
@@ -321,7 +321,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
       /* Inform user that 'OR' is not supported */
       if (query.contains(HTTPConstants.orClause)) {
-        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by CAD");
+        throw new ScribeException(ScribeResponseCodes._1003 + "Operator: '" + HTTPConstants.orClause + "' is not supported by Scribe");
       }
 
       /* Create OpportunitySearch */

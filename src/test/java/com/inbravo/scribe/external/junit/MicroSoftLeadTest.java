@@ -64,7 +64,7 @@ public final class MicroSoftLeadTest {
   public final void Create_Search_Lead() throws ParserConfigurationException, HttpException, IOException {
 
     final Document doc = createDocumentobject();
-    final Element root = doc.createElement("CAD");
+    final Element root = doc.createElement("Scribe");
     doc.appendChild(root);
 
     /* Create a random number */
@@ -136,7 +136,7 @@ public final class MicroSoftLeadTest {
 
     final Document doc = createDocumentobject();
 
-    final Element root = doc.createElement("CAD");
+    final Element root = doc.createElement("Scribe");
     doc.appendChild(root);
 
     final Element object = doc.createElement("Object");

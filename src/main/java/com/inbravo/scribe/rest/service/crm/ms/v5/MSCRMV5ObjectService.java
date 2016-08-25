@@ -130,7 +130,7 @@ public final class MSCRMV5ObjectService extends MSCRMObjectService implements Ap
     } else if (objectType.equalsIgnoreCase(MSCRMObjectType.Case.toString())) {
       return mSCRMV5CaseService;
     } else {
-      throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported by the CAD");
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following object type is not supported by the Scribe");
     }
   }
 

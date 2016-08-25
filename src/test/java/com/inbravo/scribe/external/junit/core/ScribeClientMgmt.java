@@ -24,7 +24,7 @@ public final class ScribeClientMgmt {
     this.objectUrl = objectUrl;
   }
 
-  public final ScribeCommandObject getCADCommandObjectByCRMObjectField(final String fieldName, final String fieldValue) throws Exception {
+  public final ScribeCommandObject getScribeCommandObjectByCRMObjectField(final String fieldName, final String fieldValue) throws Exception {
 
     /* Create a web client */
     final WebClient client = WebClient.create(cadURL);
@@ -32,7 +32,7 @@ public final class ScribeClientMgmt {
     /* Create account object */
     ScribeCommandObject accounts = null;
     try {
-      /* Call CAD */
+      /* Call Scribe */
       accounts = client.path(objectUrl).query(fieldName, fieldValue).get(ScribeCommandObject.class);
     } catch (final Exception e) {
       if (e instanceof WebApplicationException) {
@@ -46,7 +46,7 @@ public final class ScribeClientMgmt {
     return accounts;
   }
 
-  public final ScribeCommandObject getCADCommandObjectByIndustry(final String industry) throws Exception {
+  public final ScribeCommandObject getScribeCommandObjectByIndustry(final String industry) throws Exception {
 
     /* Create a web client */
     final WebClient client = WebClient.create(cadURL);
@@ -54,7 +54,7 @@ public final class ScribeClientMgmt {
     /* Create account object */
     ScribeCommandObject accounts = null;
     try {
-      /* Call CAD */
+      /* Call Scribe */
       accounts = client.path(objectUrl).query("Industry", industry).get(ScribeCommandObject.class);
     } catch (final Exception e) {
       if (e instanceof WebApplicationException) {
@@ -67,7 +67,7 @@ public final class ScribeClientMgmt {
     return accounts;
   }
 
-  public final ScribeCommandObject getCADCommandObjectByIsDeleted(final boolean isDeleted, final String agent) throws Exception {
+  public final ScribeCommandObject getScribeCommandObjectByIsDeleted(final boolean isDeleted, final String agent) throws Exception {
 
     /* Create a web client */
     final WebClient client = WebClient.create(cadURL);
@@ -75,7 +75,7 @@ public final class ScribeClientMgmt {
     /* Create account object */
     ScribeCommandObject accounts = null;
     try {
-      /* Call CAD */
+      /* Call Scribe */
       accounts = client.path(objectUrl).query("IsDeleted", isDeleted).query("agent", agent).get(ScribeCommandObject.class);
     } catch (final Exception e) {
       if (e instanceof WebApplicationException) {
@@ -88,7 +88,7 @@ public final class ScribeClientMgmt {
     return accounts;
   }
 
-  public final ScribeCommandObject getCADCommandObjectForAgent(final String agent) throws Exception {
+  public final ScribeCommandObject getScribeCommandObjectForAgent(final String agent) throws Exception {
 
     /* Create a web client */
     final WebClient client = WebClient.create(cadURL);
@@ -96,7 +96,7 @@ public final class ScribeClientMgmt {
     /* Create account object */
     ScribeCommandObject accounts = null;
     try {
-      /* Call CAD */
+      /* Call Scribe */
       accounts = client.path(objectUrl).query("agent", agent).get(ScribeCommandObject.class);
     } catch (Exception e) {
       if (e instanceof WebApplicationException) {
@@ -109,7 +109,7 @@ public final class ScribeClientMgmt {
     return accounts;
   }
 
-  public final ScribeCommandObject getCADCommandObjectForTenant(final String tenant) throws Exception {
+  public final ScribeCommandObject getScribeCommandObjectForTenant(final String tenant) throws Exception {
 
     /* Create a web client */
     final WebClient client = WebClient.create(cadURL);
@@ -117,7 +117,7 @@ public final class ScribeClientMgmt {
     /* Create account object */
     ScribeCommandObject accounts = null;
     try {
-      /* Call CAD */
+      /* Call Scribe */
       accounts = client.path(objectUrl).query("tenant", tenant).get(ScribeCommandObject.class);
     } catch (final Exception e) {
       if (e instanceof WebApplicationException) {
@@ -130,7 +130,7 @@ public final class ScribeClientMgmt {
     return accounts;
   }
 
-  public final ScribeCommandObject getCADCommandObjectForTenantWithDynamicQuery(final String tenant) throws Exception {
+  public final ScribeCommandObject getScribeCommandObjectForTenantWithDynamicQuery(final String tenant) throws Exception {
 
     /* Create a web client */
     final WebClient client = WebClient.create(cadURL);
@@ -138,7 +138,7 @@ public final class ScribeClientMgmt {
     /* Create account object */
     ScribeCommandObject accounts = null;
     try {
-      /* Call CAD */
+      /* Call Scribe */
       accounts = client.path(objectUrl).query("tenant", tenant).query("isdeleted", "false").get(ScribeCommandObject.class);
     } catch (final Exception e) {
       if (e instanceof WebApplicationException) {
@@ -151,7 +151,7 @@ public final class ScribeClientMgmt {
     return accounts;
   }
 
-  public final ScribeCommandObject getCADCommandObjectForAgentWithDynamicQuery(final String agent) throws Exception {
+  public final ScribeCommandObject getScribeCommandObjectForAgentWithDynamicQuery(final String agent) throws Exception {
 
     /* Create a web client */
     final WebClient client = WebClient.create(cadURL);
@@ -159,7 +159,7 @@ public final class ScribeClientMgmt {
     /* Create account object */
     ScribeCommandObject accounts = null;
     try {
-      /* Call CAD */
+      /* Call Scribe */
       accounts = client.path(objectUrl).query("agent", agent).query("isdeleted", "false").get(ScribeCommandObject.class);
     } catch (final Exception e) {
       if (e instanceof WebApplicationException) {
@@ -172,7 +172,7 @@ public final class ScribeClientMgmt {
     return accounts;
   }
 
-  public final ScribeCommandObject getCADCommandObject() throws Exception {
+  public final ScribeCommandObject getScribeCommandObject() throws Exception {
 
     /* Create a web client */
     final WebClient client = WebClient.create(cadURL);

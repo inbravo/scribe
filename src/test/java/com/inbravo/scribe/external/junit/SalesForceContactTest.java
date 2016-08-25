@@ -33,7 +33,7 @@ import com.inbravo.scribe.rest.resource.ScribeObject;
 public class SalesForceContactTest {
 
   private String agentId = "crmtest~~ag2";
-  private String cadURL = "http://localhost:8080/cad/";
+  private String ScribeURL = "http://localhost:8080/Scribe/";
 
   ScribeClientMgmt sFContactMgmt;
 
@@ -44,7 +44,7 @@ public class SalesForceContactTest {
   Unmarshaller unmarshaller;
 
   public SalesForceContactTest() throws Exception {
-    sFContactMgmt = new ScribeClientMgmt(cadURL, "/object/contact");
+    sFContactMgmt = new ScribeClientMgmt(ScribeURL, "/object/contact");
     context = JAXBContext.newInstance(ScribeCommandObject.class);
     unmarshaller = context.createUnmarshaller();
   }
@@ -81,31 +81,31 @@ public class SalesForceContactTest {
     Element lname = doc.createElement("Lastname");
     lname.appendChild(doc.createTextNode("LnameContact" + value));
 
-    /* Create CADObject */
-    ScribeObject cadObject = new ScribeObject();
+    /* Create ScribeObject */
+    ScribeObject ScribeObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(fname);
     arr.add(lname);
 
     arr.add(id);
 
-    /* Set element array at the CAD object */
-    cadObject.setXmlContent(arr);
+    /* Set element array at the Scribe object */
+    ScribeObject.setXmlContent(arr);
 
     /* Create Contact object */
-    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
+    ScribeCommandObject scribeCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setObject(new ScribeObject[] {cadObject});
-    cADCommandObject.setCrmUserId(agentId);
+    /* Set Scribe object and agentID in ScribeCommandObject */
+    scribeCommandObject.setObject(new ScribeObject[] {ScribeObject});
+    scribeCommandObject.setCrmUserId(agentId);
 
     Response response = null;
     /* Step 1: Call create contact */
     try {
-      response = sFContactMgmt.createObject(cADCommandObject);
+      response = sFContactMgmt.createObject(scribeCommandObject);
 
       /* Retrieve the object the object */
-      cADCommandObject = (ScribeCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
+      scribeCommandObject = (ScribeCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
 
       assertEquals("Contact creation is failed", Status.OK.getStatusCode(), response.getStatus());
     } catch (Exception e) {
@@ -121,7 +121,7 @@ public class SalesForceContactTest {
     /* Step 2: Call update contact */
 
     String contactId = "";
-    List<Element> elementList = cADCommandObject.getObject()[0].getXmlContent();
+    List<Element> elementList = scribeCommandObject.getObject()[0].getXmlContent();
     for (Element element : elementList) {
       if (element.getNodeName().equalsIgnoreCase("Id")) {
         contactId = element.getFirstChild().getNodeValue();
@@ -129,7 +129,7 @@ public class SalesForceContactTest {
       }
 
     }
-    /* update phone no in CAD object */
+    /* update phone no in Scribe object */
 
     Element updatedFirstName = doc.createElement("Firstname");
     updatedFirstName.appendChild(doc.createTextNode("venky"));
@@ -143,17 +143,17 @@ public class SalesForceContactTest {
     arr.add(lname);
     arr.add(createdId);
 
-    /* Set element array at the CAD object */
-    cadObject.setXmlContent(arr);
+    /* Set element array at the Scribe object */
+    ScribeObject.setXmlContent(arr);
 
-    /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setObject(new ScribeObject[] {cadObject});
+    /* Set Scribe object and agentID in ScribeCommandObject */
+    scribeCommandObject.setObject(new ScribeObject[] {ScribeObject});
 
     try {
-      response = sFContactMgmt.updateObject(cADCommandObject);
+      response = sFContactMgmt.updateObject(scribeCommandObject);
 
       /* Retrieve the object */
-      cADCommandObject = (ScribeCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
+      scribeCommandObject = (ScribeCommandObject) unmarshaller.unmarshal((InputStream) response.getEntity());
 
       assertEquals("Contact updation is failed", Status.OK.getStatusCode(), response.getStatus());
     } catch (Exception e) {
@@ -214,28 +214,28 @@ public class SalesForceContactTest {
     Element id = doc.createElement("Id");
     id.appendChild(doc.createTextNode("invalidId"));
 
-    /* Create CADObject */
-    ScribeObject cadObject = new ScribeObject();
+    /* Create ScribeObject */
+    ScribeObject ScribeObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(fname);
     arr.add(lname);
 
     arr.add(id);
 
-    /* Set element array at the CAD object */
-    cadObject.setXmlContent(arr);
+    /* Set element array at the Scribe object */
+    ScribeObject.setXmlContent(arr);
 
     /* Create Contact object */
-    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
+    ScribeCommandObject scribeCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setObject(new ScribeObject[] {cadObject});
-    cADCommandObject.setCrmUserId(agentId);
+    /* Set Scribe object and agentID in ScribeCommandObject */
+    scribeCommandObject.setObject(new ScribeObject[] {ScribeObject});
+    scribeCommandObject.setCrmUserId(agentId);
 
     Response response = null;
     /* Step 2: Call update contact */
     try {
-      response = sFContactMgmt.updateObject(cADCommandObject);
+      response = sFContactMgmt.updateObject(scribeCommandObject);
       assertEquals("Contact doesnot exist", Status.SERVICE_UNAVAILABLE.getStatusCode(), response.getStatus());
     } catch (Exception e) {
       if (e instanceof WebApplicationException) {
@@ -257,23 +257,23 @@ public class SalesForceContactTest {
   @org.junit.Test
   public void Create_Invalid_Contact_With_Agent() throws ParserConfigurationException {
 
-    /* Create CADObject */
-    ScribeObject cadObject = new ScribeObject();
+    /* Create ScribeObject */
+    ScribeObject ScribeObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
 
-    /* Set element array at the CAD object */
-    cadObject.setXmlContent(arr);
+    /* Set element array at the Scribe object */
+    ScribeObject.setXmlContent(arr);
 
     /* Create Contact object */
-    ScribeCommandObject cADCommandObject = new ScribeCommandObject();
+    ScribeCommandObject scribeCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
-    cADCommandObject.setObject(new ScribeObject[] {cadObject});
-    cADCommandObject.setCrmUserId(agentId);
+    /* Set Scribe object and agentID in ScribeCommandObject */
+    scribeCommandObject.setObject(new ScribeObject[] {ScribeObject});
+    scribeCommandObject.setCrmUserId(agentId);
     Response response = null;
     /* Step 2: Call update contact */
     try {
-      response = sFContactMgmt.createObject(cADCommandObject);
+      response = sFContactMgmt.createObject(scribeCommandObject);
       assertEquals("Contact could not be created.", Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     } catch (Exception e) {
       if (e instanceof WebApplicationException) {

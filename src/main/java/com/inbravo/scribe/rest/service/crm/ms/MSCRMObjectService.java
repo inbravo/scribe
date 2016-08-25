@@ -30,7 +30,7 @@ import com.inbravo.scribe.rest.resource.ScribeCommandObject;
  */
 public abstract class MSCRMObjectService {
 
-  public static final String notSupportedError = "Following operation is not supported by the CAD";
+  public static final String notSupportedError = "Following operation is not supported by the Scribe";
 
   public abstract ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception;
 

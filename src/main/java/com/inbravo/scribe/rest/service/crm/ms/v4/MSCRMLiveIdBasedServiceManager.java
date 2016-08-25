@@ -205,7 +205,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
 
-        /* Add CAD object in list */
+        /* Add Scribe object in list */
         cADbjectList.add(cADbject);
       }
       logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
@@ -224,7 +224,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
     } catch (final RemoteException e) {
       throw new ScribeException(ScribeResponseCodes._1015 + " Communication error", e);
     } catch (final ScribeException e) {
-      /* Throw CAD exception to user */
+      /* Throw Scribe exception to user */
       throw e;
     } catch (final Exception e) {
       throw new ScribeException(ScribeResponseCodes._1000 + " Problem while communicating with MS CRM server", e);
@@ -315,7 +315,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
 
-        /* Add CAD object in list */
+        /* Add Scribe object in list */
         cADbjectList.add(cADbject);
       }
       logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
@@ -333,7 +333,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
     } catch (final RemoteException e) {
       throw new ScribeException(ScribeResponseCodes._1015 + " Communication error", e);
     } catch (final ScribeException e) {
-      /* Throw CAD exception to user */
+      /* Throw Scribe exception to user */
       throw e;
     } catch (final Exception e) {
       throw new ScribeException(ScribeResponseCodes._1000 + " Problem while communicating with MS CRM server", e);
@@ -414,7 +414,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
         /* Add all CRM fields */
         cADbject.setXmlContent(MSCRMMessageFormatUtils.createEntityFromBusinessObject(entityStringArray[i]));
 
-        /* Add CAD object in list */
+        /* Add Scribe object in list */
         cADbjectList.add(cADbject);
       }
       logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
@@ -432,7 +432,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
     } catch (final RemoteException e) {
       throw new ScribeException(ScribeResponseCodes._1015 + " Communication error", e);
     } catch (final ScribeException e) {
-      /* Throw CAD exception to user */
+      /* Throw Scribe exception to user */
       throw e;
     } catch (final Exception e) {
       throw new ScribeException(ScribeResponseCodes._1000 + " Problem while communicating with MS CRM server", e);

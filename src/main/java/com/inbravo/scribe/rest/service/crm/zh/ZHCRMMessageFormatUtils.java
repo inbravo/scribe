@@ -384,7 +384,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
       return zhDateTimeFormatter.print(iDT);
 
     } catch (final Exception e) {
-      throw new ScribeException(ScribeResponseCodes._1003 + "Following date input: " + iFieldValue + " is not acceptable at CAD", e);
+      throw new ScribeException(ScribeResponseCodes._1003 + "Following date input: " + iFieldValue + " is not acceptable at Scribe", e);
     }
   }
 

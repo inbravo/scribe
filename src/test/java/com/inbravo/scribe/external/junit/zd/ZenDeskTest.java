@@ -37,7 +37,7 @@ public class ZenDeskTest {
 
   private String agentId = System.getProperty("AGENT_ID");
   private String tenantId = System.getProperty("TENANT_ID");
-  private String cadURL = System.getProperty("CAD_URL");
+  private String cadURL = System.getProperty("SCRIBE_URL");
 
   public ZenDeskTest() throws Exception {}
 

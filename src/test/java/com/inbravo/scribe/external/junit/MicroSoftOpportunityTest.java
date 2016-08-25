@@ -58,7 +58,7 @@ public final class MicroSoftOpportunityTest {
     Random rand = new Random();
     int value = rand.nextInt(1000);
 
-    final Element root = doc.createElement("CAD");
+    final Element root = doc.createElement("Scribe");
     doc.appendChild(root);
     String queryString = "";
 
@@ -127,7 +127,7 @@ public final class MicroSoftOpportunityTest {
 
     final Document doc = createDocumentobject();
 
-    final Element root = doc.createElement("CAD");
+    final Element root = doc.createElement("Scribe");
     doc.appendChild(root);
 
     final Element object = doc.createElement("Object");

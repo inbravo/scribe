@@ -31,5 +31,5 @@ import com.inbravo.scribe.rest.service.basic.ScribeService;
  */
 public interface ScribeServiceFactory {
 
-  public ScribeService getService(final ScribeCommandObject cADCommandObject) throws Exception;
+  public ScribeService getService(final ScribeCommandObject scribeCommandObject) throws Exception;
 }

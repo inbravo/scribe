@@ -122,7 +122,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
     /* Create page index variable */
     int pageIndex = 0;
 
-    /* Create CADObject list */
+    /* Create Scribe Object list */
     final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
     /* Check if records are not null */

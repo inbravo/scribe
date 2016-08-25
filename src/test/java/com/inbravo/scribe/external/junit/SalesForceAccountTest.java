@@ -81,20 +81,20 @@ public class SalesForceAccountTest {
     Element phone = doc.createElement("Phone");
     phone.appendChild(doc.createTextNode("703.444.3909"));
 
-    /* Create CADObject */
+    /* Create ScribeObject */
     ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(name);
     arr.add(phone);
     arr.add(id);
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
     /* Create Account object */
     ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
@@ -127,7 +127,7 @@ public class SalesForceAccountTest {
       }
 
     }
-    /* Update phone no in CAD object */
+    /* Update phone no in Scribe object */
     Element updatedPhone = doc.createElement("Phone");
     updatedPhone.appendChild(doc.createTextNode("703.444.3111"));
 
@@ -140,10 +140,10 @@ public class SalesForceAccountTest {
     arr.add(updatedPhone);
     arr.add(createdId);
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
 
     try {
@@ -209,20 +209,20 @@ public class SalesForceAccountTest {
     Element id = doc.createElement("Id");
     id.appendChild(doc.createTextNode("invalidId"));
 
-    /* Create CADObject */
+    /* Create ScribeObject */
     ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(name);
     arr.add(phone);
     arr.add(id);
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
     /* Create Account object */
     ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
@@ -251,17 +251,17 @@ public class SalesForceAccountTest {
   @org.junit.Test
   public void Create_Invalid_Account_With_Agent() throws ParserConfigurationException {
 
-    /* Create CADObject */
+    /* Create ScribeObject */
     ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
     /* Create Account object */
     ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
     Response response = null;

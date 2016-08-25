@@ -81,7 +81,7 @@ public class SalesForceCampaignTest {
     Element startdate = doc.createElement("StartDate");
     startdate.appendChild(doc.createTextNode("2010-12-12"));
 
-    /* Create CADObject */
+    /* Create ScribeObject */
     ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
 
@@ -89,13 +89,13 @@ public class SalesForceCampaignTest {
     arr.add(name);
     arr.add(id);
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
     /* Create Campaign object */
     ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
@@ -128,7 +128,7 @@ public class SalesForceCampaignTest {
       }
 
     }
-    /* update phone no in CAD object */
+    /* update phone no in Scribe object */
 
     /* Add Campaign information */
     Element updateStatus = doc.createElement("Status");
@@ -147,10 +147,10 @@ public class SalesForceCampaignTest {
     arr.add(updateStartdate);
     arr.add(createdId);
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
 
     try {
@@ -220,7 +220,7 @@ public class SalesForceCampaignTest {
     Element id = doc.createElement("Id");
     id.appendChild(doc.createTextNode("invalidId"));
 
-    /* Create CADObject */
+    /* Create ScribeObject */
     ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(status);
@@ -228,13 +228,13 @@ public class SalesForceCampaignTest {
     arr.add(name);
     arr.add(id);
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
     /* Create Campaign object */
     ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
@@ -263,17 +263,17 @@ public class SalesForceCampaignTest {
   @org.junit.Test
   public void Create_Invalid_Campaign_With_Agent() throws ParserConfigurationException {
 
-    /* Create CADObject */
+    /* Create ScribeObject */
     ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
     /* Create Campaign object */
     ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
     Response response = null;

@@ -211,7 +211,7 @@ public final class ZHRESTCRMService extends CRMService {
             /* Set type information in object */
             cADbject.setObjectType(cADCommandObject.getObjectType());
 
-            /* Add CAD object in list */
+            /* Add Scribe object in list */
             cADbjectList.add(cADbject);
           }
 
@@ -477,7 +477,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Set type information in object */
               cADbject.setObjectType(cADCommandObject.getObjectType());
 
-              /* Add CAD object in list */
+              /* Add Scribe object in list */
               cADbjectList.add(cADbject);
             }
 
@@ -757,7 +757,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Set type information in object */
               cADbject.setObjectType(cADCommandObject.getObjectType());
 
-              /* Add CAD object in list */
+              /* Add Scribe object in list */
               cADbjectList.add(cADbject);
             }
 
@@ -1054,7 +1054,7 @@ public final class ZHRESTCRMService extends CRMService {
               /* Set type information in object */
               cADbject.setObjectType(cADCommandObject.getObjectType());
 
-              /* Add CAD object in list */
+              /* Add Scribe object in list */
               cADbjectList.add(cADbject);
             }
 
@@ -1310,7 +1310,7 @@ public final class ZHRESTCRMService extends CRMService {
             /* Set type information in object */
             cADbject.setObjectType(cADCommandObject.getObjectType());
 
-            /* Add CAD object in list */
+            /* Add Scribe object in list */
             cADbjectList.add(cADbject);
           }
 
@@ -1533,22 +1533,22 @@ public final class ZHRESTCRMService extends CRMService {
 
   @Override
   public ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject) throws Exception {
-    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the Scribe");
   }
 
   @Override
   public ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
-    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the Scribe");
   }
 
   @Override
   public ScribeCommandObject updateObject(final ScribeCommandObject cADCommandObject) throws Exception {
-    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the Scribe");
   }
 
   @Override
   public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
-    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the Scribe");
   }
 
   public final String getCrmFieldsSeparator() {

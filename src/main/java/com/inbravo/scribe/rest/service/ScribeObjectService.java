@@ -77,43 +77,43 @@ public final class ScribeObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectTypeByQueryAndSelect)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML, HTTPConstants.mimeTypeOctetStream})
-  public final Response getObjects(@QueryParam("") ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.query) String query,
+  public final Response getObjects(@QueryParam("") ScribeCommandObject scribeCommandObject, final @PathParam(HTTPConstants.query) String query,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType, final @PathParam(HTTPConstants.select) String select) throws Exception {
 
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
+        + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select specific CRM fields with dynamic query. Object type: " + ObjectType);
 
     try {
 
       /* Set transaction id */
-      cADCommandObject.setIntTansId("" + transactionId);
+      scribeCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(scribeCommandObject);
 
       /* Update the request object for requestObject from URL */
-      cADCommandObject.setObjectType(ObjectType);
+      scribeCommandObject.setObjectType(ObjectType);
 
       /* Validate the request */
-      scribeRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+      scribeRequestValidator.validateRequestObject(scribeCommandObject, ObjectType, false);
 
-      cADCommandObject =
-          scribeInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
-              .getObjects(cADCommandObject, scribeRequestValidator.decodeRequestParam(query), scribeRequestValidator.decodeRequestParam(select));
+      scribeCommandObject =
+          scribeInternalService.getServiceFactory(scribeCommandObject).getService(scribeCommandObject)
+              .getObjects(scribeCommandObject, scribeRequestValidator.decodeRequestParam(query), scribeRequestValidator.decodeRequestParam(select));
 
 
-      if (cADCommandObject == null) {
+      if (scribeCommandObject == null) {
 
         /* Inform user that object not found */
         throw new ScribeException(ScribeResponseCodes._1004 + ObjectType);
       }
 
       /* Update the object for removing requestObject */
-      cADCommandObject.setObjectType(null);
+      scribeCommandObject.setObjectType(null);
 
-      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId()
           + "] ==**== ");
 
     } finally {
@@ -122,7 +122,7 @@ public final class ScribeObjectService {
       mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
-    return Response.ok(cADCommandObject).build();
+    return Response.ok(scribeCommandObject).build();
   }
 
   /**
@@ -136,46 +136,46 @@ public final class ScribeObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectTypeByQueryAndSelectAndOrder)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML})
-  public final Response getObjects(@QueryParam("") ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.query) String query,
+  public final Response getObjects(@QueryParam("") ScribeCommandObject scribeCommandObject, final @PathParam(HTTPConstants.query) String query,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType, final @PathParam(HTTPConstants.select) String select,
       final @PathParam(HTTPConstants.order) String order) throws Exception {
 
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
+        + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select specific CRM fields with dynamic query and order. Object type: " + ObjectType);
 
     try {
 
       /* Set transaction id */
-      cADCommandObject.setIntTansId("" + transactionId);
+      scribeCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(scribeCommandObject);
 
       /* Update the request object for requestObject from URL */
-      cADCommandObject.setObjectType(ObjectType);
+      scribeCommandObject.setObjectType(ObjectType);
 
       /* Validate the request */
-      scribeRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+      scribeRequestValidator.validateRequestObject(scribeCommandObject, ObjectType, false);
 
-      cADCommandObject =
+      scribeCommandObject =
           scribeInternalService
-              .getServiceFactory(cADCommandObject)
-              .getService(cADCommandObject)
-              .getObjects(cADCommandObject, scribeRequestValidator.decodeRequestParam(query), scribeRequestValidator.decodeRequestParam(select),
+              .getServiceFactory(scribeCommandObject)
+              .getService(scribeCommandObject)
+              .getObjects(scribeCommandObject, scribeRequestValidator.decodeRequestParam(query), scribeRequestValidator.decodeRequestParam(select),
                   scribeRequestValidator.decodeRequestParam(order));
 
 
-      if (cADCommandObject == null) {
+      if (scribeCommandObject == null) {
         /* Inform user that object not found */
         throw new ScribeException(ScribeResponseCodes._1004 + ObjectType);
       }
 
       /* Update the object for removing requestObject */
-      cADCommandObject.setObjectType(null);
+      scribeCommandObject.setObjectType(null);
 
-      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId()
           + "] ==**== ");
 
     } finally {
@@ -184,7 +184,7 @@ public final class ScribeObjectService {
       mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
-    return Response.ok(cADCommandObject).build();
+    return Response.ok(scribeCommandObject).build();
   }
 
   /**
@@ -197,38 +197,38 @@ public final class ScribeObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectType)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML})
-  public final Response getObjects(@QueryParam("") ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
+  public final Response getObjects(@QueryParam("") ScribeCommandObject scribeCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
       throws Exception {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
+        + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select all CRM fields. Object type: " + ObjectType);
 
     try {
 
       /* Set transaction id */
-      cADCommandObject.setIntTansId("" + transactionId);
+      scribeCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(scribeCommandObject);
 
       /* Update the request object for requestObject from URL */
-      cADCommandObject.setObjectType(ObjectType);
+      scribeCommandObject.setObjectType(ObjectType);
 
       /* Validate the request */
-      scribeRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+      scribeRequestValidator.validateRequestObject(scribeCommandObject, ObjectType, false);
 
-      cADCommandObject = scribeInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).getObjects(cADCommandObject);
+      scribeCommandObject = scribeInternalService.getServiceFactory(scribeCommandObject).getService(scribeCommandObject).getObjects(scribeCommandObject);
 
-      if (cADCommandObject == null) {
+      if (scribeCommandObject == null) {
         /* Inform user that object not found */
         throw new ScribeException(ScribeResponseCodes._1004 + ObjectType);
       }
 
       /* Update the object for removing requestObject */
-      cADCommandObject.setObjectType(null);
+      scribeCommandObject.setObjectType(null);
 
-      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId()
           + "] ==**== ");
 
     } finally {
@@ -237,7 +237,7 @@ public final class ScribeObjectService {
       mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
-    return Response.ok(cADCommandObject).build();
+    return Response.ok(scribeCommandObject).build();
   }
 
   /**
@@ -249,38 +249,38 @@ public final class ScribeObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectTypesCount)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML})
-  public final Response getObjectsCount(@QueryParam("") ScribeCommandObject cADCommandObject,
+  public final Response getObjectsCount(@QueryParam("") ScribeCommandObject scribeCommandObject,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
+        + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getAllObjectsCount Object type: " + ObjectType);
 
     try {
 
       /* Set transaction id */
-      cADCommandObject.setIntTansId("" + transactionId);
+      scribeCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(scribeCommandObject);
 
       /* Update the request object for requestObject from URL */
-      cADCommandObject.setObjectType(ObjectType);
+      scribeCommandObject.setObjectType(ObjectType);
 
       /* Validate the request */
-      scribeRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+      scribeRequestValidator.validateRequestObject(scribeCommandObject, ObjectType, false);
 
-      cADCommandObject = scribeInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).getObjectsCount(cADCommandObject);
+      scribeCommandObject = scribeInternalService.getServiceFactory(scribeCommandObject).getService(scribeCommandObject).getObjectsCount(scribeCommandObject);
 
-      if (cADCommandObject == null) {
+      if (scribeCommandObject == null) {
         /* Inform user that object not found */
         throw new ScribeException(ScribeResponseCodes._1004 + ObjectType);
       }
 
       /* Update the object for removing requestObject */
-      cADCommandObject.setObjectType(null);
+      scribeCommandObject.setObjectType(null);
 
-      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId()
           + "] ==**== ");
 
     } finally {
@@ -289,7 +289,7 @@ public final class ScribeObjectService {
       mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
-    return Response.ok(cADCommandObject).build();
+    return Response.ok(scribeCommandObject).build();
   }
 
   /**
@@ -301,40 +301,40 @@ public final class ScribeObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectTypeByQuery)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML})
-  public final Response getObjects(@QueryParam("") ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.query) String query,
+  public final Response getObjects(@QueryParam("") ScribeCommandObject scribeCommandObject, final @PathParam(HTTPConstants.query) String query,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
+        + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjects select all CRM fields by dynamic query. Object type: " + ObjectType);
 
     try {
 
       /* Set transaction id */
-      cADCommandObject.setIntTansId("" + transactionId);
+      scribeCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(scribeCommandObject);
 
       /* Update the request object for requestObject from URL */
-      cADCommandObject.setObjectType(ObjectType);
+      scribeCommandObject.setObjectType(ObjectType);
 
       /* Validate the request */
-      scribeRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+      scribeRequestValidator.validateRequestObject(scribeCommandObject, ObjectType, false);
 
-      cADCommandObject =
-          scribeInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
-              .getObjects(cADCommandObject, scribeRequestValidator.decodeRequestParam(query));
+      scribeCommandObject =
+          scribeInternalService.getServiceFactory(scribeCommandObject).getService(scribeCommandObject)
+              .getObjects(scribeCommandObject, scribeRequestValidator.decodeRequestParam(query));
 
-      if (cADCommandObject == null) {
+      if (scribeCommandObject == null) {
         /* Inform user that object not found */
         throw new ScribeException(ScribeResponseCodes._1004 + ObjectType);
       }
 
       /* Update the object for removing requestObject */
-      cADCommandObject.setObjectType(null);
+      scribeCommandObject.setObjectType(null);
 
-      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId()
           + "] ==**== ");
     } finally {
 
@@ -342,7 +342,7 @@ public final class ScribeObjectService {
       mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
-    return Response.ok(cADCommandObject).build();
+    return Response.ok(scribeCommandObject).build();
   }
 
   /**
@@ -354,40 +354,40 @@ public final class ScribeObjectService {
   @GET
   @Path(HTTPConstants.PahForObjectCountByQuery)
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML})
-  public final Response getObjectsCount(@QueryParam("") ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.query) String query,
+  public final Response getObjectsCount(@QueryParam("") ScribeCommandObject scribeCommandObject, final @PathParam(HTTPConstants.query) String query,
       final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
+        + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside getObjectsCount Object type: " + ObjectType);
 
     try {
 
       /* Set transaction id */
-      cADCommandObject.setIntTansId("" + transactionId);
+      scribeCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(scribeCommandObject);
 
       /* Update the request object for requestObject from URL */
-      cADCommandObject.setObjectType(ObjectType);
+      scribeCommandObject.setObjectType(ObjectType);
 
       /* Validate the request */
-      scribeRequestValidator.validateRequestObject(cADCommandObject, ObjectType, false);
+      scribeRequestValidator.validateRequestObject(scribeCommandObject, ObjectType, false);
 
-      cADCommandObject =
-          scribeInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject)
-              .getObjectsCount(cADCommandObject, scribeRequestValidator.decodeRequestParam(query));
+      scribeCommandObject =
+          scribeInternalService.getServiceFactory(scribeCommandObject).getService(scribeCommandObject)
+              .getObjectsCount(scribeCommandObject, scribeRequestValidator.decodeRequestParam(query));
 
-      if (cADCommandObject == null) {
+      if (scribeCommandObject == null) {
         /* Inform user that object not found */
         throw new ScribeException(ScribeResponseCodes._1004 + ObjectType);
       }
 
       /* Update the object for removing requestObject */
-      cADCommandObject.setObjectType(null);
+      scribeCommandObject.setObjectType(null);
 
-      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId()
           + "] ==**== ");
 
     } finally {
@@ -396,7 +396,7 @@ public final class ScribeObjectService {
       mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
-    return Response.ok(cADCommandObject).build();
+    return Response.ok(scribeCommandObject).build();
   }
 
   /**
@@ -408,33 +408,33 @@ public final class ScribeObjectService {
   @Path(HTTPConstants.PahForObjectType)
   @Consumes(HTTPConstants.mimeTypeXML)
   @Produces({HTTPConstants.mimeTypeXML, HTTPConstants.mimeTypeJSON})
-  public final Response createObject(ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
+  public final Response createObject(ScribeCommandObject scribeCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
       throws Exception {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
+        + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside createObject object type: " + ObjectType);
 
     try {
 
       /* Set transaction id */
-      cADCommandObject.setIntTansId("" + transactionId);
+      scribeCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(scribeCommandObject);
 
       /* Update the request object for requestObject from URL */
-      cADCommandObject.setObjectType(ObjectType);
+      scribeCommandObject.setObjectType(ObjectType);
 
       /* Validate the request */
-      scribeRequestValidator.validateRequestObject(cADCommandObject, ObjectType, true);
+      scribeRequestValidator.validateRequestObject(scribeCommandObject, ObjectType, true);
 
-      cADCommandObject = scribeInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).createObject(cADCommandObject);
+      scribeCommandObject = scribeInternalService.getServiceFactory(scribeCommandObject).getService(scribeCommandObject).createObject(scribeCommandObject);
 
       /* Update the object for removing requestObject */
-      cADCommandObject.setObjectType(null);
+      scribeCommandObject.setObjectType(null);
 
-      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId()
           + "] ==**== ");
 
     } finally {
@@ -443,7 +443,7 @@ public final class ScribeObjectService {
       mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
-    return Response.ok(cADCommandObject).build();
+    return Response.ok(scribeCommandObject).build();
   }
 
   /**
@@ -455,33 +455,33 @@ public final class ScribeObjectService {
   @Path(HTTPConstants.PahForObjectType)
   @Consumes(HTTPConstants.mimeTypeXML)
   @Produces({HTTPConstants.mimeTypeXML, HTTPConstants.mimeTypeJSON})
-  public final Response updateObject(ScribeCommandObject cADCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
+  public final Response updateObject(ScribeCommandObject scribeCommandObject, final @PathParam(HTTPConstants.ObjectType) String ObjectType)
       throws Exception {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
-        + "]; Ext-TransId : [" + cADCommandObject.getExtTransId() + "] ==**== ");
+        + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
     logger.debug("---Inside updateObject object type: " + ObjectType);
 
     try {
 
       /* Set transaction id */
-      cADCommandObject.setIntTansId("" + transactionId);
+      scribeCommandObject.setIntTansId("" + transactionId);
 
       /* Set transaction info in logs */
-      mutualDiagnosticLogUtils.addTransactionInfo(cADCommandObject);
+      mutualDiagnosticLogUtils.addTransactionInfo(scribeCommandObject);
 
       /* Update the request object for requestObject from URL */
-      cADCommandObject.setObjectType(ObjectType);
+      scribeCommandObject.setObjectType(ObjectType);
 
       /* Validate the request */
-      scribeRequestValidator.validateRequestObject(cADCommandObject, ObjectType, true);
+      scribeRequestValidator.validateRequestObject(scribeCommandObject, ObjectType, true);
 
-      cADCommandObject = scribeInternalService.getServiceFactory(cADCommandObject).getService(cADCommandObject).updateObject(cADCommandObject);
+      scribeCommandObject = scribeInternalService.getServiceFactory(scribeCommandObject).getService(scribeCommandObject).updateObject(scribeCommandObject);
 
       /* Update the object for removing requestObject */
-      cADCommandObject.setObjectType(null);
+      scribeCommandObject.setObjectType(null);
 
-      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + cADCommandObject.getExtTransId()
+      logger.info("==**== Transaction completed, Scribe-TransId : [" + transactionId + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId()
           + "] ==**== ");
 
     } finally {
@@ -490,7 +490,7 @@ public final class ScribeObjectService {
       mutualDiagnosticLogUtils.discardTransactionInfo();
     }
 
-    return Response.ok(cADCommandObject).build();
+    return Response.ok(scribeCommandObject).build();
   }
 
   /**

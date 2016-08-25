@@ -128,7 +128,7 @@ public final class ZDV2RESTCRMService extends CRMService {
 
         if (result == HttpStatus.SC_OK) {
 
-          /* Create CAD object from JSON response */
+          /* Create Scribe object from JSON response */
           return this.createSearchResponse(getMethod.getResponseBodyAsString(), cADCommandObject.getObjectType().toLowerCase());
 
         } else if (result == HttpStatus.SC_FORBIDDEN) {
@@ -222,12 +222,12 @@ public final class ZDV2RESTCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject) throws Exception {
-    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + "Following operation is not supported by the Scribe");
   }
 
   @Override
   public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
-    throw new ScribeException(ScribeResponseCodes._1003 + " Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + " Following operation is not supported by the Scribe");
   }
 
   @Override
@@ -419,7 +419,7 @@ public final class ZDV2RESTCRMService extends CRMService {
       /* Check if object is created */
       if (result == HttpStatus.SC_OK || result == HttpStatus.SC_CREATED) {
 
-        /* Create CAD object from JSON response */
+        /* Create Scribe object from JSON response */
         return this.createCreateResponse(postMethod.getResponseBodyAsString(), cADCommandObject.getObjectType().toLowerCase());
 
       } else if (result == HttpStatus.SC_BAD_REQUEST || result == HttpStatus.SC_METHOD_NOT_ALLOWED || result == HttpStatus.SC_NOT_ACCEPTABLE
@@ -473,7 +473,7 @@ public final class ZDV2RESTCRMService extends CRMService {
   public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
 
     logger.debug("---Inside deleteObject");
-    throw new ScribeException(ScribeResponseCodes._1003 + " Following operation is not supported by the CAD");
+    throw new ScribeException(ScribeResponseCodes._1003 + " Following operation is not supported by the Scribe");
   }
 
   /**
@@ -550,7 +550,7 @@ public final class ZDV2RESTCRMService extends CRMService {
         /* Create JSON object from response */
         final JSONObject jObj = new JSONObject(getMethod.getResponseBodyAsString());
 
-        /* Create new CAD object list */
+        /* Create new Scribe object list */
         final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
         /* Get select field list */
@@ -588,7 +588,7 @@ public final class ZDV2RESTCRMService extends CRMService {
               /* Create list of elements */
               final List<Element> elementList = new ArrayList<Element>();
 
-              /* Create new CAD object */
+              /* Create new Scribe object */
               final ScribeObject cADbject = new ScribeObject();
 
               /* Get all keys */
@@ -618,7 +618,7 @@ public final class ZDV2RESTCRMService extends CRMService {
                   elementList.add(ZDCRMMessageFormatUtils.createMessageElement(subKey, value));
                 }
 
-                /* Set CAD object type */
+                /* Set Scribe object type */
                 if (subKey.equalsIgnoreCase("result_type")) {
 
                   cADbject.setObjectType("" + value);
@@ -632,7 +632,7 @@ public final class ZDV2RESTCRMService extends CRMService {
               /* Add all CRM fields */
               cADbject.setXmlContent(elementList);
 
-              /* Add CAD object in list */
+              /* Add Scribe object in list */
               cADbjectList.add(cADbject);
             }
           } else {
@@ -710,13 +710,13 @@ public final class ZDV2RESTCRMService extends CRMService {
    */
   private final ScribeCommandObject createSearchResponse(final String responseStr, final String objectType) throws Exception {
 
-    /* Create new CAD object */
+    /* Create new Scribe object */
     final ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Create JSON object from response */
     final JSONObject jObj = new JSONObject(responseStr);
 
-    /* Create new CAD object list */
+    /* Create new Scribe object list */
     final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
     /* Get all keys */
@@ -744,7 +744,7 @@ public final class ZDV2RESTCRMService extends CRMService {
           /* Create list of elements */
           final List<Element> elementList = new ArrayList<Element>();
 
-          /* Create new CAD object */
+          /* Create new Scribe object */
           final ScribeObject cADbject = new ScribeObject();
 
           /* Get all keys */
@@ -768,19 +768,19 @@ public final class ZDV2RESTCRMService extends CRMService {
 
             }
 
-            /* Set CAD object type */
+            /* Set Scribe object type */
             cADbject.setObjectType(objectType);
           }
 
           /* Add all CRM fields */
           cADbject.setXmlContent(elementList);
 
-          /* Add CAD object in list */
+          /* Add Scribe object in list */
           cADbjectList.add(cADbject);
         }
       } else {
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside createCADObjectFromJSON unexpected JSON object type in response : " + jObj.get(key));
+          logger.debug("---Inside createSearchResponse unexpected JSON object type in response : " + jObj.get(key));
         }
       }
     }
@@ -806,13 +806,13 @@ public final class ZDV2RESTCRMService extends CRMService {
    */
   private final ScribeCommandObject createCreateResponse(final String responseStr, final String objectType) throws Exception {
 
-    /* Create new CAD object */
+    /* Create new Scribe object */
     final ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
     /* Create JSON object on complete response */
     final JSONObject jObj = new JSONObject(responseStr);
 
-    /* Create new CAD object list */
+    /* Create new Scribe object list */
     final List<ScribeObject> cADbjectList = new ArrayList<ScribeObject>();
 
     /* Get all keys */
@@ -822,7 +822,7 @@ public final class ZDV2RESTCRMService extends CRMService {
     /* Create list of elements */
     final List<Element> elementList = new ArrayList<Element>();
 
-    /* Create new CAD object */
+    /* Create new Scribe object */
     final ScribeObject cADbject = new ScribeObject();
 
     /* Iterate over user json object list */
@@ -873,13 +873,13 @@ public final class ZDV2RESTCRMService extends CRMService {
       }
     }
 
-    /* Set CAD object type */
+    /* Set Scribe object type */
     cADbject.setObjectType(objectType);
 
     /* Add all CRM fields */
     cADbject.setXmlContent(elementList);
 
-    /* Add CAD object in list */
+    /* Add Scribe object in list */
     cADbjectList.add(cADbject);
 
     /* Check if no record found */

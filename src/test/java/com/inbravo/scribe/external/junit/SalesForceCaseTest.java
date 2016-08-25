@@ -81,7 +81,7 @@ public class SalesForceCaseTest {
     Element reason = doc.createElement("Reason");
     reason.appendChild(doc.createTextNode("ReasonCase" + value));
 
-    /* Create CADObject */
+    /* Create ScribeObject */
     ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(status);
@@ -89,13 +89,13 @@ public class SalesForceCaseTest {
 
     arr.add(id);
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
     /* Create Case object */
     ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
@@ -129,7 +129,7 @@ public class SalesForceCaseTest {
       }
 
     }
-    /* update phone no in CAD object */
+    /* update phone no in Scribe object */
 
     /* Add Case information */
     Element updateStatus = doc.createElement("Status");
@@ -148,10 +148,10 @@ public class SalesForceCaseTest {
     arr.add(updateReason);
     arr.add(createdId);
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
 
     try {
@@ -219,7 +219,7 @@ public class SalesForceCaseTest {
     Element id = doc.createElement("Id");
     id.appendChild(doc.createTextNode("invalidId"));
 
-    /* Create CADObject */
+    /* Create ScribeObject */
     ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
     arr.add(status);
@@ -227,13 +227,13 @@ public class SalesForceCaseTest {
 
     arr.add(id);
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
     /* Create Case object */
     ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
 
@@ -262,17 +262,17 @@ public class SalesForceCaseTest {
   @org.junit.Test
   public void Create_Invalid_Case_With_Agent() throws ParserConfigurationException {
 
-    /* Create CADObject */
+    /* Create ScribeObject */
     ScribeObject cadObject = new ScribeObject();
     List<Element> arr = new ArrayList<Element>();
 
-    /* Set element array at the CAD object */
+    /* Set element array at the Scribe object */
     cadObject.setXmlContent(arr);
 
     /* Create Case object */
     ScribeCommandObject cADCommandObject = new ScribeCommandObject();
 
-    /* Set CAD object and agentID in CADCommandObject */
+    /* Set Scribe object and agentID in ScribeCommandObject */
     cADCommandObject.setObject(new ScribeObject[] {cadObject});
     cADCommandObject.setCrmUserId(agentId);
     Response response = null;
