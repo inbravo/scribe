@@ -1,5 +1,8 @@
 # Scribe - Talk to all CRMs using a single Language
 
+[![License](http://img.shields.io/:license-MIT-blue.svg)](https://github.com/inbravo/scribe/edit/master/LICENSE "MIT Licence")
+[![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)](https://github.com/inbravo/scribe/edit/master)
+
 - Talk to all CRMs in a simple language: REST
 - REST is very powerfull; it can Create, Read, Update, Delete (CRUD) CRM objects
 - Use single communication format for all types of CRM:	XML or JSON on HTTP
