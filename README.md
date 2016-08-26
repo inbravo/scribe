@@ -1,14 +1,16 @@
-# Scribe - stateless microservice to integrate cloud CRM
+# Scribe - Talk to all CRMs using a single Language
 
 - Talk to all CRMs in a simple language: REST
 - Use single communication format for all types of CRM:	XML or JSON on HTTP
 - Avoid CRM level complexity and access Cloud CRM in a seamless way
+- Remove any direct dependancy on a CRM version; Scribe takes care of all upgradations
+- Switch CRM easily
 - Scribe supports following CRM,
 	1. SalesForce
 	2. NetSuite
 	3. MS Dynamics XRM
 	4. Zoho
-	5. ZenDesk ticketing system
+	5. Zendesk
 
 Samples
 --------------
