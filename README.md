@@ -1,6 +1,7 @@
 # Scribe - Talk to all CRMs using a single Language
 
 - Talk to all CRMs in a simple language: REST
+- REST is very powerfull; it can Create, Read, Update, Delete (CRUD) CRM objects
 - Use single communication format for all types of CRM:	XML or JSON on HTTP
 - Avoid CRM level complexity and access Cloud CRM in a seamless way
 - Remove any direct dependancy on a CRM version; Scribe takes care of all upgradations
