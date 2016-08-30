@@ -1,6 +1,6 @@
 # Scribe - Talk to all CRMs using a single Language
 
-[![License](http://img.shields.io/:license-MIT-blue.svg)](https://github.com/inbravo/scribe/edit/master/LICENSE "MIT Licence")
+[![License](http://img.shields.io/:license-MIT-blue.svg)](https://github.com/inbravo/scribe/edit/master/LICENSE.md "MIT Licence")
 [![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)](https://github.com/inbravo/scribe/edit/master)
 
 - Talk to all CRMs in a simple language: REST
@@ -16,7 +16,7 @@
 	4. Zoho
 	5. Zendesk
 
-Samples
+Samples for search CRM objects
 --------------
 -  [SalesForce][salesforce.md]
 -  [NetSuite][netsuite.md]
