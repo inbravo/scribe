@@ -8,6 +8,7 @@
 - Use XML or JSON for communication with Scribe
 - Avoid CRM level complexity and access Cloud CRM in a seamless way
 - Remove any direct dependancy on a CRM version; Scribe takes care of all upgradations
+- Scribe also serves as a sample for Java based CRM developers
 - Switch CRM easily; it supports following CRM
 	1. SalesForce
 	2. NetSuite
