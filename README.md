@@ -3,13 +3,12 @@
 [![License](http://img.shields.io/:license-MIT-blue.svg)](https://github.com/inbravo/scribe/edit/master/LICENSE.md "MIT Licence")
 [![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)](https://github.com/inbravo/scribe/edit/master)
 
-- Talk to all CRMs in a simple language: REST
-- REST is very powerfull; it can Create, Read, Update, Delete (CRUD) CRM objects
-- Use single communication format for all types of CRM:	XML or JSON on HTTP
+- Talk to all CRMs using a simple language: REST
+- REST is powerfull; Scribe can be used to Create, Read, Update, Delete (CRUD) CRM objects using REST
+- Use XML or JSON for communication with Scribe
 - Avoid CRM level complexity and access Cloud CRM in a seamless way
 - Remove any direct dependancy on a CRM version; Scribe takes care of all upgradations
-- Switch CRM easily
-- Scribe supports following CRM,
+- Switch CRM easily; it supports following CRM
 	1. SalesForce
 	2. NetSuite
 	3. MS Dynamics XRM
