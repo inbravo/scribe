@@ -55,7 +55,7 @@ public final class MSCRMDiscoveryManager {
   private String crmDiscoveryServiceEndpoint = SOAPExecutor.CRM_DISCOVERY_SERVICE_ENDPOINT;
 
   /**
-   * This API will be used for finding the organization information of an agent/tenant
+   * This API will be used for finding the organization information of a scribe user
    * 
    * @param userId
    * @param password

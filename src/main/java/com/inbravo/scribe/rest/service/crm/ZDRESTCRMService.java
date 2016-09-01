@@ -306,7 +306,7 @@ public final class ZDRESTCRMService extends CRMService {
       String sessionId = null;
       String crmPort = "80";
 
-      /* Check if tenant is present in request */
+      /* Check if crm user info is present in request */
       if (cADCommandObject.getCrmUserId() != null) {
 
         /* Get agent from session manager */

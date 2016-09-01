@@ -158,7 +158,7 @@ public final class MSSOAPCRMService extends CRMService {
       /* Parse the reponse */
       STSEnpoint = nodeMap.get("STSEnpoint");
 
-      /* Check if tenant or agent request */
+      /* Check if cache object is absent */
       if (cacheObject != null) {
 
         logger.debug("----Inside getmSCRMObjectService, adding MS login additonal info at agent: " + cADCommandObject.getCrmUserId());

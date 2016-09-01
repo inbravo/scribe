@@ -512,7 +512,7 @@ public final class ScribeObjectService {
     /* Set transaction id */
     cADCommandObject.setIntTansId("" + transactionId);
 
-    /* Set agent/tenant information */
+    /* Set crm user information */
     cADCommandObject.setCrmUserId(crmUserId);
 
     /* Update the request object for requestObject from URL */

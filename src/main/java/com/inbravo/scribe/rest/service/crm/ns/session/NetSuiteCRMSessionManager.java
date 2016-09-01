@@ -47,9 +47,6 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
   /* NetSuite SOAP client */
   private NetSuiteSOAPClient netSuiteSOAPClient;
 
-  /* Agent/tenant id seperator */
-  private String agentIdSplitCharacter;
-
   /* REST based web service URL info provider */
   private NSCRMV2k9ClientInfoProvidor clientInfoProvidor;
 
@@ -200,14 +197,6 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
 
   public final void setcRMSessionCache(final CRMSessionCache cRMSessionCache) {
     this.cRMSessionCache = cRMSessionCache;
-  }
-
-  public final String getCrmUserIdIdSplitCharacter() {
-    return agentIdSplitCharacter;
-  }
-
-  public final void setCrmUserIdIdSplitCharacter(final String agentIdSplitCharacter) {
-    this.agentIdSplitCharacter = agentIdSplitCharacter;
   }
 
   /**

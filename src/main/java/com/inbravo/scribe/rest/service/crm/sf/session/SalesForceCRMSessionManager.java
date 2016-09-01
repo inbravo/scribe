@@ -63,7 +63,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
     /* This code block will be usefull if cache size limit is reached */
     if (cacheObject != null) {
 
-      logger.debug("----Inside tenant not found in cache hence going for fresh fetch. Seems like cache limit is reached");
+      logger.debug("----Inside getSoapBindingStub, user is not found in cache hence going for fresh fetch. Seems like cache limit is reached");
 
       /* Login at Sales Force */
       soapBindingStub = salesForceSOAPClient.login(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword());
@@ -156,7 +156,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
       throw new ScribeException(ScribeResponseCodes._1008 + "CRM session id not set with cache object");
     }
 
-    /* Save this freshly updated tenant in cache */
+    /* Save this freshly updated user in cache */
     cRMSessionCache.admit(crmUserId, cacheObject);
 
     /* If everything is fine return true */
