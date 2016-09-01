@@ -102,7 +102,7 @@ public final class SOAPExecutor {
   public final SOAPMessage execute(final String endpointUrl, final String request) throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside execute endpointUrl: " + endpointUrl + " & request: " + request);
+      logger.debug("----Inside execute endpointUrl: " + endpointUrl + " & request: " + request);
     }
 
     /* Create SOAP message */
@@ -135,13 +135,13 @@ public final class SOAPExecutor {
 
       try {
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside execute url: " + postMethod.getURI());
+          logger.debug("----Inside execute url: " + postMethod.getURI());
         }
 
         final int result = httpclient.executeMethod(postMethod);
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside execute response code: " + result);
+          logger.debug("----Inside execute response code: " + result);
         }
         return postMethod.getResponseBodyAsString();
       } catch (final Exception exception) {
@@ -163,7 +163,7 @@ public final class SOAPExecutor {
   public final String callHttpURL(final String url) {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getHttpURL, calling url: " + url);
+      logger.debug("----Inside getHttpURL, calling url: " + url);
     }
 
     final GetMethod getMethod = new GetMethod(url);
@@ -171,18 +171,18 @@ public final class SOAPExecutor {
     final HttpClient httpclient = new HttpClient();
     try {
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getHttpURL, url: " + getMethod.getURI());
+        logger.debug("----Inside getHttpURL, url: " + getMethod.getURI());
       }
 
       int result = httpclient.executeMethod(getMethod);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getHttpURL, response code: " + result);
+        logger.debug("----Inside getHttpURL, response code: " + result);
       }
       return getMethod.getResponseBodyAsString();
 
     } catch (final Exception exception) {
-      logger.debug("---Inside getHttpURL, exception: " + exception);
+      logger.debug("----Inside getHttpURL, exception: " + exception);
 
       /* Send user error */
       throw new ScribeException(ScribeResponseCodes._1008 + "Problem in finding CRM integration information from customers CRM service URL");
@@ -212,7 +212,7 @@ public final class SOAPExecutor {
       conn = SOAPConnectionFactory.newInstance().createConnection();
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside execute, going to execute SOAP message : " + message.getSOAPBody().getTextContent());
+        logger.debug("----Inside execute, going to execute SOAP message : " + message.getSOAPBody().getTextContent());
       }
 
       /* Call SOAP service */
@@ -222,12 +222,12 @@ public final class SOAPExecutor {
       final SOAPBody body = response.getSOAPBody();
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside execute, has fault? :  " + body.hasFault());
+        logger.debug("----Inside execute, has fault? :  " + body.hasFault());
       }
 
       if (body.hasFault() && body.getFault() != null) {
 
-        logger.error("---Inside execute, fault :  " + body.getFault().getTextContent() + ", fault reason : " + body.getFault().getFaultString());
+        logger.error("----Inside execute, fault :  " + body.getFault().getTextContent() + ", fault reason : " + body.getFault().getFaultString());
 
         /* Throw error */
         throw new SOAPException(body.getFault().getTextContent());
@@ -235,7 +235,7 @@ public final class SOAPExecutor {
       return response;
     } catch (final Exception e) {
 
-      logger.error("---Inside execute, error recieved :  " + e.getMessage() + ", error : " + e);
+      logger.error("----Inside execute, error recieved :  " + e.getMessage() + ", error : " + e);
 
       /* Throw user error */
       throw new SOAPException(e);

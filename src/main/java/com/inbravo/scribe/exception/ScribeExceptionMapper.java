@@ -62,7 +62,7 @@ public final class ScribeExceptionMapper implements ExceptionMapper<Exception> {
     if (exception instanceof InvalidFieldFault || exception instanceof InvalidIdFault || exception instanceof UnexpectedErrorFault
         || exception instanceof InvalidSObjectFault || exception instanceof MalformedQueryFault || exception instanceof MalformedSearchFault
         || exception instanceof InvalidQueryLocatorFault) {
-      logger.debug("---Inside toResponse an exception is found: " + exception);
+      logger.debug("----Inside toResponse an exception is found: " + exception);
 
       /* Inform the user about invalid data errors from sales force */
       if (exception instanceof InvalidQueryLocatorFault) {

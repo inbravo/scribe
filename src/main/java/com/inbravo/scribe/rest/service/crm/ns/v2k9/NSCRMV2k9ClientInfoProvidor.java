@@ -59,7 +59,7 @@ public final class NSCRMV2k9ClientInfoProvidor {
   public final NSCRMV2k9ClientInfo getNSCRMV2k9ClientInfo(final String userEmail, final String password) throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getWebServiceURL: userEmail: " + userEmail + " & password: " + password + " & NS REST urls: " + nsGetRoleURLs);
+      logger.debug("----Inside getWebServiceURL: userEmail: " + userEmail + " & password: " + password + " & NS REST urls: " + nsGetRoleURLs);
     }
     try {
       /* Start from zero retry counts */
@@ -68,7 +68,7 @@ public final class NSCRMV2k9ClientInfoProvidor {
 
       try {
         /* log this error */
-        logger.info("---Inside getNSCRMV2k9ClientInfo, found error while trying first NS REST URL, going to retry second NS REST URL");
+        logger.info("----Inside getNSCRMV2k9ClientInfo, found error while trying first NS REST URL, going to retry second NS REST URL");
 
         /* Start from 2+ retry counts */
         return this.getNSCRMV2k9ClientInfo(userEmail, password, this.getNsGetRoleURLs(1));
@@ -95,7 +95,7 @@ public final class NSCRMV2k9ClientInfoProvidor {
   private final NSCRMV2k9ClientInfo getNSCRMV2k9ClientInfo(final String userEmail, final String password, final String nsGetRoleURL) throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getNSCRMV2k9ClientInfo: userEmail: " + userEmail + " & password: " + password + " & ns role url: " + nsGetRoleURL);
+      logger.debug("----Inside getNSCRMV2k9ClientInfo: userEmail: " + userEmail + " & password: " + password + " & ns role url: " + nsGetRoleURL);
     }
 
     /* Validate credentials validity */
@@ -119,7 +119,7 @@ public final class NSCRMV2k9ClientInfoProvidor {
       int result = httpclient.executeMethod(getM);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getNSCRMV2k9ClientInfo: response status code: " + result);
+        logger.debug("----Inside getNSCRMV2k9ClientInfo: response status code: " + result);
       }
 
       if (result == HttpStatus.SC_OK) {
@@ -130,13 +130,13 @@ public final class NSCRMV2k9ClientInfoProvidor {
           return this.get2K9ServiceURls(getM.getResponseBodyAsString().trim());
         } else {
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside getNSCRMV2k9ClientInfo: found no response, going to use default" + result);
+            logger.debug("----Inside getNSCRMV2k9ClientInfo: found no response, going to use default" + result);
           }
           return new NSCRMV2k9ClientInfo();
         }
       } else {
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside getNSCRMV2k9ClientInfo: found error from NS: " + result);
+          logger.debug("----Inside getNSCRMV2k9ClientInfo: found error from NS: " + result);
         }
         /* Inform user about service exception */
         throw new ScribeException(ScribeResponseCodes._1012 + "Service error from NetSuite : " + result);

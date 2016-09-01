@@ -90,7 +90,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
       /* Iterate over tokenizer */
       while (stringTokenizer.hasMoreElements()) {
         String tempElement = stringTokenizer.nextToken();
-        logger.debug("---Inside createZDQuery: tempElement: " + tempElement);
+        logger.debug("----Inside createZDQuery: tempElement: " + tempElement);
 
         /* Replace 'like' operator case */
         tempElement = replaceLikeOpCase(tempElement);
@@ -123,7 +123,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
         }
       }
     }
-    logger.debug("---Inside createZDQuery: zdQuery: " + zdQuery);
+    logger.debug("----Inside createZDQuery: zdQuery: " + zdQuery);
     return zdQuery;
   }
 
@@ -149,7 +149,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
           selectFieldList.add(tempElement.toUpperCase().trim());
         }
       }
-      logger.debug("---Inside createSelectFieldList list: " + selectFieldList);
+      logger.debug("----Inside createSelectFieldList list: " + selectFieldList);
       return selectFieldList;
     } else {
       return null;
@@ -198,7 +198,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
       /* Add end tag */
       reqString = reqString + "</" + cADCommandObject.getObjectType() + ">";
-      logger.debug("---Inside getCreateRequestXML xml : " + reqString);
+      logger.debug("----Inside getCreateRequestXML xml : " + reqString);
       return reqString;
     } else {
       return null;
@@ -244,7 +244,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
       }
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getCreateRequestJSON json : " + requestJSONStr);
+        logger.debug("----Inside getCreateRequestJSON json : " + requestJSONStr);
       }
 
       return requestJSONStr;
@@ -372,7 +372,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
       /* Create request string */
       String reqString = "";
 
-      logger.debug("---Inside getCreateRequestString objectType: " + cADCommandObject.getObjectType());
+      logger.debug("----Inside getCreateRequestString objectType: " + cADCommandObject.getObjectType());
 
       /* Find the respective object type */
       if (cADCommandObject.getObjectType().equalsIgnoreCase(ZDCRMObjectType.User.toString())) {
@@ -404,7 +404,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
         reqString = reqString.substring(0, reqString.length() - 1);
       }
-      logger.debug("---Inside getCreateRequestString reqString: " + reqString);
+      logger.debug("----Inside getCreateRequestString reqString: " + reqString);
       return reqString;
     } else {
       return null;
@@ -437,18 +437,18 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
         /* Get node list from response document */
         final Node node = (Node) expr.evaluate(document, XPathConstants.NODE);
 
-        logger.debug("---Inside getErrorFromResponse: node: " + node);
+        logger.debug("----Inside getErrorFromResponse: node: " + node);
 
         /* Return error description */
         if (node.getNodeValue() != null) {
-          logger.debug("---Inside getErrorFromResponse: node: " + node.getNodeValue());
+          logger.debug("----Inside getErrorFromResponse: node: " + node.getNodeValue());
           return node.getNodeValue();
         } else {
-          logger.debug("---Inside getErrorFromResponse: node: " + node.getTextContent());
+          logger.debug("----Inside getErrorFromResponse: node: " + node.getTextContent());
           return node.getTextContent();
         }
       } catch (final Exception e) {
-        logger.debug("---Inside getErrorFromResponse: ignoring error while parsing error : " + e);
+        logger.debug("----Inside getErrorFromResponse: ignoring error while parsing error : " + e);
         /* Return empty string to avoid any error */
         return "";
       }
@@ -513,7 +513,7 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
                 final Object value = subObj.get(subKey);
 
                 if (logger.isDebugEnabled()) {
-                  logger.debug("---Inside getErrorFromResponse key : " + subKey + " & value: " + value);
+                  logger.debug("----Inside getErrorFromResponse key : " + subKey + " & value: " + value);
 
                 }
 
@@ -535,14 +535,14 @@ public final class ZDCRMMessageFormatUtils extends CRMMessageFormatUtils {
           } else {
 
             if (logger.isDebugEnabled()) {
-              logger.debug("---Inside getErrorFromResponse unexpected JSON object type in response : " + jObj);
+              logger.debug("----Inside getErrorFromResponse unexpected JSON object type in response : " + jObj);
             }
           }
         }
         return errorString;
 
       } catch (final Exception e) {
-        logger.debug("---Inside getErrorFromResponse: ignoring error while parsing error : " + e);
+        logger.debug("----Inside getErrorFromResponse: ignoring error while parsing error : " + e);
 
         /* Return empty string to avoid any error */
         return errorString;

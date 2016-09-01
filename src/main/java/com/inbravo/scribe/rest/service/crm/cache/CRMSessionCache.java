@@ -77,7 +77,7 @@ public final class CRMSessionCache {
     cacheMap = new LRUMap(maximumCachedQuantity);
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside CRMSessionCache: initialization started Time to live:" + ttl + " & Access timeout:" + ato + " & Cache timer interval: "
+      logger.debug("----Inside CRMSessionCache: initialization started Time to live:" + ttl + " & Access timeout:" + ato + " & Cache timer interval: "
           + tiv + " & Maximum allowed cached quantity: " + maximumCachedQuantity);
     }
     initialize();
@@ -114,7 +114,7 @@ public final class CRMSessionCache {
             if (cobj == null || cobj.hasExpired(now)) {
 
               if (logger.isDebugEnabled()) {
-                logger.debug("---Inside CRMSessionCache: removing " + key + ": Idle time= " + (now - cobj.timeAccessedLast) + "; Stale time= "
+                logger.debug("----Inside CRMSessionCache: removing " + key + ": Idle time= " + (now - cobj.timeAccessedLast) + "; Stale time= "
                     + (now - cobj.timeCached) + "; Object count in cache= " + cacheMap.size());
               }
               itr.remove();
@@ -126,7 +126,7 @@ public final class CRMSessionCache {
            * This is just a timer cleaning up. It will catch up on cleaning next time it runs.
            */
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside CRMSessionCache:Ignorable ConcurrentModificationException");
+            logger.debug("----Inside CRMSessionCache:Ignorable ConcurrentModificationException");
           }
         }
       }
@@ -151,7 +151,7 @@ public final class CRMSessionCache {
   public final Object admit(final Object key, final Object dataToCache) {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside CRMSessionCache: admiting object with key= " + key + "; existing object count in cache= " + cacheMap.size());
+      logger.debug("----Inside CRMSessionCache: admiting object with key= " + key + "; existing object count in cache= " + cacheMap.size());
     }
 
     /* Get object from cache */
@@ -192,7 +192,7 @@ public final class CRMSessionCache {
   public final Object admit(final Object key, final Object dataToCache, final long objectTimeToLive, final long objectIdleTimeout) {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside CRMSessionCache: admiting object with key= " + key + "; existing object count in cache= " + cacheMap.size());
+      logger.debug("----Inside CRMSessionCache: admiting object with key= " + key + "; existing object count in cache= " + cacheMap.size());
     }
 
     /* Get object from cache */
@@ -243,7 +243,7 @@ public final class CRMSessionCache {
   public final void discard(final Object key) {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside CRMSessionCache.discard removing: " + key + "; existing object count in cache= " + cacheMap.size());
+      logger.debug("----Inside CRMSessionCache.discard removing: " + key + "; existing object count in cache= " + cacheMap.size());
     }
     cacheMap.remove(key);
   }

@@ -83,13 +83,13 @@ public final class MSCRMSessionManagerFactory implements ApplicationContextAware
     /* if additional info is available */
     if (nodeMap != null && nodeMap.get("STSEnpoint") != null) {
 
-      logger.debug("---Inside checkMSCRMVersion, STSEnpoint information is found");
+      logger.debug("----Inside checkMSCRMVersion, STSEnpoint information is found");
 
       /* Parse the reponse */
       STSEnpoint = nodeMap.get("STSEnpoint");
     } else {
 
-      logger.debug("---Inside checkMSCRMVersion, going to MS CRM for STSEnpoint information");
+      logger.debug("----Inside checkMSCRMVersion, going to MS CRM for STSEnpoint information");
 
       /* Create additonal information map for next level usage */
       nodeMap = mSAuthManager.getMSCRMOrganizationInfo(serviceURL, servicePrototol);
@@ -97,7 +97,7 @@ public final class MSCRMSessionManagerFactory implements ApplicationContextAware
       /* Parse the reponse */
       STSEnpoint = nodeMap.get("STSEnpoint");
 
-      logger.debug("---Inside checkMSCRMVersion, adding MS login additonal info at agent: " + id);
+      logger.debug("----Inside checkMSCRMVersion, adding MS login additonal info at agent: " + id);
 
       if (cacheObject.getAdditionalInfo() != null) {
 
@@ -117,12 +117,12 @@ public final class MSCRMSessionManagerFactory implements ApplicationContextAware
     /* Check if Live Id authentication is desired */
     if ((STSEnpoint != null) && (STSEnpoint.startsWith("https://login.live.com"))) {
 
-      logger.debug("---Inside checkMSCRMVersion, found Live Id based service, Will use V4 WSDL");
+      logger.debug("----Inside checkMSCRMVersion, found Live Id based service, Will use V4 WSDL");
       /* Return Live id based V4 service */
       return MSCRMVersionType.V4;
     } else {
 
-      logger.debug("---Inside checkMSCRMVersion, found Office 365 based service, Will use V5 WSDL");
+      logger.debug("----Inside checkMSCRMVersion, found Office 365 based service, Will use V5 WSDL");
       /* Return Office 365 based V5 service */
       return MSCRMVersionType.V5;
     }

@@ -83,7 +83,7 @@ public final class ScribeObjectService {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
-    logger.debug("---Inside getObjects select specific CRM fields with dynamic query. Object type: " + ObjectType);
+    logger.debug("----Inside getObjects select specific CRM fields with dynamic query. Object type: " + ObjectType);
 
     try {
 
@@ -143,7 +143,7 @@ public final class ScribeObjectService {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
-    logger.debug("---Inside getObjects select specific CRM fields with dynamic query and order. Object type: " + ObjectType);
+    logger.debug("----Inside getObjects select specific CRM fields with dynamic query and order. Object type: " + ObjectType);
 
     try {
 
@@ -202,7 +202,7 @@ public final class ScribeObjectService {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
-    logger.debug("---Inside getObjects select all CRM fields. Object type: " + ObjectType);
+    logger.debug("----Inside getObjects select all CRM fields. Object type: " + ObjectType);
 
     try {
 
@@ -254,7 +254,7 @@ public final class ScribeObjectService {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
-    logger.debug("---Inside getAllObjectsCount Object type: " + ObjectType);
+    logger.debug("----Inside getAllObjectsCount Object type: " + ObjectType);
 
     try {
 
@@ -306,7 +306,7 @@ public final class ScribeObjectService {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
-    logger.debug("---Inside getObjects select all CRM fields by dynamic query. Object type: " + ObjectType);
+    logger.debug("----Inside getObjects select all CRM fields by dynamic query. Object type: " + ObjectType);
 
     try {
 
@@ -359,7 +359,7 @@ public final class ScribeObjectService {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
-    logger.debug("---Inside getObjectsCount Object type: " + ObjectType);
+    logger.debug("----Inside getObjectsCount Object type: " + ObjectType);
 
     try {
 
@@ -413,7 +413,7 @@ public final class ScribeObjectService {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
-    logger.debug("---Inside createObject object type: " + ObjectType);
+    logger.debug("----Inside createObject object type: " + ObjectType);
 
     try {
 
@@ -460,7 +460,7 @@ public final class ScribeObjectService {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started, Scribe-TransId : [" + transactionId
         + "]; Ext-TransId : [" + scribeCommandObject.getExtTransId() + "] ==**== ");
-    logger.debug("---Inside updateObject object type: " + ObjectType);
+    logger.debug("----Inside updateObject object type: " + ObjectType);
 
     try {
 
@@ -504,7 +504,7 @@ public final class ScribeObjectService {
       final @QueryParam(HTTPConstants.crmUserId) String crmUserId, final @PathParam(HTTPConstants.ObjectType) String ObjectType) throws Exception {
     final long transactionId = System.currentTimeMillis();
     logger.info("==**== Request received from " + httpServletRequest.getRemoteHost() + "; Transaction started : [" + transactionId + "] ==**==");
-    logger.debug("---Inside deleteObject id to be deleted: " + idToBeDeleted);
+    logger.debug("----Inside deleteObject id to be deleted: " + idToBeDeleted);
 
     /* Create cADCommandObject */
     final ScribeCommandObject cADCommandObject = new ScribeCommandObject();

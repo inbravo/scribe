@@ -83,7 +83,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
       /* Iterate over tokenizer */
       while (stringTokenizer.hasMoreElements()) {
         String tempElement = stringTokenizer.nextToken();
-        logger.debug("---Inside createZHQuery: tempElement: " + tempElement);
+        logger.debug("----Inside createZHQuery: tempElement: " + tempElement);
 
         tempElement = tempElement.trim();
 
@@ -160,7 +160,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
         break;
       }
     }
-    logger.debug("---Inside createZHQuery, zhQuery: " + zhQuery);
+    logger.debug("----Inside createZHQuery, zhQuery: " + zhQuery);
     return zhQuery;
   }
 
@@ -182,7 +182,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
       /* Iterate over tokenizer */
       while (stringTokenizer.hasMoreElements()) {
         String tempElement = stringTokenizer.nextToken();
-        logger.debug("---Inside createZHQueryForPhoneFields: tempElement: " + tempElement);
+        logger.debug("----Inside createZHQueryForPhoneFields: tempElement: " + tempElement);
 
         tempElement = tempElement.trim();
 
@@ -252,7 +252,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
         break;
       }
     }
-    logger.debug("---Inside createZHQueryForPhoneFields, zhQuery: " + zhQuery);
+    logger.debug("----Inside createZHQueryForPhoneFields, zhQuery: " + zhQuery);
     return zhQuery;
   }
 
@@ -270,7 +270,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
       zhSelect = zhSelect + cADCommandObject.getObjectType() + "s(" + cadSelect + ")";
     }
 
-    logger.debug("---Inside createZHSelect, zhSelect: " + zhSelect);
+    logger.debug("----Inside createZHSelect, zhSelect: " + zhSelect);
     return zhSelect;
   }
 
@@ -288,7 +288,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
       zhSortColumnString = zhSortColumnString + orderClause.split(orderFieldsSeparator)[0];
     }
 
-    logger.debug("---Inside createZHSortColumnString, sort field: " + zhSortColumnString);
+    logger.debug("----Inside createZHSortColumnString, sort field: " + zhSortColumnString);
     return zhSortColumnString;
   }
 
@@ -306,7 +306,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
       zhSortOrderString = zhSortOrderString + orderClause.split(orderFieldsSeparator)[1].toLowerCase();
     }
 
-    logger.debug("---Inside createZHSortOrderString, order of sorting: " + zhSortOrderString);
+    logger.debug("----Inside createZHSortOrderString, order of sorting: " + zhSortOrderString);
     return zhSortOrderString;
   }
 
@@ -354,7 +354,7 @@ public final class ZHCRMMessageFormatUtils extends CRMMessageFormatUtils {
       /* Add end tag */
       reqString = reqString + "</row></" + cADCommandObject.getObjectType() + "s>";
 
-      logger.debug("---Inside createRequestString reqString: " + reqString);
+      logger.debug("----Inside createRequestString reqString: " + reqString);
       return reqString;
     } else {
       return null;

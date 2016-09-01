@@ -44,7 +44,7 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
   @Override
   public final String getSessionId(final String userId, final String password, final String crmURL, final String crmProtocol) throws Exception {
     logger
-        .debug("---Inside getSessionId, userId: " + userId + " & password: " + password + " & crmURL: " + crmURL + " & crmProtocol: " + crmProtocol);
+        .debug("----Inside getSessionId, userId: " + userId + " & password: " + password + " & crmURL: " + crmURL + " & crmProtocol: " + crmProtocol);
 
     /* Validate protocol */
     if (crmProtocol == null || "".equalsIgnoreCase(crmProtocol)) {
@@ -73,7 +73,7 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
     final String zohoCRMURL =
         crmProtocol + "://" + loginURL + "/apiauthtoken/nb/create?SCOPE=ZohoCRM/crmapi&EMAIL_ID=" + userId + "&PASSWORD=" + password;
 
-    logger.debug("---Inside getSessionId zohoCRMURL: " + zohoCRMURL);
+    logger.debug("----Inside getSessionId zohoCRMURL: " + zohoCRMURL);
 
     /* Get CRM session id */
     final GetMethod getMethod = new GetMethod(zohoCRMURL);
@@ -84,11 +84,11 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
 
       /* Execute get command */
       int result = httpclient.executeMethod(getMethod);
-      logger.debug("---Inside getSessionId, response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
+      logger.debug("----Inside getSessionId, response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
 
       /* Check for authentication */
       if (result == HttpStatus.SC_UNAUTHORIZED) {
-        logger.debug("---Inside getSessionId found unauthorized user");
+        logger.debug("----Inside getSessionId found unauthorized user");
         throw new ScribeException(ScribeResponseCodes._1012 + "Anauthorized by Zoho CRM");
       } else {
         /* Response string */
@@ -98,7 +98,7 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
         if (response != null && response.contains("RESULT=TRUE")) {
           final String sessionId = response.substring(response.indexOf("=") + 1, response.lastIndexOf("=") - 6);
 
-          logger.debug("---Inside getSessionId, sessionId: " + sessionId);
+          logger.debug("----Inside getSessionId, sessionId: " + sessionId);
           return sessionId;
         } else {
           final String reason = response.substring(response.indexOf("=") + 1, response.lastIndexOf("=") - 6);
@@ -118,7 +118,7 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
 
   @Override
   public final boolean login(final String userId, final String password, final String crmURL, final String crmProtocol) throws Exception {
-    logger.debug("---Inside login userId: " + userId + " & password: " + password + " & crmURL: " + crmURL + " & crmProtocol: " + crmProtocol);
+    logger.debug("----Inside login userId: " + userId + " & password: " + password + " & crmURL: " + crmURL + " & crmProtocol: " + crmProtocol);
 
     /* Validate protocol */
     if (crmProtocol == null || "".equalsIgnoreCase(crmProtocol)) {
@@ -146,7 +146,7 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
     /* Create CRM URL */
     final String zohoCRMURL =
         crmProtocol + "://" + loginURL + "/apiauthtoken/nb/create?SCOPE=ZohoCRM/crmapi&EMAIL_ID=" + userId + "&PASSWORD=" + password;
-    logger.debug("---Inside login zohoCRMURL: " + zohoCRMURL);
+    logger.debug("----Inside login zohoCRMURL: " + zohoCRMURL);
 
     /* Get CRM session id */
     final GetMethod getMethod = new GetMethod(zohoCRMURL);
@@ -156,7 +156,7 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
 
     try {
       int result = httpclient.executeMethod(getMethod);
-      logger.debug("---Inside login, response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
+      logger.debug("----Inside login, response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
 
       /* Check for authentication */
       if (result == HttpStatus.SC_UNAUTHORIZED) {
@@ -170,7 +170,7 @@ public final class ZHBasicAuthManager implements ZHAuthManager {
         if (response != null && response.contains("RESULT=TRUE")) {
           final String sessionId = response.substring(response.indexOf("=") + 1, response.lastIndexOf("=") - 6);
 
-          logger.debug("---Inside login, sessionId: " + sessionId);
+          logger.debug("----Inside login, sessionId: " + sessionId);
           return true;
         } else {
           final String reason = response.substring(response.indexOf("=") + 1, response.lastIndexOf("=") - 6);

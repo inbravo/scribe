@@ -62,38 +62,38 @@ public final class MSCRMV5ObjectService extends MSCRMObjectService implements Ap
 
   @Override
   public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside createObject");
+    logger.debug("----Inside createObject");
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).createObject(cADCommandObject);
   }
 
   @Override
   public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
-    logger.debug("---Inside deleteObject idToBeDeleted: " + idToBeDeleted);
+    logger.debug("----Inside deleteObject idToBeDeleted: " + idToBeDeleted);
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).deleteObject(cADCommandObject, idToBeDeleted);
   }
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside getObjects");
+    logger.debug("----Inside getObjects");
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject);
   }
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
-    logger.debug("---Inside getObjects query: " + query);
+    logger.debug("----Inside getObjects query: " + query);
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject, query);
   }
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
-    logger.debug("---Inside getObjects query: " + query + " & select: " + select);
+    logger.debug("----Inside getObjects query: " + query + " & select: " + select);
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject, query, select);
   }
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
-    logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
+    logger.debug("----Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
     return this.getMSCRMObjectService(cADCommandObject.getObjectType()).getObjects(cADCommandObject, query, select, order);
   }
 
@@ -114,7 +114,7 @@ public final class MSCRMV5ObjectService extends MSCRMObjectService implements Ap
 
   private final MSCRMObjectService getMSCRMObjectService(final String objectType) {
 
-    logger.debug("---Inside getMSCRMObjectService objectType: " + objectType);
+    logger.debug("----Inside getMSCRMObjectService objectType: " + objectType);
     if (objectType.equalsIgnoreCase(MSCRMObjectType.Account.toString())) {
       return mSCRMV5AccountService;
     } else if (objectType.equalsIgnoreCase(MSCRMObjectType.Task.toString())) {

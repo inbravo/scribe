@@ -56,38 +56,38 @@ public final class MSSOAPCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside createObject");
+    logger.debug("----Inside createObject");
     return this.getmSCRMObjectService(cADCommandObject).createObject(cADCommandObject);
   }
 
   @Override
   public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
-    logger.debug("---Inside deleteObject idToBeDeleted: " + idToBeDeleted);
+    logger.debug("----Inside deleteObject idToBeDeleted: " + idToBeDeleted);
     return this.getmSCRMObjectService(cADCommandObject).deleteObject(cADCommandObject, idToBeDeleted);
   }
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside getObjects");
+    logger.debug("----Inside getObjects");
     return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject);
   }
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
-    logger.debug("---Inside getObjects query: " + query);
+    logger.debug("----Inside getObjects query: " + query);
     return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject, query);
   }
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
-    logger.debug("---Inside getObjects query: " + query + " & select: " + select);
+    logger.debug("----Inside getObjects query: " + query + " & select: " + select);
     return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject, query, select);
   }
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
-    logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
+    logger.debug("----Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
     return this.getmSCRMObjectService(cADCommandObject).getObjects(cADCommandObject, query, select, order);
   }
 
@@ -123,7 +123,7 @@ public final class MSSOAPCRMService extends CRMService {
     /* Check if CRM user id is found */
     if (cADCommandObject.getMetaObject().getCrmUserId() != null && !"".equals(cADCommandObject.getMetaObject().getCrmUserId())) {
 
-      logger.debug("---Inside getmSCRMObjectService for user: " + cADCommandObject.getCrmUserId());
+      logger.debug("----Inside getmSCRMObjectService for user: " + cADCommandObject.getCrmUserId());
 
       /* Check if session is already available at cache */
       cacheObject = (ScribeCacheObject) cRMSessionCache.recover(cADCommandObject.getCrmUserId().trim());
@@ -144,13 +144,13 @@ public final class MSSOAPCRMService extends CRMService {
     /* if additional info is available */
     if (nodeMap != null && nodeMap.get("STSEnpoint") != null) {
 
-      logger.debug("---Inside getmSCRMObjectService, STSEnpoint information is found");
+      logger.debug("----Inside getmSCRMObjectService, STSEnpoint information is found");
 
       /* Parse the reponse */
       STSEnpoint = nodeMap.get("STSEnpoint");
     } else {
 
-      logger.debug("---Inside getmSCRMObjectService, going to MS CRM for STSEnpoint information");
+      logger.debug("----Inside getmSCRMObjectService, going to MS CRM for STSEnpoint information");
 
       /* Create additonal information map for next level usage */
       nodeMap = mSAuthManager.getMSCRMOrganizationInfo(serviceURL, servicePrototol);
@@ -161,7 +161,7 @@ public final class MSSOAPCRMService extends CRMService {
       /* Check if tenant or agent request */
       if (cacheObject != null) {
 
-        logger.debug("---Inside getmSCRMObjectService, adding MS login additonal info at agent: " + cADCommandObject.getCrmUserId());
+        logger.debug("----Inside getmSCRMObjectService, adding MS login additonal info at agent: " + cADCommandObject.getCrmUserId());
 
         if (cacheObject.getAdditionalInfo() != null) {
 
@@ -181,12 +181,12 @@ public final class MSSOAPCRMService extends CRMService {
     /* Check if Live Id authentication is desired */
     if ((STSEnpoint != null) && (STSEnpoint.startsWith("https://login.live.com"))) {
 
-      logger.debug("---Inside getmSCRMObjectService, found Live Id based service, Will use V4 WSDL");
+      logger.debug("----Inside getmSCRMObjectService, found Live Id based service, Will use V4 WSDL");
       /* Return Live id based V4 service */
       return mSCRMV4ObjectService;
     } else {
 
-      logger.debug("---Inside getmSCRMObjectService, found Office 365 based service, Will use V5 WSDL");
+      logger.debug("----Inside getmSCRMObjectService, found Office 365 based service, Will use V5 WSDL");
       /* Return Office 365 based V5 service */
       return mSCRMV5ObjectService;
     }

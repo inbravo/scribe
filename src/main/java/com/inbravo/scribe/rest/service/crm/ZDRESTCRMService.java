@@ -78,7 +78,7 @@ public final class ZDRESTCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside getObjects");
+    logger.debug("----Inside getObjects");
 
     /* Check if all record types are to be searched */
     if (cADCommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
@@ -111,7 +111,7 @@ public final class ZDRESTCRMService extends CRMService {
         /* Create Zen desk URL */
         final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + cADCommandObject.getObjectType() + "s.xml";
 
-        logger.debug("---Inside getObjects zenDeskURL: " + zenDeskURL);
+        logger.debug("----Inside getObjects zenDeskURL: " + zenDeskURL);
 
         /* Instantiate get method */
         getMethod = new GetMethod(zenDeskURL);
@@ -127,7 +127,7 @@ public final class ZDRESTCRMService extends CRMService {
 
         /* Execute method */
         int result = httpclient.executeMethod(getMethod);
-        logger.debug("---Inside getObjects response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
+        logger.debug("----Inside getObjects response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
 
         if (result == HttpStatus.SC_OK) {
 
@@ -232,7 +232,7 @@ public final class ZDRESTCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
-    logger.debug("---Inside getObjects query: " + query);
+    logger.debug("----Inside getObjects query: " + query);
 
     /* Check if all record types are to be searched */
     if (cADCommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
@@ -247,7 +247,7 @@ public final class ZDRESTCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
-    logger.debug("---Inside getObjects query: " + query + " & select: " + select);
+    logger.debug("----Inside getObjects query: " + query + " & select: " + select);
 
     /* Check if all record types are to be searched */
     if (cADCommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
@@ -263,7 +263,7 @@ public final class ZDRESTCRMService extends CRMService {
   @Override
   public ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
-    logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
+    logger.debug("----Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
 
     /* Check if all record types are to be searched */
     if (cADCommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
@@ -296,7 +296,7 @@ public final class ZDRESTCRMService extends CRMService {
   @Override
   public final ScribeCommandObject updateObject(final ScribeCommandObject cADCommandObject) throws Exception {
 
-    logger.debug("---Inside updateObject");
+    logger.debug("----Inside updateObject");
     PutMethod putMethod = null;
     try {
       String serviceURL = null;
@@ -341,7 +341,7 @@ public final class ZDRESTCRMService extends CRMService {
       /* Create Zen desk URL */
       final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + cADCommandObject.getObjectType() + "s/" + crmObjectId + ".xml";
 
-      logger.debug("---Inside updateObject zenDeskURL: " + zenDeskURL);
+      logger.debug("----Inside updateObject zenDeskURL: " + zenDeskURL);
 
       /* Instantiate put method */
       putMethod = new PutMethod(zenDeskURL);
@@ -364,7 +364,7 @@ public final class ZDRESTCRMService extends CRMService {
 
       /* Execute method */
       int result = httpclient.executeMethod(putMethod);
-      logger.debug("---Inside updateObject response code: " + result + " & body: " + putMethod.getResponseBodyAsString());
+      logger.debug("----Inside updateObject response code: " + result + " & body: " + putMethod.getResponseBodyAsString());
 
       /* Check if object is updated */
       if (result == HttpStatus.SC_OK || result == HttpStatus.SC_CREATED) {
@@ -401,7 +401,7 @@ public final class ZDRESTCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside createObject");
+    logger.debug("----Inside createObject");
     PostMethod postMethod = null;
     try {
 
@@ -430,7 +430,7 @@ public final class ZDRESTCRMService extends CRMService {
       /* Create Zen desk URL */
       final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + cADCommandObject.getObjectType() + "s.xml";
 
-      logger.debug("---Inside createObject zenDeskURL: " + zenDeskURL);
+      logger.debug("----Inside createObject zenDeskURL: " + zenDeskURL);
 
       /* Instantiate get method */
       postMethod = new PostMethod(zenDeskURL);
@@ -454,7 +454,7 @@ public final class ZDRESTCRMService extends CRMService {
 
       /* Execute method */
       int result = httpclient.executeMethod(postMethod);
-      logger.debug("---Inside createObject response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
+      logger.debug("----Inside createObject response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
 
       /* Check if object is created */
       if (result == HttpStatus.SC_OK || result == HttpStatus.SC_CREATED) {
@@ -493,7 +493,7 @@ public final class ZDRESTCRMService extends CRMService {
   @Override
   public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
 
-    logger.debug("---Inside deleteObject");
+    logger.debug("----Inside deleteObject");
     DeleteMethod deleteMethod = null;
     try {
       String serviceURL = null;
@@ -527,7 +527,7 @@ public final class ZDRESTCRMService extends CRMService {
       /* Create Zen desk URL */
       final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/" + cADCommandObject.getObjectType() + "s/" + idToBeDeleted.trim() + ".xml";
 
-      logger.debug("---Inside deleteObject zenDeskURL: " + zenDeskURL);
+      logger.debug("----Inside deleteObject zenDeskURL: " + zenDeskURL);
 
       /* Instantiate delete method */
       deleteMethod = new DeleteMethod(zenDeskURL);
@@ -547,7 +547,7 @@ public final class ZDRESTCRMService extends CRMService {
 
       /* Execute method */
       int result = httpclient.executeMethod(deleteMethod);
-      logger.debug("---Inside deleteObject response code: " + result + " & body: " + deleteMethod.getResponseBodyAsString());
+      logger.debug("----Inside deleteObject response code: " + result + " & body: " + deleteMethod.getResponseBodyAsString());
 
       /* Check if object is updated */
       if (result == HttpStatus.SC_OK || result == HttpStatus.SC_CREATED) {
@@ -593,7 +593,7 @@ public final class ZDRESTCRMService extends CRMService {
    */
   private final ScribeCommandObject searchAllTypeOfObjects(final ScribeCommandObject cADCommandObject, final String query, final String select,
       final String order) throws Exception {
-    logger.debug("---Inside searchAllTypeOfObjects query: " + query + " & select: " + select + " & order: " + order);
+    logger.debug("----Inside searchAllTypeOfObjects query: " + query + " & select: " + select + " & order: " + order);
     GetMethod getMethod = null;
     try {
 
@@ -622,7 +622,7 @@ public final class ZDRESTCRMService extends CRMService {
       /* Create Zen desk URL */
       final String zenDeskURL = serviceProtocol + "://" + serviceURL + "/search.xml";
 
-      logger.debug("---Inside searchAllTypeOfObjects zenDeskURL: " + zenDeskURL + " & sessionId: " + sessionId);
+      logger.debug("----Inside searchAllTypeOfObjects zenDeskURL: " + zenDeskURL + " & sessionId: " + sessionId);
 
       /* Instantiate get method */
       getMethod = new GetMethod(zenDeskURL);
@@ -646,7 +646,7 @@ public final class ZDRESTCRMService extends CRMService {
 
       /* Execute method */
       int result = httpclient.executeMethod(getMethod);
-      logger.debug("---Inside searchAllTypeOfObjects response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
+      logger.debug("----Inside searchAllTypeOfObjects response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
 
       if (result == HttpStatus.SC_OK) {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

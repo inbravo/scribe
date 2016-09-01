@@ -76,7 +76,7 @@ public final class FileAttachmentsWriter implements MessageBodyWriter<FileAttach
   public final void writeTo(final FileAttachments fileAttachments, final Class<?> classObject, final Type type, final Annotation[] annotations,
       final MediaType mediaType, final MultivaluedMap<String, Object> httpHeaderMap, final OutputStream outputStream) throws IOException {
 
-    logger.debug("---Inside writeTo, object type: " + classObject.getName() + " & mediaType: " + mediaType.getType());
+    logger.debug("----Inside writeTo, object type: " + classObject.getName() + " & mediaType: " + mediaType.getType());
 
     /* Create output stream writer */
     final OutputStreamWriter binaryContentWriter = new OutputStreamWriter(outputStream);
@@ -103,7 +103,7 @@ public final class FileAttachmentsWriter implements MessageBodyWriter<FileAttach
       }
 
     } catch (final Exception e) {
-      logger.error("---Inside writeTo, problem while writing zip output: " + e, e);
+      logger.error("----Inside writeTo, problem while writing zip output: " + e, e);
 
       /* Delete all temp files */
       if (fileAttachments != null) {
@@ -130,7 +130,7 @@ public final class FileAttachmentsWriter implements MessageBodyWriter<FileAttach
           this.startDeleteTempFileThread(fileAttachments);
         }
       } catch (final Exception e) {
-        logger.error("---Inside writeTo, problem while writing zip output: " + e);
+        logger.error("----Inside writeTo, problem while writing zip output: " + e);
 
         /* Delete all temp files */
         if (fileAttachments != null) {
@@ -187,7 +187,7 @@ public final class FileAttachmentsWriter implements MessageBodyWriter<FileAttach
 
             if (fileToBeDeleted != null && fileToBeDeleted.exists()) {
 
-              logger.debug("---Inside deleteTempFileThread, deleting temp file : " + fa.getLocation() + ", status: " + fileToBeDeleted.delete());
+              logger.debug("----Inside deleteTempFileThread, deleting temp file : " + fa.getLocation() + ", status: " + fileToBeDeleted.delete());
             }
           }
         } catch (final Exception e) {

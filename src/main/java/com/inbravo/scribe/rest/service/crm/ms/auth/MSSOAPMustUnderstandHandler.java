@@ -65,7 +65,7 @@ public final class MSSOAPMustUnderstandHandler extends AbstractHandler {
           if (block.getLocalName().equalsIgnoreCase("Security") || block.getLocalName().equalsIgnoreCase("Action")
               || block.getLocalName().equalsIgnoreCase("To")) {
 
-            logger.debug("---Inside invoke; found '" + block.getLocalName() + "' header. Marking it processed");
+            logger.debug("----Inside invoke; found '" + block.getLocalName() + "' header. Marking it processed");
 
             /* Mark it processed to avoid exception at client side */
             block.setProcessed();

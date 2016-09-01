@@ -45,7 +45,7 @@ public final class ZipAttachmentFileHandler {
 
   public final void handle(final OutputStream outputStream, final FileAttachments fileAttachments, final String zipName) throws Exception {
 
-    logger.debug("---Inside handle, zipName: " + zipName);
+    logger.debug("----Inside handle, zipName: " + zipName);
 
     /* Get writer bean from pool */
     ZipWriter zWriter = null;

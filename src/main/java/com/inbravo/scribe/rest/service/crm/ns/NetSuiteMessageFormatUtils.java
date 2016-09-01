@@ -79,7 +79,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
   public static final ScribeCommandObject processResponse(final ScribeCommandObject cADCommandObject, final SearchResult searchResult,
       final Set<String> crmFieldToBeSelectedSet) throws Exception {
 
-    logger.debug("---Inside processResponse crmFieldToBeSelectedSet size: " + crmFieldToBeSelectedSet.size());
+    logger.debug("----Inside processResponse crmFieldToBeSelectedSet size: " + crmFieldToBeSelectedSet.size());
 
     if (searchResult == null) {
 
@@ -251,7 +251,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
       /* Inform use about no records from NS */
       throw new ScribeException(ScribeResponseCodes._1004 + "No records found from NS");
     }
-    logger.debug("---Inside processCustomerInResponse records count in response: " + cADbjectList.size());
+    logger.debug("----Inside processCustomerInResponse records count in response: " + cADbjectList.size());
 
     /* Set the final object in command object */
     cADCommandObject.setObject(cADbjectList.toArray(new ScribeObject[cADbjectList.size()]));
@@ -269,7 +269,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
   private static final List<Element> processCustomFields(final Object object, final List<Element> elementList,
       final Set<String> crmFieldToBeSelectedSet) throws Exception {
 
-    logger.debug("---Inside processCustomFields");
+    logger.debug("----Inside processCustomFields");
 
     /* Type cast the obejct to list */
     final CustomFieldList customFieldList = (CustomFieldList) object;
@@ -283,7 +283,7 @@ public final class NetSuiteMessageFormatUtils extends CRMMessageFormatUtils {
         /* Get all custom fields */
         for (int l = 0; l < customFieldRefArr.length; l++) {
 
-          logger.debug("---Inside processCustomFields customFieldRefArr[l]" + customFieldRefArr[l]);
+          logger.debug("----Inside processCustomFields customFieldRefArr[l]" + customFieldRefArr[l]);
 
           if (customFieldRefArr[l] instanceof SelectCustomFieldRef) {
 

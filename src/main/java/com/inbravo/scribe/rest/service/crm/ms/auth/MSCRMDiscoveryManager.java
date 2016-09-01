@@ -99,7 +99,7 @@ public final class MSCRMDiscoveryManager {
    */
   public final MSCRMUserInformation getMSCRMUserInformation(final ScribeCacheObject user) throws Exception {
 
-    logger.debug("---Inside getMSCRMUserInformation");
+    logger.debug("----Inside getMSCRMUserInformation");
     try {
 
       String userName = null;
@@ -107,7 +107,7 @@ public final class MSCRMDiscoveryManager {
       String crmServiceURL = null;
       String crmServiceProtocal = null;
 
-      logger.debug("---Inside getMSCRMUserInformation for agent: " + user.getScribeMetaObject().getCrmUserId());
+      logger.debug("----Inside getMSCRMUserInformation for agent: " + user.getScribeMetaObject().getCrmUserId());
 
       /* get CRM credentials */
       userName = user.getScribeMetaObject().getCrmUserId();

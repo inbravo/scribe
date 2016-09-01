@@ -103,7 +103,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
   public static final String readStringFromFile(final String fileName) throws IOException {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside readStringFromFile: " + fileName);
+      logger.debug("----Inside readStringFromFile: " + fileName);
     }
     return readStringFromBufferedReader(new BufferedReader(new FileReader(fileName)));
   }
@@ -198,7 +198,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
       final Document document = builder.newDocument();
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside createV5EntityFromBusinessObject: no of crm fields: " + kvpsatArr.length);
+        logger.debug("----Inside createV5EntityFromBusinessObject: no of crm fields: " + kvpsatArr.length);
       }
 
       /* Iterate over all attributes */
@@ -208,7 +208,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         final String fieldName = kvpsat.getKey();
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside createV5EntityFromBusinessObject: crm field name: " + fieldName);
+          logger.debug("----Inside createV5EntityFromBusinessObject: crm field name: " + fieldName);
         }
 
         /* Get field value */
@@ -313,7 +313,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         String tempElement = stringTokenizer.nextToken();
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside createFilterExpression: tempElement: " + tempElement);
+          logger.debug("----Inside createFilterExpression: tempElement: " + tempElement);
         }
 
         /* Replace 'like' operator case */
@@ -479,7 +479,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         String tempElement = stringTokenizer.nextToken();
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside createFilterExpression: tempElement: " + tempElement);
+          logger.debug("----Inside createFilterExpression: tempElement: " + tempElement);
         }
 
         /* Replace 'like' operator case */
@@ -561,7 +561,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         } else /* Check for 'LIKE' operator */
         if (tempElement.contains(likeOperator)) {
 
-          logger.debug("---Inside createFilterExpression: tempElement length: " + tempElement.split(likeOperator).length);
+          logger.debug("----Inside createFilterExpression: tempElement length: " + tempElement.split(likeOperator).length);
 
           /* Validate the element */
           if (tempElement.split(likeOperator).length < 2) {
@@ -688,29 +688,29 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
 
     if (orderByClauseArray == null) {
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
+        logger.debug("----Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
       }
       throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else if (orderByClauseArray.length == 0 || orderByClauseArray.length == 1) {
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
+        logger.debug("----Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
       }
       throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else if (orderByClauseArray.length != 2) {
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
+        logger.debug("----Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
       }
       throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else {
       if (orderByClauseArray[0] == null) {
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
+          logger.debug("----Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
         }
         throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
       }
       if (orderByClauseArray[1] == null) {
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
+          logger.debug("----Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid");
         }
         throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
       } else {
@@ -718,7 +718,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         if (!("ASC".equalsIgnoreCase(orderByClauseArray[1]) || "DESC".equalsIgnoreCase(orderByClauseArray[1]))) {
           if (logger.isDebugEnabled()) {
             logger
-                .debug("---Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
+                .debug("----Inside parseAndValidateOrderClauseForMSCRM; Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
           }
           throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
         }
@@ -803,7 +803,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
           final String crmFieldtype = crmField.split(crmFieldIntraSeparator)[1];
 
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside createV5CRMObject: crmFieldName: '" + crmFieldName + "' & crmFieldtype : '" + crmFieldtype + "'");
+            logger.debug("----Inside createV5CRMObject: crmFieldName: '" + crmFieldName + "' & crmFieldtype : '" + crmFieldtype + "'");
           }
 
           /* Add new key value pair */
@@ -1006,7 +1006,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
   private static Date validateDate(final String dateStr, final String permittedDateFormats) throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside validateDate: date input: '" + dateStr + "'");
+      logger.debug("----Inside validateDate: date input: '" + dateStr + "'");
     }
 
     /* Format the date */
@@ -1028,7 +1028,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
     for (final Element element : cADbject.getXmlContent()) {
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getRegardingObjectInfo: node: '" + element.getNodeName() + "' with value : '" + element.getTextContent()
+        logger.debug("----Inside getRegardingObjectInfo: node: '" + element.getNodeName() + "' with value : '" + element.getTextContent()
             + "' & Type: '" + element.getAttribute("type") + "'");
       }
 
@@ -1128,7 +1128,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         for (final Element element : cADbject.getXmlContent()) {
 
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside createCRMObject_Account: adding node: " + element.getNodeName() + " with value : " + element.getTextContent());
+            logger.debug("----Inside createCRMObject_Account: adding node: " + element.getNodeName() + " with value : " + element.getTextContent());
           }
 
           /* Get crm field */
@@ -1162,7 +1162,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
               final Node namedNode = namedNodeMap.item(i);
 
               if (logger.isDebugEnabled()) {
-                logger.debug("---Inside createCRMObject_Account: adding attribute name : " + namedNode.getNodeName() + " with value : "
+                logger.debug("----Inside createCRMObject_Account: adding attribute name : " + namedNode.getNodeName() + " with value : "
                     + namedNode.getNodeValue());
               }
 
@@ -1214,7 +1214,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         for (final Element element : cADbject.getXmlContent()) {
 
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside createCRMObject_Task: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());
+            logger.debug("----Inside createCRMObject_Task: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());
           }
 
           /* Get crm field */
@@ -1247,7 +1247,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
               final Node namedNode = namedNodeMap.item(i);
 
               if (logger.isDebugEnabled()) {
-                logger.debug("---Inside createCRMObject_Task: adding attribute name : " + namedNode.getNodeName() + " with value : "
+                logger.debug("----Inside createCRMObject_Task: adding attribute name : " + namedNode.getNodeName() + " with value : "
                     + namedNode.getNodeValue());
               }
 
@@ -1299,7 +1299,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         for (final Element element : cADbject.getXmlContent()) {
 
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside createCRMObject_Contact: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());
+            logger.debug("----Inside createCRMObject_Contact: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());
           }
 
           /* Get crm field */
@@ -1332,7 +1332,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
               final Node namedNode = namedNodeMap.item(i);
 
               if (logger.isDebugEnabled()) {
-                logger.debug("---Inside createCRMObject_Contact: adding attribute name : " + namedNode.getNodeName() + " with value: "
+                logger.debug("----Inside createCRMObject_Contact: adding attribute name : " + namedNode.getNodeName() + " with value: "
                     + namedNode.getNodeValue());
               }
 
@@ -1384,7 +1384,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         /* Iterate on the Element list and create SOAP object */
         for (final Element element : cADbject.getXmlContent()) {
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside createCRMObject_Lead: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());
+            logger.debug("----Inside createCRMObject_Lead: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());
           }
 
           /* Get crm field */
@@ -1417,7 +1417,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
               final Node namedNode = namedNodeMap.item(i);
 
               if (logger.isDebugEnabled()) {
-                logger.debug("---Inside createCRMObject_Lead: adding attribute name : " + namedNode.getNodeName() + " with value: "
+                logger.debug("----Inside createCRMObject_Lead: adding attribute name : " + namedNode.getNodeName() + " with value: "
                     + namedNode.getNodeValue());
               }
 
@@ -1470,7 +1470,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         for (final Element element : cADbject.getXmlContent()) {
 
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside createCRMObject_Opportunity: adding node : " + element.getNodeName() + " with value : "
+            logger.debug("----Inside createCRMObject_Opportunity: adding node : " + element.getNodeName() + " with value : "
                 + element.getTextContent());
           }
 
@@ -1504,7 +1504,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
               final Node namedNode = namedNodeMap.item(i);
 
               if (logger.isDebugEnabled()) {
-                logger.debug("---Inside createCRMObject_Opportunity: adding attribute name : " + namedNode.getNodeName() + " with value: "
+                logger.debug("----Inside createCRMObject_Opportunity: adding attribute name : " + namedNode.getNodeName() + " with value: "
                     + namedNode.getNodeValue());
               }
 
@@ -1557,7 +1557,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
         for (final Element element : cADbject.getXmlContent()) {
 
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside createCRMObject_Incident: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());
+            logger.debug("----Inside createCRMObject_Incident: adding node : " + element.getNodeName() + " with value : " + element.getTextContent());
           }
 
           /* Get crm field */
@@ -1590,7 +1590,7 @@ public final class MSCRMMessageFormatUtils extends CRMMessageFormatUtils {
               final Node namedNode = namedNodeMap.item(i);
 
               if (logger.isDebugEnabled()) {
-                logger.debug("---Inside createCRMObject_Incident: adding attribute name : " + namedNode.getNodeName() + " with value: "
+                logger.debug("----Inside createCRMObject_Incident: adding attribute name : " + namedNode.getNodeName() + " with value: "
                     + namedNode.getNodeValue());
               }
 

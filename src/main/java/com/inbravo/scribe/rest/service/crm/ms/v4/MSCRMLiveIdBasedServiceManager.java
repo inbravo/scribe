@@ -84,7 +84,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
 
   public final ScribeObject createObject(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final ScribeObject scribeObject) throws Exception {
-    logger.debug("---Inside createObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId + " & password: "
+    logger.debug("----Inside createObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId + " & password: "
         + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & scribeObject: "
         + scribeObject);
 
@@ -105,16 +105,16 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
 
       /* Set security header information */
       this.addSecurityHeader(stub._getServiceClient(), orgName, crmSecurityToken[0]);
-      logger.debug("---Inside createObject request: " + createDocument);
+      logger.debug("----Inside createObject request: " + createDocument);
 
       /* Send SOAP request */
       final CreateResponseDocument responseDocument = stub.create(createDocument, null, null, null);
 
-      logger.debug("---Inside createObject response: " + responseDocument);
+      logger.debug("----Inside createObject response: " + responseDocument);
       final CreateResponse createResponse = responseDocument.getCreateResponse();
       final String result = createResponse.getCreateResult();
 
-      logger.debug("---Inside createObject result: " + result);
+      logger.debug("----Inside createObject result: " + result);
 
       /* Call stub cleanup */
       stub.cleanup();
@@ -141,7 +141,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
    */
   public final List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFields) throws Exception {
-    logger.debug("---Inside getObjects crmHost: " + crmHost + " & userId: " + " & appProtocolType: " + appProtocolType + userId + " & password: "
+    logger.debug("----Inside getObjects crmHost: " + crmHost + " & userId: " + " & appProtocolType: " + appProtocolType + userId + " & password: "
         + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & crmFields: "
         + crmFields);
 
@@ -185,12 +185,12 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       /* Set security header information */
       this.addSecurityHeader(stub._getServiceClient(), orgName, crmSecurityToken[0]);
 
-      logger.debug("---Inside getCrmObjects request: " + requestDocument);
+      logger.debug("----Inside getCrmObjects request: " + requestDocument);
 
       /* Send SOAP request */
       final RetrieveMultipleResponseDocument responseDocument = stub.retrieveMultiple(requestDocument, null, null, null);
 
-      logger.debug("---Inside getCrmObjects response: " + responseDocument);
+      logger.debug("----Inside getCrmObjects response: " + responseDocument);
       final RetrieveMultipleResponse multipleResponse = responseDocument.getRetrieveMultipleResponse();
       final BusinessEntityCollection be = multipleResponse.getRetrieveMultipleResult();
       final ArrayOfBusinessEntity entityArray = be.getBusinessEntities();
@@ -208,11 +208,11 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
         /* Add Scribe object in list */
         cADbjectList.add(cADbject);
       }
-      logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
+      logger.debug("----Inside getObjects cADbjectList.size: " + cADbjectList.size());
 
       /* Return error message for no record found */
       if (cADbjectList.size() == 0) {
-        logger.debug("---Inside getObjects no records in response");
+        logger.debug("----Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
@@ -246,7 +246,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
   public final List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFieldsToSelect, final String query)
       throws Exception {
-    logger.debug("---Inside getObjects crmHost: " + crmHost + " & userId: " + " & appProtocolType: " + appProtocolType + userId + " & password: "
+    logger.debug("----Inside getObjects crmHost: " + crmHost + " & userId: " + " & appProtocolType: " + appProtocolType + userId + " & password: "
         + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken
         + " & crmFieldsToSelect: " + crmFieldsToSelect + " & query: " + query);
 
@@ -270,7 +270,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
         final ColumnSet columnSet = ColumnSet.Factory.newInstance();
         final ArrayOfString arrayOfString = columnSet.addNewAttributes();
         for (int i = 0; i < crmFieldsToSelect.length; i++) {
-          logger.debug("---Inside getObjects crmFieldsToSelect: " + crmFieldsToSelect[i]);
+          logger.debug("----Inside getObjects crmFieldsToSelect: " + crmFieldsToSelect[i]);
         }
         arrayOfString.setAttributeArray(crmFieldsToSelect);
         queryExpression.setColumnSet(columnSet);
@@ -295,12 +295,12 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       /* Set security header information */
       this.addSecurityHeader(stub._getServiceClient(), orgName, crmSecurityToken[0]);
 
-      logger.debug("---Inside getObjects request: " + requestDocument);
+      logger.debug("----Inside getObjects request: " + requestDocument);
 
       /* Send SOAP request */
       final RetrieveMultipleResponseDocument responseDocument = stub.retrieveMultiple(requestDocument, null, null, null);
 
-      logger.debug("---Inside getObjects response: " + responseDocument);
+      logger.debug("----Inside getObjects response: " + responseDocument);
       final RetrieveMultipleResponse multipleResponse = responseDocument.getRetrieveMultipleResponse();
       final BusinessEntityCollection be = multipleResponse.getRetrieveMultipleResult();
       final ArrayOfBusinessEntity entityArray = be.getBusinessEntities();
@@ -318,11 +318,11 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
         /* Add Scribe object in list */
         cADbjectList.add(cADbject);
       }
-      logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
+      logger.debug("----Inside getObjects cADbjectList.size: " + cADbjectList.size());
 
       /* Return error message for no record found */
       if (cADbjectList.size() == 0) {
-        logger.debug("---Inside getObjects no records in response");
+        logger.debug("----Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
@@ -343,7 +343,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
   public final List<ScribeObject> getObjects(final String mSCRMObjectType, final String appProtocolType, final String crmHost, final String userId,
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFieldsToSelect, final String query,
       final String order) throws Exception {
-    logger.debug("---Inside getObjects crmHost: " + crmHost + " & userId: " + " & appProtocolType: " + appProtocolType + userId + " & password: "
+    logger.debug("----Inside getObjects crmHost: " + crmHost + " & userId: " + " & appProtocolType: " + appProtocolType + userId + " & password: "
         + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken
         + " & crmFieldsToSelect: " + crmFieldsToSelect + " & query: " + query + " & order: " + order);
 
@@ -367,7 +367,7 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
         final ColumnSet columnSet = ColumnSet.Factory.newInstance();
         final ArrayOfString arrayOfString = columnSet.addNewAttributes();
         for (int i = 0; i < crmFieldsToSelect.length; i++) {
-          logger.debug("---Inside getObjects crmFieldsToSelect: " + crmFieldsToSelect[i]);
+          logger.debug("----Inside getObjects crmFieldsToSelect: " + crmFieldsToSelect[i]);
         }
         arrayOfString.setAttributeArray(crmFieldsToSelect);
         queryExpression.setColumnSet(columnSet);
@@ -394,12 +394,12 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
       /* Set security header information */
       this.addSecurityHeader(stub._getServiceClient(), orgName, crmSecurityToken[0]);
 
-      logger.debug("---Inside getObjects request: " + requestDocument);
+      logger.debug("----Inside getObjects request: " + requestDocument);
 
       /* Send SOAP request */
       final RetrieveMultipleResponseDocument responseDocument = stub.retrieveMultiple(requestDocument, null, null, null);
 
-      logger.debug("---Inside getObjects response: " + responseDocument);
+      logger.debug("----Inside getObjects response: " + responseDocument);
       final RetrieveMultipleResponse multipleResponse = responseDocument.getRetrieveMultipleResponse();
       final BusinessEntityCollection be = multipleResponse.getRetrieveMultipleResult();
       final ArrayOfBusinessEntity entityArray = be.getBusinessEntities();
@@ -417,11 +417,11 @@ public final class MSCRMLiveIdBasedServiceManager implements MSCRMServiceManager
         /* Add Scribe object in list */
         cADbjectList.add(cADbject);
       }
-      logger.debug("---Inside getObjects cADbjectList.size: " + cADbjectList.size());
+      logger.debug("----Inside getObjects cADbjectList.size: " + cADbjectList.size());
 
       /* Return error message for no record found */
       if (cADbjectList.size() == 0) {
-        logger.debug("---Inside getObjects no records in response");
+        logger.debug("----Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 

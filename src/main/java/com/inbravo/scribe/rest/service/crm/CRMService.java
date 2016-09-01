@@ -30,16 +30,4 @@ import com.inbravo.scribe.rest.service.basic.ScribeService;
  */
 public abstract class CRMService implements ScribeService {
 
-  /**
-   * Common validation logic for all the methods
-   * 
-   * @param agentId
-   * @param tenant
-   * @return
-   * @throws ScribeException
-   */
-  public final String getTenantId(final String agentId, final String splitString) {
-    final String[] agentIdArray = agentId.split(splitString);
-    return agentIdArray[0];
-  }
 }

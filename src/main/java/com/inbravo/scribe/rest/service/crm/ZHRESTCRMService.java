@@ -79,7 +79,7 @@ public final class ZHRESTCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside getObjects");
+    logger.debug("----Inside getObjects");
 
     /* Get user from session manager */
     final ScribeCacheObject user = (ScribeCacheObject) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
@@ -95,7 +95,7 @@ public final class ZHRESTCRMService extends CRMService {
       /* Create Zoho URL */
       final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getRecords";
 
-      logger.debug("---Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
+      logger.debug("----Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
       /* Instantiate post method */
       postMethod = new PostMethod(zohoURL);
@@ -108,7 +108,7 @@ public final class ZHRESTCRMService extends CRMService {
 
       /* Execute method */
       int result = httpclient.executeMethod(postMethod);
-      logger.debug("---Inside getObjects response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
+      logger.debug("----Inside getObjects response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
 
       /* Check if response if SUCCESS */
       if (result == HttpStatus.SC_OK) {
@@ -200,7 +200,7 @@ public final class ZHRESTCRMService extends CRMService {
                     /* Add element in list */
                     elementList.add(ZHCRMMessageFormatUtils.createMessageElement(nodeName, element.getTextContent(), attributeMap));
                   } else {
-                    logger.debug("---Inside getObjects, found invalid XML node; ignoring field: " + element.getAttribute("val"));
+                    logger.debug("----Inside getObjects, found invalid XML node; ignoring field: " + element.getAttribute("val"));
                   }
                 }
               }
@@ -276,7 +276,7 @@ public final class ZHRESTCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
-    logger.debug("---Inside getObjects, query: " + query);
+    logger.debug("----Inside getObjects, query: " + query);
 
     /* Transfer the call to second method */
     if (query != null && query.toUpperCase().startsWith(queryPhoneFieldConst.toUpperCase())) {
@@ -339,7 +339,7 @@ public final class ZHRESTCRMService extends CRMService {
         /* Create Zoho URL */
         final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
 
-        logger.debug("---Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
+        logger.debug("----Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
         /* Instantiate post method */
         postMethod = new PostMethod(zohoURL);
@@ -371,7 +371,7 @@ public final class ZHRESTCRMService extends CRMService {
 
         /* Execute method */
         int result = httpclient.executeMethod(postMethod);
-        logger.debug("---Inside getObjects response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
+        logger.debug("----Inside getObjects response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
 
         /* Check if response if SUCCESS */
         if (result == HttpStatus.SC_OK) {
@@ -466,7 +466,7 @@ public final class ZHRESTCRMService extends CRMService {
                       /* Add element in list */
                       elementList.add(ZHCRMMessageFormatUtils.createMessageElement(nodeName, element.getTextContent(), attributeMap));
                     } else {
-                      logger.debug("---Inside getObjects, found invalid XML node; ignoring field: " + element.getAttribute("val"));
+                      logger.debug("----Inside getObjects, found invalid XML node; ignoring field: " + element.getAttribute("val"));
                     }
                   }
                 }
@@ -543,7 +543,7 @@ public final class ZHRESTCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
-    logger.debug("---Inside getObjects, query: " + query + " & select: " + select);
+    logger.debug("----Inside getObjects, query: " + query + " & select: " + select);
 
     /* Transfer the call to second method */
     if (query != null && query.toUpperCase().startsWith(queryPhoneFieldConst.toUpperCase())) {
@@ -607,7 +607,7 @@ public final class ZHRESTCRMService extends CRMService {
         /* Create Zoho URL */
         final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
 
-        logger.debug("---Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
+        logger.debug("----Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
         /* Instantiate post method */
         postMethod = new PostMethod(zohoURL);
@@ -653,7 +653,7 @@ public final class ZHRESTCRMService extends CRMService {
 
         /* Execute method */
         int result = httpclient.executeMethod(postMethod);
-        logger.debug("---Inside getObjects response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
+        logger.debug("----Inside getObjects response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
 
         /* Check if response if SUCCESS */
         if (result == HttpStatus.SC_OK) {
@@ -746,7 +746,7 @@ public final class ZHRESTCRMService extends CRMService {
                       /* Add element in list */
                       elementList.add(ZHCRMMessageFormatUtils.createMessageElement(nodeName, element.getTextContent(), attributeMap));
                     } else {
-                      logger.debug("---Inside getObjects, found invalid XML node; ignoring field: " + element.getAttribute("val"));
+                      logger.debug("----Inside getObjects, found invalid XML node; ignoring field: " + element.getAttribute("val"));
                     }
                   }
                 }
@@ -825,7 +825,7 @@ public final class ZHRESTCRMService extends CRMService {
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
-    logger.debug("---Inside getObjects, query: " + query + " & select: " + select + " & order: " + order);
+    logger.debug("----Inside getObjects, query: " + query + " & select: " + select + " & order: " + order);
 
     /* Transfer the call to second method */
     if (query != null && query.toUpperCase().startsWith(queryPhoneFieldConst.toUpperCase())) {
@@ -889,7 +889,7 @@ public final class ZHRESTCRMService extends CRMService {
         /* Create Zoho URL */
         final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
 
-        logger.debug("---Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
+        logger.debug("----Inside getObjects zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
         /* Instantiate post method */
         postMethod = new PostMethod(zohoURL);
@@ -948,7 +948,7 @@ public final class ZHRESTCRMService extends CRMService {
 
         /* Execute method */
         int result = httpclient.executeMethod(postMethod);
-        logger.debug("---Inside getObjects response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
+        logger.debug("----Inside getObjects response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
 
         /* Check if response if SUCCESS */
         if (result == HttpStatus.SC_OK) {
@@ -1042,7 +1042,7 @@ public final class ZHRESTCRMService extends CRMService {
                       /* Add element in list */
                       elementList.add(ZHCRMMessageFormatUtils.createMessageElement(nodeName, element.getTextContent(), attributeMap));
                     } else {
-                      logger.debug("---Inside getObjects, found invalid XML node; ignoring field: " + element.getAttribute("val"));
+                      logger.debug("----Inside getObjects, found invalid XML node; ignoring field: " + element.getAttribute("val"));
                     }
                   }
                 }
@@ -1130,7 +1130,7 @@ public final class ZHRESTCRMService extends CRMService {
    */
   private final ScribeCommandObject getObjectsByPhoneField(final ScribeCommandObject cADCommandObject, final String query, final String select,
       final String order, final String phoneFieldName) throws Exception {
-    logger.debug("---Inside getObjectsByAllPhoneNumbers, query: " + query + " & select: " + select + " & order: " + order + " & phoneFieldName: "
+    logger.debug("----Inside getObjectsByAllPhoneNumbers, query: " + query + " & select: " + select + " & order: " + order + " & phoneFieldName: "
         + phoneFieldName);
 
     /* Get user from session manager */
@@ -1147,7 +1147,7 @@ public final class ZHRESTCRMService extends CRMService {
       /* Create Zoho URL */
       final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/getSearchRecords";
 
-      logger.debug("---Inside getObjectsByAllPhoneNumbers zohoURL: " + zohoURL + " & sessionId: " + sessionId);
+      logger.debug("----Inside getObjectsByAllPhoneNumbers zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
       /* Instantiate post method */
       postMethod = new PostMethod(zohoURL);
@@ -1206,7 +1206,7 @@ public final class ZHRESTCRMService extends CRMService {
 
       /* Execute method */
       int result = httpclient.executeMethod(postMethod);
-      logger.debug("---Inside getObjectsByAllPhoneNumbers response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
+      logger.debug("----Inside getObjectsByAllPhoneNumbers response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
 
       /* Check if response if SUCCESS */
       if (result == HttpStatus.SC_OK) {
@@ -1298,7 +1298,7 @@ public final class ZHRESTCRMService extends CRMService {
                     /* Add element in list */
                     elementList.add(ZHCRMMessageFormatUtils.createMessageElement(nodeName, element.getTextContent(), attributeMap));
                   } else {
-                    logger.debug("---Inside getObjectsByAllPhoneNumbers, found invalid XML node; ignoring field: " + element.getAttribute("val"));
+                    logger.debug("----Inside getObjectsByAllPhoneNumbers, found invalid XML node; ignoring field: " + element.getAttribute("val"));
                   }
                 }
               }
@@ -1375,7 +1375,7 @@ public final class ZHRESTCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside createObject");
+    logger.debug("----Inside createObject");
 
     /* Get user from session manager */
     final ScribeCacheObject user = (ScribeCacheObject) cRMSessionManager.getSessionInfo(cADCommandObject.getCrmUserId());
@@ -1391,7 +1391,7 @@ public final class ZHRESTCRMService extends CRMService {
       /* Create Zoho URL */
       final String zohoURL = serviceProtocol + "://" + serviceURL + "/crm/private/xml/" + cADCommandObject.getObjectType() + "s/insertRecords";
 
-      logger.debug("---Inside createObject, zohoURL: " + zohoURL + " & sessionId: " + sessionId);
+      logger.debug("----Inside createObject, zohoURL: " + zohoURL + " & sessionId: " + sessionId);
 
       /* Instantiate post method */
       postMethod = new PostMethod(zohoURL);
@@ -1414,7 +1414,7 @@ public final class ZHRESTCRMService extends CRMService {
 
       /* Execute method */
       int result = httpclient.executeMethod(postMethod);
-      logger.debug("---Inside createObject response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
+      logger.debug("----Inside createObject response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
 
       /* Check if response if SUCCESS */
       if (result == HttpStatus.SC_OK) {

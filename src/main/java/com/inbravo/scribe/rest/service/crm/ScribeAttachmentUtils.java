@@ -56,7 +56,7 @@ public final class ScribeAttachmentUtils {
     /* If attachment request */
     if (cADCommandObject.getObject() != null && cADCommandObject.getObject().length != 0) {
 
-      logger.debug("---Inside getObjects, no. of objects in response: " + cADCommandObject.getObject().length);
+      logger.debug("----Inside getObjects, no. of objects in response: " + cADCommandObject.getObject().length);
 
       /* Get object array */
       final ScribeObject[] cADbjectArr = cADCommandObject.getObject();

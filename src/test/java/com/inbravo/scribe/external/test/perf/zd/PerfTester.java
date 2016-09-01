@@ -57,7 +57,7 @@ public final class PerfTester {
     final String Id = "amit";
     final String queries = "1";
     final String emailInput = null;
-    System.out.println("---Inside main CAD URL: " + cadUrl + " & user type: " + type + " & user id " + Id + " & number of querie(s): " + queries);
+    System.out.println("----Inside main CAD URL: " + cadUrl + " & user type: " + type + " & user id " + Id + " & number of querie(s): " + queries);
 
     if (cadUrl == null || type == null || Id == null || queries == null) {
       System.err.println("Please provide CAD URL/User type/Id/No of querie(s) as input");
@@ -74,7 +74,7 @@ public final class PerfTester {
     /* Check if email is given as input */
     if (emailInput == null) {
 
-      System.out.println("---Inside main user has not provided the email. Going for creating user, first");
+      System.out.println("----Inside main user has not provided the email. Going for creating user, first");
       email = "LoadEmail" + rand + "@test.com";
 
       /* Check for type of users and create a user */
@@ -94,13 +94,13 @@ public final class PerfTester {
       /* Minutes * seconds * milliseconds */
       final long sleepTime = 3 * 60 * 1000;
 
-      System.out.println("---Inside main current thread is going to sleep for " + sleepTime
+      System.out.println("----Inside main current thread is going to sleep for " + sleepTime
           + " millisecond(s). Zen-Desk CRM does not gives, newly created objects, immediately.");
       Thread.sleep(sleepTime);
-      System.out.println("---Inside main current thread is live now; going to send " + queries + " CAD read request(s)");
+      System.out.println("----Inside main current thread is live now; going to send " + queries + " CAD read request(s)");
     } else {
 
-      System.out.println("---Inside main user has provided the email. Going for direct search");
+      System.out.println("----Inside main user has provided the email. Going for direct search");
       email = emailInput;
 
       /* Check for type of users and create a user */
@@ -152,7 +152,7 @@ public final class PerfTester {
     /* Convert nano seconds to milliseconds */
     totalTime = totalTime / 1000000F;
 
-    System.out.println("---Inside main total time taken to search " + queries + " record(s) in duration : " + totalTime + " millisecond(s) or "
+    System.out.println("----Inside main total time taken to search " + queries + " record(s) in duration : " + totalTime + " millisecond(s) or "
         + (totalTime / 1000F) + " second(s) or " + (totalTime / (60000F)) + " minute(s)" + " & global time: " + (PerfTester.globalTime / 1000000F)
         + " & number of cases passed: " + PerfTester.passedCases + " & number of cases failed: " + PerfTester.failedCases);
 
@@ -311,7 +311,7 @@ final class CreateUser implements Callable<Long> {
 
       /* Execute the post method */
       result = httpClient.executeMethod(post);
-      System.out.println("---Inside createUserAtCAD URL : " + post.getURI() + " & response code: " + result + " & body: "
+      System.out.println("----Inside createUserAtCAD URL : " + post.getURI() + " & response code: " + result + " & body: "
           + post.getResponseBodyAsString());
     } catch (final Exception e) {
       throw e;
@@ -362,7 +362,7 @@ final class SearchUser implements Callable<Float> {
       /* Increment the global time */
       PerfTester.globalTime = PerfTester.globalTime + queryTime;
 
-      System.out.println("---Inside call, time taken for " + (PerfTester.passedCases + PerfTester.failedCases) + " number(s) of CAD queries: "
+      System.out.println("----Inside call, time taken for " + (PerfTester.passedCases + PerfTester.failedCases) + " number(s) of CAD queries: "
           + PerfTester.globalTime + " nanosecond(s)");
 
       /* Return time difference */
@@ -390,7 +390,7 @@ final class SearchUser implements Callable<Float> {
     try {
       /* Execute get method */
       result = httpClient.executeMethod(get);
-      System.out.println("---Inside searchObjectAtCAD URL : " + get.getURI() + " & response code: " + result + " & body: "
+      System.out.println("----Inside searchObjectAtCAD URL : " + get.getURI() + " & response code: " + result + " & body: "
           + get.getResponseBodyAsString());
     } catch (final Exception e) {
       throw e;

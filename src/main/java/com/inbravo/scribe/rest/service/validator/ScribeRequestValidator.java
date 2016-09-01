@@ -55,7 +55,7 @@ public final class ScribeRequestValidator {
 
     if (ScribeCommandObject != null && ScribeCommandObject.getMetaObject() != null) {
 
-      logger.debug("---Inside validateRequestObject Object type: " + ScribeCommandObject.getObjectType());
+      logger.debug("----Inside validateRequestObject Object type: " + ScribeCommandObject.getObjectType());
 
       /* Create Exception if both Tenant/Agent are null */
       if (ScribeCommandObject.getMetaObject().getCrmUserId() == null && ScribeCommandObject.getMetaObject().getCrmPassword() == null
@@ -67,11 +67,11 @@ public final class ScribeRequestValidator {
 
       /* Check for a valid input Object */
       if (checkInputObject) {
-        logger.debug("---Inside validateRequestObject checking the input Scribe object");
+        logger.debug("----Inside validateRequestObject checking the input Scribe object");
 
         /* Check is user id is valid */
         if (ScribeCommandObject.getObject() == null) {
-          logger.debug("---Inside validateRequestObject no Scribe object in request");
+          logger.debug("----Inside validateRequestObject no Scribe object in request");
 
           /* Inform user about invalid request */
           throw new ScribeException(ScribeResponseCodes._1008 + "CRM object information is not present in request");
@@ -79,7 +79,7 @@ public final class ScribeRequestValidator {
 
         /* Check is user id is valid */
         if (ScribeCommandObject.getObject()[0] == null) {
-          logger.debug("---Inside validateRequestObject invalid Scribe object in request");
+          logger.debug("----Inside validateRequestObject invalid Scribe object in request");
 
           /* Inform user about invalid request */
           throw new ScribeException(ScribeResponseCodes._1008 + "CRM object information is not valid");
@@ -87,7 +87,7 @@ public final class ScribeRequestValidator {
 
         /* Check is user id is valid */
         if (ScribeCommandObject.getObject()[0].getXmlContent() == null) {
-          logger.debug("---Inside validateRequestObject invalid XML content in request");
+          logger.debug("----Inside validateRequestObject invalid XML content in request");
 
           /* Inform user about invalid request */
           throw new ScribeException(ScribeResponseCodes._1008 + "CRM object information is not valid");
@@ -108,7 +108,7 @@ public final class ScribeRequestValidator {
    */
   public final String decodeRequestParam(final String requestString) throws Exception {
 
-    logger.debug("---Inside decodeRequestParam input requestString: " + requestString + " & enableQueryParamDecoding: " + enableQueryParamDecoding);
+    logger.debug("----Inside decodeRequestParam input requestString: " + requestString + " & enableQueryParamDecoding: " + enableQueryParamDecoding);
 
     String outRequestString = null;
 
@@ -125,13 +125,13 @@ public final class ScribeRequestValidator {
       outRequestString = requestString;
     }
 
-    logger.debug("---Inside decodeRequestParam output requestString: " + outRequestString);
+    logger.debug("----Inside decodeRequestParam output requestString: " + outRequestString);
 
     return outRequestString;
   }
 
   public final void validateSessionRequest(final String id) {
-    logger.debug("---Inside validateSessionRequest session object id: " + id);
+    logger.debug("----Inside validateSessionRequest session object id: " + id);
 
     /* Check if id is not null or emptry string */
     if (id == null || "".equalsIgnoreCase(id)) {

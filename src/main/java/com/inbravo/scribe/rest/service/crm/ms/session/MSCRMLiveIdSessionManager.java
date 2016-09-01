@@ -51,7 +51,7 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
 
     /* Check if session is already available at cache */
     final ScribeCacheObject user = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
-    logger.debug("---Inside login crmUserId: " + crmUserId);
+    logger.debug("----Inside login crmUserId: " + crmUserId);
 
     /* Get user information from Microsoft CRM */
     final MSCRMUserInformation mSCRMUserInformation = mSCRMDiscoveryManager.getMSCRMUserInformation(user);
@@ -72,7 +72,7 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
   @Override
   public final boolean reset(final String crmUserId, final String crmPassword) throws Exception {
 
-    logger.debug("---Inside reset crmUserId: " + crmUserId);
+    logger.debug("----Inside reset crmUserId: " + crmUserId);
 
     /* Check if session is already available at cache */
     return this.login(crmUserId, crmPassword);
@@ -80,12 +80,12 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
 
   @Override
   public final ScribeCacheObject getSessionInfo(final String crmUserId) throws Exception {
-    logger.debug("---Inside getSessionInfo crmUserId: " + crmUserId);
+    logger.debug("----Inside getSessionInfo crmUserId: " + crmUserId);
 
     /* Check if session is already available at cache */
     final ScribeCacheObject user = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
 
-    logger.debug("---Inside login crmUserId: " + crmUserId);
+    logger.debug("----Inside login crmUserId: " + crmUserId);
 
     if (user == null) {
 
@@ -113,7 +113,7 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
 
   public final synchronized ScribeCacheObject getCrmUserInfoWithCRMSessionInformation(final String agentId) throws Exception {
 
-    logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation agent: " + agentId);
+    logger.debug("----Inside getCrmUserInfoWithCRMSessionInformation agent: " + agentId);
 
     /* Recover agent from cache */
     final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(agentId);
@@ -127,12 +127,12 @@ public final class MSCRMLiveIdSessionManager implements CRMSessionManager {
 
     if (cacheObject.getScribeMetaObject().getCrmSessionId() == null) {
 
-      logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation agent's CRM session is not found; Going to fetch session information");
+      logger.debug("----Inside getCrmUserInfoWithCRMSessionInformation agent's CRM session is not found; Going to fetch session information");
 
       /* Get CRM service information from CRM */
       final MSCRMUserInformation mSCRMUserInformation = mSCRMDiscoveryManager.getMSCRMUserInformation(cacheObject);
 
-      logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation : CrmSessionId: " + mSCRMUserInformation.getCrmTicket());
+      logger.debug("----Inside getCrmUserInfoWithCRMSessionInformation : CrmSessionId: " + mSCRMUserInformation.getCrmTicket());
 
       /* Set CRM ticket as session id at agent */
       cacheObject.getScribeMetaObject().setCrmSessionId(mSCRMUserInformation.getCrmTicket());

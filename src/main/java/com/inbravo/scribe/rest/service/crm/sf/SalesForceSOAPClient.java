@@ -60,7 +60,7 @@ public final class SalesForceSOAPClient {
 
   private final synchronized SoapBindingStub createSoapBinding() throws Exception {
 
-    logger.debug("---Inside createSoapBinding");
+    logger.debug("----Inside createSoapBinding");
     SoapBindingStub soapBindingStub = null;
     try {
       /* Going to create new stub */
@@ -81,7 +81,7 @@ public final class SalesForceSOAPClient {
    * @return
    */
   public final synchronized SoapBindingStub login(final String externalUsername, final String externalPassword) throws Exception {
-    logger.debug("---Inside login CRM user name: " + externalUsername + " & CRM Password:" + externalPassword);
+    logger.debug("----Inside login CRM user name: " + externalUsername + " & CRM Password:" + externalPassword);
 
     if (externalUsername == null & externalUsername == null) {
       throw new ScribeException(ScribeResponseCodes._1008 + "Sales Force CRM credentials not found");
@@ -107,7 +107,7 @@ public final class SalesForceSOAPClient {
     try {
       /* Trim the parameters. Do not trim password */
       loginResult = soapBindingStub.login(externalUsername.trim(), externalPassword);
-      logger.debug("---Inside login session timeout from Sales Force : " + getTimeout() + " msec(s)");
+      logger.debug("----Inside login session timeout from Sales Force : " + getTimeout() + " msec(s)");
       soapBindingStub.getTimeout();
     } catch (final InvalidIdFault invalidIdFault) {
 
@@ -127,26 +127,26 @@ public final class SalesForceSOAPClient {
           || exCode == ExceptionCode.LOGIN_DURING_RESTRICTED_DOMAIN || exCode == ExceptionCode.LOGIN_DURING_RESTRICTED_TIME
           || exCode == ExceptionCode.ORG_LOCKED || exCode == ExceptionCode.PASSWORD_LOCKOUT || exCode == ExceptionCode.SERVER_UNAVAILABLE
           || exCode == ExceptionCode.TRIAL_EXPIRED || exCode == ExceptionCode.UNSUPPORTED_CLIENT) {
-        logger.debug("---Inside login problem at SalesForce login: " + ScribeResponseCodes._1006 + "Exception code: " + exCode.getValue()
+        logger.debug("----Inside login problem at SalesForce login: " + ScribeResponseCodes._1006 + "Exception code: " + exCode.getValue()
             + " : Exception message: " + exMessage);
         throw new ScribeException(ScribeResponseCodes._1006 + "Exception code: " + exCode.getValue() + " : Exception message: " + exMessage,
             loginFault);
       }
     } catch (final RemoteException remoteException) {
-      logger.debug("---Inside login problem at SalesForce login: " + ScribeResponseCodes._1006 + "Remote Error");
+      logger.debug("----Inside login problem at SalesForce login: " + ScribeResponseCodes._1006 + "Remote Error");
       /* Inform user about remote error */
       throw new ScribeException(ScribeResponseCodes._1006 + "Remote Error", remoteException);
     }
 
     /* Check if password is expired */
     if (loginResult.isPasswordExpired()) {
-      logger.debug("---Inside login: " + ScribeResponseCodes._1006 + "Password expired");
+      logger.debug("----Inside login: " + ScribeResponseCodes._1006 + "Password expired");
       throw new ScribeException(ScribeResponseCodes._1006 + "Password expired");
     }
 
     /* Set end point address */
     soapBindingStub._setProperty(SoapBindingStub.ENDPOINT_ADDRESS_PROPERTY, loginResult.getServerUrl());
-    logger.debug("---Inside login SalesForce URL: " + loginResult.getServerUrl());
+    logger.debug("----Inside login SalesForce URL: " + loginResult.getServerUrl());
 
     /* Maintain the session */
     soapBindingStub.setMaintainSession(true);

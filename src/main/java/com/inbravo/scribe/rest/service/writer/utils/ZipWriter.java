@@ -60,7 +60,7 @@ public final class ZipWriter {
    */
   public void write(final OutputStream outputStream, final FileAttachments fileAttachments, final String zipName) throws Exception {
 
-    logger.debug("---Inside write, zip file : " + zipName);
+    logger.debug("----Inside write, zip file : " + zipName);
 
     ZipOutputStream zos = null;
     MappedByteBuffer mbb = null;
@@ -79,7 +79,7 @@ public final class ZipWriter {
       /* Run over all attachments */
       for (final FileAttachment fa : fileAttachments.getFileAttachments()) {
 
-        logger.debug("---Inside write, adding file: " + fa.getLocation() + " in zip: " + zipName);
+        logger.debug("----Inside write, adding file: " + fa.getLocation() + " in zip: " + zipName);
 
         /* Check if max file count limit has not reached */
         if (fileCount <= maxNoOfFileAllowedInZip) {
@@ -134,13 +134,13 @@ public final class ZipWriter {
 
             /* Check if duplicate entry */
             if (ze.getMessage().contains("duplicate entry")) {
-              logger.debug("---Inside write, ignoring duplicate file in zip: " + fa.getLocation());
+              logger.debug("----Inside write, ignoring duplicate file in zip: " + fa.getLocation());
             } else {
               throw ze;
             }
           }
         } else {
-          logger.info("---Inside write, not able to add file: " + fa.getLocation() + " in zip: " + zipName
+          logger.info("----Inside write, not able to add file: " + fa.getLocation() + " in zip: " + zipName
               + ". max number of files allowed in zip is: " + maxNoOfFileAllowedInZip);
         }
       }

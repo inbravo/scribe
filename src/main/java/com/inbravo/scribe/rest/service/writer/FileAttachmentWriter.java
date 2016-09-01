@@ -75,7 +75,7 @@ public final class FileAttachmentWriter implements MessageBodyWriter<FileAttachm
   public final void writeTo(final FileAttachment fileAttachment, final Class<?> classObject, final Type type, final Annotation[] annotations,
       final MediaType mediaType, final MultivaluedMap<String, Object> httpHeaderMap, final OutputStream outputStream) throws IOException {
 
-    logger.debug("---Inside writeTo, object type: " + classObject.getName() + " & mediaType: " + mediaType.getType() + " & file : " + fileAttachment);
+    logger.debug("----Inside writeTo, object type: " + classObject.getName() + " & mediaType: " + mediaType.getType() + " & file : " + fileAttachment);
 
     final DataOutputStream binaryContentWriter = new DataOutputStream(outputStream);
 
@@ -128,7 +128,7 @@ public final class FileAttachmentWriter implements MessageBodyWriter<FileAttachm
       }
 
     } catch (final Exception e) {
-      logger.error("---Inside writeTo, problem while writing file output: " + e, e);
+      logger.error("----Inside writeTo, problem while writing file output: " + e, e);
 
       /* Delete all temp files */
       if (fileAttachment != null) {
@@ -203,7 +203,7 @@ public final class FileAttachmentWriter implements MessageBodyWriter<FileAttachm
 
             if (fileToBeDeleted != null && fileToBeDeleted.exists()) {
 
-              logger.debug("---Inside deleteTempFileThread, deleting temp file : " + fileAttachment.getLocation() + ", status: "
+              logger.debug("----Inside deleteTempFileThread, deleting temp file : " + fileAttachment.getLocation() + ", status: "
                   + fileToBeDeleted.delete());
             }
           }

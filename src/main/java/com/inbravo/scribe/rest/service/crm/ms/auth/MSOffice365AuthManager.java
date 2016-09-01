@@ -69,7 +69,7 @@ public final class MSOffice365AuthManager extends MSAuthManager {
     String crmServiceURL = null;
     String crmServiceProtocal = null;
 
-    logger.debug("---Inside getCRMAuthToken for agent: " + cacheObject.getScribeMetaObject().getCrmUserId());
+    logger.debug("----Inside getCRMAuthToken for agent: " + cacheObject.getScribeMetaObject().getCrmUserId());
 
     /* Check if additonal info is present */
     if (cacheObject.getAdditionalInfo() != null) {
@@ -85,7 +85,7 @@ public final class MSOffice365AuthManager extends MSAuthManager {
     crmServiceURL = cacheObject.getScribeMetaObject().getCrmServiceURL();
     crmServiceProtocal = cacheObject.getScribeMetaObject().getCrmServiceProtocol();
 
-    logger.debug("---Inside getCRMAuthToken userName: " + userName + " & password: " + password + " & stsEndpoint: " + stsEndpoint
+    logger.debug("----Inside getCRMAuthToken userName: " + userName + " & password: " + password + " & stsEndpoint: " + stsEndpoint
         + " & urnAddress: " + urnAddress + " & crmServiceURL: " + crmServiceURL + " & crmServiceProtocal: " + crmServiceProtocal);
 
     final URL fileURL = CRMMessageFormatUtils.getFileURL(loginFileName);
@@ -96,7 +96,7 @@ public final class MSOffice365AuthManager extends MSAuthManager {
       /* Get SAML from login */
       if (samlForMSLogin == null) {
 
-        logger.debug("---Inside getCRMAuthToken reading security template from file");
+        logger.debug("----Inside getCRMAuthToken reading security template from file");
 
         /* This logic is for reading the file once in lifetime only */
         samlForMSLogin = MSCRMMessageFormatUtils.readStringFromFile(fileURL.getPath());
@@ -104,7 +104,7 @@ public final class MSOffice365AuthManager extends MSAuthManager {
         /* Convert for local usage */
         msg = samlForMSLogin;
       } else {
-        logger.debug("---Inside getCRMAuthToken reading security template from memory");
+        logger.debug("----Inside getCRMAuthToken reading security template from memory");
 
         /* Convert for local usage */
         msg = samlForMSLogin;
@@ -114,7 +114,7 @@ public final class MSOffice365AuthManager extends MSAuthManager {
       userName = Matcher.quoteReplacement(userName);
       password = Matcher.quoteReplacement(password);
 
-      logger.debug("---Inside getCRMAuthToken userName: " + userName + " & password: " + password + " & stsEndpoint: " + stsEndpoint);
+      logger.debug("----Inside getCRMAuthToken userName: " + userName + " & password: " + password + " & stsEndpoint: " + stsEndpoint);
 
       /* Get DB specific formatter */
       final DateTimeFormatter isoDateFormat = DateTimeFormat.forPattern(msOffice365RequestDateFormat);
@@ -129,12 +129,12 @@ public final class MSOffice365AuthManager extends MSAuthManager {
       /* The final customer specific security header */
       msg = String.format(msg, UUID.randomUUID().toString(), "ACQA", stsEndpoint, currentDateTime, expireDateTime, userName, password, urnAddress);
 
-      logger.debug("---Inside getCRMAuthToken, login request: " + msg);
+      logger.debug("----Inside getCRMAuthToken, login request: " + msg);
 
       /* Send SOAP message */
       final String response = sOAPExecutor.getSOAPResponse(stsEndpoint, msg);
 
-      logger.debug("---Inside getCRMAuthToken, login response: " + response);
+      logger.debug("----Inside getCRMAuthToken, login response: " + response);
 
       /* If a valid response */
       if (response != null && !response.contains("internalerror")) {
@@ -144,7 +144,7 @@ public final class MSOffice365AuthManager extends MSAuthManager {
         final String securityToken1 = MSCRMMessageFormatUtils.getValueFromXML(response, "//*[local-name()='CipherValue']/text()", 1);
         final String keyIdentifier = MSCRMMessageFormatUtils.getValueFromXML(response, "//*[local-name()='KeyIdentifier']/text()");
 
-        logger.debug("---Inside getCRMAuthToken securityToken0: " + securityToken0 + " & securityToken1: " + securityToken1 + " & keyIdentifier: "
+        logger.debug("----Inside getCRMAuthToken securityToken0: " + securityToken0 + " & securityToken1: " + securityToken1 + " & keyIdentifier: "
             + keyIdentifier);
         return new String[] {securityToken0, securityToken1, keyIdentifier};
       } else {

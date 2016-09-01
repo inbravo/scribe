@@ -84,17 +84,17 @@ public final class SFSOAPCRMService extends CRMService {
     final long endTime = System.currentTimeMillis();
 
     /* Calculate processing time by Sales Force */
-    logger.debug("---Inside createObject time taken in Sales Force processing: " + ((endTime - startTime)) + " msec(s)");
+    logger.debug("----Inside createObject time taken in Sales Force processing: " + ((endTime - startTime)) + " msec(s)");
     if (saveResults != null) {
       for (int i = 0; i < saveResults.length; i++) {
         if (saveResults[i].isSuccess()) {
-          logger.debug("---Inside createObject object with id: " + saveResults[i].getId() + " is created");
+          logger.debug("----Inside createObject object with id: " + saveResults[i].getId() + " is created");
 
           /* Set object id in object before sending back */
           cADCommandObject.getObject()[0] =
               SalesForceMessageFormatUtils.setNodeValue("Id", saveResults[i].getId(), cADCommandObject.getObject()[0]);
         } else {
-          logger.info("---Inside createObject: error recieved from Sales Force: " + saveResults[i].getErrors()[0].getMessage());
+          logger.info("----Inside createObject: error recieved from Sales Force: " + saveResults[i].getErrors()[0].getMessage());
           throw new ScribeException(ScribeResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
               + saveResults[i].getErrors()[0].getMessage() + " : Status Code : " + saveResults[i].getErrors()[0].getStatusCode() + " : Fields : "
               + saveResults[i].getErrors()[0].getFields());
@@ -122,13 +122,13 @@ public final class SFSOAPCRMService extends CRMService {
     final long endTime = System.currentTimeMillis();
 
     /* Calculate processing time by Sales Force */
-    logger.debug("---Inside deleteObject time taken in Sales Force processing: " + ((endTime - startTime)) + " msec(s)");
+    logger.debug("----Inside deleteObject time taken in Sales Force processing: " + ((endTime - startTime)) + " msec(s)");
     if (deleteResult != null) {
       for (int i = 0; i < deleteResult.length; i++) {
         if (deleteResult[i].isSuccess()) {
-          logger.debug("---Inside deleteObject object with id: " + deleteResult[i].getId() + " is deleted");
+          logger.debug("----Inside deleteObject object with id: " + deleteResult[i].getId() + " is deleted");
         } else {
-          logger.info("---Inside deleteObject: error recieved from Sales Force: " + deleteResult[i].getErrors()[0].getMessage());
+          logger.info("----Inside deleteObject: error recieved from Sales Force: " + deleteResult[i].getErrors()[0].getMessage());
           throw new ScribeException(ScribeResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
               + deleteResult[i].getErrors()[0].getMessage() + " : Status Code : " + deleteResult[i].getErrors()[0].getStatusCode() + " : Fields : "
               + deleteResult[i].getErrors()[0].getFields());
@@ -151,7 +151,7 @@ public final class SFSOAPCRMService extends CRMService {
 
     /* Check if batch is required */
     if (cADCommandObject.getBatch() != null) {
-      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
+      logger.debug("----Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
       /* Query Sales Force with batch information */
       queryResult = soapBindingStub.queryMore(cADCommandObject.getBatch());
     } else {
@@ -177,15 +177,15 @@ public final class SFSOAPCRMService extends CRMService {
           /* Add 'From' clause */
           query = query + " From " + cADCommandObject.getObjectType();
         } else {
-          logger.debug("---Inside getObjects no records in response");
+          logger.debug("----Inside getObjects no records in response");
           throw new ScribeException(ScribeResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
         }
       } else {
-        logger.debug("---Inside getObjects no response from Sales Force");
+        logger.debug("----Inside getObjects no response from Sales Force");
         throw new ScribeException(ScribeResponseCodes._1005);
       }
 
-      logger.debug("---Inside getObjects SOQL query: " + query);
+      logger.debug("----Inside getObjects SOQL query: " + query);
 
       /* Query Sales Force without batch information */
       queryResult = soapBindingStub.query(query);
@@ -227,7 +227,7 @@ public final class SFSOAPCRMService extends CRMService {
           /* Set the object at array */
           cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjects object length: " + cADbjectArray.length);
+        logger.debug("----Inside getObjects object length: " + cADbjectArray.length);
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
@@ -239,11 +239,11 @@ public final class SFSOAPCRMService extends CRMService {
         /* Set the final object in command object */
         cADCommandObject.setObject(cADbjectArray);
       } else {
-        logger.debug("---Inside getObjects no records in response");
+        logger.debug("----Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
-      logger.debug("---Inside getObjects no response from Sales Force");
+      logger.debug("----Inside getObjects no response from Sales Force");
       throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
@@ -251,7 +251,7 @@ public final class SFSOAPCRMService extends CRMService {
 
   private final ScribeCommandObject getObjectsBySelectCriteria(final ScribeCommandObject cADCommandObject, final String selectCriteria) throws Exception {
 
-    logger.debug("---Inside getObjectsBySelectCriteria selectCriteria: " + selectCriteria);
+    logger.debug("----Inside getObjectsBySelectCriteria selectCriteria: " + selectCriteria);
 
     /* Get Sales Force stub for the agent */
     final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
@@ -297,7 +297,7 @@ public final class SFSOAPCRMService extends CRMService {
           /* Set the object at array */
           cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjectsBySelectCriteria object length: " + cADbjectArray.length);
+        logger.debug("----Inside getObjectsBySelectCriteria object length: " + cADbjectArray.length);
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
@@ -309,11 +309,11 @@ public final class SFSOAPCRMService extends CRMService {
         /* Set the final object in command object */
         cADCommandObject.setObject(cADbjectArray);
       } else {
-        logger.debug("---Inside getObjectsBySelectCriteria no records in response");
+        logger.debug("----Inside getObjectsBySelectCriteria no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
-      logger.debug("---Inside getObjectsBySelectCriteria no response from Sales Force");
+      logger.debug("----Inside getObjectsBySelectCriteria no response from Sales Force");
       throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
@@ -321,7 +321,7 @@ public final class SFSOAPCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
-    logger.debug("---Inside getObjects query: " + query);
+    logger.debug("----Inside getObjects query: " + query);
 
     /* Check if query is a SFDC find type */
     if (query != null && query.trim().startsWith("find")) {
@@ -339,7 +339,7 @@ public final class SFSOAPCRMService extends CRMService {
 
     /* Check if batch is required */
     if (cADCommandObject.getBatch() != null) {
-      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
+      logger.debug("----Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
 
       /* Query Sales Force with batch information */
       queryResult = soapBindingStub.queryMore(cADCommandObject.getBatch());
@@ -377,15 +377,15 @@ public final class SFSOAPCRMService extends CRMService {
             cadQuery = cadQuery + whereClause;
           }
         } else {
-          logger.debug("---Inside getObjects no records in response");
+          logger.debug("----Inside getObjects no records in response");
           throw new ScribeException(ScribeResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
         }
       } else {
-        logger.debug("---Inside getObjects no response from Sales Force");
+        logger.debug("----Inside getObjects no response from Sales Force");
         throw new ScribeException(ScribeResponseCodes._1005);
       }
 
-      logger.debug("---Inside getObjects SOQL query: " + cadQuery);
+      logger.debug("----Inside getObjects SOQL query: " + cadQuery);
 
       /* Query Sales Force without batch information */
       queryResult = soapBindingStub.query(cadQuery);
@@ -428,7 +428,7 @@ public final class SFSOAPCRMService extends CRMService {
           /* Set the object at array */
           cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjects object length: " + cADbjectArray.length);
+        logger.debug("----Inside getObjects object length: " + cADbjectArray.length);
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
@@ -440,23 +440,23 @@ public final class SFSOAPCRMService extends CRMService {
         /* Set the final object in command object */
         cADCommandObject.setObject(cADbjectArray);
       } else {
-        logger.debug("---Inside getObjects no records in response");
+        logger.debug("----Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
-      logger.debug("---Inside getObjects no response from Sales Force");
+      logger.debug("----Inside getObjects no response from Sales Force");
       throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
   }
 
   private final ScribeCommandObject getObjectsBySearchCriteria(final ScribeCommandObject cADCommandObject, final String searchCriteria) throws Exception {
-    logger.debug("---Inside getObjectsBySearchCriteria searchCriteria: " + searchCriteria);
+    logger.debug("----Inside getObjectsBySearchCriteria searchCriteria: " + searchCriteria);
 
     /* Get Sales Force stub for the agent */
     final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
 
-    logger.debug("---Inside getObjectsBySearchCriteria SOSL query: " + searchCriteria);
+    logger.debug("----Inside getObjectsBySearchCriteria SOSL query: " + searchCriteria);
 
     /* Search Sales Force without batch information */
     final SearchResult searchResult = soapBindingStub.search(searchCriteria);
@@ -501,16 +501,16 @@ public final class SFSOAPCRMService extends CRMService {
           /* Set the object at array */
           cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjectsBySearchCriteria object length: " + cADbjectArray.length);
+        logger.debug("----Inside getObjectsBySearchCriteria object length: " + cADbjectArray.length);
 
         /* Set the final object in command object */
         cADCommandObject.setObject(cADbjectArray);
       } else {
-        logger.debug("---Inside getObjectsBySearchCriteria no records in response");
+        logger.debug("----Inside getObjectsBySearchCriteria no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + " anything in find query");
       }
     } else {
-      logger.debug("---Inside getObjectsBySearchCriteria no response from Sales Force");
+      logger.debug("----Inside getObjectsBySearchCriteria no response from Sales Force");
       throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
@@ -518,7 +518,7 @@ public final class SFSOAPCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
-    logger.debug("---Inside getObjects query: " + query + " & select: " + select);
+    logger.debug("----Inside getObjects query: " + query + " & select: " + select);
 
     /* Get Sales Force stub for the agent */
     final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
@@ -527,7 +527,7 @@ public final class SFSOAPCRMService extends CRMService {
 
     /* Check if batch is required */
     if (cADCommandObject.getBatch() != null) {
-      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
+      logger.debug("----Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
 
       /* Query Sales Force with batch information */
       queryResult = soapBindingStub.queryMore(cADCommandObject.getBatch());
@@ -594,20 +594,20 @@ public final class SFSOAPCRMService extends CRMService {
                 cadQuery = cadQuery + sfdcQuery;
               }
             } else {
-              logger.debug("---Inside getObjects no records in response");
+              logger.debug("----Inside getObjects no records in response");
               throw new ScribeException(ScribeResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
             }
           } else {
-            logger.debug("---Inside getObjects no response from Sales Force");
+            logger.debug("----Inside getObjects no response from Sales Force");
             throw new ScribeException(ScribeResponseCodes._1005);
           }
         }
       } else {
-        logger.debug("---Inside getObjects sSelect fields criteria is empty");
+        logger.debug("----Inside getObjects sSelect fields criteria is empty");
         throw new ScribeException(ScribeResponseCodes._1008 + "Select fields criteria is empty");
       }
 
-      logger.debug("---Inside getObjects SOQL query: " + cadQuery);
+      logger.debug("----Inside getObjects SOQL query: " + cadQuery);
 
       /* Query Sales Force without batch information */
       queryResult = soapBindingStub.query(cadQuery);
@@ -650,7 +650,7 @@ public final class SFSOAPCRMService extends CRMService {
           /* Set the object at array */
           cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjects Object length: " + cADbjectArray.length);
+        logger.debug("----Inside getObjects Object length: " + cADbjectArray.length);
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
@@ -662,11 +662,11 @@ public final class SFSOAPCRMService extends CRMService {
         /* Set the final object in command object */
         cADCommandObject.setObject(cADbjectArray);
       } else {
-        logger.debug("---Inside getObjects no records in response");
+        logger.debug("----Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
-      logger.debug("---Inside getObjects no response from Sales Force");
+      logger.debug("----Inside getObjects no response from Sales Force");
       throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
@@ -674,7 +674,7 @@ public final class SFSOAPCRMService extends CRMService {
 
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
-    logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
+    logger.debug("----Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
 
     /* Get Sales Force stub for the agent */
     final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
@@ -683,7 +683,7 @@ public final class SFSOAPCRMService extends CRMService {
 
     /* Check if batch is required */
     if (cADCommandObject.getBatch() != null) {
-      logger.debug("---Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
+      logger.debug("----Inside getObjects going to fetch a batch with query locator: " + cADCommandObject.getBatch());
 
       /* Query Sales Force with batch information */
       queryResult = soapBindingStub.queryMore(cADCommandObject.getBatch());
@@ -750,22 +750,22 @@ public final class SFSOAPCRMService extends CRMService {
                 cadQuery = cadQuery + sfdcQuery;
               }
             } else {
-              logger.debug("---Inside getObjects no records in response");
+              logger.debug("----Inside getObjects no records in response");
               throw new ScribeException(ScribeResponseCodes._1004 + "Any " + cADCommandObject.getObjectType() + " at Sales Force");
             }
           } else {
-            logger.debug("---Inside getObjects no response from Sales Force");
+            logger.debug("----Inside getObjects no response from Sales Force");
             throw new ScribeException(ScribeResponseCodes._1005);
           }
         }
       } else {
-        logger.debug("---Inside getObjects sSelect fields criteria is empty");
+        logger.debug("----Inside getObjects sSelect fields criteria is empty");
         throw new ScribeException(ScribeResponseCodes._1008 + "Select fields criteria is empty");
       }
 
       /* Create order by clause */
       if (order != null) {
-        logger.debug("---Inside getObjects order: " + order);
+        logger.debug("----Inside getObjects order: " + order);
 
         /* Check if multiple order are present */
         if (order.contains(",")) {
@@ -790,7 +790,7 @@ public final class SFSOAPCRMService extends CRMService {
           cadQuery = cadQuery + SalesForceMessageFormatUtils.parseAndValidateOrderClause(order, orderFieldsSeparator);
         }
       }
-      logger.debug("---Inside getObjects SOQL query: " + cadQuery);
+      logger.debug("----Inside getObjects SOQL query: " + cadQuery);
 
       /* Query Sales Force without batch information */
       queryResult = soapBindingStub.query(cadQuery);
@@ -833,7 +833,7 @@ public final class SFSOAPCRMService extends CRMService {
           /* Set the object at array */
           cADbjectArray[i] = cADbject;
         }
-        logger.debug("---Inside getObjects Object length: " + cADbjectArray.length);
+        logger.debug("----Inside getObjects Object length: " + cADbjectArray.length);
 
         /* Add batch id(query locator) information for pagination */
         if (queryResult.getQueryLocator() != null) {
@@ -845,11 +845,11 @@ public final class SFSOAPCRMService extends CRMService {
         /* Set the final object in command object */
         cADCommandObject.setObject(cADbjectArray);
       } else {
-        logger.debug("---Inside getObjects no records in response");
+        logger.debug("----Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + cADCommandObject.getObjectType());
       }
     } else {
-      logger.debug("---Inside getObjects no response from Sales Force");
+      logger.debug("----Inside getObjects no response from Sales Force");
       throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
@@ -857,7 +857,7 @@ public final class SFSOAPCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside getObjectsCount");
+    logger.debug("----Inside getObjectsCount");
 
     /* Get Sales Force stub for the agent */
     final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
@@ -868,7 +868,7 @@ public final class SFSOAPCRMService extends CRMService {
     /* Query Sales Force for count of objects */
     final QueryResult queryResult = soapBindingStub.query(cadQuery);
 
-    logger.debug("---Inside getObjectsCount SOQL query: " + cadQuery);
+    logger.debug("----Inside getObjectsCount SOQL query: " + cadQuery);
 
     /* Iterate over records */
     if (queryResult != null) {
@@ -882,7 +882,7 @@ public final class SFSOAPCRMService extends CRMService {
       /* Create inner tags <Field_Name> inside <Object> */
       elementList.add(SalesForceMessageFormatUtils.createMessageElement("Count", queryResult.getSize()));
 
-      logger.debug("---Inside getObjectsCount objects count: " + queryResult.getSize());
+      logger.debug("----Inside getObjectsCount objects count: " + queryResult.getSize());
 
       /* Add all CRM fields */
       cADbject.setXmlContent(elementList);
@@ -890,7 +890,7 @@ public final class SFSOAPCRMService extends CRMService {
       /* Set the final object in command object */
       cADCommandObject.setObject(new ScribeObject[] {cADbject});
     } else {
-      logger.debug("---Inside getObjectsCount no response from Sales Force");
+      logger.debug("----Inside getObjectsCount no response from Sales Force");
       throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
@@ -898,7 +898,7 @@ public final class SFSOAPCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjectsCount(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
-    logger.debug("---Inside getObjectsCount");
+    logger.debug("----Inside getObjectsCount");
 
     /* Get Sales Force stub for the agent */
     final SoapBindingStub soapBindingStub = cRMSessionManager.getSoapBindingStub(cADCommandObject.getCrmUserId(), cADCommandObject.getCrmPassword());
@@ -917,11 +917,11 @@ public final class SFSOAPCRMService extends CRMService {
         /* Complete the cadQuery */
         cadQuery = cadQuery + sfdcQuery;
       } else {
-        logger.debug("---Inside getObjectsCount found NONE in where clause: " + cadQuery);
+        logger.debug("----Inside getObjectsCount found NONE in where clause: " + cadQuery);
       }
     }
 
-    logger.debug("---Inside getObjectsCount SOQL query: " + cadQuery);
+    logger.debug("----Inside getObjectsCount SOQL query: " + cadQuery);
 
     /* Query Sales Force for count of objects */
     final QueryResult queryResult = soapBindingStub.query(cadQuery);
@@ -938,7 +938,7 @@ public final class SFSOAPCRMService extends CRMService {
       /* Create inner tags <Field_Name> inside <Object> */
       elementList.add(SalesForceMessageFormatUtils.createMessageElement("Count", queryResult.getSize()));
 
-      logger.debug("---Inside getObjectsCount objects count: " + queryResult.getSize());
+      logger.debug("----Inside getObjectsCount objects count: " + queryResult.getSize());
 
       /* Add all CRM fields */
       cADbject.setXmlContent(elementList);
@@ -946,7 +946,7 @@ public final class SFSOAPCRMService extends CRMService {
       /* Set the final object in command object */
       cADCommandObject.setObject(new ScribeObject[] {cADbject});
     } else {
-      logger.debug("---Inside getObjectsCount no response from Sales Force");
+      logger.debug("----Inside getObjectsCount no response from Sales Force");
       throw new ScribeException(ScribeResponseCodes._1005);
     }
     return cADCommandObject;
@@ -976,7 +976,7 @@ public final class SFSOAPCRMService extends CRMService {
     final long endTime = System.currentTimeMillis();
 
     /* Calculate processing time by Sales Force */
-    logger.debug("---Inside updateObject time taken in Sales Force processing: " + ((endTime - startTime)) + " msec(s)");
+    logger.debug("----Inside updateObject time taken in Sales Force processing: " + ((endTime - startTime)) + " msec(s)");
     if (saveResults != null) {
       for (int i = 0; i < saveResults.length; i++) {
         if (saveResults[i].isSuccess()) {
@@ -986,7 +986,7 @@ public final class SFSOAPCRMService extends CRMService {
           cADCommandObject.getObject()[0] =
               SalesForceMessageFormatUtils.setNodeValue("Id", saveResults[i].getId(), cADCommandObject.getObject()[0]);
         } else {
-          logger.info("---Inside updateObject: error recieved from Sales Force: " + saveResults[i].getErrors()[0].getMessage());
+          logger.info("----Inside updateObject: error recieved from Sales Force: " + saveResults[i].getErrors()[0].getMessage());
           throw new ScribeException(ScribeResponseCodes._1001 + cADCommandObject.getObjectType() + " : Message : "
               + saveResults[i].getErrors()[0].getMessage() + " : Status Code : " + saveResults[i].getErrors()[0].getStatusCode() + " : Fields : "
               + saveResults[i].getErrors()[0].getFields());

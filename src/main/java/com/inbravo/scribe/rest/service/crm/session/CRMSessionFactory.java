@@ -57,7 +57,7 @@ public final class CRMSessionFactory implements ApplicationContextAware {
    */
   public final CRMSessionManager getCRMSessionManager(final String crmType) throws Exception {
 
-    logger.debug("---Inside getCRMSessionManager crmType: " + crmType);
+    logger.debug("----Inside getCRMSessionManager crmType: " + crmType);
 
     if (crmType.equalsIgnoreCase(crmServiceFactory.getSalesForceCRMConst())) {
 

@@ -42,10 +42,6 @@ public interface CRMConstants {
     SalesForce, Microsoft, Zendesk, NetSuite
   };
 
-  public enum UserType {
-    Tenant, Agent
-  };
-
   public enum MSCRMObjectType {
     Contact, Account, Task, Lead, Opportunity, Incident, Case
   };

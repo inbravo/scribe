@@ -76,7 +76,7 @@ public final class NSSOAPCRMService extends CRMService {
   public final ScribeCommandObject createObject(final ScribeCommandObject scribeCommandObject) throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside createObject");
+      logger.debug("----Inside createObject");
     }
 
     /* Get NS stub for the agent */
@@ -120,14 +120,14 @@ public final class NSSOAPCRMService extends CRMService {
     final long transStartTime = System.currentTimeMillis();
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside createObject : NS CRM create transaction started at : " + transStartTime);
+      logger.debug("----Inside createObject : NS CRM create transaction started at : " + transStartTime);
     }
 
     /* Create task */
     final WriteResponse response = soapBindingStub.add(record);
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getObjects : NS CRM create transaction completed in : '" + (System.currentTimeMillis() - transStartTime) + "' msec(s)");
+      logger.debug("----Inside getObjects : NS CRM create transaction completed in : '" + (System.currentTimeMillis() - transStartTime) + "' msec(s)");
     }
 
     /* Get status */
@@ -159,7 +159,7 @@ public final class NSSOAPCRMService extends CRMService {
       /* Check if base ref is not null */
       if (baseRef != null) {
 
-        logger.debug("---Inside createObject, created object with id: " + baseRef.getInternalId());
+        logger.debug("----Inside createObject, created object with id: " + baseRef.getInternalId());
 
         /* Set object id in object before sending back */
         scribeCommandObject.getObject()[0] =
@@ -181,7 +181,7 @@ public final class NSSOAPCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject scribeCommandObject) throws Exception {
-    logger.debug("---Inside getObjects");
+    logger.debug("----Inside getObjects");
 
     /* Get NS stub for the agent */
     NetSuiteBindingStub soapBindingStub =
@@ -229,7 +229,7 @@ public final class NSSOAPCRMService extends CRMService {
       final long transStartTime = System.currentTimeMillis();
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
+        logger.debug("----Inside getObjects : NS CRM query transaction started at : " + transStartTime);
       }
 
       /* Invoke search operation */
@@ -237,12 +237,12 @@ public final class NSSOAPCRMService extends CRMService {
 
       if (logger.isDebugEnabled()) {
         logger
-            .debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime) + "' msec(s)");
+            .debug("----Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime) + "' msec(s)");
       }
 
     } catch (final InvalidSessionFault e) {
 
-      logger.debug("---Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
+      logger.debug("----Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
 
       /* If invalid session fault is given. Login again */
       if (cRMSessionManager.login(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword())) {
@@ -254,14 +254,14 @@ public final class NSSOAPCRMService extends CRMService {
         final long transStartTime = System.currentTimeMillis();
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
+          logger.debug("----Inside getObjects : NS CRM query transaction started at : " + transStartTime);
         }
 
         /* Invoke search operation */
         searchResult = soapBindingStub.search(searchRecord);
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
+          logger.debug("----Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
               + "' msec(s)");
         }
       } else {
@@ -277,7 +277,7 @@ public final class NSSOAPCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject scribeCommandObject, final String query) throws Exception {
-    logger.debug("---Inside getObjects query: " + query);
+    logger.debug("----Inside getObjects query: " + query);
 
 
     /* Get NS stub for the agent */
@@ -329,20 +329,20 @@ public final class NSSOAPCRMService extends CRMService {
         final long transStartTime = System.currentTimeMillis();
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
+          logger.debug("----Inside getObjects : NS CRM query transaction started at : " + transStartTime);
         }
 
         /* Invoke search operation */
         searchResult = soapBindingStub.search(searchRecord);
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
+          logger.debug("----Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
               + "' msec(s)");
         }
 
       } catch (final InvalidSessionFault e) {
 
-        logger.debug("---Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
+        logger.debug("----Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
 
         /* If invalid session fault is given. Login again */
         if (cRMSessionManager.login(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword())) {
@@ -354,14 +354,14 @@ public final class NSSOAPCRMService extends CRMService {
           final long transStartTime = System.currentTimeMillis();
 
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
+            logger.debug("----Inside getObjects : NS CRM query transaction started at : " + transStartTime);
           }
 
           /* Invoke search operation */
           searchResult = soapBindingStub.search(searchRecord);
 
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
+            logger.debug("----Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
                 + "' msec(s)");
           }
         } else {
@@ -391,7 +391,7 @@ public final class NSSOAPCRMService extends CRMService {
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject scribeCommandObject, final String query, final String select)
       throws Exception {
-    logger.debug("---Inside getObjects query: " + query + " & select: " + select);
+    logger.debug("----Inside getObjects query: " + query + " & select: " + select);
 
     /* Trim the request variable */
     final String trimmedQuery = this.applyTrimming(query);
@@ -448,20 +448,20 @@ public final class NSSOAPCRMService extends CRMService {
         final long transStartTime = System.currentTimeMillis();
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
+          logger.debug("----Inside getObjects : NS CRM query transaction started at : " + transStartTime);
         }
 
         /* Invoke search operation */
         searchResult = soapBindingStub.search(searchRecord);
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
+          logger.debug("----Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
               + "' msec(s)");
         }
 
       } catch (final InvalidSessionFault e) {
 
-        logger.debug("---Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
+        logger.debug("----Inside getObjects found InvalidSessionFault from NS CRM; going to relogin");
 
         /* If invalid session fault is given. Login again */
         if (cRMSessionManager.login(scribeCommandObject.getCrmUserId(), scribeCommandObject.getCrmPassword())) {
@@ -473,14 +473,14 @@ public final class NSSOAPCRMService extends CRMService {
           final long transStartTime = System.currentTimeMillis();
 
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside getObjects : NS CRM query transaction started at : " + transStartTime);
+            logger.debug("----Inside getObjects : NS CRM query transaction started at : " + transStartTime);
           }
 
           /* Invoke search operation */
           searchResult = soapBindingStub.search(searchRecord);
 
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
+            logger.debug("----Inside getObjects : NS CRM query transaction completed in : '" + (System.currentTimeMillis() - transStartTime)
                 + "' msec(s)");
           }
         } else {

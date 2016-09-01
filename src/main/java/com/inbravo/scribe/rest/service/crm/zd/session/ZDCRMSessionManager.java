@@ -78,7 +78,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
   @Override
   public final boolean reset(final String crmUserId, final String crmPassword) throws Exception {
 
-    logger.debug("---Inside reset id: " + crmUserId);
+    logger.debug("----Inside reset id: " + crmUserId);
 
     /* Check if session is already available at cache */
     return this.login(crmUserId, crmPassword);
@@ -87,7 +87,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
   @Override
   public final BasicObject getSessionInfo(final String id) throws Exception {
 
-    logger.debug("---Inside getSessionInfo id: " + id);
+    logger.debug("----Inside getSessionInfo id: " + id);
 
     /* Check if session is already available at cache */
     final ScribeCacheObject user = (ScribeCacheObject) cRMSessionCache.recover(id);
@@ -128,7 +128,7 @@ public final class ZDCRMSessionManager implements CRMSessionManager {
   }
 
   public final synchronized ScribeCacheObject getCrmUserIdWithCRMSessionInformation(final String agentId) throws Exception {
-    logger.debug("---Inside getCrmUserIdWithCRMSessionInformation");
+    logger.debug("----Inside getCrmUserIdWithCRMSessionInformation");
 
     /* Recover agent from cache */
     final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(agentId);

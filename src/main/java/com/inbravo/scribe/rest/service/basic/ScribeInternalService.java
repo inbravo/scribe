@@ -40,7 +40,7 @@ public final class ScribeInternalService {
 
   public final ScribeServiceFactory getServiceFactory(final ScribeCommandObject cADCommandObject) throws Exception {
 
-    logger.debug("---Inside getServiceFactory, Object type: " + cADCommandObject.getObjectType() + ", providing CRM service");
+    logger.debug("----Inside getServiceFactory, Object type: " + cADCommandObject.getObjectType() + ", providing CRM service");
 
     /* Return CRM service factory */
     return cRMServiceFactory;

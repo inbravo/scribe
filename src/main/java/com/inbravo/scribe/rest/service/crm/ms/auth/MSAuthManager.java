@@ -56,7 +56,7 @@ public abstract class MSAuthManager implements ApplicationContextAware {
    */
   public final synchronized Map<String, String> getMSCRMOrganizationInfo(final String serviceURL, final String serviceProtocol) throws Exception {
 
-    logger.debug("---Inside getMSCRMOrganizationInfo, serviceURL: " + serviceURL + " & serviceProtocol : " + serviceProtocol);
+    logger.debug("----Inside getMSCRMOrganizationInfo, serviceURL: " + serviceURL + " & serviceProtocol : " + serviceProtocol);
     try {
       /* Get SOAP executer */
       final SOAPExecutor executor = (SOAPExecutor) getApplicationContext().getBean("sOAPExecutor");
@@ -68,7 +68,7 @@ public abstract class MSAuthManager implements ApplicationContextAware {
         throw new ScribeException(ScribeResponseCodes._1008 + "CRM integration information is missing: MS CRM service URL");
       }
 
-      logger.debug("---Inside getMSCRMOrganizationInfo, calling WSDL serviceURL: " + serviceURL);
+      logger.debug("----Inside getMSCRMOrganizationInfo, calling WSDL serviceURL: " + serviceURL);
 
       /* Call CRM service URL to check desired authentication type */
       final String WSDL = executor.callHttpURL(serviceProtocol.trim() + "://" + serviceURL.trim() + SOAPExecutor.CRM_ENDPOINT_V5 + "?wsdl");
@@ -77,7 +77,7 @@ public abstract class MSAuthManager implements ApplicationContextAware {
       final String WSDLImportURL =
           MSCRMMessageFormatUtils.getValueFromXML(WSDL, MSCRMSchemaConstants.XPATH_Constants.XPATH_WSDL_IMPORT_IN_MS_RESPONSE);
 
-      logger.debug("---Inside getMSCRMOrganizationInfo, calling WSDL import serviceURL: " + WSDLImportURL);
+      logger.debug("----Inside getMSCRMOrganizationInfo, calling WSDL import serviceURL: " + WSDLImportURL);
 
       /* Call HTTP URL */
       final String wsdlImport = executor.callHttpURL(WSDLImportURL);
@@ -90,7 +90,7 @@ public abstract class MSAuthManager implements ApplicationContextAware {
       final String stsEnpoint =
           MSCRMMessageFormatUtils.getValueFromXML(wsdlImport, MSCRMSchemaConstants.XPATH_Constants.XPATH_STE_ENDPOINT_IN_MS_RESPONSE);
 
-      logger.debug("---Inside getmSCRMObjectService, WSDL: " + WSDL + " wsdlImport: " + wsdlImport + ", & urnAddress: " + urnAddress
+      logger.debug("----Inside getmSCRMObjectService, WSDL: " + WSDL + " wsdlImport: " + wsdlImport + ", & urnAddress: " + urnAddress
           + ", & stsEnpoint: " + stsEnpoint);
 
       /* Create additonal information map for next level usage */

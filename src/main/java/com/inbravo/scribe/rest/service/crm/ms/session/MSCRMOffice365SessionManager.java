@@ -55,7 +55,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
     /* Check if session is already available at cache */
     final BasicObject basicObject = (BasicObject) cRMSessionCache.recover(crmUserId);
 
-    logger.debug("---Inside login agent from cache: " + crmUserId);
+    logger.debug("----Inside login agent from cache: " + crmUserId);
 
     /* Get agent information from cache */
     final ScribeCacheObject user = (ScribeCacheObject) basicObject;
@@ -86,7 +86,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
   @Override
   public final boolean reset(final String crmUserId, final String crmPassword) throws Exception {
 
-    logger.debug("---Inside reset crmUserId: " + crmUserId);
+    logger.debug("----Inside reset crmUserId: " + crmUserId);
 
     /* Check if session is already available at cache */
     return this.login(crmUserId, crmPassword);
@@ -95,7 +95,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
   @Override
   public final BasicObject getSessionInfo(final String crmUserId) throws Exception {
 
-    logger.debug("---Inside getSessionInfo id: " + crmUserId);
+    logger.debug("----Inside getSessionInfo id: " + crmUserId);
 
     /* Check if session is already available at cache */
     final BasicObject basicObject = (BasicObject) cRMSessionCache.recover(crmUserId);
@@ -137,7 +137,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
    */
   public final synchronized ScribeCacheObject getCrmUserInfoWithCRMSessionInformation(final String agentId) throws Exception {
 
-    logger.debug("---Inside getCrmUserInfoWithCRMSessionInformation agent: " + agentId);
+    logger.debug("----Inside getCrmUserInfoWithCRMSessionInformation agent: " + agentId);
 
     /* Recover cacheObject from cache */
     final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(agentId);
@@ -151,7 +151,7 @@ public final class MSCRMOffice365SessionManager implements CRMSessionManager {
 
     if (cacheObject.getScribeMetaObject().getCrmSecurityToken() == null) {
 
-      logger.debug("---Inside getTenantWithCRMSessionInformation agent's CRM session is not found; Going to fetch session information");
+      logger.debug("----Inside getTenantWithCRMSessionInformation agent's CRM session is not found; Going to fetch session information");
 
       /* Get user information from Microsoft CRM */
       final String[] crmSecurityToken = mSOffice365AuthManager.getCRMAuthToken(cacheObject);

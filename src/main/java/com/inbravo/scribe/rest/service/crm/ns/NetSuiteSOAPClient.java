@@ -70,7 +70,7 @@ public final class NetSuiteSOAPClient {
       throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside createSoapBinding: userEmail : " + userEmail + " & password: " + password + " & webserviceDomain: " + webserviceDomain);
+      logger.debug("----Inside createSoapBinding: userEmail : " + userEmail + " & password: " + password + " & webserviceDomain: " + webserviceDomain);
     }
 
     NetSuiteBindingStub soapBindingStub = null;
@@ -89,12 +89,12 @@ public final class NetSuiteSOAPClient {
         nsServiceURL = new URL(webserviceDomain + "/services/NetSuitePort_2009_1");
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside createSoapBinding: nsServiceURL : " + nsServiceURL);
+          logger.debug("----Inside createSoapBinding: nsServiceURL : " + nsServiceURL);
         }
       } catch (final ScribeException e) {
 
         /* log this error */
-        logger.debug("---Inside createSoapBinding error while getting web service url, going for default web service url of NS v2009.1");
+        logger.debug("----Inside createSoapBinding error while getting web service url, going for default web service url of NS v2009.1");
         nsServiceURL = null;
       }
 
@@ -137,7 +137,7 @@ public final class NetSuiteSOAPClient {
       final String webserviceDomain) throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside login CRM user name: " + externalUsername + " & CRM Password:" + externalPassword + " & accountId: " + accountId
+      logger.debug("----Inside login CRM user name: " + externalUsername + " & CRM Password:" + externalPassword + " & accountId: " + accountId
           + " & webserviceDomain: " + webserviceDomain);
     }
 
@@ -197,7 +197,7 @@ public final class NetSuiteSOAPClient {
 
       if (status != null) {
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside login, NetSuite login attempt is successfull? : " + status.isIsSuccess());
+          logger.debug("----Inside login, NetSuite login attempt is successfull? : " + status.isIsSuccess());
         }
       } else {
         throw new ScribeException(ScribeResponseCodes._1021 + "NetSuite webservice error while login : Login status is not available");
@@ -225,14 +225,14 @@ public final class NetSuiteSOAPClient {
       throw new ScribeException(ScribeResponseCodes._1012 + "NetSuite webservice error : Credentials are not valid", e);
     } catch (final AxisFault e) {
 
-      logger.debug("---Inside login : AxisFault : " + e.dumpToString());
+      logger.debug("----Inside login : AxisFault : " + e.dumpToString());
 
       /* Inform user about unexpected error */
       throw new ScribeException(ScribeResponseCodes._1021 + "NetSuite webservice error while login : reason : " + e.getFaultString());
     } catch (final RemoteException e) {
 
       /* Inform user about remote error */
-      logger.debug("---Inside login problem at NetSuite login: " + ScribeResponseCodes._1021 + " : Remote Error", e);
+      logger.debug("----Inside login problem at NetSuite login: " + ScribeResponseCodes._1021 + " : Remote Error", e);
 
       /* Inform user about remote error */
       throw new ScribeException(ScribeResponseCodes._1021 + " : Remote Error : " + e);
@@ -240,7 +240,7 @@ public final class NetSuiteSOAPClient {
     } catch (final Exception e) {
 
       /* Inform user about remote error */
-      logger.error("---Inside login problem at NetSuite login: " + ScribeResponseCodes._1021 + " : Login Error", e);
+      logger.error("----Inside login problem at NetSuite login: " + ScribeResponseCodes._1021 + " : Login Error", e);
 
       /* Inform user about remote error */
       throw new ScribeException(ScribeResponseCodes._1021 + " : Login Error : " + e.getMessage());

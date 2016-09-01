@@ -87,7 +87,7 @@ public final class CRMServiceFactory implements ApplicationContextAware, ScribeS
    */
   public final synchronized CRMService getService(final ScribeCommandObject scribeCommandObject) throws Exception {
 
-    logger.debug("---Inside getService");
+    logger.debug("----Inside getService");
     CRMService cRMService = null;
 
     /* Create an empty cacheObject object */
@@ -96,7 +96,7 @@ public final class CRMServiceFactory implements ApplicationContextAware, ScribeS
     /* Pick information from cache if batch request */
     if (scribeCommandObject.getBatch() != null) {
 
-      logger.debug("---Inside getService: found a batch request. Going to fetch cached cacheObject information");
+      logger.debug("----Inside getService: found a batch request. Going to fetch cached cacheObject information");
 
       /* Check if cacheObject in cache */
       cacheObject = (ScribeCacheObject) cRMSessionCache.recover(scribeCommandObject.getCrmUserId());

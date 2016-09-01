@@ -46,7 +46,7 @@ public final class ScribeLogService {
   @Produces({HTTPConstants.mimeTypeJSON, HTTPConstants.mimeTypeXML})
   public final Response update(final @QueryParam(HTTPConstants.logLevel) String logLevel) throws Exception {
 
-    logger.debug("---Inside update logLevel: " + logLevel);
+    logger.debug("----Inside update logLevel: " + logLevel);
 
     /* Change log */
     final String newLogLevel = this.updateLogLevel(logLevel);
@@ -63,7 +63,7 @@ public final class ScribeLogService {
    * @throws Exception
    */
   private final String updateLogLevel(final String logLevel) throws Exception {
-    logger.debug("---Inside updateLogLevel logLevel: " + logLevel);
+    logger.debug("----Inside updateLogLevel logLevel: " + logLevel);
 
     /* Get the root logger of logging system */
     Logger rootLogger = Logger.getLogger("com.inbravo.scribe");
@@ -89,7 +89,7 @@ public final class ScribeLogService {
       rootLogger.setLevel(org.apache.log4j.Level.ALL);
       newLogLevel = "ALL";
     }
-    logger.debug("---Inside updateLogLevel, logLevel changed successfully to: " + newLogLevel);
+    logger.debug("----Inside updateLogLevel, logLevel changed successfully to: " + newLogLevel);
     return newLogLevel;
   }
 }

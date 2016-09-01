@@ -54,7 +54,7 @@ public final class MSCRMV4TaskService extends MSCRMObjectService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside getObjects");
+    logger.debug("----Inside getObjects");
 
     final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
@@ -70,7 +70,7 @@ public final class MSCRMV4TaskService extends MSCRMObjectService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
-    logger.debug("---Inside getObjects query: " + query);
+    logger.debug("----Inside getObjects query: " + query);
 
     final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 
@@ -86,7 +86,7 @@ public final class MSCRMV4TaskService extends MSCRMObjectService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
-    logger.debug("---Inside getObjects query: " + query + " & select: " + select);
+    logger.debug("----Inside getObjects query: " + query + " & select: " + select);
 
     /* Create list to hold fields to be selected */
     final List<String> crmFieldToBeSelectedList = new ArrayList<String>();
@@ -122,7 +122,7 @@ public final class MSCRMV4TaskService extends MSCRMObjectService {
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select, final String order)
       throws Exception {
-    logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
+    logger.debug("----Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
 
     /* Create list to hold fields to be selected */
     final List<String> crmFieldToBeSelectedList = new ArrayList<String>();
@@ -167,7 +167,7 @@ public final class MSCRMV4TaskService extends MSCRMObjectService {
 
   @Override
   public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside createObject");
+    logger.debug("----Inside createObject");
 
     final ScribeCacheObject cacheObject = mSCRMSessionManager.getCrmUserInfoWithCRMSessionInformation(cADCommandObject.getCrmUserId());
 

@@ -47,7 +47,7 @@ public final class SalesForceMessageFormatUtils extends CRMMessageFormatUtils {
 
   public final static MessageElement[] createMessageElementArray(final ScribeObject cADbject) throws Exception {
 
-    logger.debug("---Inside createMessageElementArray size of input Object:" + cADbject.getXmlContent().size());
+    logger.debug("----Inside createMessageElementArray size of input Object:" + cADbject.getXmlContent().size());
     MessageElement[] messageElementArray = null;
 
     /* Start the index from 0 */
@@ -61,12 +61,12 @@ public final class SalesForceMessageFormatUtils extends CRMMessageFormatUtils {
       messageElementArray[index] = createMessageElement(element.getNodeName(), element.getTextContent());
       index++;
     }
-    logger.debug("---Inside createMessageElementArray size of Sales Force Object:" + messageElementArray.length);
+    logger.debug("----Inside createMessageElementArray size of Sales Force Object:" + messageElementArray.length);
     return messageElementArray;
   }
 
   public final static Element[] createElementArray(final MessageElement[] messageElementArray) throws Exception {
-    logger.debug("---Inside createElementArray");
+    logger.debug("----Inside createElementArray");
     final Element[] elementArray = new Element[messageElementArray.length];
     final DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
     docFactory.setNamespaceAware(true);

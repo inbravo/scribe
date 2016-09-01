@@ -147,7 +147,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final String password, final String orgName, final String[] crmSecurityToken, final ScribeObject scribeObject) throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside createObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId + "& password: "
+      logger.debug("----Inside createObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId + "& password: "
           + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken + " & scribeObject: "
           + scribeObject);
     }
@@ -172,19 +172,19 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
           this.createOrganizationServiceStub(appProtocolType + "://" + crmHost + crmServiceEndpoint, crmSecurityToken, msCRMCreateCommand);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside createObject request: " + createDocument);
+        logger.debug("----Inside createObject request: " + createDocument);
       }
 
       /* Send SOAP request */
       final CreateResponseDocument responseDocument = stub.create(createDocument);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside createObject response: " + responseDocument);
+        logger.debug("----Inside createObject response: " + responseDocument);
       }
       final CreateResponse createResponse = responseDocument.getCreateResponse();
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside createObject result: " + createResponse.getCreateResult());
+        logger.debug("----Inside createObject result: " + createResponse.getCreateResult());
       }
 
       /* Check if object association is desired */
@@ -197,7 +197,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
         this.associateObject(mSCRMObjectType, appProtocolType, crmHost, userId, password, orgName, crmSecurityToken,
             createResponse.getCreateResult(), regardingObjInfo[0], regardingObjInfo[1], regardingObjInfo[2]);
       } else {
-        logger.debug("---Inside createObject no object reference found in request");
+        logger.debug("----Inside createObject no object reference found in request");
       }
 
       /* Call stub cleanup */
@@ -236,7 +236,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final String regardingObjectType, final String regardingObjectSchema) throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside associateObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId
+      logger.debug("----Inside associateObject crmHost: " + crmHost + " & appProtocolType: " + appProtocolType + " & userId: " + userId
           + "& password: " + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket: " + crmSecurityToken
           + " & objectId: " + objectId + " & mSCRMObjectType: " + mSCRMObjectType + " & regardingObjectId: " + regardingObjectId
           + " & regardingObjectType: " + regardingObjectType + " & regardingObjectSchema: " + regardingObjectSchema);
@@ -280,20 +280,20 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
           this.createOrganizationServiceStub(appProtocolType + "://" + crmHost + crmServiceEndpoint, crmSecurityToken, msCRMAssociateCommand);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside associateObject request: " + associateDocument);
+        logger.debug("----Inside associateObject request: " + associateDocument);
       }
 
       /* Send SOAP request */
       final AssociateResponseDocument responseDocument = stub.associate(associateDocument);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside associateObject response: " + responseDocument);
+        logger.debug("----Inside associateObject response: " + responseDocument);
       }
 
       final AssociateResponse associateResponse = responseDocument.getAssociateResponse();
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside associateObject result: " + associateResponse.xmlText());
+        logger.debug("----Inside associateObject result: " + associateResponse.xmlText());
       }
 
       /* Call stub cleanup */
@@ -325,7 +325,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final String password, final String orgName, final String[] crmSecurityToken, final String[] crmFields) throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getObjects crmHost: " + crmHost + " & userId: " + userId + " & appProtocolType: " + appProtocolType + " & password: "
+      logger.debug("----Inside getObjects crmHost: " + crmHost + " & userId: " + userId + " & appProtocolType: " + appProtocolType + " & password: "
           + password + " & orgName: " + orgName + " & crm object type: " + mSCRMObjectType + " & crmTicket length: " + crmSecurityToken.length
           + " & crmFields: " + crmFields);
     }
@@ -374,7 +374,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       retrieveMultiple.setQuery(queryExpression);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects request: " + requestDocument);
+        logger.debug("----Inside getObjects request: " + requestDocument);
       }
 
       /* Create new stub */
@@ -385,7 +385,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final RetrieveMultipleResponseDocument responseDocument = stub.retrieveMultiple(requestDocument);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects response: " + responseDocument);
+        logger.debug("----Inside getObjects response: " + responseDocument);
       }
 
       /* Parse the response */
@@ -408,12 +408,12 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       }
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects ScribebjectList.size: " + ScribebjectList.size());
+        logger.debug("----Inside getObjects ScribebjectList.size: " + ScribebjectList.size());
       }
 
       /* Return error message for no record found */
       if (ScribebjectList.size() == 0) {
-        logger.debug("---Inside getObjects no records in response");
+        logger.debug("----Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
@@ -446,7 +446,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getObjects crmHost: " + crmHost + " & userId: " + userId + " & appProtocolType: " + appProtocolType + " & password: "
+      logger.debug("----Inside getObjects crmHost: " + crmHost + " & userId: " + userId + " & appProtocolType: " + appProtocolType + " & password: "
           + password + " & orgName: " + orgName + " & crm object type: " + mSCRMObjectType + " & crmTicket length: " + crmSecurityToken.length
           + " & crmFieldsToSelect: " + crmFieldsToSelect + " & query: " + query);
     }
@@ -501,7 +501,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       retrieveMultiple.setQuery(queryExpression);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects request: " + requestDocument);
+        logger.debug("----Inside getObjects request: " + requestDocument);
       }
 
       /* Create new stub */
@@ -512,7 +512,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final RetrieveMultipleResponseDocument responseDocument = stub.retrieveMultiple(requestDocument);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects response: " + responseDocument);
+        logger.debug("----Inside getObjects response: " + responseDocument);
       }
 
       final RetrieveMultipleResponse multipleResponse = responseDocument.getRetrieveMultipleResponse();
@@ -536,12 +536,12 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       }
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects ScribebjectList.size: " + ScribebjectList.size());
+        logger.debug("----Inside getObjects ScribebjectList.size: " + ScribebjectList.size());
       }
 
       /* Return error message for no record found */
       if (ScribebjectList.size() == 0) {
-        logger.debug("---Inside getObjects no records in response");
+        logger.debug("----Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
@@ -564,7 +564,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final String order) throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getObjects crmHost: " + crmHost + " & userId: " + userId + " & appProtocolType: " + appProtocolType + " & password: "
+      logger.debug("----Inside getObjects crmHost: " + crmHost + " & userId: " + userId + " & appProtocolType: " + appProtocolType + " & password: "
           + password + " & orgName: " + orgName + " crm object type: " + mSCRMObjectType + " & crmTicket length: " + crmSecurityToken.length
           + " & crmFieldsToSelect: " + crmFieldsToSelect + " & query: " + query + " & order: " + order);
     }
@@ -618,7 +618,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       retrieveMultiple.setQuery(queryExpression);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects request: " + requestDocument);
+        logger.debug("----Inside getObjects request: " + requestDocument);
       }
 
       /* Create new stub */
@@ -629,7 +629,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final RetrieveMultipleResponseDocument responseDocument = stub.retrieveMultiple(requestDocument);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects response: " + responseDocument);
+        logger.debug("----Inside getObjects response: " + responseDocument);
       }
 
       final RetrieveMultipleResponse multipleResponse = responseDocument.getRetrieveMultipleResponse();
@@ -651,12 +651,12 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       }
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getObjects ScribebjectList.size: " + ScribebjectList.size());
+        logger.debug("----Inside getObjects ScribebjectList.size: " + ScribebjectList.size());
       }
 
       /* Return error message for no record found */
       if (ScribebjectList.size() == 0) {
-        logger.debug("---Inside getObjects no records in response");
+        logger.debug("----Inside getObjects no records in response");
         throw new ScribeException(ScribeResponseCodes._1004 + mSCRMObjectType);
       }
 
@@ -686,7 +686,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
       final URL fileURL = CRMMessageFormatUtils.getFileURL(axisConfigFile);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside createOrganizationServiceStub, organizationServiceURL: " + organizationServiceURL + " & axis config file path "
+        logger.debug("----Inside createOrganizationServiceStub, organizationServiceURL: " + organizationServiceURL + " & axis config file path "
             + fileURL.getPath());
       }
 
@@ -732,7 +732,7 @@ public final class MSCRMOffice365basedServiceManager implements MSCRMServiceMana
 
       return stub;
     } catch (final AxisFault e) {
-      logger.debug("---Inside createOrganizationServiceStub, AxisFault: " + e, e);
+      logger.debug("----Inside createOrganizationServiceStub, AxisFault: " + e, e);
       throw new ScribeException(ScribeResponseCodes._1015 + "Problem in creating SOAP request for MS office 365 login server", e);
     }
   }

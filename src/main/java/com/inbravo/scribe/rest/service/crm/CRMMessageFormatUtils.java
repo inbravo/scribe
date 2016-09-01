@@ -231,30 +231,30 @@ public abstract class CRMMessageFormatUtils {
    * @return
    */
   public static final String parseAndValidateOrderClause(final String orderClause, final String orderFieldsSeparator) throws Exception {
-    logger.debug("---Inside parseAndValidateOrderClause orderClause: " + orderClause + " & orderFieldsSeparator: " + orderFieldsSeparator);
+    logger.debug("----Inside parseAndValidateOrderClause orderClause: " + orderClause + " & orderFieldsSeparator: " + orderFieldsSeparator);
 
     final String[] orderByClauseArray = orderClause.trim().split(orderFieldsSeparator.trim());
 
     if (orderByClauseArray == null) {
-      logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid");
+      logger.debug("----Inside parseAndValidateOrderClause Order by criteria is invalid");
       throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else if (orderByClauseArray.length == 0 && orderByClauseArray.length == 1) {
-      logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid");
+      logger.debug("----Inside parseAndValidateOrderClause Order by criteria is invalid");
       throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else if (orderByClauseArray.length != 2) {
-      logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid");
+      logger.debug("----Inside parseAndValidateOrderClause Order by criteria is invalid");
       throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
     } else {
       if (orderByClauseArray[0] == null) {
-        logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid");
+        logger.debug("----Inside parseAndValidateOrderClause Order by criteria is invalid");
         throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
       }
       if (orderByClauseArray[1] == null) {
-        logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid");
+        logger.debug("----Inside parseAndValidateOrderClause Order by criteria is invalid");
         throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid");
       } else {
         if (!("ASC".equalsIgnoreCase(orderByClauseArray[1].trim()) || "DESC".equalsIgnoreCase(orderByClauseArray[1].trim()))) {
-          logger.debug("---Inside parseAndValidateOrderClause Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
+          logger.debug("----Inside parseAndValidateOrderClause Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
           throw new ScribeException(ScribeResponseCodes._1008 + "Order by criteria is invalid. Please provide ASC/DESC clause with the fields");
         }
       }
@@ -262,7 +262,7 @@ public abstract class CRMMessageFormatUtils {
 
     /* Create order clause */
     final String returnOrderClause = orderByClauseArray[0].trim() + " " + orderByClauseArray[1].trim();
-    logger.debug("---Inside parseAndValidateOrderClause orderClause: " + returnOrderClause);
+    logger.debug("----Inside parseAndValidateOrderClause orderClause: " + returnOrderClause);
     return returnOrderClause;
   }
 
@@ -411,7 +411,7 @@ public abstract class CRMMessageFormatUtils {
    */
   public static final DateTime validateInputDate(final String date, final String permittedDateFormats) throws Exception {
 
-    logger.debug("---Inside validateInputDate, date: " + date + " & permittedDateFormats: " + permittedDateFormats);
+    logger.debug("----Inside validateInputDate, date: " + date + " & permittedDateFormats: " + permittedDateFormats);
 
     /* Seperate all the formats */
     final String[] defaultDateFormats = permittedDateFormats.split(",");
@@ -436,7 +436,7 @@ public abstract class CRMMessageFormatUtils {
     /* Parse user supplied date */
     final DateTime updatedDate = dateTimeFormatter.parseDateTime(date);
 
-    logger.debug("---Inside validateInputDate, updated date: " + updatedDate);
+    logger.debug("----Inside validateInputDate, updated date: " + updatedDate);
 
     /* Return updated date */
     return updatedDate;

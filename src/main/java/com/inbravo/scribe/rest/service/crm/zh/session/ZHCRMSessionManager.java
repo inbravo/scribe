@@ -52,12 +52,12 @@ public final class ZHCRMSessionManager implements CRMSessionManager {
   @Override
   public final BasicObject getSessionInfo(final String id) throws Exception {
 
-    logger.debug("---Inside getSessionInfo, id: " + id);
+    logger.debug("----Inside getSessionInfo, id: " + id);
 
     /* Check if session is already available at cache */
     final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(id);
 
-    logger.debug("---Inside getSessionInfo, agent: " + id);
+    logger.debug("----Inside getSessionInfo, agent: " + id);
 
     /* Validate crm service params */
     this.validateCacheObject(cacheObject);

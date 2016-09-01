@@ -53,7 +53,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
 
   public final synchronized SoapBindingStub getSoapBindingStub(final String crmUserId, final String crmPassword) throws Exception {
 
-    logger.debug("---Inside getSoapBindingStub: " + crmUserId);
+    logger.debug("----Inside getSoapBindingStub: " + crmUserId);
 
     /* Recover agent from cache */
     final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
@@ -63,7 +63,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
     /* This code block will be usefull if cache size limit is reached */
     if (cacheObject != null) {
 
-      logger.debug("---Inside tenant not found in cache hence going for fresh fetch. Seems like cache limit is reached");
+      logger.debug("----Inside tenant not found in cache hence going for fresh fetch. Seems like cache limit is reached");
 
       /* Login at Sales Force */
       soapBindingStub = salesForceSOAPClient.login(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword());
@@ -79,7 +79,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
 
     if (sOAPHeaderElement != null) {
 
-      logger.debug("---Inside getSoapBindingStub user's sessionId : " + sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
+      logger.debug("----Inside getSoapBindingStub user's sessionId : " + sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
 
       /* Set session information at agent */
       /* Following session will be used for pagination */
@@ -130,7 +130,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
     /* This code block will be usefull if cache size limit is reached */
     if (cacheObject != null) {
 
-      logger.debug("---Inside login user not found in cache hence going for fresh fetch. Seems like cache limit is reached");
+      logger.debug("----Inside login user not found in cache hence going for fresh fetch. Seems like cache limit is reached");
 
       /* Login at Sales Force */
       soapBindingStub = salesForceSOAPClient.login(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword());
@@ -146,7 +146,7 @@ public class SalesForceCRMSessionManager implements CRMSessionManager {
 
     if (sOAPHeaderElement != null) {
 
-      logger.debug("---Inside reset user's sessionId : " + sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
+      logger.debug("----Inside reset user's sessionId : " + sOAPHeaderElement.getAsDOM().getFirstChild().getTextContent());
 
       /* Set session information at agent */
       /* Following session will be used for pagination */

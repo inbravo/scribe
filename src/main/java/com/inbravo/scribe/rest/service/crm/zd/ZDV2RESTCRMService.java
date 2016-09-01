@@ -73,7 +73,7 @@ public final class ZDV2RESTCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside getObjects");
+    logger.debug("----Inside getObjects");
 
     /* Check if all record types are to be searched */
     if (cADCommandObject.getObjectType().trim().equalsIgnoreCase(HTTPConstants.anyObject)) {
@@ -103,7 +103,7 @@ public final class ZDV2RESTCRMService extends CRMService {
         final String zenDeskURL = serviceProtocol + "://" + serviceURL + zdAPISubPath + cADCommandObject.getObjectType().toLowerCase() + "s.json";
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside getObjects zenDeskURL: " + zenDeskURL);
+          logger.debug("----Inside getObjects zenDeskURL: " + zenDeskURL);
         }
 
         /* Instantiate get method */
@@ -123,7 +123,7 @@ public final class ZDV2RESTCRMService extends CRMService {
         int result = httpclient.executeMethod(getMethod);
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside getObjects response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
+          logger.debug("----Inside getObjects response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
         }
 
         if (result == HttpStatus.SC_OK) {
@@ -168,7 +168,7 @@ public final class ZDV2RESTCRMService extends CRMService {
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query) throws Exception {
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getObjects query: " + query);
+      logger.debug("----Inside getObjects query: " + query);
     }
 
     /* Check if all record types are to be searched */
@@ -184,7 +184,7 @@ public final class ZDV2RESTCRMService extends CRMService {
   @Override
   public final ScribeCommandObject getObjects(final ScribeCommandObject cADCommandObject, final String query, final String select) throws Exception {
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getObjects query: " + query + " & select: " + select);
+      logger.debug("----Inside getObjects query: " + query + " & select: " + select);
     }
 
     /* Check if all record types are to be searched */
@@ -201,7 +201,7 @@ public final class ZDV2RESTCRMService extends CRMService {
       throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
+      logger.debug("----Inside getObjects query: " + query + " & select: " + select + " & order: " + order);
     }
 
     /* Check if all record types are to be searched */
@@ -233,7 +233,7 @@ public final class ZDV2RESTCRMService extends CRMService {
   @Override
   public final ScribeCommandObject updateObject(final ScribeCommandObject cADCommandObject) throws Exception {
 
-    logger.debug("---Inside updateObject");
+    logger.debug("----Inside updateObject");
     PutMethod putMethod = null;
     try {
       String serviceURL = null;
@@ -276,7 +276,7 @@ public final class ZDV2RESTCRMService extends CRMService {
           serviceProtocol + "://" + serviceURL + zdAPISubPath + cADCommandObject.getObjectType().toLowerCase() + "s/" + crmObjectId + ".json";
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside updateObject zenDeskURL: " + zenDeskURL);
+        logger.debug("----Inside updateObject zenDeskURL: " + zenDeskURL);
       }
 
       /* Instantiate put method */
@@ -303,7 +303,7 @@ public final class ZDV2RESTCRMService extends CRMService {
       int result = httpclient.executeMethod(putMethod);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside updateObject response code: " + result + " & body: " + putMethod.getResponseBodyAsString());
+        logger.debug("----Inside updateObject response code: " + result + " & body: " + putMethod.getResponseBodyAsString());
       }
 
       /* Check if object is updated */
@@ -361,7 +361,7 @@ public final class ZDV2RESTCRMService extends CRMService {
 
   @Override
   public final ScribeCommandObject createObject(final ScribeCommandObject cADCommandObject) throws Exception {
-    logger.debug("---Inside createObject");
+    logger.debug("----Inside createObject");
     PostMethod postMethod = null;
     try {
 
@@ -386,7 +386,7 @@ public final class ZDV2RESTCRMService extends CRMService {
       final String zenDeskURL = serviceProtocol + "://" + serviceURL + zdAPISubPath + cADCommandObject.getObjectType().toLowerCase() + "s.json";
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside createObject zenDeskURL: " + zenDeskURL);
+        logger.debug("----Inside createObject zenDeskURL: " + zenDeskURL);
       }
 
       /* Instantiate get method */
@@ -413,7 +413,7 @@ public final class ZDV2RESTCRMService extends CRMService {
       int result = httpclient.executeMethod(postMethod);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside createObject response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
+        logger.debug("----Inside createObject response code: " + result + " & body: " + postMethod.getResponseBodyAsString());
       }
 
       /* Check if object is created */
@@ -472,7 +472,7 @@ public final class ZDV2RESTCRMService extends CRMService {
   @Override
   public final boolean deleteObject(final ScribeCommandObject cADCommandObject, final String idToBeDeleted) throws Exception {
 
-    logger.debug("---Inside deleteObject");
+    logger.debug("----Inside deleteObject");
     throw new ScribeException(ScribeResponseCodes._1003 + " Following operation is not supported by the Scribe");
   }
 
@@ -489,7 +489,7 @@ public final class ZDV2RESTCRMService extends CRMService {
       final String order) throws Exception {
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside searchAllTypeOfObjects query: " + query + " & select: " + select + " & order: " + order);
+      logger.debug("----Inside searchAllTypeOfObjects query: " + query + " & select: " + select + " & order: " + order);
     }
     GetMethod getMethod = null;
     try {
@@ -515,7 +515,7 @@ public final class ZDV2RESTCRMService extends CRMService {
       final String zenDeskURL = serviceProtocol + "://" + serviceURL + zdAPISubPath + "search.json";
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside searchAllTypeOfObjects zenDeskURL: " + zenDeskURL + " & sessionId: " + sessionId);
+        logger.debug("----Inside searchAllTypeOfObjects zenDeskURL: " + zenDeskURL + " & sessionId: " + sessionId);
       }
 
       /* Instantiate get method */
@@ -542,7 +542,7 @@ public final class ZDV2RESTCRMService extends CRMService {
       int result = httpclient.executeMethod(getMethod);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside searchAllTypeOfObjects response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
+        logger.debug("----Inside searchAllTypeOfObjects response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
       }
 
       if (result == HttpStatus.SC_OK) {
@@ -625,7 +625,7 @@ public final class ZDV2RESTCRMService extends CRMService {
                 }
 
                 if (logger.isDebugEnabled()) {
-                  logger.debug("---Inside searchAllTypeOfObjects key : " + subKey + " & value: " + value);
+                  logger.debug("----Inside searchAllTypeOfObjects key : " + subKey + " & value: " + value);
                 }
               }
 
@@ -637,7 +637,7 @@ public final class ZDV2RESTCRMService extends CRMService {
             }
           } else {
             if (logger.isDebugEnabled()) {
-              logger.debug("---Inside searchAllTypeOfObjects unexpected JSON object type in response : " + jObj);
+              logger.debug("----Inside searchAllTypeOfObjects unexpected JSON object type in response : " + jObj);
             }
           }
         }
@@ -764,7 +764,7 @@ public final class ZDV2RESTCRMService extends CRMService {
             elementList.add(ZDCRMMessageFormatUtils.createMessageElement(subKey, value));
 
             if (logger.isDebugEnabled()) {
-              logger.debug("---Inside createSearchResponse key : " + subKey + " & value: " + value);
+              logger.debug("----Inside createSearchResponse key : " + subKey + " & value: " + value);
 
             }
 
@@ -780,7 +780,7 @@ public final class ZDV2RESTCRMService extends CRMService {
         }
       } else {
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside createSearchResponse unexpected JSON object type in response : " + jObj.get(key));
+          logger.debug("----Inside createSearchResponse unexpected JSON object type in response : " + jObj.get(key));
         }
       }
     }
@@ -832,7 +832,7 @@ public final class ZDV2RESTCRMService extends CRMService {
       final String key = (String) itr.next();
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside createCreateResponse key : " + key + " & value: " + jObj.get(key));
+        logger.debug("----Inside createCreateResponse key : " + key + " & value: " + jObj.get(key));
       }
 
       /* If single JSON object */
@@ -842,7 +842,7 @@ public final class ZDV2RESTCRMService extends CRMService {
         final JSONObject firstJsonObj = (JSONObject) jObj.get(key);
 
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside createCreateResponse firstJsonObj : " + firstJsonObj);
+          logger.debug("----Inside createCreateResponse firstJsonObj : " + firstJsonObj);
         }
 
         /* Get all keys */
@@ -862,13 +862,13 @@ public final class ZDV2RESTCRMService extends CRMService {
           elementList.add(ZDCRMMessageFormatUtils.createMessageElement(subKey, value));
 
           if (logger.isDebugEnabled()) {
-            logger.debug("---Inside createCreateResponse key : " + subKey + " & value: " + value);
+            logger.debug("----Inside createCreateResponse key : " + subKey + " & value: " + value);
           }
         }
 
       } else {
         if (logger.isDebugEnabled()) {
-          logger.debug("---Inside createCreateResponse unexpected JSON object type in response : " + jObj.get(key));
+          logger.debug("----Inside createCreateResponse unexpected JSON object type in response : " + jObj.get(key));
         }
       }
     }

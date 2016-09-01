@@ -62,7 +62,7 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
    */
   public final synchronized NetSuiteBindingStub getSoapBindingStub(final String crmUserId, final String crmPassword) throws Exception {
 
-    logger.debug("---Inside getSoapBindingStub: " + crmUserId);
+    logger.debug("----Inside getSoapBindingStub: " + crmUserId);
 
     /* Recover user from cache */
     final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
@@ -70,10 +70,10 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
     /* This code block will be usefull if cache size limit is reached */
     if (cacheObject == null) {
 
-      logger.debug("---Inside getSoapBindingStub, user not found in cache hence going for fresh fetch. Seems like cache limit is reached");
+      logger.debug("----Inside getSoapBindingStub, user not found in cache hence going for fresh fetch. Seems like cache limit is reached");
 
     } else {
-      logger.debug("---Inside getSoapBindingStub, user is found in cache");
+      logger.debug("----Inside getSoapBindingStub, user is found in cache");
     }
 
     NetSuiteBindingStub soapBindingStub = null;
@@ -81,7 +81,7 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
     /* Get SOAP stub */
     if (cacheObject.getSoapStub() != null) {
 
-      logger.debug("---Inside getSoapBindingStub, using stub from cache");
+      logger.debug("----Inside getSoapBindingStub, using stub from cache");
 
       /* Get stub from cache */
       soapBindingStub = (NetSuiteBindingStub) cacheObject.getSoapStub();
@@ -91,7 +91,7 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
       final NSCRMV2k9ClientInfo clientInfo =
           clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword());
 
-      logger.debug("---Inside getSoapBindingStub, creating fresh stub, client info: " + clientInfo);
+      logger.debug("----Inside getSoapBindingStub, creating fresh stub, client info: " + clientInfo);
 
       /* TODO : Login at NetSuite : pass role id as 3 for admin role */
       soapBindingStub =
@@ -111,7 +111,7 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
   @Override
   public final BasicObject getSessionInfo(final String crmUserId) throws Exception {
 
-    logger.debug("---Inside getSessionInfo id: " + crmUserId);
+    logger.debug("----Inside getSessionInfo id: " + crmUserId);
 
     /* Check if session is already available at cache */
     final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
@@ -120,7 +120,7 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
     final NSCRMV2k9ClientInfo clientInfo =
         clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword());
 
-    logger.debug("---Inside getSessionInfo, clientInfo: " + clientInfo);
+    logger.debug("----Inside getSessionInfo, clientInfo: " + clientInfo);
 
     /* Login at NetSuite : pass role id as 3 for admin role */
     final NetSuiteBindingStub soapBindingStub =
@@ -148,7 +148,7 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
   @Override
   public final boolean login(final String crmUserId, final String crmPassword) throws Exception {
 
-    logger.debug("---Inside login crmUserId: " + crmUserId);
+    logger.debug("----Inside login crmUserId: " + crmUserId);
 
     /* Check if session is already available at cache */
     final ScribeCacheObject cacheObject = (ScribeCacheObject) cRMSessionCache.recover(crmUserId);
@@ -157,7 +157,7 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
     final NSCRMV2k9ClientInfo clientInfo =
         clientInfoProvidor.getNSCRMV2k9ClientInfo(cacheObject.getScribeMetaObject().getCrmUserId(), cacheObject.getScribeMetaObject().getCrmPassword());
 
-    logger.debug("---Inside login clientInfo: " + clientInfo);
+    logger.debug("----Inside login clientInfo: " + clientInfo);
 
     /* Login at NetSuite : pass role id as 3 for admin role */
     final NetSuiteBindingStub soapBindingStub =
@@ -184,7 +184,7 @@ public final class NetSuiteCRMSessionManager implements CRMSessionManager {
   @Override
   public final boolean reset(final String crmUserId, final String crmPassword) throws Exception {
 
-    logger.debug("---Inside reset crmUserId: " + crmUserId);
+    logger.debug("----Inside reset crmUserId: " + crmUserId);
 
     /* Check if session is already available at cache */
     return this.login(crmUserId, crmPassword);

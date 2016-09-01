@@ -59,7 +59,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
   @Override
   public final String getSessionId(final String userId, final String password, final String crmURL, final String crmProtocol, final String port)
       throws Exception {
-    logger.debug("---Inside login userId: " + userId + " & password: " + password + " & crmURL: " + crmURL + " & crmProtocol: " + crmProtocol
+    logger.debug("----Inside login userId: " + userId + " & password: " + password + " & crmURL: " + crmURL + " & crmProtocol: " + crmProtocol
         + " & crmPort: " + port);
 
     /* Validate protocol */
@@ -80,15 +80,15 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
 
     try {
       int result = httpclient.executeMethod(getMethod);
-      logger.debug("---Inside getSessionId response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
+      logger.debug("----Inside getSessionId response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
 
       /* Check for authentication */
       if (result == HttpStatus.SC_UNAUTHORIZED) {
-        logger.debug("---Inside getSessionId found unauthorized user");
+        logger.debug("----Inside getSessionId found unauthorized user");
         throw new ScribeException(ScribeResponseCodes._1012 + "Anauthorized by Zendesk CRM");
       } else {
         final String sessionId = getMethod.getResponseHeader("Set-Cookie").getValue();
-        logger.debug("---Inside getSessionId sessionId: " + sessionId);
+        logger.debug("----Inside getSessionId sessionId: " + sessionId);
         return sessionId;
       }
     } catch (final IOException exception) {
@@ -104,7 +104,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
   @Override
   public final boolean login(final String userId, final String password, final String crmURL, final String crmProtocol, final String port)
       throws Exception {
-    logger.debug("---Inside login userId: " + userId + " & password: " + password + " & crmURL: " + crmURL + " & crmProtocol: " + crmProtocol);
+    logger.debug("----Inside login userId: " + userId + " & password: " + password + " & crmURL: " + crmURL + " & crmProtocol: " + crmProtocol);
 
     /* Validate protocol */
     if (crmProtocol == null || "".equalsIgnoreCase(crmProtocol)) {
@@ -124,7 +124,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
 
     try {
       int result = httpclient.executeMethod(getMethod);
-      logger.debug("---Inside login response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
+      logger.debug("----Inside login response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
 
       /* Check for authentication */
       if (result == HttpStatus.SC_UNAUTHORIZED) {
@@ -145,7 +145,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
   @Override
   public final Map<String, String> getSessionInfoAfterValidLogin(final String userId, final String password, final String crmURL,
       final String crmProtocol, final String port) throws Exception {
-    logger.debug("---Inside getSessionInfoAfterValidLogin userId: " + userId + " & password: " + password + " & crmURL: " + crmURL
+    logger.debug("----Inside getSessionInfoAfterValidLogin userId: " + userId + " & password: " + password + " & crmURL: " + crmURL
         + " & crmProtocol: " + crmProtocol);
 
     /* Validate protocol */
@@ -166,7 +166,7 @@ public final class ZDBasicAuthManager implements ZDAuthManager {
 
     try {
       int result = httpclient.executeMethod(getMethod);
-      logger.debug("---Inside getSessionInfoAfterValidLogin response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
+      logger.debug("----Inside getSessionInfoAfterValidLogin response code: " + result + " & body: " + getMethod.getResponseBodyAsString());
 
       /* Check for authentication */
       if (result == HttpStatus.SC_UNAUTHORIZED) {

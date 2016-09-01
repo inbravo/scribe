@@ -136,7 +136,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
         /* Get next token */
         final String tempElement = stringTokenizer.nextToken();
-        logger.debug("---Inside createCustomerSearch: tempElement: " + tempElement);
+        logger.debug("----Inside createCustomerSearch: tempElement: " + tempElement);
 
         /* Split the search string into key operator value */
         final String[] splitSearchStringResult = this.splitSearchString(tempElement);
@@ -189,7 +189,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
         /* Get next token */
         final String tempElement = stringTokenizer.nextToken();
-        logger.debug("---Inside createContactSearch: tempElement: " + tempElement);
+        logger.debug("----Inside createContactSearch: tempElement: " + tempElement);
 
         /* Split the search string into key operator value */
         final String[] splitSearchStringResult = this.splitSearchString(tempElement);
@@ -239,7 +239,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
         /* Get next token */
         final String tempElement = stringTokenizer.nextToken();
-        logger.debug("---Inside createSupportCaseSearch: tempElement: " + tempElement);
+        logger.debug("----Inside createSupportCaseSearch: tempElement: " + tempElement);
 
         /* Split the search string into key operator value */
         final String[] splitSearchStringResult = this.splitSearchString(tempElement);
@@ -288,7 +288,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
         /* Get next token */
         final String tempElement = stringTokenizer.nextToken();
-        logger.debug("---Inside createTaskSearch: tempElement: " + tempElement);
+        logger.debug("----Inside createTaskSearch: tempElement: " + tempElement);
 
         /* Split the search string into key operator value */
         final String[] splitSearchStringResult = this.splitSearchString(tempElement);
@@ -338,7 +338,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
         /* Get next token */
         final String tempElement = stringTokenizer.nextToken();
-        logger.debug("---Inside createOpportunitySearch: tempElement: " + tempElement);
+        logger.debug("----Inside createOpportunitySearch: tempElement: " + tempElement);
 
         /* Split the search string into key operator value */
         final String[] splitSearchStringResult = this.splitSearchString(tempElement);
@@ -373,7 +373,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
   private final SupportCaseSearchBasic updateSupportCaseSearchBasic(final SupportCaseSearchBasic supportCaseSearchBasic, final String cRMFieldName,
       final String cRMFieldValue, final String cRMFieldOperator, final String crmFieldIntraSeparator, final String inputDateFormat) throws Exception {
 
-    logger.debug("---Inside updateSupportCaseSearch cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldOperator: "
+    logger.debug("----Inside updateSupportCaseSearch cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldOperator: "
         + cRMFieldOperator);
 
     if (cRMFieldName != null) {
@@ -477,7 +477,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
   private final OpportunitySearchBasic updateOpportunitySearchBasic(final OpportunitySearchBasic opportunitySearchBasic, final String cRMFieldName,
       final String cRMFieldValue, final String cRMFieldOperator, final String crmFieldIntraSeparator, final String inputDateFormat) throws Exception {
 
-    logger.debug("---Inside updateOpportunitySearchBasic cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue
+    logger.debug("----Inside updateOpportunitySearchBasic cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue
         + " & cRMFieldOperator: " + cRMFieldOperator);
 
     if (cRMFieldName != null) {
@@ -582,7 +582,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
   private final TaskSearchBasic updateTaskSearchBasic(final TaskSearchBasic taskSearchBasic, final String cRMFieldName, final String cRMFieldValue,
       final String cRMFieldOperator, final String crmFieldIntraSeparator, final String inputDateFormat) throws Exception {
 
-    logger.debug("---Inside updateTaskSearchBasic cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldOperator: "
+    logger.debug("----Inside updateTaskSearchBasic cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldOperator: "
         + cRMFieldOperator);
 
     if (cRMFieldName != null) {
@@ -697,7 +697,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
         /* Get next token */
         final String tempElement = stringTokenizer.nextToken();
-        logger.debug("---Inside createEmployeeSearch: tempElement: " + tempElement);
+        logger.debug("----Inside createEmployeeSearch: tempElement: " + tempElement);
 
         /* Split the search string into key operator value */
         final String[] splitSearchStringResult = this.splitSearchString(tempElement);
@@ -731,7 +731,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
   private final CustomerSearchBasic updateCustomerSearchBasic(final CustomerSearchBasic customerSearchBasic, final String cRMFieldName,
       final String cRMFieldValue, final String cRMFieldOperator, final String crmFieldIntraSeparator, final String inputDateFormat) throws Exception {
 
-    logger.debug("---Inside updateCustomerSearchBasic cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldOperator: "
+    logger.debug("----Inside updateCustomerSearchBasic cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldOperator: "
         + cRMFieldOperator);
 
     if (cRMFieldName != null) {
@@ -842,7 +842,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
   private final EmployeeSearchBasic updateEmployeeSearchBasic(final EmployeeSearchBasic employeeSearchBasic, final String cRMFieldName,
       final String cRMFieldValue, final String cRMFieldOperator, final String crmFieldIntraSeparator, final String inputDateFormat) throws Exception {
 
-    logger.debug("---Inside updateEmployeeSearchBasic cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldOperator: "
+    logger.debug("----Inside updateEmployeeSearchBasic cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldOperator: "
         + cRMFieldOperator);
 
     if (cRMFieldName != null) {
@@ -934,7 +934,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
   private final Object getNormalFieldForSearchOperation(final String cRMFieldName, final String cRMFieldType, final String cRMFieldValue,
       final String cRMFieldOperator, final String inputDateFormat) {
 
-    logger.debug("---Inside getNormalFieldForSearchOperation cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue
+    logger.debug("----Inside getNormalFieldForSearchOperation cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue
         + " & cRMFieldType: " + cRMFieldType);
 
     /* Create date formatter */
@@ -967,7 +967,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
     } else if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.SEARCH_STRING_FIELD)) {
 
-      logger.info("---Inside getNormalFieldForSearchOperation SearchStringField, with operator: " + cRMFieldOperator);
+      logger.info("----Inside getNormalFieldForSearchOperation SearchStringField, with operator: " + cRMFieldOperator);
 
       /* Create new search string field */
       final SearchStringField searchStringField = new SearchStringField();
@@ -1131,7 +1131,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    */
   public final Customer createCustomer(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
-    logger.debug("---Inside createCustomer");
+    logger.debug("----Inside createCustomer");
 
     /* Create new Customer */
     final Customer customer = new Customer();
@@ -1143,7 +1143,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();
 
     if (elementList != null) {
-      logger.debug("---Inside createCustomer, processing elementList with size " + elementList.size());
+      logger.debug("----Inside createCustomer, processing elementList with size " + elementList.size());
 
       for (final Element element : elementList) {
 
@@ -1191,7 +1191,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
           }
 
-          logger.debug("---Inside createCustomer, processing node " + nodeName + " of type: " + nodeType);
+          logger.debug("----Inside createCustomer, processing node " + nodeName + " of type: " + nodeType);
 
           try {
 
@@ -1204,7 +1204,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
               /* Add reference in list */
               customFieldRefArrayList.add(customFieldRef);
 
-              logger.debug("---Inside createCustomer, added custom field " + nodeName);
+              logger.debug("----Inside createCustomer, added custom field " + nodeName);
             } else {
 
               /* Invoke the normal field setter method */
@@ -1227,7 +1227,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } else {
-          logger.debug("---Inside createCustomer, no node name, skipped");
+          logger.debug("----Inside createCustomer, no node name, skipped");
         }
       }
 
@@ -1245,7 +1245,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         customer.setCustomFieldList(newCustomFieldList);
       }
     } else {
-      logger.warn("---Inside createCustomer, empty element list.");
+      logger.warn("----Inside createCustomer, empty element list.");
       throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
@@ -1267,7 +1267,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    */
   public final Contact createContact(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
-    logger.debug("---Inside createContact");
+    logger.debug("----Inside createContact");
 
     /* Create new contact */
     final Contact contact = new Contact();
@@ -1279,7 +1279,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();
 
     if (elementList != null) {
-      logger.debug("---Inside createContact, processing elementList with size " + elementList.size());
+      logger.debug("----Inside createContact, processing elementList with size " + elementList.size());
 
       for (final Element element : elementList) {
 
@@ -1327,7 +1327,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
           }
 
-          logger.debug("---Inside createContact, processing node " + nodeName + " of type: " + nodeType);
+          logger.debug("----Inside createContact, processing node " + nodeName + " of type: " + nodeType);
 
           try {
 
@@ -1340,7 +1340,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
               /* Add reference in list */
               customFieldRefArrayList.add(customFieldRef);
 
-              logger.debug("---Inside createContact, added custom field " + nodeName);
+              logger.debug("----Inside createContact, added custom field " + nodeName);
             } else {
 
               /* Invoke the normal field setter method */
@@ -1359,7 +1359,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } else {
-          logger.debug("---Inside createCustomer, no node name, skipped");
+          logger.debug("----Inside createCustomer, no node name, skipped");
         }
 
         /* check if any custom field and set it to the task record */
@@ -1377,7 +1377,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         }
       }
     } else {
-      logger.warn("---Inside createCustomer, empty element list.");
+      logger.warn("----Inside createCustomer, empty element list.");
       throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
@@ -1399,7 +1399,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    */
   public final Opportunity createOpportunity(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
-    logger.debug("---Inside createOpportunity");
+    logger.debug("----Inside createOpportunity");
 
     /* Create new opportunity */
     final Opportunity opportunity = new Opportunity();
@@ -1411,7 +1411,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();
 
     if (elementList != null) {
-      logger.debug("---Inside createOpportunity, processing elementList with size " + elementList.size());
+      logger.debug("----Inside createOpportunity, processing elementList with size " + elementList.size());
 
       for (final Element element : elementList) {
 
@@ -1459,7 +1459,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             throw new ScribeException(ScribeResponseCodes._1008 + "Field: '" + node + "' is not in correct format");
           }
 
-          logger.debug("---Inside createOpportunity, processing node " + nodeName + " of type: " + nodeType);
+          logger.debug("----Inside createOpportunity, processing node " + nodeName + " of type: " + nodeType);
 
           try {
 
@@ -1472,7 +1472,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
               /* Add reference in list */
               customFieldRefArrayList.add(customFieldRef);
 
-              logger.debug("---Inside createOpportunity, added custom field " + nodeName);
+              logger.debug("----Inside createOpportunity, added custom field " + nodeName);
 
             } else {
 
@@ -1496,7 +1496,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } else {
-          logger.debug("---Inside createCustomer, no node name, skipped");
+          logger.debug("----Inside createCustomer, no node name, skipped");
         }
       }
 
@@ -1514,7 +1514,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         opportunity.setCustomFieldList(newCustomFieldList);
       }
     } else {
-      logger.warn("---Inside createCustomer, empty element list.");
+      logger.warn("----Inside createCustomer, empty element list.");
       throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
@@ -1532,7 +1532,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    */
   public final Task createTask(final ScribeObject cADbject, final String crmFieldIntraSeparator) throws Exception {
 
-    logger.debug("---Inside createTask");
+    logger.debug("----Inside createTask");
 
     /* Create new Task */
     final Task task = new Task();
@@ -1544,7 +1544,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();
 
     if (elementList != null) {
-      logger.debug("---Inside createTask, processing elementList with size " + elementList.size());
+      logger.debug("----Inside createTask, processing elementList with size " + elementList.size());
 
       for (final Element element : elementList) {
 
@@ -1592,16 +1592,16 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             throw new ScribeException(ScribeResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
           }
 
-          logger.debug("---Inside createTask, processing node " + nodeName + " of type: " + nodeType);
+          logger.debug("----Inside createTask, processing node " + nodeName + " of type: " + nodeType);
 
           /* Check if regarding object id tag is found */
           if (nodeName.trim().equalsIgnoreCase(NSCRMFieldTypes.CRM_FIELD_REGARDINGOBJECTID)) {
 
             if (element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE) != null) {
-              logger.debug("---Inside createTask, node regardingobjectid is found with TYPE: "
+              logger.debug("----Inside createTask, node regardingobjectid is found with TYPE: "
                   + element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE));
             } else {
-              logger.debug("---Inside createTask, regardingobjectid is found but no TYPE");
+              logger.debug("----Inside createTask, regardingobjectid is found but no TYPE");
             }
 
             /* Check if its contact */
@@ -1609,16 +1609,16 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                 && element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE).trim().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
               final RecordRef contactRef = new RecordRef();
-              logger.debug("---Inside createTask, contact is being processed");
+              logger.debug("----Inside createTask, contact is being processed");
 
               /* Check if contact has an internal id */
               if (element.getTextContent() != null) {
-                logger.debug("---Inside createTask, regardingobjectid is " + element.getTextContent().trim());
+                logger.debug("----Inside createTask, regardingobjectid is " + element.getTextContent().trim());
 
                 /* Set internal id of referenced contact */
                 contactRef.setInternalId(element.getTextContent().trim());
               } else {
-                logger.debug("---Inside createTask, regardingobjectid doesn't carry id");
+                logger.debug("----Inside createTask, regardingobjectid doesn't carry id");
               }
 
               /* Set this contact info in task */
@@ -1628,15 +1628,15 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                 && element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE).trim().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
               final RecordRef companyRef = new RecordRef();
-              logger.debug("---Inside createTask, customer is being processed");
+              logger.debug("----Inside createTask, customer is being processed");
 
               /* Check if contact has an internal id */
               if (element.getTextContent() != null) {
-                logger.debug("---Inside createTask, regardingobjectid is " + element.getTextContent().trim());
+                logger.debug("----Inside createTask, regardingobjectid is " + element.getTextContent().trim());
                 /* Set internal id of referenced contact */
                 companyRef.setInternalId(element.getTextContent().trim());
               } else {
-                logger.debug("---Inside createTask, regardingobjectid doesn't carry id");
+                logger.debug("----Inside createTask, regardingobjectid doesn't carry id");
               }
 
               /* Set company information in task */
@@ -1647,15 +1647,15 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                 && element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE).trim().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
 
               final RecordRef supportRef = new RecordRef();
-              logger.debug("---Inside createTask, support case is being processed");
+              logger.debug("----Inside createTask, support case is being processed");
 
               /* Check if contact has an internal id */
               if (element.getTextContent() != null) {
-                logger.debug("---Inside createTask, regardingobjectid is " + element.getTextContent().trim());
+                logger.debug("----Inside createTask, regardingobjectid is " + element.getTextContent().trim());
                 /* Set internal id of referenced support case */
                 supportRef.setInternalId(element.getTextContent().trim());
               } else {
-                logger.debug("---Inside createTask, regardingobjectid doesn't carry id");
+                logger.debug("----Inside createTask, regardingobjectid doesn't carry id");
               }
 
               /* Set support case information in task */
@@ -1666,16 +1666,16 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                 && element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE).trim().equalsIgnoreCase(NSCRMObjectType.Opportunity.toString())) {
 
               final RecordRef opportunityRef = new RecordRef();
-              logger.debug("---Inside createTask, opportunity is being processed");
+              logger.debug("----Inside createTask, opportunity is being processed");
 
               /* Check if opportunity has an internal id */
               if (element.getTextContent() != null) {
-                logger.debug("---Inside createTask, regardingobjectid is " + element.getTextContent().trim());
+                logger.debug("----Inside createTask, regardingobjectid is " + element.getTextContent().trim());
 
                 /* Set internal id of referenced support case */
                 opportunityRef.setInternalId(element.getTextContent().trim());
               } else {
-                logger.debug("---Inside createTask, regardingobjectid doesn't carry id");
+                logger.debug("----Inside createTask, regardingobjectid doesn't carry id");
               }
 
               /* Set transaction information in task */
@@ -1697,7 +1697,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
                 /* Add reference in list */
                 customFieldRefArrayList.add(customFieldRef);
-                logger.debug("---Inside createTask, added custom field " + nodeName);
+                logger.debug("----Inside createTask, added custom field " + nodeName);
               } else {
 
                 /* Invoke the normal field setter method */
@@ -1717,13 +1717,13 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } else {
-          logger.debug("---Inside createTask, no node name, skipped");
+          logger.debug("----Inside createTask, no node name, skipped");
         }
       }
 
       /* Dont set contact/case if company is not found */
       if (task.getCompany() == null) {
-        logger.debug("---Inside createTask, company is not found, hence removing contact/support case");
+        logger.debug("----Inside createTask, company is not found, hence removing contact/support case");
 
         /* Contact without company dont work at NS */
         task.setContact(null);
@@ -1735,7 +1735,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
         /* Check if internal id is found */
         if (companyRef.getInternalId() != null && companyRef.getInternalId().trim().equalsIgnoreCase("")) {
-          logger.debug("---Inside createTask, internal id of company is not found, hence removing contact/support case");
+          logger.debug("----Inside createTask, internal id of company is not found, hence removing contact/support case");
 
           /* Contact without company dont work at NS */
           task.setContact(null);
@@ -1763,7 +1763,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
       }
 
     } else {
-      logger.warn("---Inside createTask, empty element list.");
+      logger.warn("----Inside createTask, empty element list.");
       throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
@@ -1773,7 +1773,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
   @SuppressWarnings("unused")
   private final Object getNSCRMFieldObject(final String cRMFieldName, final String cRMFieldType, final String cRMFieldValue) {
 
-    logger.debug("---Inside getNSCRMFieldObject cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldType: "
+    logger.debug("----Inside getNSCRMFieldObject cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldType: "
         + cRMFieldType);
 
     /* Trim the value */
@@ -1859,7 +1859,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           /* Set internal id of referenced contact */
           recordRef.setInternalId(cRMFieldValue.trim().trim());
         } else {
-          logger.debug("---Inside createTask, regardingobjectid doesn't carry id");
+          logger.debug("----Inside createTask, regardingobjectid doesn't carry id");
         }
 
         return recordRef;
@@ -1901,7 +1901,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
   private final Class<?> getNSCRMFieldParamType(final String cRMFieldType) {
 
-    logger.debug("---Inside getNSCRMFieldParamType cRMFieldType: " + cRMFieldType);
+    logger.debug("----Inside getNSCRMFieldParamType cRMFieldType: " + cRMFieldType);
 
     if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.CREATE_LONG)) {
 
@@ -1955,7 +1955,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    */
   private final CustomFieldRef getCustomFieldForCreateOperation(final String cRMFieldName, final String cRMFieldType, final String cRMFieldValue) {
 
-    logger.debug("---Inside getCustomFieldForCreateOperation cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue
+    logger.debug("----Inside getCustomFieldForCreateOperation cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue
         + " & cRMFieldType: " + cRMFieldType);
 
     if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.CREATE_STRING_CUSTOM_FIELD_REF)) {
@@ -2084,7 +2084,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
   private final SearchCustomField getCustomCRMSearchObject(final String cRMFieldName, final String cRMFieldType, final String cRMFieldValue,
       final String cRMFieldOperator) {
 
-    logger.debug("---Inside getCustomCRMSearchObject cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldType: "
+    logger.debug("----Inside getCustomCRMSearchObject cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + cRMFieldValue + " & cRMFieldType: "
         + cRMFieldType);
 
     /* If field is string type */
@@ -2208,7 +2208,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
       return searchBooleanCustomField;
     } else if (cRMFieldType.equalsIgnoreCase(NSCRMFieldTypes.SEARCH_MULTI_SELECT_CUSTOM_FIELD)) {
 
-      logger.info("---Inside getCustomCRMSearchObject, found multiselect value: " + cRMFieldValue);
+      logger.info("----Inside getCustomCRMSearchObject, found multiselect value: " + cRMFieldValue);
       /* Create new Search Enum Multi Select Field field */
       final SearchMultiSelectCustomField searchMultiSelectCustomField = new SearchMultiSelectCustomField();
 
@@ -2240,7 +2240,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
       searchMultiSelectCustomField.setInternalId(cRMFieldName);
       searchCustomFieldList.setCustomField(new SearchCustomField[] {searchMultiSelectCustomField});
       searchMultiSelectCustomField.setSearchValue(new ListOrRecordRef[] {listOrRecordRef});
-      logger.info("---Inside getCustomCRMSearchObject, returning multi-select custom field reference. " + cRMFieldName);
+      logger.info("----Inside getCustomCRMSearchObject, returning multi-select custom field reference. " + cRMFieldName);
       return searchMultiSelectCustomField;
 
     } else {
@@ -2264,7 +2264,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    */
   public final SupportCase createSupportCase(final ScribeObject cADbject, final String crmFieldIntraSeparator) {
 
-    logger.debug("---Inside createSupportCase");
+    logger.debug("----Inside createSupportCase");
 
     /* Create new support case */
     final SupportCase supportCase = new SupportCase();
@@ -2276,7 +2276,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();
 
     if (elementList != null) {
-      logger.debug("---Inside createSupportCase, processing elementList with size " + elementList.size());
+      logger.debug("----Inside createSupportCase, processing elementList with size " + elementList.size());
 
       for (final Element element : elementList) {
 
@@ -2324,16 +2324,16 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             throw new ScribeException(ScribeResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
           }
 
-          logger.debug("---Inside createSupportCase, processing node " + nodeName + " of type: " + nodeType);
+          logger.debug("----Inside createSupportCase, processing node " + nodeName + " of type: " + nodeType);
 
           /* Check if regarding object id tag is found */
           if (nodeName.trim().equalsIgnoreCase(NSCRMFieldTypes.CRM_FIELD_REGARDINGOBJECTID)) {
 
             if (element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE) != null) {
-              logger.debug("---Inside createSupportCase, node regardingobjectid is found with TYPE: "
+              logger.debug("----Inside createSupportCase, node regardingobjectid is found with TYPE: "
                   + element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE));
             } else {
-              logger.debug("---Inside createSupportCase, regardingobjectid is found but no TYPE");
+              logger.debug("----Inside createSupportCase, regardingobjectid is found but no TYPE");
             }
 
             /* Check if its contact */
@@ -2341,16 +2341,16 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                 && element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE).trim().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
               final RecordRef contactRef = new RecordRef();
-              logger.debug("---Inside createSupportCase, contact is being processed");
+              logger.debug("----Inside createSupportCase, contact is being processed");
 
               /* Check if contact has an internal id */
               if (element.getTextContent() != null) {
-                logger.debug("---Inside createSupportCase, regardingobjectid is " + element.getTextContent().trim());
+                logger.debug("----Inside createSupportCase, regardingobjectid is " + element.getTextContent().trim());
 
                 /* Set internal id of referenced contact */
                 contactRef.setInternalId(element.getTextContent().trim());
               } else {
-                logger.debug("---Inside createSupportCase, regardingobjectid doesn't carry id");
+                logger.debug("----Inside createSupportCase, regardingobjectid doesn't carry id");
               }
 
               /* Set this contact info in supportCase */
@@ -2360,15 +2360,15 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                 && element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE).trim().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
               final RecordRef companyRef = new RecordRef();
-              logger.debug("---Inside createSupportCase, customer is being processed");
+              logger.debug("----Inside createSupportCase, customer is being processed");
 
               /* Check if contact has an internal id */
               if (element.getTextContent() != null) {
-                logger.debug("---Inside createSupportCase, regardingobjectid is " + element.getTextContent().trim());
+                logger.debug("----Inside createSupportCase, regardingobjectid is " + element.getTextContent().trim());
                 /* Set internal id of referenced contact */
                 companyRef.setInternalId(element.getTextContent().trim());
               } else {
-                logger.debug("---Inside createSupportCase, regardingobjectid doesn't carry id");
+                logger.debug("----Inside createSupportCase, regardingobjectid doesn't carry id");
               }
 
               /* Set company information in supportCase */
@@ -2390,7 +2390,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
                 /* Add reference in list */
                 customFieldRefArrayList.add(customFieldRef);
-                logger.debug("---Inside createSupportCase, added custom field " + nodeName);
+                logger.debug("----Inside createSupportCase, added custom field " + nodeName);
               } else {
 
                 /* Invoke the normal field setter method */
@@ -2414,14 +2414,14 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } else {
-          logger.debug("---Inside createSupportCase, no node name, skipped");
+          logger.debug("----Inside createSupportCase, no node name, skipped");
         }
       }
 
       /* Don't set contact if company is not found */
       if (supportCase.getCompany() == null) {
 
-        logger.debug("---Inside createSupportCase, company is not found, hence removing contact");
+        logger.debug("----Inside createSupportCase, company is not found, hence removing contact");
 
         /* Contact without company dont work at NS */
         supportCase.setContact(null);
@@ -2430,7 +2430,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
         /* Check if internal id is found */
         if (companyRef.getInternalId() != null && companyRef.getInternalId().trim().equalsIgnoreCase("")) {
-          logger.debug("---Inside createSupportCase, internal id of company is not found, hence removing contact");
+          logger.debug("----Inside createSupportCase, internal id of company is not found, hence removing contact");
 
           /* Contact without company dont work at NS */
           supportCase.setContact(null);
@@ -2455,7 +2455,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
       }
 
     } else {
-      logger.warn("---Inside createSupportCase, empty element list.");
+      logger.warn("----Inside createSupportCase, empty element list.");
       throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
@@ -2476,7 +2476,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
    */
   public final PhoneCall createPhoneCall(final ScribeObject cADbject, final String crmFieldIntraSeparator) {
 
-    logger.debug("---Inside createPhoneCall");
+    logger.debug("----Inside createPhoneCall");
 
     /* Create new Phone Call */
     final PhoneCall phoneCall = new PhoneCall();
@@ -2488,7 +2488,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     final List<CustomFieldRef> customFieldRefArrayList = new ArrayList<CustomFieldRef>();
 
     if (elementList != null) {
-      logger.debug("---Inside createPhoneCall, processing elementList with size " + elementList.size());
+      logger.debug("----Inside createPhoneCall, processing elementList with size " + elementList.size());
 
       for (final Element element : elementList) {
 
@@ -2536,16 +2536,16 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
             throw new ScribeException(ScribeResponseCodes._1008 + " Field: '" + node + "' is not in correct format");
           }
 
-          logger.debug("---Inside createPhoneCall, processing node " + nodeName + " of type: " + nodeType);
+          logger.debug("----Inside createPhoneCall, processing node " + nodeName + " of type: " + nodeType);
 
           /* Check if regarding object id tag is found */
           if (nodeName.trim().equalsIgnoreCase(NSCRMFieldTypes.CRM_FIELD_REGARDINGOBJECTID)) {
 
             if (element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE) != null) {
-              logger.debug("---Inside createPhoneCall, node regardingobjectid is found with TYPE: "
+              logger.debug("----Inside createPhoneCall, node regardingobjectid is found with TYPE: "
                   + element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE));
             } else {
-              logger.debug("---Inside createPhoneCall, regardingobjectid is found but no TYPE");
+              logger.debug("----Inside createPhoneCall, regardingobjectid is found but no TYPE");
             }
 
             /* Check if its contact */
@@ -2553,15 +2553,15 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                 && element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE).trim().equalsIgnoreCase(NSCRMObjectType.Contact.toString())) {
 
               final RecordRef contactRef = new RecordRef();
-              logger.debug("---Inside createPhoneCall, contact is being processed");
+              logger.debug("----Inside createPhoneCall, contact is being processed");
 
               /* Check if contact has an internal id */
               if (element.getTextContent() != null) {
-                logger.debug("---Inside createPhoneCall, regardingobjectid is " + element.getTextContent().trim());
+                logger.debug("----Inside createPhoneCall, regardingobjectid is " + element.getTextContent().trim());
                 /* Set internal id of referenced contact */
                 contactRef.setInternalId(element.getTextContent().trim());
               } else {
-                logger.debug("---Inside createPhoneCall, regardingobjectid doesn't carry id");
+                logger.debug("----Inside createPhoneCall, regardingobjectid doesn't carry id");
               }
 
               /* Set this contact info in phoneCall */
@@ -2571,15 +2571,15 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                 && element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE).trim().equalsIgnoreCase(NSCRMObjectType.Customer.toString())) {
 
               final RecordRef companyRef = new RecordRef();
-              logger.debug("---Inside createPhoneCall, customer is being processed");
+              logger.debug("----Inside createPhoneCall, customer is being processed");
 
               /* Check if contact has an internal id */
               if (element.getTextContent() != null) {
-                logger.debug("---Inside createPhoneCall, regardingobjectid is " + element.getTextContent().trim());
+                logger.debug("----Inside createPhoneCall, regardingobjectid is " + element.getTextContent().trim());
                 /* Set internal id of referenced contact */
                 companyRef.setInternalId(element.getTextContent().trim());
               } else {
-                logger.debug("---Inside createPhoneCall, regardingobjectid doesn't carry id");
+                logger.debug("----Inside createPhoneCall, regardingobjectid doesn't carry id");
               }
 
               /* Set company information in task */
@@ -2591,15 +2591,15 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
                 && element.getAttribute(NSCRMFieldTypes.CRM_FIELD_ATTRIBUTE_TYPE).trim().equalsIgnoreCase(NSCRMObjectType.SupportCase.toString())) {
 
               final RecordRef supportRef = new RecordRef();
-              logger.debug("---Inside createPhoneCall, support case is being processed");
+              logger.debug("----Inside createPhoneCall, support case is being processed");
 
               /* Check if contact has an internal id */
               if (element.getTextContent() != null) {
-                logger.debug("---Inside createPhoneCall, regardingobjectid is " + element.getTextContent().trim());
+                logger.debug("----Inside createPhoneCall, regardingobjectid is " + element.getTextContent().trim());
                 /* Set internal id of referenced support case */
                 supportRef.setInternalId(element.getTextContent().trim());
               } else {
-                logger.debug("---Inside createPhoneCall, regardingobjectid doesn't carry id");
+                logger.debug("----Inside createPhoneCall, regardingobjectid doesn't carry id");
               }
 
               /* Set support case information in phoneCall */
@@ -2642,14 +2642,14 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
           }
 
         } else {
-          logger.debug("---Inside createPhoneCall, no node name, skipped");
+          logger.debug("----Inside createPhoneCall, no node name, skipped");
         }
       }
 
       /* Dont set contact/case if company is not found */
       if (phoneCall.getCompany() == null) {
 
-        logger.debug("---Inside createPhoneCall, company is not found, hence removing contact/support case");
+        logger.debug("----Inside createPhoneCall, company is not found, hence removing contact/support case");
 
         /* Contact without company dont work at NS */
         phoneCall.setContact(null);
@@ -2661,7 +2661,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
         /* Check if internal id is found */
         if (companyRef.getInternalId() != null && companyRef.getInternalId().trim().equalsIgnoreCase("")) {
-          logger.debug("---Inside createPhoneCall, internal id of company is not found, hence removing contact");
+          logger.debug("----Inside createPhoneCall, internal id of company is not found, hence removing contact");
 
           /* Contact without company dont work at NS */
           phoneCall.setContact(null);
@@ -2688,7 +2688,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
         phoneCall.setCustomFieldList(newCustomFieldList);
       }
     } else {
-      logger.warn("---Inside createPhoneCall, empty element list.");
+      logger.warn("----Inside createPhoneCall, empty element list.");
       throw new ScribeException(ScribeResponseCodes._1008 + " Request data is not found in request");
     }
 
@@ -2711,7 +2711,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
       final String cRMFieldValue, final String cRMFieldOperator, final String crmFieldIntraSeparator, final String inputDateFormat)
       throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
-    logger.debug("---Inside updateContactSearchBasic cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + contactSearchBasic
+    logger.debug("----Inside updateContactSearchBasic cRMFieldName: " + cRMFieldName + " & cRMFieldValue: " + contactSearchBasic
         + " & cRMFieldOperator: " + cRMFieldOperator);
 
     if (cRMFieldName != null) {
@@ -2891,7 +2891,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
     /* Check if length is less than 1 */
     if (splitResult.length <= 1) {
 
-      logger.error("---Inside splitSearchString: invalid search string: " + searchString);
+      logger.error("----Inside splitSearchString: invalid search string: " + searchString);
       throw new ScribeException(ScribeResponseCodes._1003 + "Invalid search string: '" + searchString
           + "' search string should contain at least 2 words for NS CRM");
     }
@@ -2903,7 +2903,7 @@ public final class NSCRMV2K9Service implements NSCRMGenericService {
 
     /* value, it will never null but can be empty string */
     finalResult[2] = searchString.replaceAll("^[ ]*" + finalResult[0] + "[ ]*" + finalResult[1] + "[ ]*", "").trim();
-    logger.info("---Inside splitSearchString: split the search into [" + finalResult[0] + "],[" + finalResult[1] + "],[" + finalResult[2] + "]");
+    logger.info("----Inside splitSearchString: split the search into [" + finalResult[0] + "],[" + finalResult[1] + "],[" + finalResult[2] + "]");
     return finalResult;
   }
 }

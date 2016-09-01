@@ -69,7 +69,7 @@ public final class MSLiveIdManager extends MSAuthManager {
     String crmServiceURL = null;
 
     if (logger.isDebugEnabled()) {
-      logger.debug("---Inside getCRMAuthToken for user: " + user.getScribeMetaObject().getCrmUserId());
+      logger.debug("----Inside getCRMAuthToken for user: " + user.getScribeMetaObject().getCrmUserId());
     }
 
     /* get CRM credentials */
@@ -79,7 +79,7 @@ public final class MSLiveIdManager extends MSAuthManager {
 
     if (logger.isDebugEnabled()) {
 
-      logger.debug("---Inside getCRMAuthToken loginURL: https://" + liveIdHost + liveIdEndpoint + " & userName: " + userName + " & password: "
+      logger.debug("----Inside getCRMAuthToken loginURL: https://" + liveIdHost + liveIdEndpoint + " & userName: " + userName + " & password: "
           + password + " & crmServiceURL: " + crmServiceURL);
     }
 
@@ -92,7 +92,7 @@ public final class MSLiveIdManager extends MSAuthManager {
       /* Get SAML from login */
       if (samlForMSLogin == null) {
 
-        logger.debug("---Inside getCRMAuthToken reading security template from file");
+        logger.debug("----Inside getCRMAuthToken reading security template from file");
 
         /* This logic is for reading the file once in lifetime only */
         samlForMSLogin = MSCRMMessageFormatUtils.readStringFromFile(fileURL.getPath());
@@ -100,7 +100,7 @@ public final class MSLiveIdManager extends MSAuthManager {
         /* Convert for local usage */
         msg = samlForMSLogin;
       } else {
-        logger.debug("---Inside getCRMAuthToken reading security template from memory");
+        logger.debug("----Inside getCRMAuthToken reading security template from memory");
 
         /* Convert for local usage */
         msg = samlForMSLogin;
@@ -114,7 +114,7 @@ public final class MSLiveIdManager extends MSAuthManager {
       password = Matcher.quoteReplacement(password);
 
       if (logger.isDebugEnabled()) {
-        logger.debug("---Inside getCRMAuthToken userName: " + userName + " & password: " + password);
+        logger.debug("----Inside getCRMAuthToken userName: " + userName + " & password: " + password);
       }
 
       msg = msg.replaceAll(SOAPExecutor.LIVE_ID_USERNAME_PLACEHOLDER, userName);
