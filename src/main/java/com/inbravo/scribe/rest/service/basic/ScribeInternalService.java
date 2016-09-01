@@ -38,9 +38,9 @@ public final class ScribeInternalService {
 
   private CRMServiceFactory cRMServiceFactory;
 
-  public final ScribeServiceFactory getServiceFactory(final ScribeCommandObject cADCommandObject) throws Exception {
+  public final ScribeServiceFactory getServiceFactory(final ScribeCommandObject scribeCommandObject) throws Exception {
 
-    logger.debug("----Inside getServiceFactory, Object type: " + cADCommandObject.getObjectType() + ", providing CRM service");
+    logger.debug("----Inside getServiceFactory, Object type: " + scribeCommandObject.getObjectType() + ", providing CRM service factory");
 
     /* Return CRM service factory */
     return cRMServiceFactory;
